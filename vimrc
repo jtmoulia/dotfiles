@@ -5,22 +5,17 @@ set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
 " let Vundle manage Vundle
+let $GIT_SSL_NO_VERIFY = 'true'
 Bundle 'gmarik/vundle'
 
 " Vundled up
-Bundle 'tpope/vim-fugitive'
-Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'kien/ctrlp.vim'
-Bundle 'mileszs/ack.vim'
 " <c-w>o
-Bundle 'vim-scripts/ZoomWin'
 " Bright Colores
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'Lokaltog/vim-powerline'
 " python
 Bundle 'hynek/vim-python-pep8-indent'
-Bundle 'klen/python-mode'
 
 
 filetype plugin indent on
