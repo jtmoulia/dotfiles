@@ -10,7 +10,7 @@
 	df = diff
 	lg = log -p
 [credential]
-	helper = osxkeychain
+	helper = cache
 [color]
 	ui = true
 [core]
