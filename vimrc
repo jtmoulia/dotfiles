@@ -13,8 +13,11 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'kien/ctrlp.vim'
 Bundle 'mileszs/ack.vim'
+" <c-w>o
+Bundle 'vim-scripts/ZoomWin'
 " Bright Colores
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'Lokaltog/vim-powerline'
 " python
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'klen/python-mode'
@@ -43,3 +46,13 @@ set nowrap
 " Trailing whitespace
 set list
 set listchars=trail:·,tab:\|\
+
+" Searching ignore
+set wildignore+=*/tmp/*,*.swp,*.pyc
+" .. and with NERDTree...
+let NERDTreeIgnore = ['\.pyc$\', '\.swp$\']
+
+
+" Mappings
+nnoremap <leader>nt :NERDTree<CR>
+nnoremap <leader>a :Ack 
