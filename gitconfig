@@ -15,6 +15,6 @@
 	ui = true
 [core]
 	editor = vim
-	excludesfile = /home/jtmoulia/.gitignore
+	excludesfile = ~/.gitignore
 [merge]
 	tool = vimdiff
