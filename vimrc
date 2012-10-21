@@ -25,6 +25,9 @@ Bundle 'klen/python-mode'
 
 filetype plugin indent on
 
+" This is dangerous, but I hate it.
+set noswapfile
+
 set t_Co=256
 syntax enable
 colorscheme solarized
