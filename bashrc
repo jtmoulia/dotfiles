@@ -13,8 +13,6 @@ export PROJECT_HOME=$HOME/Devel
 export EDITOR="/usr/bin/vim"
 export GIT_EDITOR='/usr/bin/vim'
 
-set -o vi
-
 # Aliases
 alias g="git"
 alias v="vim"
