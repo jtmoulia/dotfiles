@@ -16,8 +16,7 @@ export GIT_EDITOR='/usr/bin/vim'
 # Aliases
 alias g="git"
 alias v="vim"
-# ..ssh
-alias gumby="ssh ubuntu@gumby.runway20.com"
+alias deploygumby="git push origin development; dakini deploy edev on gumby"
 
 # Function to set process name
 tt () { echo -ne "\033]0;$@\\007"; }

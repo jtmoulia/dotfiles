@@ -16,6 +16,11 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'altercation/vim-colors-solarized'
 " python
 Bundle 'hynek/vim-python-pep8-indent'
+" web
+Bundle "pangloss/vim-javascript"
+Bundle "oscarh/vimerl"
+" clojure(use emacs)
+Bundle "vim-scripts/VimClojure"
 
 
 filetype plugin indent on
