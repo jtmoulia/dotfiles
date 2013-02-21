@@ -46,7 +46,7 @@ set list
 set listchars=trail:·,tab:\|\
 
 " Searching ignore
-set wildignore+=*/tmp/*,*.swp,*.pyc
+set wildignore+=*/tmp/*,*.swp,*.pyc,*/var/*
 " .. and with NERDTree...
 let NERDTreeIgnore = ['\.pyc$\', '\.swp$\']
 
