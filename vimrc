@@ -1,27 +1,7 @@
 set nocompatible             " iMproved
 filetype off                 " for vundle
 
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
-
-" let Vundle manage Vundle
-let $GIT_SSL_NO_VERIFY = 'true'
-Bundle 'gmarik/vundle'
-
-" Vundled up
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'kien/ctrlp.vim'
-" <c-w>o
-" Bright Colores
-Bundle 'altercation/vim-colors-solarized'
-" python
-Bundle 'hynek/vim-python-pep8-indent'
-" web
-Bundle "pangloss/vim-javascript"
-Bundle "oscarh/vimerl"
-" clojure(use emacs)
-Bundle "vim-scripts/VimClojure"
-
+execute pathogen#infect()
 
 filetype plugin indent on
 
