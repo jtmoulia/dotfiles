@@ -1,10 +1,13 @@
 BREW_INSTALL = brew install
-BREW_ARGS =
-CASK_INSTALL = brew cask install
-BACKUPS = backups
-CELLAR = /usr/local/Cellar
+BREW_ARGS    =
+CELLAR       = /usr/local/Cellar
 
-.PHONY: dotfiles firefox rdio emacs wallpaper
+CASK_INSTALL = brew cask install
+CASKROOM     = /opt/homebrew-cask/Caskroom
+
+BACKUPS      = backups
+
+.PHONY: dotfiles apps emacs wallpaper
 
 # Configs
 
@@ -45,12 +48,12 @@ homebrew-cask: /usr/local/bin/brew
 
 # Cask apps
 
-firefox: $(CELLAR)/brew-cask
-	$(CASK_INSTALL) firefox
+$(CASKROOM)/%: $(CELLAR)/brew-cask
+	$(CASK_INSTALL) $*
 
-rdio: $(CELLAR)/brew-cask
-	$(CASK_INSTALL) rdio
-
+apps: $(CASKROOM)/firefox \
+      $(CASKROOM)/rdio \
+      $(CASKROOM)/hip-chat
 
 ## Emacs
 
