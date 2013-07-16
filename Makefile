@@ -1,45 +1,69 @@
-LN_TARGET = if [ ! -f $@ ]; then ln -s $(abspath $<) $@; fi
-BUNDLE = vim/bundle
+BREW_INSTALL = brew install
+BREW_ARGS =
+CASK_INSTALL = brew cask install
+BACKUPS = backups
+CELLAR = /usr/local/Cellar
 
-PHONY: install ~/.vimrc ~/.bashrc ~/.gitignore ~/.gitconfig
+.PHONY: dotfiles firefox rdio emacs wallpaper
 
-vim/bundle:
-	mkdir -p $@
+# Configs
 
-vim/autoload:
-	mkdir -p $@
+$(BACKUPS):
+	mkdir $(BACKUPS)
 
-vim/autoload/pathogen.vim: vim/bundle vim/autoload
-	curl -Sso vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+$(HOME)/%: home/% $(BACKUPS)
+	if [ -f $@ ]; then cp $@ $(BACKUPS)/$*; fi
+	cp $< $@
 
-vim/bundle/syntastic: vim/autoload/pathogen.vim
-	git clone http://github.com/scrooloose/syntastic $@
+dotfiles: $(HOME)/.gitconfig \
+          $(HOME)/.vimrc \
+          $(HOME)/.bashrc \
+          $(HOME)/.bash_profile \
+          $(HOME)/.tmux.conf
 
-vim/bundle/vim-colors-solarized: vim/autoload/pathogen.vim
-	git clone http://github.com/altercation/vim-colors-solarized $@
 
-vim/bundle/ctrlp.vim: vim/autoload/pathogen.vim
-	git clone http://github.com/kien/ctrlp.vim $@
+## Homebrew
 
-vim/bundle/vimerl: vim/autoload/pathogen.vim
-	git clone http://github.com/oscarh/vimerl $@
+/usr/local/bin/brew:
+	ruby -e "$$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 
-bundle: vim/bundle/syntastic vim/bundle/vim-colors-solarized \
-	vim/bundle/ctrlp.vim vim/bundle/vimerl
 
-.vimrc: vimrc
-	$(LN_TARGET)
+# Make wrap our brew installs
+$(CELLAR)/aspell: BREW_ARGS = --with-lang=en
+$(CELLAR)/%:
+	$(BREW_INSTALL) $* $(BREW_ARGS)
 
-~/.vim: bundle
-	$(LN_TARGET)
 
-~/.bashrc: bashrc
-	$(LN_TARGET)
+# Homebrew cask
 
-~/.gitignore: gitignore
-	$(LN_TARGET)
+/usr/local/Library/Taps/phinze-cask:
+	brew tap phinze/homebrew-cask
 
-~/.gitconfig: gitconfig
-	$(LN_TARGET)
+homebrew-cask: /usr/local/bin/brew
+	$(BREW_INSTALL) brew-cask
 
-install: ~/.vimrc ~/.vim ~/.bashrc ~/.gitignore ~/.gitconfig
+
+# Cask apps
+
+firefox: $(CELLAR)/brew-cask
+	$(CASK_INSTALL) firefox
+
+rdio: $(CELLAR)/brew-cask
+	$(CASK_INSTALL) rdio
+
+
+## Emacs
+
+# Setup my prelude fork
+$(HOME)/.emacs.d/init.el: PRELUDE_URL = https://github.com/jtmoulia/prelude.git
+$(HOME)/.emacs.d/init.el: $(CELLAR)/emacs $(CELLAR)/ack $(CELLAR)/aspell
+	export PRELUDE_URL="$(PRELUDE_URL)" && curl -L https://github.com/bbatsov/prelude/raw/master/utils/installer.sh | sh
+
+emacs: $(HOME)/.emacs.d/init.el
+
+
+## Etc
+
+wallpaper: WALLPAPER = wallpapers/mars.jpg
+wallpaper:
+	defaults write com.apple.desktop Background '{default = {ImageFilePath = "$(abspath $(WALLPAPER))"; };}'
