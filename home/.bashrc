@@ -1,5 +1,5 @@
 # A good path...
-PATH=/usr/local/bin:$PATH
+PATH=~/bin:/usr/local/bin:$PATH
 
 # Set my editor and git editor
 export EDITOR="/usr/bin/vim"

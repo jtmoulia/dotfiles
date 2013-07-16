@@ -83,6 +83,11 @@ $(PIP_LIB)/%: $(CELLAR)/python
 	pip install $*
 
 
+## Erlang
+
+erlang: $(CELLAR)/erlang
+
+
 ## Postgres
 
 postgres: python \
