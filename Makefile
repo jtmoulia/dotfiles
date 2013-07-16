@@ -5,9 +5,12 @@ CELLAR       = /usr/local/Cellar
 CASK_INSTALL = brew cask install
 CASKROOM     = /opt/homebrew-cask/Caskroom
 
+PIP_LIB      = /usr/local/lib/python2.7/site-packages
+
 BACKUPS      = backups
 
-.PHONY: dotfiles apps emacs wallpaper
+.PHONY: dotfiles apps vagrant python postgres emacswallpaper
+
 
 # Configs
 
@@ -42,7 +45,7 @@ $(CELLAR)/%:
 /usr/local/Library/Taps/phinze-cask:
 	brew tap phinze/homebrew-cask
 
-homebrew-cask: /usr/local/bin/brew
+$(CELLAR)/brew-cask: /usr/local/bin/brew
 	$(BREW_INSTALL) brew-cask
 
 
@@ -55,6 +58,11 @@ apps: $(CASKROOM)/firefox \
       $(CASKROOM)/rdio \
       $(CASKROOM)/hip-chat
 
+# Note this requires user input (passwd)
+vagrant: $(CASKROOM)/virutalbox \
+         $(CASKROOM)/vagrant
+
+
 ## Emacs
 
 # Setup my prelude fork
@@ -63,6 +71,24 @@ $(HOME)/.emacs.d/init.el: $(CELLAR)/emacs $(CELLAR)/ack $(CELLAR)/aspell
 	export PRELUDE_URL="$(PRELUDE_URL)" && curl -L https://github.com/bbatsov/prelude/raw/master/utils/installer.sh | sh
 
 emacs: $(HOME)/.emacs.d/init.el
+
+
+## Python
+
+python: $(PIP_LIB)/pyflakes \
+        $(PIP_LIB)/ipython
+
+# Make wrap our pip installs
+$(PIP_LIB)/%: $(CELLAR)/python
+	pip install $*
+
+
+## Postgres
+
+postgres: python \
+          $(CELLAR)/postgresql \
+          $(PIP_LIB)/numpy \
+          $(CELLAR)/postgis
 
 
 ## Etc
