@@ -9,6 +9,8 @@ PIP_LIB      = /usr/local/lib/python2.7/site-packages
 
 BACKUPS      = backups
 
+POSTGRES_VSN = 9.2.4
+
 .PHONY: dotfiles apps vagrant python postgres emacswallpaper
 
 
@@ -90,10 +92,24 @@ erlang: $(CELLAR)/erlang
 
 ## Postgres
 
+$(HOME)/Library/LaunchAgents:
+	mkdir -p $@
+
+$(HOME)/Library/LaunchAgents/homebrew.mxcl.postgresql.plist: \
+    /usr/local/Cellar/postgresql/$(POSTGRES_VSN)/homebrew.mxcl.postgresql.plist \
+    $(HOME)/Library/LaunchAgents
+	cp $< $@
+	sudo chmod 644 $@
+
 postgres: python \
           $(CELLAR)/postgresql \
           $(PIP_LIB)/numpy \
-          $(CELLAR)/postgis
+          $(PIP_LIB)/psycopg2 \
+          $(CELLAR)/postgis \
+          $(HOME)/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+	initdb /usr/local/var/postgres -E utf8
+	sudo launchctl load -w $(HOME)/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+
 
 
 ## Etc
