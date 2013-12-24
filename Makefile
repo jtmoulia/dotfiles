@@ -5,6 +5,8 @@ CELLAR       = /usr/local/Cellar
 CASK_INSTALL = brew cask install
 CASKROOM     = /opt/homebrew-cask/Caskroom
 
+GIT          = git
+
 PIP_LIB      = /usr/local/lib/python2.7/site-packages
 
 BACKUPS      = backups
@@ -47,7 +49,7 @@ $(CELLAR)/%:
 /usr/local/Library/Taps/phinze-cask:
 	brew tap phinze/homebrew-cask
 
-$(CELLAR)/brew-cask: /usr/local/bin/brew
+$(CELLAR)/brew-cask: /usr/local/bin/brew /usr/local/Library/Taps/phinze-cask
 	$(BREW_INSTALL) brew-cask
 
 
@@ -58,21 +60,21 @@ $(CASKROOM)/%: $(CELLAR)/brew-cask
 
 apps: $(CASKROOM)/firefox \
       $(CASKROOM)/rdio \
-      $(CASKROOM)/hip-chat
+      $(CASKROOM)/hipchat
 
 # Note this requires user input (passwd)
-vagrant: $(CASKROOM)/virutalbox \
+vagrant: $(CASKROOM)/virtualbox \
          $(CASKROOM)/vagrant
 
 
 ## Emacs
 
 # Setup my prelude fork
-$(HOME)/.emacs.d/init.el: PRELUDE_URL = https://github.com/jtmoulia/prelude.git
-$(HOME)/.emacs.d/init.el: $(CELLAR)/emacs $(CELLAR)/ack $(CELLAR)/aspell
-	export PRELUDE_URL="$(PRELUDE_URL)" && curl -L https://github.com/bbatsov/prelude/raw/master/utils/installer.sh | sh
+$(HOME)/.emacs.d: PIGBUG_URL = https://github.com/jtmoulia/pigbug.git
+$(HOME)/.emacs.d: $(CELLAR)/emacs $(CELLAR)/ack $(CELLAR)/aspell
+	$(GIT) clone $(PIGBUG_URL) $@
 
-emacs: $(HOME)/.emacs.d/init.el
+emacs: $(HOME)/.emacs.d
 
 
 ## Python
@@ -111,8 +113,7 @@ postgres: python \
 	sudo launchctl load -w $(HOME)/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
 
-
-## Etc
+# Etc
 
 wallpaper: WALLPAPER = wallpapers/mars.jpg
 wallpaper:
