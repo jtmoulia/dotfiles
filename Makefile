@@ -102,17 +102,17 @@ $(HOME)/%: $(LAYER_DIR)/$(HOME_ALIAS)/% $(BACKUP_DIR)$(HOME)/%
 
 # Config: File
 # e.g. /etc/hosts
+# TODO: The new file should maintain permissions
 /%: $(LAYER_DIR)/% $(BACKUP_DIR)/%
-	# TODO: The new file should maintain permissions
 	@if [ -w "$@" -a -w "$(@D)" ]; then \
-    echo "Symlinking $< -> $@"; \
+		echo "Symlinking $< -> $@"; \
 		mkdir -p $(@D); \
 		ln -sf $(abspath $<) $@; \
 	else \
 		echo "Permission required to symlink $< -> $@:"; \
 		sudo mkdir -p $(@D); \
 		sudo ln -sf $(abspath $<) $@; \
-  fi
+	fi
 
 # Config: Diff in HOME
 
