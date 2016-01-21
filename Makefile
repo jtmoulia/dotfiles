@@ -1,120 +1,125 @@
-BREW_INSTALL = brew install
-BREW_ARGS    =
-CELLAR       = /usr/local/Cellar
+## Var Defs
 
-CASK_INSTALL = brew cask install
-CASKROOM     = /opt/homebrew-cask/Caskroom
+SHELL := /bin/bash
 
-GIT          = git
+HOME_ALIAS ?= HOME
+LAYER_DIR  ?= layers/common
+BACKUP_DIR ?= backups
+SPACEMACS  ?= https://github.com/syl20bnr/spacemacs
 
-PIP_LIB      = /usr/local/lib/python2.7/site-packages
+FILTER ?= *
 
-BACKUPS      = backups
+## Function Defs
 
-POSTGRES_VSN = 9.2.4
+to_layer   = $(subst $(HOME),$(HOME_ALIAS),$(1))
+from_layer = $(subst /$(HOME_ALIAS),$(HOME),$(1))
 
-.PHONY: dotfiles apps vagrant python postgres emacswallpaper
+## Target Deps
 
+LAYER_DIFFS   = $(shell find $(LAYER_DIR) -type f -wholename "$(FILTER)")
+LAYER_PATHS   = $(subst $(LAYER_DIR),,$(subst .diff,,$(LAYER_DIFFS)))
+LAYER_TARGETS = $(call from_layer,$(LAYER_PATHS))
 
-# Configs
+## Phony Rules
 
-$(BACKUPS):
-	mkdir $(BACKUPS)
+.SECONDARY:
 
-$(HOME)/%: home/% $(BACKUPS)
-	if [ -f $@ ]; then cp $@ $(BACKUPS)/$*; fi
-	cp $< $@
+.PHONY: all bootstrap packages layer clean
 
-dotfiles: $(HOME)/.gitconfig \
-          $(HOME)/.vimrc \
-          $(HOME)/.bashrc \
-          $(HOME)/.bash_profile \
-          $(HOME)/.tmux.conf
+all: bootstrap layer
 
+clean: $(BACKUP_DIR) nix-binary-tarball-unpack
+	rm -r $^
 
-## Homebrew
+##################
+## Bootstrap Rules
+##################
 
-/usr/local/bin/brew:
-	ruby -e "$$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+bootstrap: packages $(HOME)/.emacs.d
 
+packages: /nix
+	nix-env -f packages.nix -i
 
-# Make wrap our brew installs
-$(CELLAR)/aspell: BREW_ARGS = --with-lang=en
-$(CELLAR)/%:
-	$(BREW_INSTALL) $* $(BREW_ARGS)
+/nix:
+	curl https://nixos.org/nix/install | sh
+  # source /Users/jtmoulia/.nix-profile/etc/profile.d/nix.sh
 
+# spacemacs
+$(HOME)/.emacs.d:
+	git clone $(SPACEMACS) $@
 
-# Homebrew cask
+###############
+## Backup Rules
+###############
 
-/usr/local/Library/Taps/phinze-cask:
-	brew tap phinze/homebrew-cask
+# Circular dep between patch, backup, and file:
+#
+#             patch.diff
+#             /       \
+#         backup <-> file
 
-$(CELLAR)/brew-cask: /usr/local/bin/brew /usr/local/Library/Taps/phinze-cask
-	$(BREW_INSTALL) brew-cask
+layer: $(LAYER_TARGETS)
 
+## BACKUP
 
-# Cask apps
+# Backup
+# e.g. BACKUP/etc/hosts
+$(BACKUP_DIR)/%:
+	mkdir -p $(@D)
+	if [ -e "/$*" ]; then cp "/$*" "$@"; else touch "$@"; fi
 
-$(CASKROOM)/%: $(CELLAR)/brew-cask
-	$(CASK_INSTALL) $*
+## LAYER
 
-apps: $(CASKROOM)/firefox \
-      $(CASKROOM)/rdio \
-      $(CASKROOM)/hipchat
+# Layer: File in HOME
+# e.g. LAYER/HOME/.bashrc
+$(LAYER_DIR)/$(HOME_ALIAS)/%:
+	cp $(HOME)/$* $@
 
-# Note this requires user input (passwd)
-vagrant: $(CASKROOM)/virtualbox \
-         $(CASKROOM)/vagrant
+# Layer: File
+# e.g. LAYER/etc/hosts
+$(LAYER_DIR)/%:
+	cp /$* $@
 
+# Layer: Diff in HOME
+# e.g. LAYER/HOME/.bashrc.diff
+$(LAYER_DIR)/$(HOME_ALIAS)/%.diff: $(BACKUP_DIR)$(HOME)/%
+	mkdir -p $(@D)
+	diff $(HOME)/% $< > $@; if [ $$? -gt 1 ]; then exit 1; fi
 
-## Emacs
+# Layer: Diff
+# e.g. LAYER/etc/hosts.diff
+$(LAYER_DIR)/%.diff: $(BACKUP_DIR)/%
+	mkdir -p $(@D)
+	diff $< /$* > $@; if [ $$? -gt 1 ]; then exit 1; fi
 
-# Setup my prelude fork
-$(HOME)/.emacs.d: PIGBUG_URL = https://github.com/jtmoulia/pigbug.git
-$(HOME)/.emacs.d: $(CELLAR)/emacs $(CELLAR)/ack $(CELLAR)/aspell
-	$(GIT) clone $(PIGBUG_URL) $@
+## CONFIG
 
-emacs: $(HOME)/.emacs.d
+# Config: File in HOME
+# e.g. /HOME/.bashrc
+$(HOME)/%: $(LAYER_DIR)/$(HOME_ALIAS)/% $(BACKUP_DIR)$(HOME)/%
+	mkdir -p $(@D)
+	ln -sf $(abspath $<) $@
 
+# Config: File
+# e.g. /etc/hosts
+/%: $(LAYER_DIR)/% $(BACKUP_DIR)/%
+	# TODO: The new file should maintain permissions
+	@if [ -w "$@" -a -w "$(@D)" ]; then \
+    echo "Symlinking $< -> $@"; \
+		mkdir -p $(@D); \
+		ln -sf $(abspath $<) $@; \
+	else \
+		echo "Permission required to symlink $< -> $@:"; \
+		sudo mkdir -p $(@D); \
+		sudo ln -sf $(abspath $<) $@; \
+  fi
 
-## Python
+# Config: Diff in HOME
 
-python: $(PIP_LIB)/pyflakes \
-        $(PIP_LIB)/ipython
+$(HOME)/%: $(BACKUP_DIR)/% $(LAYER_DIR)/$(HOME_ALIAS)/%.diff
+	patch $^ -o $@
 
-# Make wrap our pip installs
-$(PIP_LIB)/%: $(CELLAR)/python
-	pip install $*
+# Config: Diff
 
-
-## Erlang
-
-erlang: $(CELLAR)/erlang
-
-
-## Postgres
-
-$(HOME)/Library/LaunchAgents:
-	mkdir -p $@
-
-$(HOME)/Library/LaunchAgents/homebrew.mxcl.postgresql.plist: \
-    /usr/local/Cellar/postgresql/$(POSTGRES_VSN)/homebrew.mxcl.postgresql.plist \
-    $(HOME)/Library/LaunchAgents
-	cp $< $@
-	sudo chmod 644 $@
-
-postgres: python \
-          $(CELLAR)/postgresql \
-          $(PIP_LIB)/numpy \
-          $(PIP_LIB)/psycopg2 \
-          $(CELLAR)/postgis \
-          $(HOME)/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
-	initdb /usr/local/var/postgres -E utf8
-	sudo launchctl load -w $(HOME)/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
-
-
-# Etc
-
-wallpaper: WALLPAPER = wallpapers/mars.jpg
-wallpaper:
-	defaults write com.apple.desktop Background '{default = {ImageFilePath = "$(abspath $(WALLPAPER))"; };}'
+/%: $(BACKUP_DIR)/% $(LAYER_DIR)/%.diff
+	patch $^ -o $@

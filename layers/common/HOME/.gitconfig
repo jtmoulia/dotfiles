@@ -1,0 +1,24 @@
+[user]
+	name = Thomas Moulia
+	email = jtmoulia@gmail.com
+[alias]
+	a = add
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	df = diff
+	lg = log -p
+    po = push origin
+[credential]
+	helper = osxkeychain
+[color]
+	ui = true
+[core]
+	editor = emacsclient -t
+	excludesfile = ~/.gitignore
+[merge]
+	tool = vimdiff
+[push]
+	default = simple
+
