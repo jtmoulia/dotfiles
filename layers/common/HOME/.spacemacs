@@ -49,8 +49,6 @@
                                           :width normal
                                           :powerline-scale 1.1))
 
-(setq paradox-github-token "7502ee1e220307b9cb9e369a2d6f209038dad6bf")
-
 (defun dotspacemacs/user-config ()
   "Post spacemacs init config."
   ;; Org
