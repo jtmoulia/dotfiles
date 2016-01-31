@@ -98,20 +98,20 @@ $(LAYER_DIR)/%.diff: $(BACKUP_DIR)/%
 # e.g. /HOME/.bashrc
 $(HOME)/%: $(LAYER_DIR)/$(HOME_ALIAS)/% $(BACKUP_DIR)$(HOME)/%
 	mkdir -p $(@D)
-	ln -sf $(abspath $<) $@
+	cp $(abspath $<) $@
 
 # Config: File
 # e.g. /etc/hosts
 # TODO: The new file should maintain permissions
 /%: $(LAYER_DIR)/% $(BACKUP_DIR)/%
 	@if [ -w "$@" -a -w "$(@D)" ]; then \
-		echo "Symlinking $< -> $@"; \
+		echo "Copying $< -> $@"; \
 		mkdir -p $(@D); \
-		ln -sf $(abspath $<) $@; \
+		cp $(abspath $<) $@; \
 	else \
-		echo "Permission required to symlink $< -> $@:"; \
+		echo "Permission required to copy $< -> $@:"; \
 		sudo mkdir -p $(@D); \
-		sudo ln -sf $(abspath $<) $@; \
+		sudo cp $(abspath $<) $@; \
 	fi
 
 # Config: Diff in HOME
