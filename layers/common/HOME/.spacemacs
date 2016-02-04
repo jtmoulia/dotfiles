@@ -1,26 +1,35 @@
+;; Dirty Hack: https://github.com/syl20bnr/spacemacs/issues/4413
+(defvar spacemacs-mode-line-new-version-lighterp t)
+
+(defvar dotspacemacs-mu-root (expand-file-name "~/repos/mu")
+  "mu's source path")
+
 (defun dotspacemacs/layers ()
-  (setq-default dotspacemacs-configuration-layers '(org
-                                                    git
-                                                    python
-                                                    javascript
-                                                    common-lisp
-                                                    html
-                                                    erlang
-                                                    elixir
-                                                    haskell
-                                                    markdown
-                                                    rcirc
-                                                    auto-completion
-                                                    syntax-checking
-                                                    racket
-                                                    mu4e
-                                                    ; themes-megapack
-                                                    ;; private layers
-                                                    org-page
-                                                    artist
-                                                    pdf-tools
-                                                    lfe
-                                                    )))
+  (setq-default dotspacemacs-configuration-layers
+                '(org
+                  git
+                  python
+                  javascript
+                  common-lisp
+                  html
+                  erlang
+                  elixir
+                  haskell
+                  markdown
+                  rcirc
+                  auto-completion
+                  syntax-checking
+                  racket
+                  (mu4e :variables
+                        mu4e-installation-path
+                        (concat dotspacemacs-mu-root "/mu4e"))
+                  ; themes-megapack
+                  ;; private layers
+                  org-page
+                  artist
+                  pdf-tools
+                  lfe
+                  )))
 
 ;; Web mode config
 (setq web-mode-markup-indent-offset 2)
@@ -40,7 +49,7 @@
 
 (setq rcirc-server-alist
       '(("irc.freenode.net" :port 6697 :encryption tls
-	 :channels ("#switchboard-dev" "#elixir-lang" "#emacs"))))
+   :channels ("#switchboard-dev" "#elixir-lang" "#emacs"))))
 
 
 (setq-default dotspacemacs-default-font '("Source Code Pro"
@@ -83,8 +92,112 @@
   (setq spacemacs-erlang-elixir-use-edts t))
 
 (with-eval-after-load 'mu4e
+
+  ;; Configure Contexts
+  (setq-default mu4e-contexts
+   `(
+     ,(make-mu4e-context
+       :name "gmail"
+       :enter-func
+       (lambda ()
+         (mu4e-message
+          (concat "Switching to context: gmail")))
+       :match-func
+       (lambda (msg)
+         (when msg
+           (mu4e-message-contact-field-matches msg
+                                               :to "jtmoulia@gmail.com")))
+       :vars '((user-mail-address . "jtmoulia@gmail.com")
+               (mu4e-inbox-folder . "/gmail/INBOX")
+               (mu4e-sent-folder . "/gmail/[Gmail].Sent Mail")
+               (mu4e-drafts-folder . "/gmail/[Gmail].Drafts")
+               (mu4e-trash-folder . "/gmail/[Gmail].Trash")
+               (mu4e-refile-folder . "/gmail/[Gmail].All Mail")
+               (mu4e-spam-folder . "/gmail/[Gmail].spam")
+               (smtpmail-smtp-user . "jtmoulia@gmail.com")
+               (smtpmail-default-smtp-server . "smtp.gmail.com")
+               (smtpmail-smtp-server . "smtp.gmail.com")
+               (smtpmail-smtp-service . 465)))
+
+     ,(make-mu4e-context
+       :name "pocketknife"
+       :enter-func
+       (lambda ()
+         (mu4e-message
+          (concat "Switching to context: pocketknife")))
+         :match-func
+         (lambda (msg)
+           (when msg
+             (mu4e-message-contact-field-matches
+              msg :to "jtmoulia@pocketknife.io")))
+         :vars '((user-mail-address . "jtmoulia@pocketknife.io")
+                 (mu4e-inbox-folder . "/pocketknife/INBOX")
+                 (mu4e-sent-folder . "/pocketknife/INBOX.Sent Items")
+                 (mu4e-drafts-folder . "/pocketknife/INBOX.Drafts")
+                 (mu4e-trash-folder . "/pocketknife/INBOX.Trash")
+                 (mu4e-refile-folder . "/pocketknife/INBOX.Archive")
+                 (smtpmail-smtp-user . "jtmoulia@pocketknife.io")
+                 (smtpmail-default-smtp-server . "mail.messagingengine.com")
+                 (smtpmail-smtp-server . "mail.messagingengine.com")
+                 (smtpmail-stream-type . ssl)
+                 (smtpmail-smtp-service . 465)))))
+
+  ;; Helper Functions
+  (defun dotspacemacs//mu4e-context (context-name)
+    "Return the context in `mu4e-contexts' with name CONTEXT-NAME.
+
+Raises an error if that context isn't present."
+    (let* ((names (mapcar (lambda (context)
+                            (cons (mu4e-context-name context) context))
+                          mu4e-contexts))
+           (context (cdr (assoc context-name names))))
+      (if context
+          context
+        (error "no context with name: %s" context-name))))
+
+  (defun dotspacemacs//mu4e-context-get-var (context var)
+    "For CONTEXT return VAR. Helper function for access."
+    (cdr (assoc var (mu4e-context-vars context))))
+
+  (defun dotspacemacs//mu4e-context-var (context-name var)
+    "Return the value of VAR for the context with name CONTEXT-NAME, searching
+`mu4e-contexts'."
+    (dotspacemacs//mu4e-context-get-var
+     (dotspacemacs//mu4e-context context-name)
+     var))
+
+  (defun dotspacemacs//mu4e-contexts-var (var)
+    "Return a list of the value for VAR across `mu4e-contexts'. If VAR is
+undefined for a context, it will be filtered out."
+    (delq nil
+          (mapcar (lambda (context)
+                    (dotspacemacs//mu4e-context-get-var context var))
+                  mu4e-contexts)))
+
+  ;; list of default spam folders
+  (defun dotspacemacs//mu4e-spams ()
+      (mapcar (apply-partially 'concat "maildir:")
+              (dotspacemacs//mu4e-contexts-var 'mu4e-spam-folder)))
+
+  (defun dotspacemacs//mu4e-join-spam (query &optional separator)
+    "Modify the mu4e QUERY to include SPAMS folders using SEPARATOR."
+    (let ((separator (if separator separator " AND NOT ")))
+      (concat query
+              (apply 'concat (mapcar (lambda (spam)
+                                       (concat separator spam))
+                                     (dotspacemacs//mu4e-spams))))))
+
+  (defun dotspacemacs//interpose-concat (sep list)
+    "Interpose SEP into LIST and concatenate."
+    (apply 'concat (-interpose sep list)))
+
+  (defun dotspacemacs//add-maildir-prefix (maildir)
+    "Add maildir: prefix to MAILDIR for mu queries."
+    (concat "maildir:" maildir))
+
+  ;; Configure Vars
   (setq-default
-   mu4e-mu-binary         "/usr/local/bin/mu"
+   mu4e-mu-binary         (concat dotspacemacs-mu-root "/mu/mu")
    mu4e-maildir           "~/maildirs"            ;; top-level Maildir
    mu4e-confirm-quit      nil
    mu4e-get-mail-command  "offlineimap"
@@ -94,178 +207,42 @@
    mu4e-compose-dont-reply-to-self t
    mu4e-compose-complete-only-personal t
    mu4e-hide-index-messages t
-   mu4e-sent-folder "/pocketknife/INBOX.Sent Items"
    mu4e-html2text-command "html2text --body-width=78"
    mu4e-user-mail-address-list '("jtmoulia@pocketknife.io"
-                                 "jtmoulia@gmail.com"
-                                 "thomas@spatch.co")
-
+                                 "jtmoulia@gmail.com")
    ;; User info
-   user-full-name "Thomas Moulia"
-   user-mail-address "jtmoulia@pocketknife.io"
-
    message-auto-save-directory (concat (file-name-as-directory mu4e-maildir)
                                        "drafts")
    send-mail-function 'smtpmail-send-it
    message-send-mail-function 'smtpmail-send-it
    smtpmail-stream-type 'ssl
    smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
-
    ;; smtpmail-queue-mail t
-   smtpmail-queue-dir  "~/maildirs/queue/cur"
+   smtpmail-queue-dir  "~/maildirs/queue/cur")
 
-   tmail//mu4e-accounts-config
-   '(("pocketknife"
-      (user-mail-address  "jtmoulia@pocketknife.io")
-      (mu4e-inbox-folder  "/pocketknife/INBOX")
-      (mu4e-sent-folder   "/pocketknife/INBOX.Sent Items")
-      (mu4e-drafts-folder "/pocketknife/INBOX.Drafts")
-      (mu4e-trash-folder  "/pocketknife/INBOX.Trash")
-      (mu4e-refile-folder "/pocketknife/INBOX.Archive")
-      (smtpmail-smtp-user "jtmoulia@pocketknife.io")
-      (smtpmail-default-smtp-server "mail.messagingengine.com")
-      (smtpmail-smtp-server "mail.messagingengine.com")
-      (smtpmail-stream-type ssl)
-      (smtpmail-smtp-service 465))
-     ("gmail"
-      (user-mail-address  "jtmoulia@gmail.com")
-      (mu4e-inbox-folder  "/gmail/INBOX")
-      (mu4e-sent-folder   "/gmail/[Gmail].Sent Mail")
-      (mu4e-drafts-folder "/gmail/[Gmail].Drafts")
-      (mu4e-trash-folder  "/gmail/[Gmail].Trash")
-      (mu4e-refile-folder "/gmail/[Gmail].Archive")
-      (smtpmail-smtp-user "jtmoulia@gmail.com")
-      (smtpmail-default-smtp-server "smtp.gmail.com")
-      (smtpmail-smtp-server "smtp.gmail.com")
-      (smtpmail-smtp-service 465))
-     ("spatch"
-      (user-mail-address  "thomas@spatch.co")
-      (mu4e-inbox-folder  "/spatch/INBOX")
-      (mu4e-sent-folder   "/spatch/[Gmail].Sent Mail")
-      (mu4e-drafts-folder "/spatch/[Gmail].Drafts")
-      (mu4e-trash-folder  "/spatch/[Gmail].Trash")
-      (mu4e-refile-folder "/spatch/[Gmail].Archive")
-      (smtpmail-smtp-user "thomas@spatch.co")
-      (smtpmail-default-smtp-server "smtp.gmail.com")
-      (smtpmail-smtp-server "smtp.gmail.com")
-      (smtpmail-smtp-service 465))
-     ("docdir_admin"
-      (user-mail-address  "admin@thedocdir.com")
-      (mu4e-inbox-folder  "/docdir_admin/Inbox")
-      (mu4e-sent-folder   "/docdir_admin/Sent")
-      (mu4e-drafts-folder "/docdir_admin/Drafts")
-      (mu4e-trash-folder  "/docdir_admin/Trash")
-      (mu4e-refile-folder "/docdir_admin/Archive")
-      (smtpmail-smtp-user "admin@thedocdir.com")
-      (smtpmail-default-smtp-server "box.thedocdir.com")
-      (smtpmail-smtp-server "box.thedocdir.com")
-      (smtpmail-stream-type starttls)
-      (smtpmail-smtp-service 587))
-     ("docdir"
-      (user-mail-address  "jtmoulia@thedocdir.com")
-      (mu4e-inbox-folder  "/docdir/Inbox")
-      (mu4e-sent-folder   "/docdir/Sent")
-      (mu4e-drafts-folder "/docdir/Drafts")
-      (mu4e-trash-folder  "/docdir/Trash")
-      (mu4e-refile-folder "/docdir/Archive")
-      (smtpmail-smtp-user "jtmoulia@thedocdir.com")
-      (smtpmail-default-smtp-server "box.thedocdir.com")
-      (smtpmail-smtp-server "box.thedocdir.com")
-      (smtpmail-stream-type starttls)
-      (smtpmail-smtp-service 587))
-     ))
+  ;; drafts are saved as *message*-___
+  (add-to-list 'auto-mode-alist '("\\*message\\*-+" . message-mode))
 
-      ;; drafts are saved as *message*-___
-      (add-to-list 'auto-mode-alist '("\\*message\\*-+" . message-mode))
-
-      (defun tmail//mu4e-msg-root (msg)
-        "Return the root directory of the MSG's maildir."
-        (let ((maildir (mu4e-message-field msg :maildir)))
-          (string-match "/\\(.*?\\)/" maildir)
-          (match-string 1 maildir)))
-
-      (defun tmail//mu4e-account-property (account property &optional accounts)
-        "For ACCOUNT, return a PROPERTY using ACCOUNTS."
-        (let ((accounts (if accounts accounts tmail//mu4e-accounts-config)))
-          (cadr (assoc property (assoc account accounts)))))
-
-      (defun tmail//mu4e-properties (property &optional accounts)
-        "Return PROPERTY for ACCOUNTS."
-        (let ((accounts (if accounts accounts tmail//mu4e-accounts-config)))
-          (mapcar (lambda (account) (cadr (assoc property (cdr account)))) accounts)))
-
-
-      ;; list of default spam folders
-      (setq tmail//spams
-            '("maildir:/gmail/[Gmail].spam" "maildir:/spatch/[Gmail].spam"))
-
-      (defun tmail//mu4e-join-spam (query &optional spams separator)
-        "Modify the mu4e QUERY to include SPAMS folders using SEPARATOR."
-        (let ((spams (if spams spams tmail//spams))
-              (separator (if separator separator " AND NOT ")))
-          (concat query
-                  (apply 'concat (mapcar (lambda (spam)
-                                           (concat separator spam))
-                                         spams)))))
-
-      (defun tmail//interpose-concat (sep list)
-        "Interpose SEP into LIST and concatenate."
-        (apply 'concat (-interpose sep list)))
-
-      (defun tmail//add-maildir-prefix (maildir)
-        "Add maildir: prefix to MAILDIR for mu queries."
-        (concat "maildir:" maildir))
-
-      ;; mu4e bookmarks -- this is the magic
-      (setq mu4e-bookmarks
-            `((,(tmail//mu4e-join-spam "flag:unread AND NOT flag:trashed")
-               "Unread messages" ?u)
-              (,(tmail//mu4e-join-spam "date:today..now")
-               "Today's messages" ?t)
-              (,(tmail//mu4e-join-spam "date:7d..now")
-               "Last 7 days" ?w)
-              (,(tmail//interpose-concat
-                 " OR "
-                 (mapcar 'tmail//add-maildir-prefix
-                         (tmail//mu4e-properties 'mu4e-inbox-folder)))
-               "Messages in inboxes", ?i)
-              (,(tmail//mu4e-join-spam "mime:image/*")
-               "Messages with images" ?p)
-              (,(tmail//mu4e-join-spam
-                 "flag:unread AND NOT flag:trashed"
-                 tmail//spams
-                 " AND ")
-               "Unread spam" ?s)
-              ))
-
-      (defun tmail//mu4e-set-account ()
-        "Set the account for composing a message."
-        (let* ((account
-                (if (and (not current-prefix-arg) mu4e-compose-parent-message)
-                    (tmail//mu4e-msg-root mu4e-compose-parent-message)
-                  (completing-read (format "Compose with account: (%s) "
-                                           (mapconcat #'(lambda (var) (car var))
-                                                      tmail//mu4e-accounts-config"/"))
-                                   (mapcar #'(lambda (var) (car var))
-                                           tmail//mu4e-accounts-config)
-                                   nil t nil nil (caar tmail//mu4e-accounts-config))))
-               (account-vars (cdr (assoc account tmail//mu4e-accounts-config))))
-          (if account-vars
-              (mapc #'(lambda (var)
-                        (set (car var) (cadr var)))
-                    account-vars)
-            (error "No email account found"))))
-
-      (setq mu4e-refile-folder
-            (lambda (msg)
-              (tmail//mu4e-account-property (tmail//mu4e-msg-root msg)
-                                            'mu4e-refile-folder))
-            mu4e-trash-folder
-            (lambda (msg)
-              (tmail//mu4e-account-property (tmail//mu4e-msg-root msg)
-                                            'mu4e-trash-folder)))
-
-      (add-hook 'mu4e-compose-pre-hook 'tmail//mu4e-set-account))
+  ;; mu4e bookmarks -- this is the magic
+  (setq mu4e-bookmarks
+        `((,(dotspacemacs//mu4e-join-spam "flag:unread AND NOT flag:trashed")
+           "Unread messages" ?u)
+          (,(dotspacemacs//mu4e-join-spam "date:today..now")
+           "Today's messages" ?t)
+          (,(dotspacemacs//mu4e-join-spam "date:7d..now")
+           "Last 7 days" ?w)
+          (,(dotspacemacs//interpose-concat
+             " OR "
+             (mapcar 'dotspacemacs//add-maildir-prefix
+                     (dotspacemacs//mu4e-contexts-var 'mu4e-inbox-folder)))
+           "Messages in inboxes", ?i)
+          (,(dotspacemacs//mu4e-join-spam "mime:image/*")
+           "Messages with images" ?p)
+          (,(dotspacemacs//mu4e-join-spam
+             "flag:unread AND NOT flag:trashed"
+             " AND ")
+           "Unread spam" ?s)))
+  )
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
