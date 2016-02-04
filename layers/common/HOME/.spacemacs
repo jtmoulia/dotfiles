@@ -178,13 +178,6 @@ undefined for a context, it will be filtered out."
     "Add maildir: prefix to MAILDIR for mu queries."
     (concat "maildir:" maildir))
 
-  (defun dotspacemacs//interpose-concat (sep list)
-    "Interpose SEP into LIST and concatenate."
-    (apply 'concat (-interpose sep list)))
-
-  (defun dotspacemacs//interpose (sep &rest list)
-    (-interpose (concat " " sep " ") list))
-
   (defun dotspacemacs//flat-cat (&rest list)
     "Flatten and concatenate LIST."
     (apply 'concat (-flatten list)))
@@ -194,7 +187,6 @@ undefined for a context, it will be filtered out."
 spaces into LIST. Return the padded result."
       (dotspacemacs//flat-cat
        (-interpose (concat " " sep " ") list)))
-
 
   ;; Configure Vars
   (setq-default
@@ -225,14 +217,12 @@ spaces into LIST. Return the padded result."
   (add-to-list 'auto-mode-alist '("\\*message\\*-+" . message-mode))
 
   ;; mu4e bookmarks -- this is the magic
-  (let ((not-spam (dotspacemacs//interpose-concat
-                   " AND "
+  (let ((not-spam (apply 'dotspacemacs//flat-cat-pose "AND"
                    (-map (lambda (spam) (concat "NOT " spam))
                          (mapcar 'dotspacemacs//mu4e-add-maildir-prefix
                                  (dotspacemacs//mu4e-contexts-var
                                   'mu4e-spam-folder)))))
-        (not-trash (dotspacemacs//interpose-concat
-                    " AND "
+        (not-trash (apply 'dotspacemacs//flat-cat-pose "AND"
                     (-map
                      (lambda (folder)
                        (concat "NOT "
