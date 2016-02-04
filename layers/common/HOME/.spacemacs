@@ -174,26 +174,27 @@ undefined for a context, it will be filtered out."
                     (dotspacemacs//mu4e-context-get-var context var))
                   mu4e-contexts)))
 
-  ;; list of default spam folders
-  (defun dotspacemacs//mu4e-spams ()
-      (mapcar (apply-partially 'concat "maildir:")
-              (dotspacemacs//mu4e-contexts-var 'mu4e-spam-folder)))
-
-  (defun dotspacemacs//mu4e-join-spam (query &optional separator)
-    "Modify the mu4e QUERY to include SPAMS folders using SEPARATOR."
-    (let ((separator (if separator separator " AND NOT ")))
-      (concat query
-              (apply 'concat (mapcar (lambda (spam)
-                                       (concat separator spam))
-                                     (dotspacemacs//mu4e-spams))))))
+  (defun dotspacemacs//mu4e-add-maildir-prefix (maildir)
+    "Add maildir: prefix to MAILDIR for mu queries."
+    (concat "maildir:" maildir))
 
   (defun dotspacemacs//interpose-concat (sep list)
     "Interpose SEP into LIST and concatenate."
     (apply 'concat (-interpose sep list)))
 
-  (defun dotspacemacs//add-maildir-prefix (maildir)
-    "Add maildir: prefix to MAILDIR for mu queries."
-    (concat "maildir:" maildir))
+  (defun dotspacemacs//interpose (sep &rest list)
+    (-interpose (concat " " sep " ") list))
+
+  (defun dotspacemacs//flat-cat (&rest list)
+    "Flatten and concatenate LIST."
+    (apply 'concat (-flatten list)))
+
+  (defun dotspacemacs//flat-cat-pose (sep &rest list)
+      "Unabashed helper function to interpose SEP padded with
+spaces into LIST. Return the padded result."
+      (dotspacemacs//flat-cat
+       (-interpose (concat " " sep " ") list)))
+
 
   ;; Configure Vars
   (setq-default
@@ -224,24 +225,36 @@ undefined for a context, it will be filtered out."
   (add-to-list 'auto-mode-alist '("\\*message\\*-+" . message-mode))
 
   ;; mu4e bookmarks -- this is the magic
-  (setq mu4e-bookmarks
-        `((,(dotspacemacs//mu4e-join-spam "flag:unread AND NOT flag:trashed")
-           "Unread messages" ?u)
-          (,(dotspacemacs//mu4e-join-spam "date:today..now")
-           "Today's messages" ?t)
-          (,(dotspacemacs//mu4e-join-spam "date:7d..now")
-           "Last 7 days" ?w)
-          (,(dotspacemacs//interpose-concat
-             " OR "
-             (mapcar 'dotspacemacs//add-maildir-prefix
-                     (dotspacemacs//mu4e-contexts-var 'mu4e-inbox-folder)))
-           "Messages in inboxes", ?i)
-          (,(dotspacemacs//mu4e-join-spam "mime:image/*")
-           "Messages with images" ?p)
-          (,(dotspacemacs//mu4e-join-spam
-             "flag:unread AND NOT flag:trashed"
-             " AND ")
-           "Unread spam" ?s)))
+  (let ((not-spam (dotspacemacs//interpose-concat
+                   " AND "
+                   (-map (lambda (spam) (concat "NOT " spam))
+                         (mapcar 'dotspacemacs//mu4e-add-maildir-prefix
+                                 (dotspacemacs//mu4e-contexts-var
+                                  'mu4e-spam-folder)))))
+        (not-trash (dotspacemacs//interpose-concat
+                    " AND "
+                    (-map
+                     (lambda (folder)
+                       (concat "NOT "
+                               (dotspacemacs//mu4e-add-maildir-prefix folder)))
+                     (dotspacemacs//mu4e-contexts-var 'mu4e-trash-folder)))))
+    (setq mu4e-bookmarks
+         `((,(dotspacemacs//flat-cat-pose "AND"
+              "flag:unread" "NOT flag:trashed" not-spam not-trash)
+            "Unread messages" ?u)
+           (,(dotspacemacs//flat-cat-pose "AND" "date:today..now" not-spam)
+            "Today's messages" ?t)
+           (,(dotspacemacs//flat-cat-pose "AND" "date:7d..now" not-spam)
+            "Last 7 days" ?w)
+           (,(apply 'dotspacemacs//flat-cat-pose "OR"
+              (mapcar 'dotspacemacs//mu4e-add-maildir-prefix
+                      (dotspacemacs//mu4e-contexts-var 'mu4e-inbox-folder)))
+            "Messages in inboxes", ?i)
+           (,(dotspacemacs//flat-cat-pose "AND" "mime:image/*" not-spam)
+            "Messages with images" ?p)
+           (,(dotspacemacs//flat-cat-pose "AND"
+              "flag:unread" "NOT flag:trashed" not-spam)
+            "Unread spam" ?s))))
   )
 
 (custom-set-faces
