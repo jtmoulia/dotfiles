@@ -188,6 +188,12 @@ spaces into LIST. Return the padded result."
       (dotspacemacs//flat-cat
        (-interpose (concat " " sep " ") list)))
 
+  (defun* dotspacemacs//mu4e-query
+      (var &key (prefix "") (sep "AND"))
+    (apply 'dotspacemacs//flat-cat-pose sep
+           (-map (lambda (folder) (concat prefix folder))
+                 (dotspacemacs//mu4e-contexts-var var))))
+
   ;; Configure Vars
   (setq-default
    mu4e-mu-binary         (concat dotspacemacs-mu-root "/mu/mu")
@@ -217,20 +223,17 @@ spaces into LIST. Return the padded result."
   (add-to-list 'auto-mode-alist '("\\*message\\*-+" . message-mode))
 
   ;; mu4e bookmarks -- this is the magic
-  (let ((not-spam (apply 'dotspacemacs//flat-cat-pose "AND"
-                   (-map (lambda (spam) (concat "NOT " spam))
-                         (mapcar 'dotspacemacs//mu4e-add-maildir-prefix
-                                 (dotspacemacs//mu4e-contexts-var
-                                  'mu4e-spam-folder)))))
-        (not-trash (apply 'dotspacemacs//flat-cat-pose "AND"
-                    (-map
-                     (lambda (folder)
-                       (concat "NOT "
-                               (dotspacemacs//mu4e-add-maildir-prefix folder)))
-                     (dotspacemacs//mu4e-contexts-var 'mu4e-trash-folder)))))
+  (let* ((maildir "maildir:")
+         (not-maildir (concat "NOT " maildir))
+         (not-spam (dotspacemacs//mu4e-query 'mu4e-spam-folder
+                                            :prefix not-maildir))
+         (not-trash (dotspacemacs//mu4e-query 'mu4e-trash-folder
+                                              :prefix not-maildir))
+         (not-refile (dotspacemacs//mu4e-query 'mu4e-refile-folder
+                                               :prefix not-maildir)))
     (setq mu4e-bookmarks
          `((,(dotspacemacs//flat-cat-pose "AND"
-              "flag:unread" "NOT flag:trashed" not-spam not-trash)
+              "flag:unread" "NOT flag:trashed" not-spam not-trash not-refile)
             "Unread messages" ?u)
            (,(dotspacemacs//flat-cat-pose "AND" "date:today..now" not-spam)
             "Today's messages" ?t)
