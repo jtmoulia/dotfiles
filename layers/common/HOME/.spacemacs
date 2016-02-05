@@ -136,6 +136,7 @@
                  (mu4e-drafts-folder . "/pocketknife/INBOX.Drafts")
                  (mu4e-trash-folder . "/pocketknife/INBOX.Trash")
                  (mu4e-refile-folder . "/pocketknife/INBOX.Archive")
+                 (mu4e-spam-folder . "/pocketknife/INBOX.Junk Mail")
                  (smtpmail-smtp-user . "jtmoulia@pocketknife.io")
                  (smtpmail-default-smtp-server . "mail.messagingengine.com")
                  (smtpmail-smtp-server . "mail.messagingengine.com")
