@@ -202,13 +202,18 @@ spaces into LIST. Return the padded result."
    mu4e-get-mail-command  "offlineimap"
    mu4e-headers-skip-duplicates t
    mu4e-update-interval   600
-   mu4e-compose-signature "Thomas Moulia  \njtmoulia.pocketknife.io  \nSkype: jtmoulia  \n@jtmoulia  "
+   mu4e-compose-signature (apply 'concat (-interpose
+                                          "  \n"
+                                          '("Thomas Moulia"
+                                            "jtmoulia.pocketknife.io"
+                                            "Skype: jtmoulia"
+                                            "@jtmoulia")))
    mu4e-compose-dont-reply-to-self t
    mu4e-compose-complete-only-personal t
    mu4e-hide-index-messages t
    mu4e-html2text-command "html2text --body-width=78"
-   mu4e-user-mail-address-list '("jtmoulia@pocketknife.io"
-                                 "jtmoulia@gmail.com")
+   mu4e-user-mail-address-list (dotspacemacs//mu4e-contexts-var
+                                'user-mail-address)
    ;; User info
    message-auto-save-directory (concat (file-name-as-directory mu4e-maildir)
                                        "drafts")
