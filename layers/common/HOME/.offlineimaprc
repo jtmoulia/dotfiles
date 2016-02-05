@@ -1,0 +1,45 @@
+[general]
+accounts = Pocketknife, Gmail
+maxsyncaccounts = 3
+pythonfile = ~/.offlineimap.py
+
+[Account Gmail]
+localrepository = GmailLocal
+remoterepository = GmailRemote
+synclabels=yes
+maxsize = 4000000
+maxage = 365
+
+[Repository GmailLocal]
+type = GmailMaildir
+localfolders = ~/maildirs/gmail
+
+[Repository GmailRemote]
+type = Gmail
+remotehost = imap.gmail.com
+remoteuser = jtmoulia@gmail.com
+remotepasseval = auth_pass("jtmoulia@gmail.com")
+ssl = yes
+sslcacertfile = /usr/local/etc/openssl/cert.pem
+maxconnections = 4
+realdelete = no
+folderfilter = lambda folder: (folder not in ['Trash', 'Sent Messages', 'Notes', 'Familia', 'Med', 'mcat', 'actions', '[Gmail]/Starred', '[Gmail]/Important', 'Familia', '[Gmail]/Archive']) and not folder.startswith('[Mailbox]') and not folder.startswith('[Airmail]')
+
+[Account Pocketknife]
+localrepository = PocketknifeLocal
+remoterepository = PocketknifeRemote
+maxsize = 2000000
+
+[Repository PocketknifeLocal]
+type = Maildir
+localfolders = ~/maildirs/pocketknife
+
+[Repository PocketknifeRemote]
+type = IMAP
+remotehost = mail.messagingengine.com
+remoteuser = jtmoulia@pocketknife.io
+remotepasseval = auth_pass("jtmoulia@pocketknife.io")
+ssl = yes
+cert_fingerprint = 958b1601563aef92607a41eb5bad22e3cace8431
+maxconnections = 4
+realdelete = yes
