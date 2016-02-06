@@ -22,14 +22,17 @@
                my-op/publish-to-build)
     :init
     (progn
-      (defvar my-op-projects nil
-        "The alist of project configurations.")
+      (defvar my-op-sites nil
+        "The alist of site configurations.")
 
-      (defvar my-op-project nil
-        "The active project configuration.")
+      (defvar my-op-site nil
+        "The active site configuration.")
 
-      (defvar my-op-project-policy 'my-op/ask-if-nil
-        "The policy for selecting `my-op-project'.")
+      (defvar my-op-site-policy 'my-op/ask-if-nil
+        "The policy for selecting `my-op-site'.")
+
+      (defvar my-op-force-all t
+        "Whether to force rebuilding all files by default when publishing.")
 
       ;; Helper Functions
 
@@ -56,11 +59,11 @@
       ;;     (my-op//apply-variables vars)
       ;;     vars))
 
-      (defun my-op//read-project ()
-        "Helper function for reading a PROJECT given `my-op-projects-alist'."
+      (defun my-op//read-site ()
+        "Helper function for reading a SITE given `my-op-projects-alist'."
         (intern-soft
-         (completing-read "Project: "
-                          (-map (function car) my-op-projects))))
+         (completing-read "Site: "
+                          (-map (function car) my-op-sites))))
 
       ;; Helper Macros
 
@@ -83,29 +86,29 @@ after evaluating form."
       ;; Public Interface
 
       (defun my-op/ask-if-nil ()
-        "Return the current project. This is `my-op-project' if it is truthy,
-else it asks for and sets the active project."
-        (if my-op-project
-            my-op-project
-          (setq my-op-project (my-op//read-project))))
+        "Return the current site. This is `my-op-project' if it is truthy,
+else it asks for and sets the active site."
+        (if my-op-site
+            my-op-site
+          (setq my-op-site (my-op//read-project))))
 
-      (defun my-op/project ()
-        "Get the current project by calling `my-op-project-policy'."
-        (funcall my-op-project-policy))
+      (defun my-op/site ()
+        "Get the current site by calling `my-op-project-policy'."
+        (funcall my-op-site-policy))
 
-      (defun my-op/select (&optional project)
-        "Select PROJECT by applying its configuration. Returns `nil' if
-PROJECT is invalid.
+      (defun my-op/select (&optional site)
+        "Select SITE by applying its configuration. Returns `nil' if
+SITE is invalid.
 
-See `my-op-projects'."
+See `my-op-sites'."
         (interactive (list (my-op/proj)ect))
-        (let ((vars (cdr (assoc project my-op-projects))))
+        (let ((vars (cdr (assoc site my-op-projects))))
           (if vars (my-op//apply-variables vars))))
 
-      (defun my-op/do-publication (&optional project force-all base-git-commit pub-base-dir auto-commit auto-push)
-        "Publish the PROJECT given the settings."
-        (interactive (list (my-op/project)))
-        (my-op/select project)
+      (defun my-op/do-publication (&optional site force-all base-git-commit pub-base-dir auto-commit auto-push)
+        "Publish the SITE given the settings."
+        (interactive (list (my-op/site)))
+        (my-op/select site)
         (my-op|with-default-directory op/repository-directory
                                       (op/do-publication force-all
                                                          base-git-commit
@@ -113,13 +116,13 @@ See `my-op-projects'."
                                                          auto-commit
                                                          auto-push)))
 
-      (defun my-op/publish-to-build (&optional project)
-        "Publish PROJECT to the build directory."
-        (interactive (list (my-op/project)))
-        (my-op/do-publication project t nil "_build" nil nil))
+      (defun my-op/publish-to-build (&optional site)
+        "Publish SITE to the build directory."
+        (interactive (list (my-op/site)))
+        (my-op/do-publication site my-op-force-all nil "_build" nil nil))
 
-      (defun my-op/publish-to-master (&optional project)
-        (interactive (list (my-op/project)))
-        (my-op/do-publication project t nil nil nil nil))
+      (defun my-op/publish-to-master (&optional site)
+        (interactive (list (my-op/site)))
+        (my-op/do-publication site my-op-force-all nil nil nil nil))
 
       )))
