@@ -22,8 +22,14 @@
                my-op/publish-to-build)
     :init
     (progn
-      (defvar my-op-projects-alist nil
+      (defvar my-op-projects nil
         "The alist of project configurations.")
+
+      (defvar my-op-project nil
+        "The active project configuration.")
+
+      (defvar my-op-project-policy 'my-op/ask-if-nil
+        "The policy for selecting `my-op-project'.")
 
       ;; Helper Functions
 
@@ -32,7 +38,8 @@
           (lambda (var)
             (let ((name (car var))
                   (value (cdr var)))
-              (set name value)))))
+              (set name value))))
+        vars)
 
       (defun my-op//get-vars (names)
         "Return an alist of variable `(name . value)' for NAMES."
@@ -43,16 +50,17 @@
              `(,name . ,value)))
          names))
 
-      (defun my-op//apply-vars (&optional vars)
-        "Apply the org-page configuration."
-        (let ((vars jtsite/vars-alist)) ;; TODO: overlay config
-          (my-op//apply-variables vars)
-          vars))
+      ;; (defun my-op//apply-vars ()
+      ;;   "Apply the org-page configuration."
+      ;;   (let ((vars jtsite/vars-alist)) ;; TODO: overlay config
+      ;;     (my-op//apply-variables vars)
+      ;;     vars))
 
       (defun my-op//read-project ()
         "Helper function for reading a PROJECT given `my-op-projects-alist'."
-        (completing-read "Project: "
-                         (-map (function car) my-op-projects-alist)))
+        (intern-soft
+         (completing-read "Project: "
+                          (-map (function car) my-op-projects))))
 
       ;; Helper Macros
 
@@ -74,18 +82,29 @@ after evaluating form."
 
       ;; Public Interface
 
+      (defun my-op/ask-if-nil ()
+        "Return the current project. This is `my-op-project' if it is truthy,
+else it asks for and sets the active project."
+        (if my-op-project
+            my-op-project
+          (setq my-op-project (my-op//read-project))))
+
+      (defun my-op/project ()
+        "Get the current project by calling `my-op-project-policy'."
+        (funcall my-op-project-policy))
+
       (defun my-op/select (&optional project)
         "Select PROJECT by applying its configuration. Returns `nil' if
 PROJECT is invalid.
 
-See `my-op-projects-alist'."
-        (interactive (list (my-op//read-project)))
-        (let ((vars (assoc project my-op-projects-alist)))
-          (if vars (my-op//apply-vars vars))))
+See `my-op-projects'."
+        (interactive (list (my-op/proj)ect))
+        (let ((vars (cdr (assoc project my-op-projects))))
+          (if vars (my-op//apply-variables vars))))
 
       (defun my-op/do-publication (&optional project force-all base-git-commit pub-base-dir auto-commit auto-push)
         "Publish the PROJECT given the settings."
-        (interactive (list (my-op//read-project)))
+        (interactive (list (my-op/project)))
         (my-op/select project)
         (my-op|with-default-directory op/repository-directory
                                       (op/do-publication force-all
@@ -96,11 +115,11 @@ See `my-op-projects-alist'."
 
       (defun my-op/publish-to-build (&optional project)
         "Publish PROJECT to the build directory."
-        (interactive (list (my-op//read-project)))
+        (interactive (list (my-op/project)))
         (my-op/do-publication project t nil "_build" nil nil))
 
       (defun my-op/publish-to-master (&optional project)
-        (interactive (list (my-op//read-project)))
-        (my-op/do-publication project nil nil nil nil nil))
+        (interactive (list (my-op/project)))
+        (my-op/do-publication project t nil nil nil nil))
 
       )))
