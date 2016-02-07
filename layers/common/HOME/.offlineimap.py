@@ -23,9 +23,9 @@ def _auth_parse(string):
 def _auth_decrypt(path):
     return subprocess.check_output(DEFAULT_ARGS + [path])
 
-def _auth_read(path, **args):
+def _auth_read(path, *args):
     infos = {}
-    for info in _auth_parse(_auth_decrypt(path, **args)):
+    for info in _auth_parse(_auth_decrypt(path, *args)):
         name = info.pop('login')
         infos[name] = info
     return infos
@@ -34,6 +34,6 @@ def auth_info(account, path=DEFAULT_PATH):
     "Load the auth info from an encrypted authinfo file."
     return _auth_read(path)[account]
 
-def auth_pass(account, **args):
+def auth_pass(account, *args):
     "Return the password associated with `account` in authinfo."
-    return auth_info(account)['password']
+    return auth_info(account, *args)['password']
