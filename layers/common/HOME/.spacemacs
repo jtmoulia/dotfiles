@@ -6,29 +6,36 @@
 
 (defun dotspacemacs/layers ()
   (setq-default dotspacemacs-configuration-layers
-                '(org
+                '(
+                  org
+                  emacs-lisp
+                  osx
                   git
                   python
-                  javascript
-                  common-lisp
                   html
+                  sql
+                  ; javascript
                   erlang
                   elixir
-                  haskell
+                  ; haskell
                   markdown
                   rcirc
                   auto-completion
                   syntax-checking
-                  racket
+                  spacemacs-layouts
+                  typography
+                  deft
+                  prodigy
+                  ;; racket
                   (mu4e :variables
                         mu4e-installation-path
                         (concat dotspacemacs-mu-root "/mu4e"))
                   ; themes-megapack
                   ;; private layers
-                  org-page
-                  artist
-                  pdf-tools
-                  lfe
+                  ; org-page
+                  ; artist
+                  ; pdf-tools
+                  ; lfe
                   )))
 
 ;; Web mode config
@@ -38,7 +45,7 @@
 (setq js2-basic-offset 2)
 
 ;; erlang config
-;; Use man pages installed by homebrew when on OS X
+;; Use man pages initalled by homebrew when on OS X
 (if (string-equal system-type "darwin")
     (setq erlang-root-dir "/usr/local/opt/erlang/lib/erlang"))
 
@@ -61,24 +68,61 @@
 (defun dotspacemacs/user-config ()
   "Post spacemacs init config."
   ;; Org
-  (defvar personal//org-todo-file "~/Dropbox/org/todo.org"
-    "The path to the primary todo file.")
+  (with-eval-after-load 'org
+   (defvar personal//org-todo-file "~/Dropbox/org/todo.org"
+     "The path to the primary todo file.")
 
-  (defvar personal//org-notes-file "~/Dropbox/org/notes.org"
-    "The path to the notes file.")
+   (defvar personal//org-notes-file "~/Dropbox/org/notes.org"
+     "The path to the notes file.")
 
-  (defvar personal//org-contacts-file "~/Dropbox/org/contacts.org"
-    "The path to the contacts file.")
+   (defvar personal//org-contacts-file "~/Dropbox/org/contacts.org"
+     "The path to the contacts file.")
 
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((python . t)))
+   (add-to-list 'org-agenda-files personal//org-todo-file)
+
+   (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((python . t)
+      (sql . t)
+      (ipython . t)))
+   )
+
+  (setq deft-directory "~/Dropbox/org/notes")
+
+  ;; Python
+  (with-eval-after-load 'python
+    (setq python-shell-interpreter "ipython"
+          python-shell-interpreter-args "--simple-prompt -i")
+
+    (defun python-use-tabs ()
+      (interactive)
+      (setq indent-tabs-mode t
+            tab-width 4
+            py-indent-tabs-mode t))
+    )
+
 
   ;; Racket
   (setq racket-racket-program "/Applications/Racket v6.2.1/bin/racket")
 
   ;; LFE
   (setq inferior-lfe-program-options '("-pa" "ebin"))
+
+  ;; SQL
+  (setq sql-connection-alist
+        '(
+          (biguns (sql-product 'postgres)
+                  (sql-user "ubuntu")
+                  (sql-server "localhost")
+                  (sql-database "deepdive_deepmed_ubuntu")
+                  (sql-port 5433))))
+
+  ;; Prodigy
+  (prodigy-define-service
+    :name "biguns:5432->localhost:5433"
+    :command "ssh"
+    :args '("-nNT" "-L" "5433:localhost:5432" "biguns")
+    :tags '(:deepmed)) 
   )
 
 (defun dotspacemacs/init ()
@@ -177,7 +221,7 @@ undefined for a context, it will be filtered out."
 
   (defun dotspacemacs//mu4e-add-maildir-prefix (maildir)
     "Add maildir: prefix to MAILDIR for mu queries."
-    (concat "maildir:" maildir))
+    (concat "maildir:\"" maildir "\""))
 
   (defun dotspacemacs//flat-cat (&rest list)
     "Flatten and concatenate LIST."
@@ -196,6 +240,8 @@ spaces into LIST. Return the padded result."
                  (dotspacemacs//mu4e-contexts-var var))))
 
   ;; Configure Vars
+  (require 'mu4e-contrib)
+  (require 'org-mu4e)
   (setq-default
    mu4e-mu-binary         (concat dotspacemacs-mu-root "/mu/mu")
    mu4e-maildir           "~/maildirs"            ;; top-level Maildir
@@ -211,8 +257,8 @@ spaces into LIST. Return the padded result."
                                             "@jtmoulia")))
    mu4e-compose-dont-reply-to-self t
    mu4e-compose-complete-only-personal t
-   mu4e-hide-index-messages t
-   mu4e-html2text-command "html2text --body-width=78"
+   mu4e-hide-index-messages nil
+   mu4e-html2text-command 'mu4e-shr2text
    mu4e-user-mail-address-list (dotspacemacs//mu4e-contexts-var
                                 'user-mail-address)
    ;; User info

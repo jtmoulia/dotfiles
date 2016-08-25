@@ -10,4 +10,3 @@ FDK_EXE="/Users/jtmoulia/bin/FDK/Tools/osx"
 PATH=${PATH}:"/Users/jtmoulia/bin/FDK/Tools/osx"
 export PATH
 export FDK_EXE
-if [ -e /Users/jtmoulia/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/jtmoulia/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

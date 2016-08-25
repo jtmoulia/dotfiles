@@ -50,3 +50,10 @@ PERL5LIB="/Users/jtmoulia/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5
 PERL_LOCAL_LIB_ROOT="/Users/jtmoulia/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/Users/jtmoulia/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/jtmoulia/perl5"; export PERL_MM_OPT;
+
+# virtualenv[wrapper]
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+source /usr/local/bin/virtualenvwrapper.sh
+
+prepend_to_path "/Users/jtmoulia/local/bin"
