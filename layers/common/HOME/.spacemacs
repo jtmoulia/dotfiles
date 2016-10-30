@@ -4,9 +4,12 @@
 (defvar dotspacemacs-mu-root (expand-file-name "~/repos/mu")
   "mu's source path")
 
+(setq dotspacemacs-additional-packages '(ob-ipython))
+
 (defun dotspacemacs/layers ()
   (setq-default dotspacemacs-configuration-layers
                 '(
+                  ivy
                   org
                   emacs-lisp
                   osx
@@ -26,6 +29,8 @@
                   typography
                   deft
                   prodigy
+                  restclient
+                  slack
                   ;; racket
                   (mu4e :variables
                         mu4e-installation-path
@@ -84,7 +89,8 @@
     'org-babel-load-languages
     '((python . t)
       (sql . t)
-      (ipython . t)))
+      (ipython . t)
+      ))
    )
 
   (setq deft-directory "~/Dropbox/org/notes")
@@ -92,7 +98,9 @@
   ;; Python
   (with-eval-after-load 'python
     (setq python-shell-interpreter "ipython"
-          python-shell-interpreter-args "--simple-prompt -i")
+          ; For IPython 5.x --
+          python-shell-interpreter-args "--simple-prompt -i"
+          )
 
     (defun python-use-tabs ()
       (interactive)
@@ -111,11 +119,24 @@
   ;; SQL
   (setq sql-connection-alist
         '(
-          (biguns (sql-product 'postgres)
-                  (sql-user "ubuntu")
-                  (sql-server "localhost")
-                  (sql-database "deepdive_deepmed_ubuntu")
-                  (sql-port 5433))))
+          (postgres
+           (sql-product 'postgres)
+           (sql-user "postgres")
+           (sql-server "localhost")
+           (sql-database "postgres")
+           (sql-port 5432))
+          (mimic
+           (sql-product 'postgres)
+           (sql-user "mimic")
+           (sql-server "localhost")
+           (sql-database "mimic")
+           (sql-port 5433))
+          (biguns
+           (sql-product 'postgres)
+           (sql-user "ubuntu")
+           (sql-server "localhost")
+           (sql-database "deepdive_deepmed_ubuntu")
+           (sql-port 5433))))
 
   ;; Prodigy
   (prodigy-define-service
@@ -185,7 +206,30 @@
                  (smtpmail-default-smtp-server . "mail.messagingengine.com")
                  (smtpmail-smtp-server . "mail.messagingengine.com")
                  (smtpmail-stream-type . ssl)
-                 (smtpmail-smtp-service . 465)))))
+                 (smtpmail-smtp-service . 465)))
+     ,(make-mu4e-context
+       :name "healthtensor"
+       :enter-func
+       (lambda ()
+         (mu4e-message
+          (concat "Switching to context: healthtensor")))
+       :match-func
+       (lambda (msg)
+         (when msg
+           (mu4e-message-contact-field-matches
+            msg :to "thomas@healthtensor.com")))
+       :vars '((user-mail-address . "thomas@healthtensor.com")
+               (mu4e-inbox-folder . "/healthtensor/INBOX")
+               (mu4e-sent-folder . "/healthtensor/INBOX.Sent Items")
+               (mu4e-drafts-folder . "/healthtensor/INBOX.Drafts")
+               (mu4e-trash-folder . "/healthtensor/INBOX.Trash")
+               (mu4e-refile-folder . "/healthtensor/INBOX.Archive")
+               (mu4e-spam-folder . "/healthtensor/INBOX.Junk Mail")
+               (smtpmail-smtp-user . "thomas@healthtensor.com")
+               (smtpmail-default-smtp-server . "smtp.gmail.com")
+               (smtpmail-smtp-server . "smtp.gmail.com")
+               (smtpmail-smtp-service . 465)))
+     ))
 
   ;; Helper Functions
   (defun dotspacemacs//mu4e-context (context-name)
@@ -301,24 +345,3 @@ spaces into LIST. Return the padded result."
               "flag:unread" "NOT flag:trashed" not-spam)
             "Unread spam" ?s))))
   )
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ahs-case-fold-search nil)
- '(ahs-default-range (quote ahs-range-whole-buffer))
- '(ahs-idle-interval 0.25)
- '(ahs-idle-timer 0 t)
- '(ahs-inhibit-face-list nil)
- '(paradox-automatically-star nil)
- '(ring-bell-function (quote ignore) t)
- '(safe-local-variable-values (quote ((org-confirm-babel-evalute)))))
