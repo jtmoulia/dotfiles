@@ -24,25 +24,18 @@ LAYER_TARGETS = $(call from_layer,$(LAYER_PATHS))
 
 .SECONDARY:
 
-.PHONY: all bootstrap packages layer clean
+.PHONY: all bootstrap layer clean
 
 all: bootstrap layer
 
-clean: $(BACKUP_DIR) nix-binary-tarball-unpack
-	rm -r $^
+clean: $(BACKUP_DIR)
+	rm -ri $^
 
 ##################
 ## Bootstrap Rules
 ##################
 
-bootstrap: packages $(HOME)/.emacs.d
-
-packages: /nix
-	nix-env -f packages.nix -i
-
-/nix:
-	curl https://nixos.org/nix/install | sh
-  # source /Users/jtmoulia/.nix-profile/etc/profile.d/nix.sh
+bootstrap: $(HOME)/.emacs.d
 
 # spacemacs
 $(HOME)/.emacs.d:
