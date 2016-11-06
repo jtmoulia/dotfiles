@@ -6,6 +6,7 @@ HOME_ALIAS ?= HOME
 LAYER_DIR  ?= layers/common
 BACKUP_DIR ?= backups
 SPACEMACS  ?= https://github.com/syl20bnr/spacemacs
+BASHIT     ?= https://github.com/Bash-it/bash-it
 
 FILTER ?= *
 
@@ -35,11 +36,16 @@ clean: $(BACKUP_DIR)
 ## Bootstrap Rules
 ##################
 
-bootstrap: $(HOME)/.emacs.d
+bootstrap: $(HOME)/.emacs.d $(HOME)/.bash_it
 
 # spacemacs
 $(HOME)/.emacs.d:
 	git clone $(SPACEMACS) $@
+
+# Bash-it
+$(HOME)/.bash_it:
+	git clone --depth=1 $(BASHIT) $@
+	$@/install.sh
 
 ###############
 ## Backup Rules
@@ -66,11 +72,13 @@ $(BACKUP_DIR)/%:
 # Layer: File in HOME
 # e.g. LAYER/HOME/.bashrc
 $(LAYER_DIR)/$(HOME_ALIAS)/%:
+	mkdir -p $(@D)
 	cp $(HOME)/$* $@
 
 # Layer: File
 # e.g. LAYER/etc/hosts
 $(LAYER_DIR)/%:
+	mkdir -p $(@D)
 	cp /$* $@
 
 # Layer: Diff in HOME

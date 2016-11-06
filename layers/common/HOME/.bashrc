@@ -1,59 +1,45 @@
 # ~/.bashrc
 # author: jtmoulia
+# expects bash-it
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
 
 ## Define Functions
 
-# Func to append elements to the end of PATH
-append_to_path () {
-    for path_elt in $@; do
-        PATH="${PATH}:${path_elt}"
-    done
-}
+# Path to the bash it configuration
+export BASH_IT="/home/jtmoulia/.bash_it"
 
-# Func to prepend elements to the beginning of PATH
-prepend_to_path() {
-    # NB: This doesn't reverse the args: the last arg
-    # will become the first element in the path. Uglish
-    for path_elt in $@; do
-        PATH="${path_elt}:${PATH}"
-    done
-}
+# Lock and Load a custom theme file
+# location /.bash_it/themes/
+export BASH_IT_THEME='dulcie'
 
-# Func to set process name
-tt () { echo -ne "\033]0;$@\\007"; }
+# (Advanced): Change this to the name of your remote repo if you
+# cloned bash-it with a remote other than origin such as `bash-it`.
+# export BASH_IT_REMOTE='bash-it'
 
+# Your place for hosting Git repos. I use this for private repos.
+export GIT_HOSTING='git@git.domain.com'
 
-## Set Variables
+# Don't check mail when opening terminal.
+unset MAILCHECK
 
-# First, use the home bin, then /usr/local/bin, then the rest
-append_to_path "/usr/local/bin" "${HOME}/bin"
+# Change this to your console based IRC client of choice.
+export IRC_CLIENT='irssi'
 
-# Set my editor and git editor
-export EDITOR="/usr/bin/vim"
-export GIT_EDITOR="/usr/bin/vim"
+# Set this to the command you use for todo.txt-cli
+export TODO="t"
 
-# Set the bash prompt
-PS1='\[\033[0;32m\]\u\[\033[0;34m\]::\[\033[0;31m\]\h \[\033[0;34m\]{ \[\033[0;36m\]\w \[\033[0;34m\]} \[\033[0;32m\]$ \[\033[00m\]'
+# Set this to false to turn off version control status checking within the prompt for all themes
+export SCM_CHECK=true
 
-# go Config
-if hash go 2>/dev/null; then
-    export GOPATH="$HOME/go"
-    PATH="$PATH:$GOPATH/bin"
-fi
+# Set vcprompt executable path for scm advance info in prompt (demula theme)
+# https://github.com/djl/vcprompt
+#export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
 
-# RVM Config
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+# (Advanced): Uncomment this to make Bash-it reload itself automatically
+# after enabling or disabling aliases, plugins, and completions.
+# export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
-PATH="/Users/jtmoulia/perl5/bin${PATH+:}${PATH}"; export PATH;
-PERL5LIB="/Users/jtmoulia/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/Users/jtmoulia/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/Users/jtmoulia/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/jtmoulia/perl5"; export PERL_MM_OPT;
-
-# virtualenv[wrapper]
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Devel
-source /usr/local/bin/virtualenvwrapper.sh
-
-prepend_to_path "/Users/jtmoulia/local/bin"
+# Load Bash It
+source $BASH_IT/bash_it.sh
