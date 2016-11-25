@@ -15,18 +15,24 @@
 (swank)
 
 (load-module "battery-portable")
+(load-module "wifi")
+(load-module "notifications")
 
 ;; Variables
+(setf *screen-mode-line-format* "[%W] {%g} (%N)")
 (set-focus-color "red")
+; (set-font "-xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso8859-15")
 (set-font "-*-terminus-*-*-*-*-24-*-*-*-*-*-iso10646-*")
 (setf *screen-mode-line-format*
       (list "[^B%n^b] %W " ; groups/windows
             "^>" ; right align
-            " %B ^7* %d")
+            " %I %B ^7* %d")
       *mode-line-position* :bottom
       *mode-line-timeout* 1)
 
+
 ;; Keybindings
+;; (define-ky *root-map* (kbd "N") 'notifications:*notifications-map*)
 (define-key *root-map* (kbd "h") "move-focus left")
 (define-key *root-map* (kbd "l") "move-focus right")
 (define-key *root-map* (kbd "j") "move-focus down")
@@ -40,9 +46,32 @@
 (define-key *root-map* (kbd "b") "windowlist")
 (define-key *root-map* (kbd "K") "delete-window")
 (define-key *root-map* (kbd "M") "mode-line")
+(define-key *root-map* (kbd "c")
+  "run-shell-command maim --select ~/scratch/grab-$(date +%FT%T).png")
 
-(define-key *root-map* (kbd "C") "run-shell-command chromium --force-device-scale-factor=1.8")
-(define-key *root-map* (kbd "S") "run-shell-command spotify --force-device-scale-factor=1.8")
+
+(defvar *app-map*
+  (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "e")
+      "run-shell-command emacs")
+    (define-key m (kbd "x")
+      "run-shell-command xterm")
+    (define-key m (kbd "c")
+      "run-shell-command chromium --force-device-scale-factor=1.8")
+    (define-key m (kbd "s")
+      "run-shell-command spotify --force-device-scale-factor=1.8")
+    (define-key m (kbd "v")
+      "run-shell-command pavucontrol")
+    m))
+
+(define-key *root-map* (kbd "a") '*app-map*)
+
 
 (define-key *top-map* (kbd "XF86MonBrightnessDown") "run-shell-command light -U 10")
 (define-key *top-map* (kbd "XF86MonBrightnessUp") "run-shell-command light -A 10")
+
+(define-key *top-map* (kbd "XF86AudioMute") "run-shell-command pactl set-sink-mute 1 toggle")
+(define-key *top-map* (kbd "XF86AudioLowerVolume")
+  "run-shell-command pactl set-sink-mute 1 false; pactl set-sink-volume 1 -5%")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume")
+  "run-shell-command pactl set-sink-mute 1 false; pactl set-sink-volume 1 +5%")
