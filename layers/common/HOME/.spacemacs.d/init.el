@@ -109,6 +109,23 @@
       (load-file dotspacemacs-slack-el)
       (mapcar (lambda (team) (apply 'slack-register-team team)) dotspacemacs-slack-teams)))
 
+  (defun stump-notify (message)
+    "Create a stump notification"
+    (interactive "sNotification: ")
+    (start-process "notifications-add" nil
+                   "stumpish" "notifications-add" message))
+
+  ;; Alert
+  (with-eval-after-load 'alert
+    (alert-define-style 'stump :title "stumpwm notifications"
+                        :notifier
+                        (lambda (info)
+                          (let ((title (plist-get info :title))
+                                (mode (symbol-name (plist-get info :mode)))
+                                (message (plist-get info :message)))
+                            (stump-notify (concat title " [" mode "]: " message)))))
+    (setq alert-default-style 'stump))
+
   ;; Python
   (with-eval-after-load 'python
     (setq python-shell-interpreter "ipython"

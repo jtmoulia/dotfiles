@@ -26,13 +26,13 @@
 (setf *screen-mode-line-format*
       (list "[^B%n^b] %W " ; groups/windows
             "^>" ; right align
-            " %I %B ^7* %d")
+            " %N %I %B ^7* %d")
       *mode-line-position* :bottom
       *mode-line-timeout* 1)
 
 
 ;; Keybindings
-;; (define-ky *root-map* (kbd "N") 'notifications:*notifications-map*)
+(define-key *root-map* (kbd "N") 'notifications:*notifications-map*)
 (define-key *root-map* (kbd "h") "move-focus left")
 (define-key *root-map* (kbd "l") "move-focus right")
 (define-key *root-map* (kbd "j") "move-focus down")
