@@ -1,14 +1,17 @@
-;; Dirty Hack: https://github.com/syl20bnr/spacemacs/issues/4413
-(defvar spacemacs-mode-line-new-version-lighterp t)
-
-(defvar dotspacemacs-mu-root (expand-file-name "~/repos/mu")
+(defvar dotspacemacs-mu-root
+  (expand-file-name "~/repos/mu")
   "mu's source path")
+(defvar dotspacemacs-slack-el
+  (expand-file-name (concat dotspacemacs-directory "/slack.el"))
+  "the path to the slack elisp file")
 
 (setq dotspacemacs-additional-packages '(ob-ipython))
 
 (defun dotspacemacs/layers ()
   (setq-default dotspacemacs-configuration-layers
                 '(
+                  yaml
+                  ruby
                   ivy
                   org
                   emacs-lisp
@@ -32,6 +35,7 @@
                   restclient
                   slack
                   ;; racket
+                  common-lisp
                   (mu4e :variables
                         mu4e-installation-path
                         (concat dotspacemacs-mu-root "/mu4e"))
@@ -65,13 +69,14 @@
 
 
 (setq-default dotspacemacs-default-font '("Source Code Pro"
-                                          :size 12
+                                          :size 22
                                           :weight normal
                                           :width normal
                                           :powerline-scale 1.1))
 
 (defun dotspacemacs/user-config ()
   "Post spacemacs init config."
+
   ;; Org
   (with-eval-after-load 'org
    (defvar personal//org-todo-file "~/Dropbox/org/todo.org"
@@ -95,6 +100,15 @@
 
   (setq deft-directory "~/Dropbox/org/notes")
 
+  ;; Slack
+  (with-eval-after-load 'slack
+    (spacemacs/set-leader-keys
+      "aCr" 'slack-select-rooms
+      "aCg" 'slack-group-select)
+    (when (file-exists-p dotspacemacs-slack-el)
+      (load-file dotspacemacs-slack-el)
+      (mapcar (lambda (team) (apply 'slack-register-team team)) dotspacemacs-slack-teams)))
+
   ;; Python
   (with-eval-after-load 'python
     (setq python-shell-interpreter "ipython"
@@ -109,9 +123,6 @@
             py-indent-tabs-mode t))
     )
 
-
-  ;; Racket
-  (setq racket-racket-program "/Applications/Racket v6.2.1/bin/racket")
 
   ;; LFE
   (setq inferior-lfe-program-options '("-pa" "ebin"))
@@ -148,6 +159,7 @@
 
 (defun dotspacemacs/init ()
   "Init callback."
+  (add-hook 'after-init-hook #'global-emojify-mode)
   (setq-default dotspacemacs-editing-style 'vim
                 dotspacemacs-leader-key "SPC"
                 dotspacemacs-emacs-leader-key "M-m"
@@ -173,6 +185,7 @@
            (mu4e-message-contact-field-matches msg
                                                :to "jtmoulia@gmail.com")))
        :vars '((user-mail-address . "jtmoulia@gmail.com")
+               (user-full-name . "Thomas Moulia")
                (mu4e-inbox-folder . "/gmail/INBOX")
                (mu4e-sent-folder . "/gmail/[Gmail].Sent Mail")
                (mu4e-drafts-folder . "/gmail/[Gmail].Drafts")
@@ -183,7 +196,6 @@
                (smtpmail-default-smtp-server . "smtp.gmail.com")
                (smtpmail-smtp-server . "smtp.gmail.com")
                (smtpmail-smtp-service . 465)))
-
      ,(make-mu4e-context
        :name "pocketknife"
        :enter-func
@@ -196,6 +208,7 @@
              (mu4e-message-contact-field-matches
               msg :to "jtmoulia@pocketknife.io")))
          :vars '((user-mail-address . "jtmoulia@pocketknife.io")
+                 (user-full-name . "Thomas Moulia")
                  (mu4e-inbox-folder . "/pocketknife/INBOX")
                  (mu4e-sent-folder . "/pocketknife/INBOX.Sent Items")
                  (mu4e-drafts-folder . "/pocketknife/INBOX.Drafts")
@@ -219,6 +232,7 @@
            (mu4e-message-contact-field-matches
             msg :to "thomas@healthtensor.com")))
        :vars '((user-mail-address . "thomas@healthtensor.com")
+               (user-full-name . "Thomas Moulia")
                (mu4e-inbox-folder . "/healthtensor/INBOX")
                (mu4e-sent-folder . "/healthtensor/INBOX.Sent Items")
                (mu4e-drafts-folder . "/healthtensor/INBOX.Drafts")
@@ -287,7 +301,7 @@ spaces into LIST. Return the padded result."
   (require 'mu4e-contrib)
   (require 'org-mu4e)
   (setq-default
-   mu4e-mu-binary         (concat dotspacemacs-mu-root "/mu/mu")
+   mu4e-mu-binary         "/usr/bin/mu"
    mu4e-maildir           "~/maildirs"            ;; top-level Maildir
    mu4e-confirm-quit      nil
    mu4e-get-mail-command  "offlineimap"
@@ -313,7 +327,7 @@ spaces into LIST. Return the padded result."
    smtpmail-stream-type 'ssl
    smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
    ;; smtpmail-queue-mail t
-   smtpmail-queue-dir  "~/maildirs/queue/cur")
+   smtpmail-queue-dir  (expand-file-name "~/maildirs/queue/cur"))
 
   ;; drafts are saved as *message*-___
   (add-to-list 'auto-mode-alist '("\\*message\\*-+" . message-mode))
