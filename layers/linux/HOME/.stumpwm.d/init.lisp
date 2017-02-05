@@ -4,31 +4,30 @@
 ;; Load swank.
 ;; NB: This requires multithreaded SBCL vs CLisp
 ;; *prefix-key* ; swank will kick this off
-(load "/home/jtmoulia/.emacs.d/elpa/slime-20161102.711/swank-loader.lisp")
-(swank-loader:init)
-(defcommand swank () ()
-    (swank:create-server :port 4005
-                       :style swank:*communication-style*
-                       :dont-close t)
-  (echo-string (current-screen)
-	       "Starting swank. M-x slime-connect RET RET, then (in-package stumpwm)."))
-(swank)
+;; (load "/home/jtmoulia/.emacs.d/elpa/slime-20161102.711/swank-loader.lisp")
+;; (defcommand swank () ()
+;;     (swank:create-server :port 4005
+;;                        :style swank:*communication-style*
+;;                        :dont-close t)
+;;   (swank-loader:init)
+;;   (echo-string (current-screen)
+;; 	       "Starting swank. M-x slime-connect RET RET, then (in-package stumpwm)."))
+;; (swank)
 
 (load-module "battery-portable")
 (load-module "wifi")
 (load-module "notifications")
 
 ;; Variables
-(setf *screen-mode-line-format* "[%W] {%g} (%N)")
 (set-focus-color "red")
 ; (set-font "-xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso8859-15")
 (set-font "-*-terminus-*-*-*-*-24-*-*-*-*-*-iso10646-*")
 (setf *screen-mode-line-format*
-      (list "[^B%n^b] %W " ; groups/windows
-            "^>" ; right align
-            " %N %I %B ^7* %d")
+      (list "[^B%n^b] %u " ; groups/windows
+            "^> " ; right align
+            "%N %I %B ^7* %d")
       *mode-line-position* :bottom
-      *mode-line-timeout* 1)
+      *mode-line-timeout* 5)
 
 
 ;; Keybindings
@@ -52,6 +51,8 @@
 
 (defvar *app-map*
   (let ((m (make-sparse-keymap)))
+    (define-key m (kbd "a")
+      "run-shell-command dmenu_run -fn 'Terminus-16'")
     (define-key m (kbd "e")
       "run-shell-command emacs")
     (define-key m (kbd "x")
@@ -62,6 +63,8 @@
       "run-shell-command spotify --force-device-scale-factor=1.8")
     (define-key m (kbd "v")
       "run-shell-command pavucontrol")
+    (define-key m (kbd "k")
+      "run-shell-command enpass")
     m))
 
 (define-key *root-map* (kbd "a") '*app-map*)
