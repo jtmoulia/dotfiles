@@ -5,37 +5,37 @@
   (expand-file-name (concat dotspacemacs-directory "/slack.el"))
   "the path to the slack elisp file")
 
+(when (eq system-type 'gnu/linux)
+  (setq browse-url-browser-function 'browse-url-chromium))
+
 (setq dotspacemacs-additional-packages '(ob-ipython))
 
 (defun dotspacemacs/layers ()
   (setq-default dotspacemacs-configuration-layers
                 '(
-                  yaml
-                  ruby
-                  ivy
-                  org
-                  emacs-lisp
-                  osx
-                  git
-                  python
-                  html
-                  sql
-                  ; javascript
-                  erlang
-                  elixir
-                  ; haskell
-                  markdown
-                  rcirc
+                  ansible
                   auto-completion
-                  syntax-checking
-                  spacemacs-layouts
-                  typography
+                  clojure
+                  common-lisp
                   deft
+                  elfeed
+                  emacs-lisp
+                  git
+                  html
+                  javascript
+                  markdown
+                  nginx
+                  org
                   prodigy
+                  python
+                  rcirc
                   restclient
                   slack
-                  ;; racket
-                  common-lisp
+                  spacemacs-layouts
+                  sql
+                  syntax-checking
+                  typography
+                  yaml
                   (mu4e :variables
                         mu4e-installation-path
                         (concat dotspacemacs-mu-root "/mu4e"))
@@ -43,7 +43,6 @@
                   ;; private layers
                   ; org-page
                   ; artist
-                  ; pdf-tools
                   ; lfe
                   )))
 
@@ -76,7 +75,6 @@
 
 (defun dotspacemacs/user-config ()
   "Post spacemacs init config."
-
   ;; Org
   (with-eval-after-load 'org
    (defvar personal//org-todo-file "~/Dropbox/org/todo.org"
@@ -115,6 +113,11 @@
     (start-process "notifications-add" nil
                    "stumpish" "notifications-add" message))
 
+  ;; Elfeed
+
+  (with-eval-after-load 'elfeed
+    (setq elfeed-feeds
+          '("http://venturevalkyrie.com/rss")))
   ;; Alert
   (with-eval-after-load 'alert
     (alert-define-style 'stump :title "stumpwm notifications"
@@ -124,7 +127,7 @@
                                 (mode (symbol-name (plist-get info :mode)))
                                 (message (plist-get info :message)))
                             (stump-notify (concat title " [" mode "]: " message)))))
-    (setq alert-default-style 'stump))
+    (setq alert-default-style 'libnotify))
 
   ;; Python
   (with-eval-after-load 'python
@@ -166,12 +169,31 @@
            (sql-database "deepdive_deepmed_ubuntu")
            (sql-port 5433))))
 
+  ;; tramp
+  (add-to-list 'tramp-default-proxies-alist
+               '("ip-10-50-3-34.ec2.internal" nil "/ssh:ec2-user@34.198.67.93"))
+
   ;; Prodigy
+  (setq spacemacs--lib-dir (expand-file-name "~/lib"))
   (prodigy-define-service
     :name "biguns:5432->localhost:5433"
     :command "ssh"
-    :args '("-nNT" "-L" "5433:localhost:5432" "biguns")
+    :args '("-L" "5433:localhost:5432" "biguns" "-N")
     :tags '(:deepmed)) 
+  (prodigy-define-service
+    :name "allscratch webpack"
+    :command "yarn"
+    :tags '(allscratch frontend)
+    :args '("start")
+    :cwd (concat spacemacs--lib-dir "/allscratch"))
+  (prodigy-define-service
+    :name "allscratch dev backend"
+    :tags '(allscratch backend)
+    :cwd (concat spacemacs--lib-dir "/allscratch")
+    :command "/home/jtmoulia/.virtualenvs/allscratch/bin/python"
+    :args (list (concat spacemacs--lib-dir "/allscratch/bin/runflask"))
+    :env '(("ALLSCRATCH_ENV" "dev")))
+
   )
 
 (defun dotspacemacs/init ()
@@ -327,9 +349,9 @@ spaces into LIST. Return the padded result."
    mu4e-compose-signature (apply 'concat (-interpose
                                           "  \n"
                                           '("Thomas Moulia"
-                                            "jtmoulia.pocketknife.io"
-                                            "Skype: jtmoulia"
-                                            "@jtmoulia")))
+                                            "Co-Founder & CTO | HealthTensor"
+                                            "www.healthtensor.com"
+                                            "jtmoulia.pocketknife.io")))
    mu4e-compose-dont-reply-to-self t
    mu4e-compose-complete-only-personal t
    mu4e-hide-index-messages nil
@@ -374,5 +396,24 @@ spaces into LIST. Return the padded result."
             "Messages with images" ?p)
            (,(dotspacemacs//flat-cat-pose "AND"
               "flag:unread" "NOT flag:trashed" not-spam)
-            "Unread spam" ?s))))
+            "Unread spam" ?s)))
+
+    (setq mu4e-maildir-shortcuts
+          '(("/INBOX" . ?i)))
+    )
   )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files nil)
+ '(package-selected-packages
+   (quote
+    (nginx-mode jinja2-mode ansible-doc ansible web-beautify livid-mode skewer-mode json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern tern coffee-mode clj-refactor inflections edn clojure-snippets multiple-cursors paredit peg cider-eval-sexp-fu cider seq queue clojure-mode elfeed-web simple-httpd elfeed-org elfeed-goodies ace-jump-mode noflet elfeed helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag define-word ace-jump-helm-line yapfify yaml-mode ws-butler window-numbering which-key wgrep web-mode volatile-highlights vi-tilde-fringe uuidgen use-package typo toc-org tagedit sql-indent spacemacs-theme spaceline smex smeargle slime-company slim-mode slack scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restclient restart-emacs rcirc-notify rcirc-color rbenv rake rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-isort pug-mode prodigy popwin pip-requirements persp-mode pbcopy paradox osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file ob-ipython ob-http ob-elixir neotree mu4e-maildirs-extension mu4e-alert move-text mmm-mode minitest markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint less-css-mode launchctl ivy-hydra info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flycheck-mix flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu erlang emmet-mode elisp-slime-nav dumb-jump deft cython-mode counsel-projectile company-web company-statistics company-anaconda common-lisp-snippets column-enforce-mode color-theme-sanityinc-tomorrow clean-aindent-mode chruby bundler auto-yasnippet auto-highlight-symbol auto-compile alchemist aggressive-indent adaptive-wrap ace-window ace-link ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
