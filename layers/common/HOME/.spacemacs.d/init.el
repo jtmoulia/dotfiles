@@ -68,7 +68,7 @@
 
 
 (setq-default dotspacemacs-default-font '("Source Code Pro"
-                                          :size 22
+                                          :size 18
                                           :weight normal
                                           :width normal
                                           :powerline-scale 1.1))
@@ -131,10 +131,11 @@
 
   ;; Python
   (with-eval-after-load 'python
-    (setq python-shell-interpreter "ipython"
-          ; For IPython 5.x --
-          python-shell-interpreter-args "--simple-prompt -i"
-          )
+    ;; (setq python-shell-interpreter "ipython"
+    ;;       ; For IPython 5.x --
+    ;;       python-shell-interpreter-args "--simple-prompt -i"
+    ;;       )
+    (setq python-shell-interpreter "python")
 
     (defun python-use-tabs ()
       (interactive)
@@ -170,11 +171,11 @@
            (sql-port 5433))))
 
   ;; tramp
-  (add-to-list 'tramp-default-proxies-alist
-               '("ip-10-50-3-34.ec2.internal" nil "/ssh:ec2-user@34.198.67.93"))
+  ;; (add-to-list 'tramp-default-proxies-alist
+  ;;              '("ip-10-50-3-34.ec2.internal" nil "/ssh:ec2-user@34.198.67.93"))
 
   ;; Prodigy
-  (setq spacemacs--lib-dir (expand-file-name "~/lib"))
+  (setq spacemacs--repos-dir (expand-file-name "~/repos"))
   (prodigy-define-service
     :name "biguns:5432->localhost:5433"
     :command "ssh"
@@ -185,14 +186,22 @@
     :command "yarn"
     :tags '(allscratch frontend)
     :args '("start")
-    :cwd (concat spacemacs--lib-dir "/allscratch"))
+    :cwd (concat spacemacs--repos-dir "/allscratch"))
   (prodigy-define-service
     :name "allscratch dev backend"
     :tags '(allscratch backend)
-    :cwd (concat spacemacs--lib-dir "/allscratch")
+    :cwd (concat spacemacs--repos-dir "/allscratch")
     :command "/home/jtmoulia/.virtualenvs/allscratch/bin/python"
-    :args (list (concat spacemacs--lib-dir "/allscratch/bin/runflask"))
+    :args (list (concat spacemacs--repos-dir "/allscratch/bin/runflask"))
     :env '(("ALLSCRATCH_ENV" "dev")))
+  ;; TODO
+  (prodigy-define-service
+    :name "healthtensor research tunnel"
+    :tags '(healthtensor tunnel)
+    :command "ssh"
+    ;; :cwd 
+    :args (list "-F" (concat spacemacs--repos-dir "/hippos/ssh.conf")
+                "-L"))
 
   )
 
@@ -410,7 +419,7 @@ spaces into LIST. Return the padded result."
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (nginx-mode jinja2-mode ansible-doc ansible web-beautify livid-mode skewer-mode json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern tern coffee-mode clj-refactor inflections edn clojure-snippets multiple-cursors paredit peg cider-eval-sexp-fu cider seq queue clojure-mode elfeed-web simple-httpd elfeed-org elfeed-goodies ace-jump-mode noflet elfeed helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag define-word ace-jump-helm-line yapfify yaml-mode ws-butler window-numbering which-key wgrep web-mode volatile-highlights vi-tilde-fringe uuidgen use-package typo toc-org tagedit sql-indent spacemacs-theme spaceline smex smeargle slime-company slim-mode slack scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restclient restart-emacs rcirc-notify rcirc-color rbenv rake rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-isort pug-mode prodigy popwin pip-requirements persp-mode pbcopy paradox osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file ob-ipython ob-http ob-elixir neotree mu4e-maildirs-extension mu4e-alert move-text mmm-mode minitest markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint less-css-mode launchctl ivy-hydra info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flycheck-mix flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu erlang emmet-mode elisp-slime-nav dumb-jump deft cython-mode counsel-projectile company-web company-statistics company-anaconda common-lisp-snippets column-enforce-mode color-theme-sanityinc-tomorrow clean-aindent-mode chruby bundler auto-yasnippet auto-highlight-symbol auto-compile alchemist aggressive-indent adaptive-wrap ace-window ace-link ac-ispell))))
+    (slime emojify circe oauth2 websocket pcre2el ht markdown-mode macrostep parent-mode projectile request haml-mode pos-tip flycheck flx magit magit-popup git-commit with-editor smartparens iedit anzu evil goto-chg undo-tree org powerline diminish web-completion-data dash-functional company hydra highlight spinner pkg-info epl bind-map bind-key yasnippet packed anaconda-mode pythonic f dash s alert log4e gntp helm avy helm-core async auto-complete popup package-build nginx-mode jinja2-mode ansible-doc ansible web-beautify livid-mode skewer-mode json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern tern coffee-mode clj-refactor inflections edn clojure-snippets multiple-cursors paredit peg cider-eval-sexp-fu cider seq queue clojure-mode elfeed-web simple-httpd elfeed-org elfeed-goodies ace-jump-mode noflet elfeed helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag define-word ace-jump-helm-line yapfify yaml-mode ws-butler window-numbering which-key wgrep web-mode volatile-highlights vi-tilde-fringe uuidgen use-package typo toc-org tagedit sql-indent spacemacs-theme spaceline smex smeargle slime-company slim-mode slack scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restclient restart-emacs rcirc-notify rcirc-color rbenv rake rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-isort pug-mode prodigy popwin pip-requirements persp-mode pbcopy paradox osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file ob-ipython ob-http ob-elixir neotree mu4e-maildirs-extension mu4e-alert move-text mmm-mode minitest markdown-toc magit-gitflow lorem-ipsum live-py-mode linum-relative link-hint less-css-mode launchctl ivy-hydra info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make google-translate golden-ratio gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-pos-tip flycheck-mix flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu erlang emmet-mode elisp-slime-nav dumb-jump deft cython-mode counsel-projectile company-web company-statistics company-anaconda common-lisp-snippets column-enforce-mode color-theme-sanityinc-tomorrow clean-aindent-mode chruby bundler auto-yasnippet auto-highlight-symbol auto-compile alchemist aggressive-indent adaptive-wrap ace-window ace-link ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -3,7 +3,7 @@ import subprocess
 import getpass
 
 DEFAULT_ARGS = ['gpg', '--decrypt', '--quiet', '--batch']
-DEFAULT_PATH = '/Users/jtmoulia/.authinfo.gpg'
+DEFAULT_PATH = '/home/jtmoulia/.authinfo.gpg'
 
 def _auth_parse_line(line):
     "Return a dict containing the line's auth info."
