@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+LAYER_DIR=${LAYER_DIR:-layers/common}
+HOME_DIR="$LAYER_DIR/HOME"
+
+function dodiff() {
+    cmp --silent "$1" "$2" || echo "<" "$1" ">" "$2"
+    diff "$1" "$2"
+    # TODO: should be able to just use the exit status from the previous cmp
+    cmp --silent "$1" "$2" || echo
+}
+
+find "$LAYER_DIR" -path "$HOME_DIR" -prune -o -type f -print0 | while IFS= read -r -d $'\0' layer_file; do
+    sys_file=${layer_file#$LAYER_DIR}
+    dodiff "$layer_file" "$sys_file"
+done
+
+find "$HOME_DIR" -type f -print0 | while IFS= read -r -d $'\0' layer_file; do
+    sys_file="$HOME${layer_file#$HOME_DIR}"
+    dodiff "$layer_file" "$sys_file"
+done
