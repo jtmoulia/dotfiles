@@ -37,6 +37,22 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-xscreensaver -no-splash &
+if [[ "$(which sleepd)" ]]; then
+  sleepd
+fi
+
+xset -b
+setxkbmap -option caps:ctrl_modifier
+
+if [[ "$(which xscreensaver)" ]]; then
+    xscreensaver -no-splash &
+fi
+
 eval "$(ssh-agent)"
+
+DIRCOLORS_THEME=/home/jtmoulia/repos/dircolors-solarized/dircolors.ansi-dark
+if [[ -b "$DIRCOLORS_THEME" ]]; then
+    eval $(dircolors "$DIRCOLORS_THEME")
+fi
+
 exec stumpwm

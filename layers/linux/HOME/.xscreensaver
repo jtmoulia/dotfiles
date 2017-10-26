@@ -1,5 +1,5 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.36 for jtmoulia on Wed Jan 18 21:43:43 2017.
+# Written by xscreensaver-demo 5.36 for jtmoulia on Thu Feb 16 08:17:32 2017.
 # https://www.jwz.org/xscreensaver/
 
 timeout:	0:04:00
@@ -35,7 +35,7 @@ chooseRandomImages: False
 imageDirectory:	
 
 mode:		one
-selected:	53
+selected:	101
 
 textMode:	file
 textLiteral:	XScreenSaver
@@ -145,7 +145,8 @@ programs:								      \
   GL: 				flipscreen3d -root			    \n\
   GL: 				gltext -root				    \n\
   GL: 				menger -root				    \n\
-  GL: 				molecule -root				    \n\
+  GL: 				molecule -root -timeout 71 -molecule	      \
+				  /home/jtmoulia/ocloud/molecules	    \n\
 				rotzoomer -root				    \n\
 				speedmine -root				    \n\
   GL: 				starwars -root				    \n\
