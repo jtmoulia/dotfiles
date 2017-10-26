@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# key : bind-method
+# name : bind this method
+# contributor : Thomas Moulia <jtmoulia@pocketknife.io>
+# expand-env: ((yas-indent-line 'fixed))
+# --
+this.$1 = $1.bind(this);

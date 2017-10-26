@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# key : component
+# name : react component
+# contributor : Thomas Moulia <jtmoulia@pocketknife.io>
+# expand-env: ((yas-indent-line 'fixed))
+# --
+class $1 extends React.Component {
+  constructor(props) {
+    super(props);
+    $0
+  }
+
+  render() {
+    const {} = this.props;
+  }
+}
+$1.propTypes = {};
