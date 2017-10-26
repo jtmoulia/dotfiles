@@ -2,11 +2,31 @@
 LAYER_DIR=${LAYER_DIR:-layers/common}
 HOME_DIR="$LAYER_DIR/HOME"
 
+show_diff=false
+while [[ "$1" ]]; do
+    case "$1" in
+        -h|--diff)
+            show_diff=true
+            shift
+            ;;
+        *)
+            echo "Unexpected argument: $1"
+            exit 1
+            ;;
+    esac
+done
+
 function dodiff() {
-    cmp --silent "$1" "$2" || echo "<" "$1" ">" "$2"
-    diff "$1" "$2"
-    # TODO: should be able to just use the exit status from the previous cmp
-    cmp --silent "$1" "$2" || echo
+    cmp --silent "$1" "$2"
+    cmp_status=$?
+    if [[ $cmp_status -eq 1 ]]; then
+        echo "<" "$1"
+        echo ">" "$2"
+        if [[ "$show_diff" = true ]]; then
+            emacsclient -t --eval "(ediff \"$1\" \"$2\")"
+        fi
+        echo
+    fi
 }
 
 find "$LAYER_DIR" -path "$HOME_DIR" -prune -o -type f -print0 | while IFS= read -r -d $'\0' layer_file; do
