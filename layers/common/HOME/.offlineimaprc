@@ -1,5 +1,5 @@
 [general]
-accounts = Pocketknife, Gmail
+accounts = Gmail, HealthTensor
 maxsyncaccounts = 3
 pythonfile = ~/.offlineimap.py
 
@@ -7,8 +7,7 @@ pythonfile = ~/.offlineimap.py
 localrepository = GmailLocal
 remoterepository = GmailRemote
 synclabels=yes
-maxsize = 4000000
-maxage = 365
+maxage = 1460
 
 [Repository GmailLocal]
 type = GmailMaildir
@@ -18,17 +17,19 @@ localfolders = ~/maildirs/gmail
 type = Gmail
 remotehost = imap.gmail.com
 remoteuser = jtmoulia@gmail.com
-remotepasseval = auth_pass("jtmoulia@gmail.com")
 ssl = yes
-sslcacertfile = /usr/local/etc/openssl/cert.pem
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 maxconnections = 4
 realdelete = no
 folderfilter = lambda folder: (folder not in ['Trash', 'Sent Messages', 'Notes', 'Familia', 'Med', 'mcat', 'actions', '[Gmail]/Starred', '[Gmail]/Important', 'Familia', '[Gmail]/Archive']) and not folder.startswith('[Mailbox]') and not folder.startswith('[Airmail]')
+oauth2_client_id = 394389117033-8fot7pgkufiejqf0knjsdk59t68qttgk.apps.googleusercontent.com
+oauth2_client_secret = mNo_F-7yGUnz_b8e10YxYNhL
+oauth2_request_url = https://accounts.google.com/o/oauth2/token
+oauth2_refresh_token = 1/9yAiZPHFv45XbMGqC5Xq9TOfrzTHzqF_35_lqEMVYwE
 
 [Account Pocketknife]
 localrepository = PocketknifeLocal
 remoterepository = PocketknifeRemote
-maxsize = 2000000
 
 [Repository PocketknifeLocal]
 type = Maildir
@@ -40,6 +41,29 @@ remotehost = mail.messagingengine.com
 remoteuser = jtmoulia@pocketknife.io
 remotepasseval = auth_pass("jtmoulia@pocketknife.io")
 ssl = yes
-cert_fingerprint = 958b1601563aef92607a41eb5bad22e3cace8431
+cert_fingerprint = bddc89dae48629898af13421d7844f806ca33943
 maxconnections = 4
 realdelete = yes
+
+[Account HealthTensor]
+localrepository = HealthTensorLocal
+remoterepository = HealthTensorRemote
+synclabels=yes
+
+[Repository HealthTensorLocal]
+type = GmailMaildir
+localfolders = ~/maildirs/healthtensor
+
+[Repository HealthTensorRemote]
+type = Gmail
+remotehost = imap.gmail.com
+remoteuser = thomas@healthtensor.com
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+maxconnections = 4
+realdelete = no
+folderfilter = lambda folder: (folder not in ['Trash', 'Sent Messages', 'Notes', 'Familia', 'Med', 'mcat', 'actions', '[Gmail]/Starred', '[Gmail]/Important', 'Familia', '[Gmail]/Archive']) and not folder.startswith('[Mailbox]') and not folder.startswith('[Airmail]')
+oauth2_client_id = 752009365088-4uj7cq4mmlcshhcu44sr72fdlvlpl05s.apps.googleusercontent.com
+oauth2_client_secret = imsMqIScz7lYYm7N4cjfmm1d
+oauth2_request_url = https://accounts.google.com/o/oauth2/token
+oauth2_refresh_token = 1/tyyQH8f0ilS08ElNdavfCT3z54enmdbM_JBmfbdd_js

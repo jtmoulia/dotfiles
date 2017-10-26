@@ -60,7 +60,7 @@
       ;;     vars))
 
       (defun my-op//read-site ()
-        "Helper function for reading a SITE given `my-op-sites'."
+        "Helper function for reading a SITE given `my-op-projects-alist'."
         (intern-soft
          (completing-read "Site: "
                           (-map (function car) my-op-sites))))
@@ -90,7 +90,7 @@ after evaluating form."
 else it asks for and sets the active site."
         (if my-op-site
             my-op-site
-          (setq my-op-site (my-op//read-site))))
+          (setq my-op-site (my-op//read-project))))
 
       (defun my-op/site ()
         "Get the current site by calling `my-op-project-policy'."
@@ -102,7 +102,7 @@ SITE is invalid.
 
 See `my-op-sites'."
         (interactive (list (my-op/proj)ect))
-        (let ((vars (cdr (assoc site my-op-sites))))
+        (let ((vars (cdr (assoc site my-op-projects))))
           (if vars (my-op//apply-variables vars))))
 
       (defun my-op/do-publication (&optional site force-all base-git-commit pub-base-dir auto-commit auto-push)
