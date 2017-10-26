@@ -29,6 +29,8 @@
                   git
                   html
                   javascript
+                  ; itome-react  ; react
+                  react
                   markdown
                   ;; nginx
                   org
@@ -46,7 +48,6 @@
                   (mu4e :variables
                         mu4e-installation-path
                         (concat dotspacemacs-mu-root "/mu4e"))
-                  ; themes-megapack
                   ;; private layers
                   ; org-page
                   ; artist

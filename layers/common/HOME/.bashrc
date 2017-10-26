@@ -5,8 +5,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-## Define Functions
-
 # Path to the bash it configuration
 export BASH_IT="/home/jtmoulia/.bash_it"
 

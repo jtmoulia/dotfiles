@@ -34,7 +34,7 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /usr/bin/virtualenvwrapper.sh
 
-prepend_to_path "/Users/jtmoulia/local/bin" "${HOME}/.config/yarn/global/node_modules/.bin"
+prepend_to_path "${HOME}/local/bin" "${HOME}/.config/yarn/global/node_modules/.bin"
 
 if [ $(command -v ruby) ]; then
     prepend_to_path "$(ruby -e 'print Gem.user_dir')/bin"
