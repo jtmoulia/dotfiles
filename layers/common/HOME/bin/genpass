@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+shuf -n4 /usr/share/dict/words \
+    | paste -s -d- \
+    | perl -pe "s/[']//g"
