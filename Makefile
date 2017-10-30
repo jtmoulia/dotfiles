@@ -124,3 +124,11 @@ $(HOME)/%: $(BACKUP_DIR)/% $(LAYER_DIR)/$(HOME_ALIAS)/%.diff
 
 /%: $(BACKUP_DIR)/% $(LAYER_DIR)/%.diff
 	patch $^ -o $@
+
+
+#############
+## Arch Linux
+#############
+
+pkglist:
+	pacman -Qqe > $@
