@@ -1,0 +1,10 @@
+[Unit]
+Description=clipster daemon
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/clipster --daemon
+Restart=always
+
+[Install]
+WantedBy=default.target
