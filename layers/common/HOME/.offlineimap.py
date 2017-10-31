@@ -31,9 +31,18 @@ def _auth_read(path, *args):
     return infos
 
 def auth_info(account, path=DEFAULT_PATH):
-    "Load the auth info from an encrypted authinfo file."
+    """Load the auth info from an encrypted authinfo file."""
     return _auth_read(path)[account]
 
 def auth_pass(account, *args):
-    "Return the password associated with `account` in authinfo."
+    """Return the password associated with `account` in authinfo."""
     return auth_info(account, *args)['password']
+
+def pass_get(pass_name, key):
+    """Use ``pass`` to get a particular line from a password file.
+
+    See ``pass-get``.
+    """
+    result = subprocess.check_output(["pass-get", pass_name, key]).strip()
+    if result:
+        return result

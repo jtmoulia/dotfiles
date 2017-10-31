@@ -22,10 +22,10 @@ sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 maxconnections = 4
 realdelete = no
 folderfilter = lambda folder: (folder not in ['Trash', 'Sent Messages', 'Notes', 'Familia', 'Med', 'mcat', 'actions', '[Gmail]/Starred', '[Gmail]/Important', 'Familia', '[Gmail]/Archive']) and not folder.startswith('[Mailbox]') and not folder.startswith('[Airmail]')
-oauth2_client_id = 394389117033-8fot7pgkufiejqf0knjsdk59t68qttgk.apps.googleusercontent.com
-oauth2_client_secret = mNo_F-7yGUnz_b8e10YxYNhL
-oauth2_request_url = https://accounts.google.com/o/oauth2/token
-oauth2_refresh_token = 1/9yAiZPHFv45XbMGqC5Xq9TOfrzTHzqF_35_lqEMVYwE
+oauth2_client_id_eval = pass_get('google-jtmoulia', 'oauth2_client_id')
+oauth2_client_secret_eval = pass_get('google-jtmoulia', 'oauth2_client_secret')
+oauth2_request_url_eval = pass_get('google-jtmoulia', 'oauth2_request_url')
+oauth2_refresh_token_eval = pass_get('google-jtmoulia', 'oauth2_refresh_token')
 
 [Account Pocketknife]
 localrepository = PocketknifeLocal
@@ -63,7 +63,7 @@ sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 maxconnections = 4
 realdelete = no
 folderfilter = lambda folder: (folder not in ['Trash', 'Sent Messages', 'Notes', 'Familia', 'Med', 'mcat', 'actions', '[Gmail]/Starred', '[Gmail]/Important', 'Familia', '[Gmail]/Archive']) and not folder.startswith('[Mailbox]') and not folder.startswith('[Airmail]')
-oauth2_client_id = 752009365088-4uj7cq4mmlcshhcu44sr72fdlvlpl05s.apps.googleusercontent.com
-oauth2_client_secret = imsMqIScz7lYYm7N4cjfmm1d
-oauth2_request_url = https://accounts.google.com/o/oauth2/token
-oauth2_refresh_token = 1/tyyQH8f0ilS08ElNdavfCT3z54enmdbM_JBmfbdd_js
+oauth2_client_id_eval = pass_get('google-healthtensor', 'oauth2_client_id')
+oauth2_client_secret_eval = pass_get('google-healthtensor', 'oauth2_client_secret')
+oauth2_request_url_eval = pass_get('google-healthtensor', 'oauth2_request_url')
+oauth2_refresh_token_eval = pass_get('google-healthtensor', 'oauth2_refresh_token')
