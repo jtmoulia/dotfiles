@@ -26,8 +26,8 @@ tt () { echo -ne "\033]0;$@\\007"; }
 append_to_path "/usr/local/bin" "${HOME}/bin"
 
 # Set my editor and git editor
-export EDITOR="$(which nvim)"
-export GIT_EDITOR="$(which nvim)"
+export EDITOR="$(which emacsclient) -t"
+export GIT_EDITOR="$(which emacsclient) -t"
 
 # virtualenv[wrapper]
 export WORKON_HOME=$HOME/.virtualenvs
