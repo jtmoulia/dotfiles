@@ -54,6 +54,7 @@ terminus-font
 termite
 the_silver_searcher
 thunar
+tint2
 tk
 tmux
 traceroute
