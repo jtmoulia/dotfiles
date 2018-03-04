@@ -25,7 +25,9 @@
 (setf *screen-mode-line-format*
       (list "[^B%n^b] %u " ; groups/windows
             "^> " ; right align
-            "%N %I %B ^7* %d")
+            "%N "
+            "[Network: %I] "
+            "[Power: %B] ^7* %d")
       *mode-line-position* :bottom
       *mode-line-timeout* 5)
 
@@ -94,11 +96,11 @@
 (define-key *top-map* (kbd "XF86MonBrightnessDown") "run-shell-command light -U 10")
 (define-key *top-map* (kbd "XF86MonBrightnessUp") "run-shell-command light -A 10")
 
-(define-key *top-map* (kbd "XF86AudioMute") "run-shell-command pactl set-sink-mute 1 toggle")
+(define-key *top-map* (kbd "XF86AudioMute") "run-shell-command pactl set-sink-mute 0 toggle")
 (define-key *top-map* (kbd "XF86AudioLowerVolume")
-  "run-shell-command pactl set-sink-mute 1 false; pactl set-sink-volume 1 -5%")
+  "run-shell-command pactl set-sink-mute 0 false; pactl set-sink-volume 0 -5%")
 (define-key *top-map* (kbd "XF86AudioRaiseVolume")
-  "run-shell-command pactl set-sink-mute 1 false; pactl set-sink-volume 1 +5%")
+  "run-shell-command pactl set-sink-mute 0 false; pactl set-sink-volume 0 +5%")
 
 
 ;; Renumber windows by class (https://github.com/stumpwm/stumpwm/wiki/TipsAndTricks)
