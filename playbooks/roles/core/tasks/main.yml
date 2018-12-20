@@ -1,0 +1,13 @@
+---
+- name: install/update core libraries
+  become: true
+  package: name={{ item }} state=latest
+  with_items:
+    - git
+    - ansible
+    - fish
+    - sudo
+
+- name: ensure the users are setup correctly
+  become: true
+  user: name=jtmoulia shell=/usr/bin/fish groups=wheel

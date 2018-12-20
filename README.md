@@ -6,6 +6,30 @@ My dotfiles. They're organized in layers which
   - are installed to their relative path
   - keep backups
 
+## Prelude
+
+Set your root password to something secure:
+
+```shell
+# passwd
+```
+
+If you want to create a user account (`jtmoulia` for the sake of history):
+
+```shell
+# useradd --create-home -G wheel jtmoulia
+# passwd jtmoulia
+```
+
+Note: the ansible deploy scripts will ensure that the user is properly configured.
+
+Make sure that you've installed the necessary deps for running `wifi-menu`,
+otherwise you won't be able to connect to the network:
+
+```shell
+# pacman -S dialog wpa_supplicant
+```
+
 ## Basic Usage
 
 To install some software (well, Emacs) and the common layer:

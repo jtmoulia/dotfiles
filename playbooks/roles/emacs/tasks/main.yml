@@ -1,0 +1,4 @@
+---
+- name: install/update emacs
+  become: true
+  package: name=emacs state=latest

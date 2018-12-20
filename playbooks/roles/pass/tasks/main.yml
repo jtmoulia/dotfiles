@@ -1,0 +1,7 @@
+---
+- name: install/update pass
+  become: true
+  package: name=pass state=latest
+
+- name: clone password store
+  git: repo=jtmoulia@shed.pocketknife.io:/home/jtmoulia/repos/password-store.git dest=~/.password-store
