@@ -1,0 +1,16 @@
+---
+- name: install base development packages
+  become: yes
+  package:
+    name: base-devel
+
+- name: pull pikaur
+  git:
+    repo: https://aur.archlinux.org/pikaur.git
+    dest: ~/lib/pikaur
+
+- name: make and install pikaur
+  become: yes
+  command: makepkg -fsri
+  args:
+    chdir: ~/lib/pikaur

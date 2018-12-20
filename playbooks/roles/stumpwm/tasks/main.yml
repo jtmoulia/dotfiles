@@ -1,0 +1,3 @@
+---
+- name: install stumpwm-git
+  command: pikaur -Sy stumpwm-git

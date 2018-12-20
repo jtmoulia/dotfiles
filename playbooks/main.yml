@@ -4,5 +4,7 @@
   remote_user: "{{ local_user }}"
   roles:
     - core
+    - arch
     - emacs
     - pass
+    - stumpwm
