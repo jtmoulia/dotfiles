@@ -1,3 +1,20 @@
 ---
+
 - name: install stumpwm-git
-  command: pikaur -Sy stumpwm-git
+  command: pikaur -Sy --noconfirm --noprogressbar stumpwm-git
+
+- name: install supporting packages
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - light
+    - dmenu
+    - clipmenu
+    - tint2
+
+- name: copy in the stumpwm config
+  copy:
+    src: "files/stumpwm.d/"
+    dest: "~/.stumpwm.d"

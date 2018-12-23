@@ -1,0 +1,10 @@
+---
+- name: ensure xscreensaver is installed
+  become: yes
+  package:
+    name: xscreensaver
+
+- name: copy in xscreensaver config
+  copy:
+    src: "files/xscreensaver"
+    dest: "~/.xscreensaver"

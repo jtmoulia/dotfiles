@@ -42,7 +42,7 @@
 (defvar *app-map*
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "a")
-      "run-shell-command dmenu_run -i -fn 'Source Code Pro-18'")
+      "run-shell-command dmenu_run -i -fn 'Terminus-18'")
     (define-key m (kbd "e")
       "run-shell-command emacsclient -c")
     (define-key m (kbd "E")
@@ -54,7 +54,7 @@
     (define-key m (kbd "c")
       "run-shell-command chromium --force-device-scale-factor=2.0")
     (define-key m (kbd "f")
-      "run-shell-command firefox-developer")
+      "run-shell-command firefox-developer-edition")
     (define-key m (kbd "s")
       "run-shell-command spotify --force-device-scale-factor=2.0")
     (define-key m (kbd "S")
@@ -64,7 +64,7 @@
     (define-key m (kbd "k")
       "run-shell-command enpass")
     (define-key m (kbd "p")
-      "run-shell-command passmenu -i -fn 'Source Code Pro-18'")
+      "run-shell-command passmenu -i -fn 'Terminus-18'")
     m))
 
 (define-key *root-map* (kbd "a") '*app-map*)

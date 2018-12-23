@@ -1,0 +1,25 @@
+---
+
+- name: install xorg packages (arch)
+  become: yes
+  package:
+    name: "{{ item }}"
+  with_items:
+    - xorg-server
+    - xorg-xinit
+    # - xorg-xmodmap
+
+- name: copy in .xinitrc file
+  copy:
+    src: "files/xinitrc"
+    dest: "~/.xinitrc"
+
+# - name: copy in .Xmodmap file
+#   copy:
+#     src: "files/Xmodmap"
+#     dest: "~/.Xmodmap"
+
+- name: copy in .Xresources file
+  copy:
+    src: "files/Xresources"
+    dest: "~/.Xresources"

@@ -4,3 +4,9 @@
   become: yes
   package:
     name: tmux
+
+
+- name: copy in tmux.conf
+  copy:
+    src: "files/tmux.conf"
+    dest: "~/.tmux.conf"

@@ -1,0 +1,13 @@
+---
+
+- name: install GUI apps
+  become: yes
+  package:
+    name: "{{ item }}"
+  with_items:
+    - firefox
+    - chromium
+    - termite
+
+- name: install spotify
+  command: pikaur -Sy --noconfirm --noprogressbar spotify

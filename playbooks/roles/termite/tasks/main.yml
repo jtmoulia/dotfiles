@@ -1,0 +1,18 @@
+---
+- name: install termite and fonts
+  become: yes
+  package:
+    name: "{{ item }}"
+  with_items:
+    - termite
+    - adobe-source-code-pro-fonts
+
+- name: ensure that the termite config directory exists
+  file:
+    path: "~/.config/termite"
+    state: directory
+
+- name: copy in termite config
+  copy:
+    src: "files/termite.config"
+    dest: "~/.config/termite/config"

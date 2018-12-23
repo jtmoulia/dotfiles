@@ -1,0 +1,11 @@
+---
+
+- name: install the nextcloud client
+  become: yes
+  package:
+    name: nextcloud-client
+
+- name: ensure the ocloud directory exists
+  file:
+    path: "~/ocloud"
+    state: directory

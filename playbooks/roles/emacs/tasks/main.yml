@@ -2,3 +2,31 @@
 - name: install/update emacs
   become: true
   package: name=emacs state=latest
+
+- name: install spacemacs (dev branch)
+  git:
+    repo: https://github.com/syl20bnr/spacemacs
+    dest: "~/.emacs.d"
+    version: develop
+
+- name: install spacemacs config
+  copy:
+    src: "files/spacemacs.d/"
+    dest: "~/.spacemacs.d"
+
+- name: ensure that the emacs systemd directory exists
+  file:
+    path: "~/.config/systemd/user"
+    state: directory
+
+- name: copy in the emacs config
+  copy:
+    src: "files/emacs.service"
+    dest: "~/.config/systemd/user/emacs.service"
+
+- name: enable the emacs service
+  systemd:
+    name: emacs
+    scope: user
+    enabled: true
+    state: started

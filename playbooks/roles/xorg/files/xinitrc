@@ -25,7 +25,6 @@ fi
 
 if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
-    xmodmap $HOME/.Xmodmap
 fi
 
 # start some nice programs

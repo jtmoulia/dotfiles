@@ -3,9 +3,15 @@
   connection: local
   remote_user: "{{ local_user }}"
   roles:
+    - {role: git, tags: git}
     - {role: core, tags: core}
     - {role: arch, tags: arch}
     - {role: emacs, tags: emacs}
     - {role: tmux, tags: tmux}
+    - {role: nextcloud, tags: nextcloud}
+    - {role: xorg, tags: xorg}
     - {role: stumpwm, tags: stumpwm}
+    - {role: termite, tags: termite}
+    - {role: xapps, tags: xapps}
+    - {role: xscreensaver, tags: xscreensaver}
     # - {role: pass, tags: pass}
