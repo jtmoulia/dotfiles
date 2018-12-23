@@ -1,0 +1,6 @@
+---
+
+- name: ensure tmux is installed
+  become: yes
+  package:
+    name: tmux

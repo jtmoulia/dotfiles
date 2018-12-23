@@ -10,4 +10,5 @@ ansible-playbook \
     --inventory "${dotfiles_path}/playbooks/.inventory" \
     --ask-become-pass \
     "${dotfiles_path}/playbooks/main.yml" \
-    --extra "local_user=$USER"
+    --extra "local_user=$USER" \
+    "$@"

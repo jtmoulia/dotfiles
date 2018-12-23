@@ -3,8 +3,9 @@
   connection: local
   remote_user: "{{ local_user }}"
   roles:
-    - core
-    - arch
-    - emacs
-    - pass
-    - stumpwm
+    - {role: core, tags: core}
+    - {role: arch, tags: arch}
+    - {role: emacs, tags: emacs}
+    - {role: tmux, tags: tmux}
+    - {role: stumpwm, tags: stumpwm}
+    # - {role: pass, tags: pass}
