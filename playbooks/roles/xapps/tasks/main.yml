@@ -9,5 +9,8 @@
     - chromium
     - termite
 
-- name: install spotify
-  command: pikaur -Sy --noconfirm --noprogressbar spotify
+- name: install GUI apps from aur
+  command: "pikaur -Sy --noconfirm --noprogressbar {{ item }}"
+  with_items:
+    - spotify
+    - slack-desktop

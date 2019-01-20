@@ -45,9 +45,7 @@
                   syntax-checking
                   typography
                   yaml
-                  (mu4e :variables
-                        mu4e-installation-path
-                        (concat dotspacemacs-mu-root "/mu4e"))
+                  (mu4e :variables mu4e-installation-path "{{ emacs_mu4e_installation_path }}")
                   ;; private layers
                   ; org-page
                   ; artist
@@ -91,10 +89,10 @@
 
 
 (setq-default dotspacemacs-default-font '("Source Code Pro"
-                                          :size 26
+                                          :size {{ emacs_font_size }}
                                           :weight normal
                                           :width normal
-                                          :powerline-scale 1.1))
+                                          :powerline-scale {{ emacs_powerline_scale }}))
 
 (defun dotspacemacs/user-config ()
   "Post spacemacs init config."

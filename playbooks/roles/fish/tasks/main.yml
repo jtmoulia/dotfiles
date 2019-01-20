@@ -1,0 +1,24 @@
+---
+- name: ensure fish is installed
+  package:
+    name: fish
+    state: latest
+
+- name: create fish config dir
+  file:
+    name: "~/.config/fish/functions"
+    state: directory
+
+- name: copy in fish fzf config
+  copy:
+    src: "files/fish_user_key_bindings.fish"
+    dest: "~/.config/fish/functions/fish_user_key_bindings.fish"
+
+- name: copy in fish init file
+  copy:
+    src: "files/set_initial_globals.fish"
+    dest: "~/.config/fish/set_inital_globals.fish"
+
+- name: set initial global fish variables
+  command: fish "~/.config/fish/set_inital_globals.fish"
+  run_once: true

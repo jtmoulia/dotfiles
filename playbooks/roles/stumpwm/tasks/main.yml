@@ -14,7 +14,13 @@
     - clipmenu
     - tint2
 
-- name: copy in the stumpwm config
-  copy:
-    src: "files/stumpwm.d/"
-    dest: "~/.stumpwm.d"
+- name: ensure .stumpwm.d directory exists
+  file:
+    path: "~/.stumpwm.d"
+    state: directory
+
+- name: template in the stumpwm init.lisp
+  template:
+    src: "templates/init.lisp.j2"
+    dest: "~/.stumpwm.d/init.lisp"
+  tags: [stumpwm-config]

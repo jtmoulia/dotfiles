@@ -12,7 +12,7 @@
     path: "~/.config/termite"
     state: directory
 
-- name: copy in termite config
-  copy:
-    src: "files/termite.config"
+- name: template in termite config
+  template:
+    src: "templates/termite.config.j2"
     dest: "~/.config/termite/config"

@@ -6,9 +6,28 @@ else
 fi
 dotfiles_path="$( cd "$( dirname "$( dirname "${script_path}" )" )" && pwd )"
 
+playbook=main
+
+while [ "$1" ]; do
+    case "$1" in
+        -p|--playbook)
+            playbook="$2"
+            shift 2
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "Unexpected argument: $1"
+            exit 1
+            ;;
+    esac
+done
+
 ansible-playbook \
     --inventory "${dotfiles_path}/playbooks/.inventory" \
     --ask-become-pass \
-    "${dotfiles_path}/playbooks/main.yml" \
+    "${dotfiles_path}/playbooks/${playbook}.yml" \
     --extra "local_user=$USER" \
     "$@"

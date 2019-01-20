@@ -1,7 +1,12 @@
 ---
 - name: install/update emacs
   become: true
-  package: name=emacs state=latest
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - emacs
+    - mu
 
 - name: install spacemacs (dev branch)
   git:
@@ -14,12 +19,17 @@
     src: "files/spacemacs.d/"
     dest: "~/.spacemacs.d"
 
+- name: template in the spacemacs config
+  template:
+    src: "templates/init.el.j2"
+    dest: "~/.spacemacs.d/init.el"
+
 - name: ensure that the emacs systemd directory exists
   file:
     path: "~/.config/systemd/user"
     state: directory
 
-- name: copy in the emacs config
+- name: copy in the emacs systemd service
   copy:
     src: "files/emacs.service"
     dest: "~/.config/systemd/user/emacs.service"

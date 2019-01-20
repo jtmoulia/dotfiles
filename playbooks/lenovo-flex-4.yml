@@ -8,12 +8,23 @@
     - {role: arch, tags: arch}
     - {role: fish, tags: fish}
     - {role: offlineimap, tags: offlineimap}
-    - {role: emacs, tags: emacs}
+    - role: emacs
+      tags: emacs
+      vars:
+        emacs_font_size: "16"
+        emacs_powerline_scale: "1.0"
     - {role: tmux, tags: tmux}
     - {role: nextcloud, tags: nextcloud}
     - {role: xorg, tags: xorg}
-    - {role: stumpwm, tags: stumpwm}
-    - {role: termite, tags: termite}
+    - role: stumpwm
+      tags: stumpwm
+      vars:
+        dmenu_font_size: "12"
+        device_scale_factor: "1.6"
+    - role: termite
+      tags: termite
+      vars:
+        termite_font_size: "6"
     - {role: xapps, tags: xapps}
     - {role: xscreensaver, tags: xscreensaver}
     # - {role: pass, tags: pass}

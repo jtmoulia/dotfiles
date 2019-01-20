@@ -1,0 +1,15 @@
+---
+- name: install offlineimap
+  package:
+    name: offlineimap
+    state: latest
+
+- name: copy in .offlineimaprc
+  copy:
+    src: "files/offlineimaprc"
+    dest: "~/.offlineimaprc"
+
+- name: copy in .offlineimap.py
+  copy:
+    src: "files/offlineimap.py"
+    dest: "~/.offlineimap.py"
