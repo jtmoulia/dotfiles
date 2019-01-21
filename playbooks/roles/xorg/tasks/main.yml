@@ -9,9 +9,9 @@
     - xorg-xinit
     # - xorg-xmodmap
 
-- name: copy in .xinitrc file
-  copy:
-    src: "files/xinitrc"
+- name: template in .xinitrc file
+  template:
+    src: "templates/xinitrc"
     dest: "~/.xinitrc"
 
 # - name: copy in .Xmodmap file
