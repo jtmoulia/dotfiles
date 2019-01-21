@@ -5,9 +5,11 @@
   (expand-file-name (concat dotspacemacs-directory "/slack.el"))
   "the path to the slack elisp file")
 
+;; (setq bckup-directory-alist '(("." "~/.spacemacs.d/backups")))
+
 (when (eq system-type 'gnu/linux)
   (setq
-   browse-url-firefox-program "firefox-developer"
+   browse-url-firefox-program "firefox-developer-edition"
    browse-url-browser-function 'browse-url-firefox))
 
 (setq dotspacemacs-additional-packages '(ob-ipython))
@@ -17,6 +19,7 @@
                 '(
                   ; elixir
                   ; nginx
+                  sql
                   shell-scripts
                   ivy
                   spacemacs
@@ -30,11 +33,11 @@
                   git
                   html
                   javascript
-                  ; itome-react  ; react
                   react
                   markdown
                   ;; nginx
-                  org
+                  (org
+                   :variable org-pomodoro-audio-player "paplay")
                   prodigy
                   (python
                    :variables python-test-runner 'pytest)
@@ -79,7 +82,8 @@
 (if (string-equal system-type "darwin")
     (setq erlang-root-dir "/usr/local/opt/erlang/lib/erlang"))
 
-(setq-default dotspacemacs-themes '(sanityinc-tomorrow-eighties
+(setq-default dotspacemacs-themes '(spacemacs
+                                    sanityinc-tomorrow-eighties
                                     grandshell
                                     leuven))
 (setq-default dotspacemacs-mode-line-theme 'spacemacs)
@@ -97,6 +101,23 @@
 
 (defun dotspacemacs/user-config ()
   "Post spacemacs init config."
+
+  ;; Setup paths
+  (defun personal//join-path (root component)
+    (concat (file-name-as-directory root) component))
+
+  (cl-defun personal//join-paths (&rest components)
+    (cl-reduce 'personal//join-path components))
+
+  (defun personal//add-to-path (path)
+    (add-to-list 'exec-path path)
+    (let ((path-list (split-string (getenv "PATH") ":")))
+      (add-to-list 'path-list path)
+      (setenv "PATH" (string-join path-list ":")))
+    exec-path)
+
+  (personal//add-to-path (personal//join-paths (getenv "HOME") "bin"))
+
   ;; Yas fun
   (defun my-yas-get-first-name-from-to-field ()
     (let ((rlt "AGENT_NAME") str)
@@ -126,6 +147,16 @@
     (setq password-cache t)
     (setq password-cache-expiry (* 60 10))
     ;; (eshell/alias "rm" "echo 'rm disabled. try trash-{put,rm} or *rm to force.'")
+
+    (defun eshell-here ()
+      (interactive)
+      (let ((current-dir (file-name-directory (buffer-file-name (current-buffer))))
+            (eshell-buffer (get-buffer eshell-buffer-name)))
+        (switch-to-buffer eshell-buffer)
+        (eshell-return-to-prompt)
+        ;; (evil-delete-line)
+        (insert (concat "cd " current-dir))
+        (eshell-send-input)))
     )
 
   ;; Org
@@ -150,6 +181,7 @@
       (sql . t)
       (ipython . t)
       (emacs-lisp . t)
+      (shell . t)
       ))
    )
 
@@ -486,7 +518,9 @@ spaces into LIST. Return the padded result."
    mu4e-confirm-quit      nil
    mu4e-get-mail-command  "offlineimap"
    mu4e-headers-skip-duplicates t
-   mu4e-update-interval   600
+   mu4e-update-interval   nil
+   mu4e-index-lazy-check  t
+   mu4e-use-fancy-chars   nil
    mu4e-compose-signature (apply 'concat (-interpose
                                           "  \n"
                                           '("Thomas Moulia"
@@ -540,7 +574,8 @@ spaces into LIST. Return the padded result."
             "Unread spam" ?s)))
 
     (setq mu4e-maildir-shortcuts
-          '(("/INBOX" . ?i))))
+          `((,(dotspacemacs//mu4e-context-var "gmail" 'mu4e-inbox-folder) . ?g)
+            (,(dotspacemacs//mu4e-context-var "healthtensor" 'mu4e-inbox-folder) . ?h))))
 
   (evil-define-key 'evilified mu4e-view-mode-map
     "y" 'evil-yank
