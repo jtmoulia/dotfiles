@@ -1,1 +1,18 @@
 ---
+- name: install tint2 packages
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - tint2
+
+- name: ensure tint2 directory exists
+  file:
+    path: "~/.config/tint2"
+    state: directory
+
+- name: template in tint2 config
+  template:
+    src: "templates/tint2rc.j2"
+    dest: "~/.config/tint2/tint2rc"

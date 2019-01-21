@@ -21,6 +21,14 @@
       vars:
         dmenu_font_size: "12"
         device_scale_factor: "1.4"
+    - role: tint2
+      tags: tint2
+      vars:
+        tint2_font: "Cantarell Bold 12"
+        tint2_font_small: "Cantarell Bold 10"
+        tint2_systray_icon_size: "24"
+        tint2_launcher_icon_size: "32"
+        tint2_task_height: "40"
     - role: termite
       tags: termite
       vars:

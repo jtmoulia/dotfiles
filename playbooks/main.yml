@@ -13,6 +13,7 @@
     - {role: nextcloud, tags: nextcloud}
     - {role: xorg, tags: xorg}
     - {role: stumpwm, tags: stumpwm}
+    - {role: tint2, tags: tint2}
     - {role: termite, tags: termite}
     - {role: xapps, tags: xapps}
     - {role: xscreensaver, tags: xscreensaver}
