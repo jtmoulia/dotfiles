@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+pidof -s xautolock >& /dev/null
+if [ $? -ne 0 ]; then
+    xautolock -time 15 -locker "systemctl suspend" &
+fi

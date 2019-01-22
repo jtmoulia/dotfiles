@@ -7,6 +7,7 @@
     - {role: core, tags: core}
     - {role: arch, tags: arch}
     - {role: fish, tags: fish}
+    - {role: ssh, tags: ssh}
     - {role: offlineimap, tags: offlineimap}
     - role: emacs
       tags: emacs

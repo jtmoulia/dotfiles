@@ -14,3 +14,8 @@
   with_items:
     - {name: "user.name", value: "Thomas Moulia"}
     - {name: "user.email", value: "jtmoulia@gmail.com"}
+
+- name: copy in global gitconfig
+  copy:
+    src: "files/gitconfig"
+    dest: "~/.gitconfig"

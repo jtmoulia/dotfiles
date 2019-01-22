@@ -1,0 +1,16 @@
+---
+- name: install openssh
+  become: yes
+  package:
+    name: "openssh"
+    state: "latest"
+
+- name: create ~/.ssh/config.d directory
+  file:
+    path: "~/.ssh/config.d"
+    state: "directory"
+
+- name: copy in ssh config
+  copy:
+    src: "files/config"
+    dest: "~/.ssh/config"

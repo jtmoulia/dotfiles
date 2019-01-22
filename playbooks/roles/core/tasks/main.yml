@@ -9,7 +9,6 @@
     - ansible
     - fish
     - sudo
-    - openssh
     - fd
     - ripgrep
     - tldr

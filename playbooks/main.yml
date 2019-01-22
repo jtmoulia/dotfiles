@@ -7,6 +7,7 @@
     - {role: core, tags: core}
     - {role: arch, tags: arch}
     - {role: fish, tags: fish}
+    - {role: ssh, tags: ssh}
     - {role: offlineimap, tags: offlineimap}
     - {role: emacs, tags: emacs}
     - {role: tmux, tags: tmux}
@@ -17,4 +18,6 @@
     - {role: termite, tags: termite}
     - {role: xapps, tags: xapps}
     - {role: xscreensaver, tags: xscreensaver}
+    - {role: docker, tags: docker}
+    - {role: automed, tags: automed}
     # - {role: pass, tags: pass}

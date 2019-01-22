@@ -2,9 +2,19 @@
 - name: ensure xscreensaver is installed
   become: yes
   package:
-    name: xscreensaver
+    name: "xscreensaver"
+
+- name: ensure xautolock is installed
+  become: yes
+  package:
+    name: "xautolock"
 
 - name: copy in xscreensaver config
   copy:
     src: "files/xscreensaver"
     dest: "~/.xscreensaver"
+
+- name: copy in sleepd script to start xautolock
+  copy:
+    src: "files/sleepd"
+    dest: "~/bin/sleepd"
