@@ -47,7 +47,15 @@ if [[ "$(which xscreensaver)" ]]; then
     xscreensaver -no-splash &
 fi
 
+if [ "$(which tint2)" ]; then
+    tint2 &
+fi
+
 eval "$(ssh-agent)"
+
+if [ "$(which feh)"]; then
+    feh --bg-scale /home/jtmoulia/.dotfiles/wallpapers/mars.jpg
+fi
 
 DIRCOLORS_THEME=/home/jtmoulia/repos/dircolors-solarized/dircolors.ansi-dark
 if [[ -b "$DIRCOLORS_THEME" ]]; then

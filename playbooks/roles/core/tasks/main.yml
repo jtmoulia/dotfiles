@@ -10,7 +10,6 @@
     - fish
     - sudo
     - openssh
-    - fzf
     - fd
     - ripgrep
     - tldr

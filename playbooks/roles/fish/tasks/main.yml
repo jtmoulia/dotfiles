@@ -1,8 +1,11 @@
 ---
-- name: ensure fish is installed
+- name: ensure fish and related packages are installed
   package:
-    name: fish
+    name: "{{ item }}"
     state: latest
+  with_items:
+    - fish
+    - fzf
 
 - name: create fish config dir
   file:
