@@ -1,0 +1,27 @@
+---
+- name: install docker
+  package:
+    name: docker
+    state: latest
+  become: yes
+
+- name: copy in helpful binaries
+  copy:
+    src: "files/{{ item }}"
+    dest: "~/bin/{{ item }}"
+  with_items:
+    - "cleanup-docker.sh"
+
+- name: enable the docker service
+  become: yes
+  service:
+    name: docker
+    enabled: true
+    state: started
+
+- name: ensure jtmoulia is in docker group
+  become: yes
+  user:
+    name: "jtmoulia"
+    append: yes
+    groups: ["docker"]

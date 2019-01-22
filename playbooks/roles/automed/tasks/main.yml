@@ -1,0 +1,17 @@
+---
+- name: copy in helpful binaries
+  copy:
+    src: "files/{{ item }}"
+    dest: "~/bin/{{ item }}"
+  with_items:
+    - "ssh-add-hippos"
+
+- name: ensure the repos directory exists
+  file:
+    path: "~/repos"
+    state: directory
+
+- name: clone automed
+  git:
+    repo: "git@gitlab.com:HealthTensor/automed.git"
+    dest: "~/repos/automed"

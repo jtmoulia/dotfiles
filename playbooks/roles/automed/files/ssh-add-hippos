@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+for key in ~/.ssh/{id_rsa,id_rsa_gitlab,hippo,research-bastion.pem,cesium-test.pem}; do
+    ssh-add "$key"
+done
+
+pass-show() {
+    pass show "$1" | head -n1
+}
+
+# echo "$(pass-show ssh-id_rsa)"
+# ssh-add-pass ~/.ssh/id_rsa "$(pass-show ssh-id_rsa)"
+# ssh-add-pass ~/.ssh/id_rsa_gitlab "$(pass-show ssh-gitlab)"
