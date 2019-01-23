@@ -1,9 +1,12 @@
 ---
-- name: install docker
+- name: install docker & friends
   package:
-    name: docker
+    name: "{{ item }}"
     state: latest
   become: yes
+  with_items:
+    - "docker"
+    - "docker-compose"
 
 - name: copy in helpful binaries
   copy:

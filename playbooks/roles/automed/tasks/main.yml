@@ -15,3 +15,10 @@
   git:
     repo: "git@gitlab.com:HealthTensor/automed.git"
     dest: "~/repos/automed"
+
+- name: setup symbolic link
+  file:
+    src: "~/repos/automed/bin/automed-compose.sh"
+    dest: "~/bin/ac"
+    state: link
+

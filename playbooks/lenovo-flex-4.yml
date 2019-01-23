@@ -8,6 +8,8 @@
     - {role: arch, tags: arch}
     - {role: fish, tags: fish}
     - {role: ssh, tags: ssh}
+    - {role: bluetooth, tags: bluetooth}
+    - {role: pulseaudio, tags: pulseaudio}
     - {role: offlineimap, tags: offlineimap}
     - role: emacs
       tags: emacs
