@@ -25,3 +25,9 @@
 - name: set initial global fish variables
   command: fish "~/.config/fish/set_inital_globals.fish"
   run_once: true
+
+- name: configure jtmoulia to use fish
+  become: true
+  user:
+    name: jtmoulia
+    shell: /usr/bin/fish
