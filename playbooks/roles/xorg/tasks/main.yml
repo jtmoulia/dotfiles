@@ -24,3 +24,13 @@
   copy:
     src: "files/Xresources"
     dest: "~/.Xresources"
+
+- name: ensure ~/.config/xinitrc.d dir exists
+  file:
+    path: "~/.config/xinitrc.d"
+    state: directory
+
+- name: copy in caps_to_ctrl.sh
+  copy:
+    src: "files/caps_to_ctrl.sh"
+    dest: "~/.config/xinitrc.d/caps_to_ctrl.sh"
