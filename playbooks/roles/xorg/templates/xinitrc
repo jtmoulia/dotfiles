@@ -40,9 +40,6 @@ if [[ "$(which sleepd)" ]]; then
   sleepd
 fi
 
-xset -b
-setxkbmap -option caps:ctrl_modifier
-
 if [[ "$(which xscreensaver)" ]]; then
     xscreensaver -no-splash &
 fi
@@ -50,8 +47,6 @@ fi
 if [ "$(which tint2)" ]; then
     tint2 &
 fi
-
-eval "$(ssh-agent)"
 
 if [ "$(which feh)"]; then
     feh --bg-scale /home/jtmoulia/.dotfiles/wallpapers/mars.jpg
