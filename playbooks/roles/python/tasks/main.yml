@@ -1,0 +1,13 @@
+---
+- name: install python and some niceties
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - python
+    - python-pip
+    - ipython
+    - flake8
+    - python-jedi
+    - python-pipenv

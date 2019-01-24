@@ -9,10 +9,16 @@
     name: "{{ item }}"
     state: latest
   with_items:
+    # light adjusts the screen brightness
     - light
+    # dmenu is a fuzzy finder
     - dmenu
+    # clipmenu is a dmenu for the clipboard
     - clipmenu
+    # tint2 is a task bar & dock
     - tint2
+    # maim does screen grabs
+    - maim
 
 - name: ensure .stumpwm.d directory exists
   file:

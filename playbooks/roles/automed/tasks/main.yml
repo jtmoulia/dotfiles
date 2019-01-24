@@ -1,4 +1,17 @@
 ---
+- name: install automed dependencies
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - ansible
+    - python-jinja
+
+- name: install mkcert from aur
+  become: yes
+  command: "pikaur -Sy --noconfirm --noprogressbar mkcert"
+
 - name: copy in helpful binaries
   copy:
     src: "files/{{ item }}"

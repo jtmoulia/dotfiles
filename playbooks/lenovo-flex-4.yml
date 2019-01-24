@@ -10,11 +10,12 @@
     - {role: ssh, tags: ssh}
     - {role: bluetooth, tags: bluetooth}
     - {role: pulseaudio, tags: pulseaudio}
+    - {role: python, tags: python}
     - {role: offlineimap, tags: offlineimap}
     - role: emacs
       tags: emacs
       vars:
-        emacs_font_size: "17"
+        emacs_font_size: "16"
         emacs_powerline_scale: "1.0"
     - {role: tmux, tags: tmux}
     - {role: nextcloud, tags: nextcloud}

@@ -10,6 +10,7 @@
     - {role: ssh, tags: ssh}
     - {role: bluetooth, tags: bluetooth}
     - {role: pulseaudio, tags: pulseaudio}
+    - {role: python, tags: python}
     - {role: offlineimap, tags: offlineimap}
     - {role: emacs, tags: emacs}
     - {role: tmux, tags: tmux}
