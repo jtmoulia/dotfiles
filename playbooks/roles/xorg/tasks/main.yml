@@ -40,6 +40,11 @@
     src: "files/ssh-agent.service"
     dest: "~/.config/systemd/user/ssh-agent.service"
 
+- name: copy in the pam_environment
+  copy:
+    src: "files/pam_environment"
+    dest: "~/.pam_environment"
+
 - name: enable the ssh-agent.service
   systemd:
     name: ssh-agent
