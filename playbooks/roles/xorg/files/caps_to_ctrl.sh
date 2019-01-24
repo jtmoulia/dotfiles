@@ -1,2 +1,1 @@
-xset -b
-setxkbmap -option cap:ctrl_modifier
+setxkbmap -option caps:ctrl_modifier

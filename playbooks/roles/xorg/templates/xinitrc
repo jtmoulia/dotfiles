@@ -57,4 +57,5 @@ if [[ -b "$DIRCOLORS_THEME" ]]; then
     eval $(dircolors "$DIRCOLORS_THEME")
 fi
 
+setxkbmap -option caps:ctrl_modifier
 exec stumpwm
