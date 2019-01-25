@@ -7,4 +7,4 @@ Hello ${1:`(my-yas-get-first-name-from-to-field)`},
 ${2:HealthTensor} isn't interested in your services at this time. Please remove me from your mailing list.
 
 Regards,
--{$3:Thomas}
+-${3:Thomas}
