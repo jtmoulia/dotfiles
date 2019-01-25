@@ -15,46 +15,52 @@
 (setq dotspacemacs-additional-packages '(ob-ipython))
 
 (defun dotspacemacs/layers ()
-  (setq-default dotspacemacs-configuration-layers
-                '(
-                  ; elixir
-                  ; nginx
-                  sql
-                  shell-scripts
-                  ivy
-                  spacemacs
-                  dash
-                  csv
-                  ansible
-                  auto-completion
-                  ; common-lisp
-                  deft
-                  emacs-lisp
-                  git
-                  html
-                  javascript
-                  react
-                  markdown
-                  ;; nginx
-                  (org
-                   :variable org-pomodoro-audio-player "paplay")
-                  prodigy
-                  (python
-                   :variables python-test-runner 'pytest)
-                  ; rcirc
-                  ; restclient
-                  slack
-                  spacemacs-layouts
-                  ; sql
-                  syntax-checking
-                  typography
-                  yaml
-                  (mu4e :variables mu4e-installation-path "{{ emacs_mu4e_installation_path }}")
-                  ;; private layers
-                  ; org-page
-                  ; artist
-                  ; lfe
-                  )))
+  "Layer congfiguration."
+  (setq-default
+   dotspacemacs-configuration-layers
+   '(
+     sql
+     shell-scripts
+     ivy
+     spacemacs
+     dash
+     csv
+     ansible
+     auto-completion
+     ;; common-lisp
+     deft
+     emacs-lisp
+     git
+     html
+     javascript
+     react
+     markdown
+     nginx
+     (org
+      :variable org-pomodoro-audio-player "paplay")
+     prodigy
+     (python
+      :variables python-test-runner 'pytest)
+                                        ; rcirc
+                                        ; restclient
+     slack
+     spacemacs-layouts
+                                        ; sql
+     syntax-checking
+     typography
+     yaml
+     (mu4e :variables mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
+     ;; private layers
+                                        ; org-page
+                                        ; artist
+                                        ; lfe
+   )
+   dotspacemacs-additional-packages
+   '(
+     ob-ipython
+     blacken
+    )
+  ))
 
 (defvar personal--web-indent
   2

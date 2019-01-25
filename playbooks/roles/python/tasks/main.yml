@@ -9,6 +9,11 @@
     - python-pip
     - ipython
     - jupyter
+    # flake8: python linting
     - flake8
+    # jedi: python refactoring and autocompletion
     - python-jedi
+    # pipenv: a marriage between virtualenv and pip
     - python-pipenv
+    # black: python code formatter
+    - python-black
