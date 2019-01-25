@@ -1,0 +1,9 @@
+# key : ipython-src
+# name : BEGIN_SRC
+# contributor : Thomas Moulia <jtmoulia@pocketknife.io>
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
+# --
+#+NAME: $1
+#+BEGIN_SRC ipython :session :results raw
+  $0
+#+END_SRC

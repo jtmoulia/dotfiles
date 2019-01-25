@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: unittest
+# key: unittest
+# --
+""":mod:\`${1:MODULE}\` tests.
+
+"""
+import pyttest
+
+${2:import $1}
