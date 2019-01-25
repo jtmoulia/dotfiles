@@ -17,3 +17,14 @@
     - python-pipenv
     # black: python code formatter
     - python-black
+
+- name: clone mkpass
+  git:
+    repo: "jtmoulia@shed.pocketknife.io:~/repos/mkpass.git"
+    dest: "~/repos/mkpass"
+
+- name: install mkpass
+  become: yes
+  pip:
+    name: "file:///home/jtmoulia/repos/mkpass"
+    editable: yes
