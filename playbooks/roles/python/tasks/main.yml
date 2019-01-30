@@ -17,6 +17,8 @@
     - python-pipenv
     # black: python code formatter
     - python-black
+    # pdb++: a sweet drop-in replacement for pdb
+    # - pdbpp (currently in aur)
 
 - name: clone mkpass
   git:

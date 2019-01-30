@@ -28,6 +28,7 @@
   git:
     repo: "git@gitlab.com:HealthTensor/automed.git"
     dest: "~/repos/automed"
+    update: no
 
 - name: setup symbolic link
   file:

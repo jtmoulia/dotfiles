@@ -16,7 +16,7 @@
     - role: emacs
       tags: emacs
       vars:
-        emacs_font_size: "16"
+        emacs_font_size: "15"
         emacs_powerline_scale: "1.0"
     - {role: tmux, tags: tmux}
     - {role: nextcloud, tags: nextcloud}
@@ -26,6 +26,8 @@
       vars:
         dmenu_font_size: "12"
         device_scale_factor: "1.2"
+    - role: dunst
+      tags: dunst
     - role: tint2
       tags: tint2
       vars:
@@ -37,7 +39,7 @@
     - role: termite
       tags: termite
       vars:
-        termite_font_size: "12"
+        termite_font_size: "11"
     - {role: xapps, tags: xapps}
     - {role: xscreensaver, tags: xscreensaver}
     - {role: docker, tags: docker}

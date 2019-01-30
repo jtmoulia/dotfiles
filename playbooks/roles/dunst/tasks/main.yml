@@ -1,0 +1,9 @@
+---
+- name: install dunst et al for notifications
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - dunst
+    - libnotify
