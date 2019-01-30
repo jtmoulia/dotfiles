@@ -18,6 +18,7 @@
       vars:
         emacs_font_size: "15"
         emacs_powerline_scale: "1.0"
+        emacs_theme: "spacemacs-light"
     - {role: tmux, tags: tmux}
     - {role: nextcloud, tags: nextcloud}
     - {role: xorg, tags: xorg}
