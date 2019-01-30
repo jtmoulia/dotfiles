@@ -7,3 +7,13 @@
   with_items:
     - dunst
     - libnotify
+
+- name: ensure the dunst config directory exists
+  file:
+    path: "~/.config/dunst"
+    state: directory
+
+- name: template in dunst config
+  template:
+    src: "templates/dunstrc.j2"
+    dest: "~/.config/dunst/dusntrc"
