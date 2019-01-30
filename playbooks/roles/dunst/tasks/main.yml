@@ -16,4 +16,4 @@
 - name: template in dunst config
   template:
     src: "templates/dunstrc.j2"
-    dest: "~/.config/dunst/dusntrc"
+    dest: "~/.config/dunst/dunstrc"
