@@ -26,32 +26,30 @@ otherwise you won't be able to connect to the network:
 # pacman -S dialog wpa_supplicant
 ```
 
+Install the Python dependencies via pipenv:
+
+```shell
+# pacman -S pipenv
+$ pipenv install
+```
+
 ## Basic Usage
 
-To install some software (well, Emacs) and the common layer:
+To install everything run:
 
 ```shell
-make
+pipenv run bin/dotsible.sh
 ```
 
-Typically you'll want to install one or more layers. Here's how to install the
-default layer:
+Sometimes you'll want to install only a few roles, say `ssh` and `net-utils`:
 
 ```shell
-make layer
+pipenv run bin/dotsible.sh -- -t ssh -t net-utils
 ```
 
-You can layer them on. This adds configuration specific to my ThinkPad X1:
+You can use alternate configurations; her it's run with configuration specific to my
+Lenovo Flex 4:
 
 ```shell
-make LAYER_DIR=layers/thinkpadx1 layer
+pipenv run bin/dotsible.sh -p lenovo-flex-4
 ```
-
-This updates the version controlled layer file from what exists at the
-corresponding path:
-
-```shell
-make LAYER_DIR=layers/thinkpadx1 layers/thinkpadx1/HOME/.Xmodmap
-```
-
-You can commit the layer's updates to version control.
