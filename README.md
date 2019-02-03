@@ -1,10 +1,6 @@
 # dotfiles
 
-My dotfiles. They're organized in layers which 
-
-  - can be applied sequentially
-  - are installed to their relative path
-  - keep backups
+My dotfiles. They're organized as ansible roles.
 
 ## Prelude
 
