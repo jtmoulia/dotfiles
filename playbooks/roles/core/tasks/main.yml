@@ -11,6 +11,9 @@
     - fd
     - ripgrep
     - tldr
+    - perl
+    # A CLI interface that respects the trash can
+    - trash-cli
 
 - name: add jtmoulia
   become: true

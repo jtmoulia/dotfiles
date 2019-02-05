@@ -14,17 +14,27 @@
 
 - name: copy in fish fzf config
   copy:
-    src: "files/fish_user_key_bindings.fish"
+    src: "files/functions/fish_user_key_bindings.fish"
     dest: "~/.config/fish/functions/fish_user_key_bindings.fish"
 
-- name: copy in fish init file
+- name: copy in fish_greeting
   copy:
-    src: "files/set_initial_globals.fish"
-    dest: "~/.config/fish/set_inital_globals.fish"
+    src: "files/functions/fish_greeting.fish"
+    dest: "~/.config/fish/functions/fish_greeting.fish"
 
-- name: set initial global fish variables
-  command: fish "~/.config/fish/set_inital_globals.fish"
-  run_once: true
+- name: copy in fish_prompt
+  copy:
+    src: "files/functions/fish_prompt.fish"
+    dest: "~/.config/fish/functions/fish_prompt.fish"
+
+- name: copy in fish vars
+  copy:
+    src: "files/fish_variables"
+    dest: "~/.config/fish/fish_variables"
+
+# - name: set initial global fish variables
+#   command: fish "~/.config/fish/set_initial_globals.fish"
+#   run_once: true
 
 - name: configure jtmoulia to use fish
   become: true
