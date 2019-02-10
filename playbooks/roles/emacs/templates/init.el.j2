@@ -17,44 +17,47 @@
   (setq-default
    dotspacemacs-configuration-layers
    '(
-     sql
-     shell-scripts
-     ivy
-     spacemacs
-     dash
-     csv
      ansible
      auto-completion
      ;; common-lisp
+     csv
+     dash
      deft
+     docker
      emacs-lisp
      git
      html
+     ivy
      javascript
-     react
      markdown
      nginx
      (org
       :variable org-pomodoro-audio-player "paplay")
-     prodigy
+     org-jira
+     react
+     shell-scripts
+     spacemacs
+     sql
      (python
       :variables python-test-runner 'pytest)
-                                        ; rcirc
-                                        ; restclient
+     prodigy
+     ;; rcirc
+     ;; restclient
      slack
      spacemacs-layouts
-                                        ; sql
+     ;; sql
      syntax-checking
      typography
      yaml
      (mu4e :variables mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
-     ;; private layers
-                                        ; org-page
-                                        ; artist
-                                        ; lfe
+     ;; Private Layers
+     ;; org-page
+     ;; artist
+     ;; lfe
    )
    dotspacemacs-additional-packages
    '(
+     elvish-mode
      ob-ipython
      blacken
     )
@@ -145,6 +148,7 @@
   ;; eshell
   (with-eval-after-load 'eshell
     (require 'em-tramp)
+    (require 'esh-module)
     (setq eshell-prefer-lisp-functions t)
     (setq eshell-prefer-lisp-variables t)
     (setq password-cache t)

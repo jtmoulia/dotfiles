@@ -6,7 +6,8 @@
     - {role: git, tags: git}
     - {role: core, tags: core}
     - {role: arch, tags: arch}
-    - {role: fish, tags: fish}
+    # - {role: fish, tags: fish}
+    - {role: elvish, tags: elvish}
     - {role: net-utils, tags: net-utils}
     - {role: ssh, tags: ssh}
     - {role: bluetooth, tags: bluetooth}
