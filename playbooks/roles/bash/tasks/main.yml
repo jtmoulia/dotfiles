@@ -1,0 +1,16 @@
+---
+- name: install bash & others
+  become: yes
+  pacakge:
+    name: bash
+    state: latest
+
+- name: copy in .bashrc
+  copy:
+    src: "files/bashrc"
+    dest: "~/.bashrc"
+
+- name: copy in .bash_profile
+  copy:
+    src: "files/bash_profile"
+    dest: "~/.bash_profile"

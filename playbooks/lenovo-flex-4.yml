@@ -6,8 +6,16 @@
     - {role: git, tags: git}
     - {role: core, tags: core}
     - {role: arch, tags: arch}
+
+    # bash is the default login shell because it's the evil we know
+    - {role: bash, tags: bash}
+
+    # trying elvish over fish, because the grass is always greener
     # - {role: fish, tags: fish}
+
+    # elvish is a shell that's actually pleasant to code in
     - {role: elvish, tags: elvish}
+
     - {role: net-utils, tags: net-utils}
     - {role: ssh, tags: ssh}
     - {role: bluetooth, tags: bluetooth}
@@ -15,22 +23,28 @@
     - {role: python, tags: python}
     - {role: nodejs, tags: nodejs}
     - {role: offlineimap, tags: offlineimap}
+
     - role: emacs
       tags: emacs
       vars:
         emacs_font_size: "15"
         emacs_powerline_scale: "1.0"
         emacs_theme: "spacemacs-light"
+
     - {role: tmux, tags: tmux}
     - {role: nextcloud, tags: nextcloud}
     - {role: xorg, tags: xorg}
+
     - role: stumpwm
       tags: stumpwm
       vars:
         dmenu_font_size: "12"
         device_scale_factor: "1.2"
+
     - role: dunst
       tags: dunst
+      vars:
+        dunst_font: "Terminus 12"
     - role: tint2
       tags: tint2
       vars:

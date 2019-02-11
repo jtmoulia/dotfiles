@@ -29,6 +29,9 @@ edit:insert:binding[Alt-Backspace] = $edit:kill-small-word-left~
 epm:install &silent-if-installed github.com/zzamboni/elvish-modules
 use github.com/zzamboni/elvish-modules/bang-bang
 
+use github.com/zzamboni/elvish-modules/long-running-notifications
+use github.com/zzamboni/elvish-modules/terminal-title
+
 use github.com/zzamboni/elvish-modules/alias
 # define the aliases
 alias:new ls e:ls --color=auto

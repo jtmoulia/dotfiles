@@ -4,9 +4,19 @@
   remote_user: "{{ local_user }}"
   roles:
     - {role: git, tags: git}
+
     - {role: core, tags: core}
     - {role: arch, tags: arch}
-    - {role: fish, tags: fish}
+
+    # bash is the default login shell because it's the evil we know
+    - {role: bash, tags: bash}
+
+    # trying elvish over fish, because the grass is always greener
+    # - {role: fish, tags: fish}
+
+    # elvish is a shell that's actually pleasant to code in
+    - {role: elvish, tags: elvish}
+
     - {role: net-utils, tags: net-utils}
     - {role: ssh, tags: ssh}
     - {role: bluetooth, tags: bluetooth}
