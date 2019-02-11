@@ -3,7 +3,7 @@
   become: yes
   package:
     name: "{{ item }}"
-    state: lastest
+    state: latest
   with_items:
     - openssl
     - nmap
@@ -12,5 +12,6 @@
   copy:
     src: "files/{{ item }}"
     dest: "~/bin/{{ item }}"
+    mode: 0770
   with_items:
     - ssl-info

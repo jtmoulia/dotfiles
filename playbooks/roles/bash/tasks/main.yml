@@ -1,7 +1,7 @@
 ---
 - name: install bash & others
   become: yes
-  pacakge:
+  package:
     name: bash
     state: latest
 
