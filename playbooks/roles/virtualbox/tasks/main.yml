@@ -1,0 +1,10 @@
+---
+- name: "install virtualbox, vagrant, et al"
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "dkms"
+    - "virtualbox"
+    - "vagrant"
