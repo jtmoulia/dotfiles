@@ -6,22 +6,17 @@
     - {role: git, tags: git}
     - {role: core, tags: core}
     - {role: arch, tags: arch}
-
-    # bash is the default login shell because it's the evil we know
     - {role: bash, tags: bash}
-
     # trying elvish over fish, because the grass is always greener
     # - {role: fish, tags: fish}
-
-    # elvish is a shell that's actually pleasant to code in
     - {role: elvish, tags: elvish}
-
     - {role: net-utils, tags: net-utils}
     - {role: ssh, tags: ssh}
     - {role: bluetooth, tags: bluetooth}
     - {role: pulseaudio, tags: pulseaudio}
     - {role: python, tags: python}
     - {role: nodejs, tags: nodejs}
+    - {role: ruby, tags: ruby}
     - {role: offlineimap, tags: offlineimap}
 
     - role: emacs

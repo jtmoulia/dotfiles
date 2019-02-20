@@ -1,0 +1,9 @@
+---
+- name: install ruby and useful ruby utilities
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - ruby
+    - ruby-bundler
+    - ruby-rake

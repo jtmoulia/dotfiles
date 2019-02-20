@@ -8,6 +8,7 @@
     - openssl
     - nmap
     - nikto
+    - httpie
 
 - name: copy in scripts
   copy:

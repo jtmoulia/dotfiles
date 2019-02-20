@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 for key in ~/.ssh/{id_rsa,id_rsa_gitlab,hippo,research-bastion.pem,cesium-test.pem}; do
-    ssh-add "$key"
+    if [ -e "$key" ]; then
+        ssh-add "$key"
+    fi
 done
 
 pass-show() {

@@ -14,6 +14,7 @@
     - perl
     # A CLI interface that respects the trash can
     - trash-cli
+    - unzip
 
 - name: add jtmoulia
   become: true
