@@ -1,5 +1,6 @@
 ---
 - name: install offlineimap
+  become: yes
   package:
     name: offlineimap
     state: latest
@@ -13,3 +14,8 @@
   copy:
     src: "files/offlineimap.py"
     dest: "~/.offlineimap.py"
+
+- name: copy in sdcript to kill offlineimap
+  copy:
+    src: "files/kill-offlineimap.sh"
+    dest: "~/bin/kill-offlineimap"
