@@ -15,7 +15,8 @@
     src: "files/offlineimap.py"
     dest: "~/.offlineimap.py"
 
-- name: copy in sdcript to kill offlineimap
+- name: copy in script to kill offlineimap
   copy:
     src: "files/kill-offlineimap.sh"
     dest: "~/bin/kill-offlineimap"
+    mode: 0770
