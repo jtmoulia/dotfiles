@@ -19,6 +19,8 @@
     - python-black
     # pdb++: a sweet drop-in replacement for pdb
     # - pdbpp (currently in aur)
+    # a Python DataFrame library
+    - python-pandas
 
 - name: clone mkpass
   git:
