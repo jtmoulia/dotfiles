@@ -56,4 +56,5 @@
     - {role: xscreensaver, tags: xscreensaver}
     - {role: docker, tags: docker}
     - {role: automed, tags: automed}
+    - {role: gitup, tags: gitup}
     # - {role: pass, tags: pass}

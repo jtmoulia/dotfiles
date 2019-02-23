@@ -1,0 +1,15 @@
+---
+- name: install gitup for the current user
+  pip:
+    name: "gitup"
+    extra_args: "--user"
+
+- name: ensure the gitup config directory exists
+  file:
+    path: "~/.config/gitup"
+    state: "directory"
+
+- name: install gitup bookmarks
+  copy:
+    src: "files/bookmarks"
+    dest: "~/.config/gitup/bookmarks"
