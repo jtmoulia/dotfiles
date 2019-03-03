@@ -7,7 +7,7 @@
   with_items:
     - emacs
     - mu
-    - html2text
+    - fasd
 
 # config (spacemacs)
 

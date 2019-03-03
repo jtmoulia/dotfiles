@@ -25,6 +25,7 @@
      deft
      docker
      emacs-lisp
+     fasd
      git
      html
      ivy
@@ -146,24 +147,39 @@
               (setq-local counsel-dash-docsets '("Python_3"))) )
 
   ;; eshell
+  ;; eshell keybindings
+  (add-hook 'eshell-mode-hook
+            '(lambda ()
+               (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)
+               ))
+
   (with-eval-after-load 'eshell
     (require 'em-tramp)
     (require 'esh-module)
-    (setq eshell-prefer-lisp-functions t)
-    (setq eshell-prefer-lisp-variables t)
-    (setq password-cache t)
-    (setq password-cache-expiry (* 60 10))
-    ;; (eshell/alias "rm" "echo 'rm disabled. try trash-{put,rm} or *rm to force.'")
+    (setq
+     eshell-prefer-lisp-functions t
+     eshell-prefer-lisp-variables t
+     password-cache t
+     password-cache-expiry (* 60 10)
+     )
 
+    ;; eshell aliases
+    (eshell/alias "rm" "echo 'rm disabled. try trash-{put,rm} or *rm to force.'")
+
+    ;; set up fasd to track directories on change
+    (add-hook 'eshell-directory-change-hook
+              'fasd-add-file-to-db)
+
+    ;; eshell helper functions
     (defun eshell-here ()
       (interactive)
       (let ((current-dir (file-name-directory (buffer-file-name (current-buffer))))
             (eshell-buffer (get-buffer eshell-buffer-name)))
         (switch-to-buffer eshell-buffer)
-        (eshell-return-to-prompt)
-        ;; (evil-delete-line)
-        (insert (concat "cd " current-dir))
-        (eshell-send-input)))
+        (cd current-dir)
+        ;; this makes a pretty big assumption re the input being empty
+        (eshell-send-input)
+        ))
     )
 
   ;; Org
