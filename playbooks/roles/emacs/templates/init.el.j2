@@ -146,6 +146,22 @@
     (add-hook 'python-mode
               (setq-local counsel-dash-docsets '("Python_3"))) )
 
+  ;; fasd
+  (with-eval-after-load 'fasd
+    (defun fasd-add-file-to-db-eshell ()
+      "Add current file or directory to the Fasd database."
+      (if (not (executable-find "fasd"))
+          (message "Fasd executable cannot be found. It is required by `fasd.el'. Cannot add file/directory to the fasd db")
+        (let ((file (pcase major-mode
+                      ('dired-mode dired-directory)
+                      ('eshell-mode (expand-file-name default-directory))
+                      (_ (buffer-file-name)))
+                    ))
+          (when (and file
+                     (stringp file)
+                     (file-readable-p file))
+            (start-process "*fasd*" nil "fasd" "--add" file))))))
+
   ;; eshell
   ;; eshell keybindings
   (add-hook 'eshell-mode-hook
@@ -167,8 +183,7 @@
     (eshell/alias "rm" "echo 'rm disabled. try trash-{put,rm} or *rm to force.'")
 
     ;; set up fasd to track directories on change
-    (add-hook 'eshell-directory-change-hook
-              'fasd-add-file-to-db)
+    (add-hook 'eshell-directory-change-hook 'fasd-add-file-to-db-eshell)
 
     ;; eshell helper functions
     (defun eshell-here ()
