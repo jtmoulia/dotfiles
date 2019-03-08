@@ -23,7 +23,7 @@
 - name: enable network interface
   become: yes
   systemd:
-    name: netctl-auto@wlp3s0.service
+    name: "netctl-auto@{{ wifi_interface }}.service"
     enabled: true
-    state: started
+    state: "started"
   tags: [network]

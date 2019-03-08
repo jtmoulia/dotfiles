@@ -5,7 +5,10 @@
   roles:
     - {role: git, tags: git}
     - {role: core, tags: core}
-    - {role: arch, tags: arch}
+    - role: arch
+      tags: arch
+      vars:
+        wifi_interface: "wlp3s0"
     - {role: bash, tags: bash}
     # trying elvish over fish, because the grass is always greener
     # - {role: fish, tags: fish}
