@@ -1,0 +1,6 @@
+---
+- name: template in the dotsible script
+  template:
+    src: "templates/dotsible.sh.j2"
+    dest: "~/bin/dotsible"
+    mode: 0770
