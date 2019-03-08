@@ -9,3 +9,16 @@
   file:
     path: "~/ocloud"
     state: directory
+
+- name: copy in nextcloud.service
+  copy:
+    src: "files/nextcloud.service"
+    dest: "~/.config/systemd/user/nextcloud.service"
+    mode: 0640
+
+- name: enable user nextcloud.service
+  systemd:
+    name: "nextcloud.service"
+    enabled: yes
+    scope: "user"
+    state: "started"

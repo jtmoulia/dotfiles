@@ -1,0 +1,10 @@
+[Unit]
+Description=Nextcloud client
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=nextcloud
+Restart=always
+
+[Install]
+WantedBy=xsession.target
