@@ -46,6 +46,18 @@
     src: "files/pam_environment"
     dest: "~/.pam_environment"
 
+- name: copy in the systemd user xsession.target file
+  copy:
+    src: "files/xsession.target"
+    dest: "~/.config/systemd/user"
+    mode: 0640
+
+- name: copy in the systemd-start-graphical-session script
+  copy:
+    src: "files/systemd-start-graphical-session.sh"
+    dest: "~/bin/systemd-start-graphical-session"
+    mode: 0750
+
 - name: enable the ssh-agent.service
   systemd:
     name: ssh-agent
