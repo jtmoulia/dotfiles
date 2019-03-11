@@ -1,0 +1,20 @@
+---
+- name: ensure repos exists
+  file:
+    path: "~/repos"
+    state: directory
+  tags: ["org-jira"]
+
+- name: clone org-jira
+  git:
+    repo: "https://github.com/jfim/org-jira"
+    dest: "~/repos/org-jira"
+  tags: ["org-jira"]
+
+- name: link in org-jira as a private spacemacs layer
+  file:
+    src: "~/repos/org-jira"
+    dest: "~/.emacs.d/private/org-jira"
+    state: link
+  tags: ["org-jira"]
+

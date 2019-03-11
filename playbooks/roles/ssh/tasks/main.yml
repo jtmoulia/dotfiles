@@ -2,7 +2,7 @@
 - name: install openssh
   become: yes
   package:
-    name: "openssh"
+    name: "{{ ssh_package_name }}"
     state: "latest"
 
 - name: create ~/.ssh/config.d directory

@@ -1,5 +1,7 @@
 ---
 emacs_powerline_scale: "1.0"
 emacs_font_size: "16"
+emacs_mu4e_enabled: yes
 emacs_mu4e_installation_path: "/usr/share/emacs/site-lisp/mu4e"
+emacs_org_jira_enabled: yes
 emacs_theme: "spacemacs"

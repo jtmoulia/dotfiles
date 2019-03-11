@@ -5,9 +5,14 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - emacs
-    - mu
-    - fasd
+    - "emacs"
+    - "fasd"
+
+- name: install mu & mu4e if enabled
+  package:
+    name: "mu"
+    state: "latest"
+  when: "{{ emacs_mu4e_enabled }}"
 
 # config (spacemacs)
 
@@ -27,25 +32,13 @@
     src: "templates/init.el.j2"
     dest: "~/.spacemacs.d/init.el"
 
+
 # org-jira
 
-- name: ensure repos exists
-  file:
-    path: "~/repos"
-    state: directory
-  tags: ["org-jira"]
-
-- name: clone org-jira
-  git:
-    repo: "git@github.com:jfim/org-jira.git"
-    dest: "~/repos/org-jira"
-  tags: ["org-jira"]
-
-- name: link in org-jira as a private spacemacs layer
-  file:
-    src: "~/repos/org-jira"
-    dest: "~/.emacs.d/private/org-jira"
-    state: link
+- name: include org-jira tasks if emacs_org_jira_enabled
+  include_tasks:
+    file: "tasks/org_jira.yml"
+  when: "{{ emacs_org_jira_enabled }}"
   tags: ["org-jira"]
 
 # systemd (emacs.service)
