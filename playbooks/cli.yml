@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  connection: local
+  remote_user: "{{ local_user }}"
+  roles:
+    - {role: git, tags: git}
+    - role: core
+      tags: core
+      vars:
+        sudo_group: "sudo"
+    - {role: bash, tags: bash}
+    - {role: dotsible, tags: dotsible}
+    - {role: ssh, tags: ssh}
+    - {role: emacs, tags: emacs}
+    - {role: tmux, tags: tmux}
+    - {role: automed, tags: automed}
+    - {role: gitup, tags: gitup}

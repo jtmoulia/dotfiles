@@ -8,8 +8,6 @@
     - neovim
     - ansible
     - sudo
-    - fd
-    - ripgrep
     - tldr
     - perl
     # A CLI interface that respects the trash can
@@ -20,6 +18,11 @@
   become: true
   user:
     name: jtmoulia
-    groups: wheel
+    groups: "{{ sudo_group }}"
     generate_ssh_key: yes
     ssh_key_bits: 4096
+
+- name: ensure the user bin directory exists
+  file:
+    path: "~/bin"
+    state: directory
