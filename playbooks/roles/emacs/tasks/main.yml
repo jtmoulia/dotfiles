@@ -12,7 +12,7 @@
   package:
     name: "mu"
     state: "latest"
-  when: "{{ emacs_mu4e_enabled }}"
+  when: emacs_mu4e_enabled
 
 # config (spacemacs)
 
@@ -38,7 +38,7 @@
 - name: include org-jira tasks if emacs_org_jira_enabled
   include_tasks:
     file: "tasks/org_jira.yml"
-  when: "{{ emacs_org_jira_enabled }}"
+  when: emacs_org_jira_enabled
   tags: ["org-jira"]
 
 # systemd (emacs.service)

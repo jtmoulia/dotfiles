@@ -27,7 +27,3 @@
         emacs_org_jira_enabled: no
 
     - {role: tmux, tags: tmux}
-
-    - {role: automed, tags: automed}
-
-    - {role: gitup, tags: gitup}
