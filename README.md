@@ -41,15 +41,19 @@ To install everything run:
 pipenv run bin/dotsible.sh
 ```
 
+The first run will create an executable in your path named `dotsible`, which can
+be called instead of `pipenv run bin/dotsible.sh`. The following examples use
+this shortcut.
+
 Sometimes you'll want to install only a few roles, say `ssh` and `net-utils`:
 
 ```shell
-pipenv run bin/dotsible.sh -- -t ssh -t net-utils
+dotsible -- -t ssh -t net-utils
 ```
 
 You can use alternate configurations; her it's run with configuration specific to my
 Lenovo Flex 4:
 
 ```shell
-pipenv run bin/dotsible.sh -p lenovo-flex-4
+dotsible -p lenovo-flex-4
 ```
