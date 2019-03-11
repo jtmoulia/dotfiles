@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-for key in ~/.ssh/{id_rsa,id_rsa_gitlab,hippo,research-bastion.pem,cesium-test.pem}; do
+for key in ~/.ssh/{id_rsa,id_rsa_gitlab,healthtensor,hippo,research-bastion.pem,cesium-test.pem}; do
     if [ -e "$key" ]; then
         ssh-add "$key"
     fi
