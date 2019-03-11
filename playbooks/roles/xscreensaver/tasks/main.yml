@@ -18,3 +18,9 @@
   copy:
     src: "files/sleepd"
     dest: "~/bin/sleepd"
+
+- name: disable systemd tty switching (restart required)
+  become: yes
+  copy:
+    src: "files/disable_gettys.conf"
+    dest: "/etc/systemd/logind.conf.d/disable_gettys.conf"
