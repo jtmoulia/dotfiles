@@ -34,7 +34,7 @@
      nginx
      (org
       :variable org-pomodoro-audio-player "paplay")
-     org-jira
+     {% if org_jira_enabled %}org-jira{% endif %}
      react
      shell-scripts
      spacemacs
@@ -180,7 +180,7 @@
      )
 
     ;; eshell aliases
-    (eshell/alias "rm" "echo 'rm disabled. try trash-{put,rm} or *rm to force.'")
+    ; (eshell/alias "rm" "echo 'rm disabled. try trash-{put,rm} or *rm to force.'")
 
     ;; set up fasd to track directories on change
     (add-hook 'eshell-directory-change-hook 'fasd-add-file-to-db-eshell)
