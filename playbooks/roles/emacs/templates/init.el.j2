@@ -41,7 +41,7 @@
      sql
      (python
       :variables python-test-runner 'pytest)
-     prodigy
+     {% if emacs_prodigy_enabled %}prodigy{% endif %}
      ;; rcirc
      ;; restclient
      slack
@@ -87,11 +87,6 @@
 ;; Use man pages initalled by homebrew when on OS X
 (if (string-equal system-type "darwin")
     (setq erlang-root-dir "/usr/local/opt/erlang/lib/erlang"))
-
-(setq-default dotspacemacs-themes '({{ emacs_theme }}
-                                    spacemacs
-                                    leuven))
-(setq-default dotspacemacs-mode-line-theme 'spacemacs)
 
 (setq rcirc-server-alist
       '(("irc.freenode.net" :port 6697 :encryption tls
@@ -335,69 +330,72 @@
   ;;              '("ip-10-50-3-34.ec2.internal" nil "/ssh:ec2-user@34.198.67.93"))
 
   ;; Prodigy
-  (setq personal--repos-dir (expand-file-name "~/repos"))
+  (with-eval-after-load 'prodigy
+    (setq personal--repos-dir (expand-file-name "~/repos"))
 
-  (defvar personal--pyvenv-dir
-    (expand-file-name "~/.virtualenvs")
-    "Path to dir containing python venvs.")
+    (defvar personal--pyvenv-dir
+      (expand-file-name "~/.virtualenvs")
+      "path to dir containing python venvs.")
 
-  (defun personal--ensure-dir (path)
-    (if (file-directory-p path)
-        (file-name-as-directory path)
-      (error "repo doesn't exist")))
+    (defun personal--ensure-dir (path)
+      (if (file-directory-p path)
+          (file-name-as-directory path)
+        (error "repo doesn't exist")))
 
-  (defun personal--repo-path (repo)
-    (let ((path (concat (file-name-as-directory personal--repos-dir) repo)))
-      (personal--ensure-dir path)))
+    (defun personal--repo-path (repo)
+      (let ((path (concat (file-name-as-directory personal--repos-dir) repo)))
+        (personal--ensure-dir path)))
 
-  (defun personal--pyvenv-path (venv)
-    (let ((path (concat (file-name-as-directory personal--pyvenv-dir) venv)))
-      (personal--ensure-dir path)))
+    (defun personal--pyvenv-path (venv)
+      (let ((path (concat (file-name-as-directory personal--pyvenv-dir) venv)))
+        (personal--ensure-dir path)))
 
-  (defun personal--pyvenv-python (venv)
-    (concat (personal--pyvenv-path venv) "bin/python"))
+    (defun personal--pyvenv-python (venv)
+      (concat (personal--pyvenv-path venv) "bin/python"))
 
-  ;; (prodigy-define-service
-  ;;   :name "biguns:5432->localhost:5433"
-  ;;   :command "ssh"
-  ;;   :args '("-L" "5433:localhost:5432" "biguns" "-N")
-  ;;   :tags '(:deepmed))
-  ;; (prodigy-define-service
-  ;;   :name "allscratch webpack"
-  ;;   :command "yarn"
-  ;;   :tags '(allscratch frontend)
-  ;;   :args '("start")
-  ;;   :cwd (concat spacemacs--repos-dir "/allscratch"))
-  ;; (prodigy-define-service
-  ;;   :name "allscratch dev backend"
-  ;;   :tags '(allscratch backend)
-  ;;   :cwd (concat spacemacs--repos-dir "/allscratch")
-  ;;   :command "/home/jtmoulia/.virtualenvs/allscratch/bin/python"
-  ;;   :args (list (concat spacemacs--repos-dir "/allscratch/bin/runflask"))
-  ;;   :env '(("ALLSCRATCH_ENV" "dev")))
-  ;; TODO
-  (prodigy-define-service
-    :name "healthtensor research tunnel"
-    :tags '(healthtensor tunnel)
-    :command "ssh"
-    ;; :cwd
-    :args (list "-F" (concat personal--repos-dir "/hippos/ssh.conf")
-                "-L"))
+    ;; (prodigy-define-service
+    ;;   :name "biguns:5432->localhost:5433"
+    ;;   :command "ssh"
+    ;;   :args '("-L" "5433:localhost:5432" "biguns" "-N")
+    ;;   :tags '(:deepmed))
+    ;; (prodigy-define-service
+    ;;   :name "allscratch webpack"
+    ;;   :command "yarn"
+    ;;   :tags '(allscratch frontend)
+    ;;   :args '("start")
+    ;;   :cwd (concat spacemacs--repos-dir "/allscratch"))
+    ;; (prodigy-define-service
+    ;;   :name "allscratch dev backend"
+    ;;   :tags '(allscratch backend)
+    ;;   :cwd (concat spacemacs--repos-dir "/allscratch")
+    ;;   :command "/home/jtmoulia/.virtualenvs/allscratch/bin/python"
+    ;;   :args (list (concat spacemacs--repos-dir "/allscratch/bin/runflask"))
+    ;;   :env '(("ALLSCRATCH_ENV" "dev")))
 
-  (prodigy-define-service
-    :name "healthtensor local webserver"
-    :tags '(healthtensor-local)
-    :command (personal--pyvenv-python "cedars")
-    :args '("-m" "flask" "run")
-    :cwd (personal--repo-path "automed")
-    :env '(("FLASK_DEBUG" "1")
-           ("FLASK_APP" "automed/api.py")))
+    ;; TODO
+    (prodigy-define-service
+      :name "healthtensor research tunnel"
+      :tags '(healthtensor tunnel)
+      :command "ssh"
+      ;; :cwd
+      :args (list "-F" (concat personal--repos-dir "/hippos/ssh.conf")
+                  "-L"))
 
-  (prodigy-define-service
-    :name "healthtensor local webpack dev server"
-    :tags '(healthtensor-local)
-    :cwd (personal--repo-path "automed")
-    :command  (concat (personal--repo-path "automed") "node_modules/.bin/webpack-dev-server"))
+    (prodigy-define-service
+      :name "healthtensor local webserver"
+      :tags '(healthtensor-local)
+      :command (personal--pyvenv-python "cedars")
+      :args '("-m" "flask" "run")
+      :cwd (personal--repo-path "automed")
+      :env '(("FLASK_DEBUG" "1")
+             ("FLASK_APP" "automed/api.py")))
+
+    (prodigy-define-service
+      :name "healthtensor local webpack dev server"
+      :tags '(healthtensor-local)
+      :cwd (personal--repo-path "automed")
+      :command  (concat (personal--repo-path "automed") "node_modules/.bin/webpack-dev-server"))
+    )
   )
 
 (defun dotspacemacs/init ()

@@ -32,7 +32,6 @@
     src: "templates/init.el.j2"
     dest: "~/.spacemacs.d/init.el"
 
-
 # org-jira
 
 - name: include org-jira tasks if emacs_org_jira_enabled
