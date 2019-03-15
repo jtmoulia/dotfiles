@@ -27,7 +27,7 @@
       vars:
         emacs_font_size: "15"
         emacs_powerline_scale: "1.0"
-        emacs_theme: "spacemacs-light"
+        emacs_themes: "spacemacs-light spacemacs"
 
     - {role: nextcloud, tags: nextcloud}
     - {role: xorg, tags: xorg}
