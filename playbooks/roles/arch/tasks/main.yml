@@ -7,6 +7,7 @@
     - "base-devel"
     - "fd"
     - "ripgrep"
+    - "entr"
 
 - name: pull pikaur
   git:

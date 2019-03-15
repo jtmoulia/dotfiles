@@ -12,10 +12,11 @@
    browse-url-firefox-program "firefox-developer-edition"
    browse-url-browser-function 'browse-url-firefox))
 
+(setq-default dotspacemacs-themes '({{ emacs_themes }}))
+
 (defun dotspacemacs/layers ()
   "Layer congfiguration."
   (setq-default
-   dotspacemacs-themes '({{ emacs_themes }})
    dotspacemacs-configuration-layers
    '(
      ansible
