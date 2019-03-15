@@ -1,0 +1,59 @@
+---
+- import_playbook: base.yml
+
+- hosts: localhost
+  connection: local
+  remote_user: "{{ local_user }}"
+  roles:
+    - role: arch
+      tags: arch
+      vars:
+        wifi_interface: "wlp2s0"
+
+    # trying elvish over fish, because the grass is always greener
+    # - {role: fish, tags: fish}
+    - {role: elvish, tags: elvish}
+    - {role: net-utils, tags: net-utils}
+    - {role: ssh, tags: ssh}
+    - {role: bluetooth, tags: bluetooth}
+    - {role: pulseaudio, tags: pulseaudio}
+    - {role: python, tags: python}
+    - {role: nodejs, tags: nodejs}
+    - {role: ruby, tags: ruby}
+    - {role: offlineimap, tags: offlineimap}
+
+    - role: emacs
+      tags: emacs
+      vars:
+        emacs_font_size: "26"
+        emacs_powerline_scale: "1.2"
+        emacs_theme: "spacemacs"
+
+    - {role: nextcloud, tags: nextcloud}
+    - {role: xorg, tags: xorg}
+
+    - role: stumpwm
+      tags: stumpwm
+      vars:
+        dmenu_font_size: "18"
+        device_scale_factor: "1.2"
+
+    - role: dunst
+      tags: dunst
+      vars:
+        dunst_font: "Terminus 18"
+
+    - role: tint2
+      tags: tint2
+
+    - role: termite
+      tags: termite
+      vars:
+        termite_font_size: "18"
+
+    - {role: xapps, tags: xapps}
+    - {role: xscreensaver, tags: xscreensaver}
+    - {role: docker, tags: docker}
+    - {role: automed, tags: automed}
+    - {role: gitup, tags: gitup}
+    # - {role: pass, tags: pass}
