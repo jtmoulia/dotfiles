@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  connection: local
+  remote_user: "{{ local_user }}"
+  roles:
+    - {role: git, tags: git}
+    - {role: core, tags: core}
+    - {role: bash, tags: bash}
+    - {role: dotsible, tags: dotsible}
+    - {role: tmux, tags: tmux}

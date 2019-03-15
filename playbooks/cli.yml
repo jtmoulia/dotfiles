@@ -1,19 +1,12 @@
 ---
+- import_playbook: base.yml
+  vars:
+    sudo_group: "sudo"
+
 - hosts: localhost
   connection: local
   remote_user: "{{ local_user }}"
   roles:
-
-    - {role: git, tags: git}
-
-    - role: core
-      tags: core
-      vars:
-        sudo_group: "sudo"
-
-    - {role: bash, tags: bash}
-
-    - {role: dotsible, tags: dotsible}
 
     - role: ssh
       tags: ssh
@@ -26,5 +19,3 @@
         emacs_mu4e_enabled: no
         emacs_org_jira_enabled: no
         emacs_prodigy_enabled: no
-
-    - {role: tmux, tags: tmux}

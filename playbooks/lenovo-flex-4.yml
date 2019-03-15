@@ -1,15 +1,15 @@
 ---
+- import_playbook: base.yml
+
 - hosts: localhost
   connection: local
   remote_user: "{{ local_user }}"
   roles:
-    - {role: git, tags: git}
-    - {role: core, tags: core}
     - role: arch
       tags: arch
       vars:
         wifi_interface: "wlp3s0"
-    - {role: bash, tags: bash}
+
     # trying elvish over fish, because the grass is always greener
     # - {role: fish, tags: fish}
     - {role: elvish, tags: elvish}
@@ -29,7 +29,6 @@
         emacs_powerline_scale: "1.0"
         emacs_theme: "spacemacs-light"
 
-    - {role: tmux, tags: tmux}
     - {role: nextcloud, tags: nextcloud}
     - {role: xorg, tags: xorg}
 
@@ -43,6 +42,7 @@
       tags: dunst
       vars:
         dunst_font: "Terminus 12"
+
     - role: tint2
       tags: tint2
       vars:
@@ -51,10 +51,12 @@
         tint2_systray_icon_size: "24"
         tint2_launcher_icon_size: "32"
         tint2_task_height: "40"
+
     - role: termite
       tags: termite
       vars:
         termite_font_size: "11"
+
     - {role: xapps, tags: xapps}
     - {role: xscreensaver, tags: xscreensaver}
     - {role: docker, tags: docker}
