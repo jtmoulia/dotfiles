@@ -8,6 +8,7 @@
     - firefox
     - chromium
     - termite
+    - vlc
 
 - name: install GUI apps from aur
   command: "pikaur -Sy --noconfirm --noprogressbar {{ item }}"
