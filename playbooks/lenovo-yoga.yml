@@ -30,7 +30,12 @@
         emacs_theme: "spacemacs"
 
     - {role: nextcloud, tags: nextcloud}
-    - {role: xorg, tags: xorg}
+
+    - role: xorg
+      tags: xorg
+      vars:
+        xinitrc_qt_scale_factor: 1.6
+        xinitrc_gdk_scale: 2
 
     - role: stumpwm
       tags: stumpwm
@@ -49,7 +54,7 @@
     - role: termite
       tags: termite
       vars:
-        termite_font_size: "18"
+        termite_font_size: "10"
 
     - {role: xapps, tags: xapps}
     - {role: xscreensaver, tags: xscreensaver}
