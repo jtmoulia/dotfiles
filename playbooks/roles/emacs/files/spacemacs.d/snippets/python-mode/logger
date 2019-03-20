@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: logger
+# key: logger
+# --
+logger.${1:debug}("${2:$(
+  mapconcat (lambda (x) (format "%s: %%s" x)) (split-string yas-text "," t "[ \t]") ", "
+)}$0", $2)
