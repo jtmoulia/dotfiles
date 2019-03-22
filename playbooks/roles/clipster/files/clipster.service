@@ -1,0 +1,10 @@
+[Unit]
+Description=clipster daemon
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=clipster -d
+Restart=always
+
+[Install]
+WantedBy=xsession.target

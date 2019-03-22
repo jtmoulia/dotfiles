@@ -36,7 +36,10 @@
       tags: stumpwm
       vars:
         dmenu_font_size: "12"
-        device_scale_factor: "1.2"
+        device_scale_factor: "1.0"
+
+    - role: clipster
+      tags: clipster
 
     - role: dunst
       tags: dunst
