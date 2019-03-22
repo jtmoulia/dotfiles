@@ -41,19 +41,49 @@ To install everything run:
 pipenv run bin/dotsible.sh
 ```
 
-The first run will create an executable in your path named `dotsible`, which can
-be called instead of `pipenv run bin/dotsible.sh`. The following examples use
-this shortcut.
-
-Sometimes you'll want to install only a few roles, say `ssh` and `net-utils`:
-
-```shell
-dotsible -- -t ssh -t net-utils
-```
-
-You can use alternate configurations; her it's run with configuration specific to my
+You can use alternate configurations; here it's run with configuration specific to my
 Lenovo Flex 4:
 
 ```shell
 dotsible -p lenovo-flex-4
 ```
+
+### The `dotsible` executable
+
+The first run will create an executable in your path named `dotsible`, which can
+be called instead of `pipenv run bin/dotsible.sh -p $DOTSIBLE_PLAYBOOK`. The
+following examples use this shortcut.
+
+Sometimes you'll want to install only a few roles, say `ssh` and `net-utils`:
+
+```shell
+dotsible -t ssh -t net-utils
+```
+
+## Roles
+
+Related configurations are organized into [Ansible
+roles](https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html).
+
+All of the available roles are located under `playbooks/roles/` -- you can list
+them by simply running:
+
+```shell
+ls playbooks/roles
+```
+
+Some roles have documentation under `$ROLE/README.md`.
+
+## Playbooks
+
+A set of roles and variables are organized into [Ansible
+playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html).
+Typically a playbook is used to define the overall configuration for a target
+environment.
+
+The currently available playbooks are:
+
+  - `base`: basic roles such as `git`, `bash`, and `tmux`
+  - `cli`: portable CLI specific configuration
+  - `lenovo-flex-4`: Arch Linux configuration for a Lenovo Flex 4
+  - `lenovo-yoga`: Arch Linux configuration for a Lenovo Yoga

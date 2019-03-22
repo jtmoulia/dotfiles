@@ -2,6 +2,7 @@
 - import_playbook: base.yml
   vars:
     sudo_group: "sudo"
+    dotsible_playbook: "cli"
 
 - hosts: localhost
   connection: local

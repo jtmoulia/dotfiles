@@ -1,5 +1,7 @@
 ---
 - import_playbook: base.yml
+  vars:
+    dotsible_playbook: "lenovo-flex-4"
 
 - hosts: localhost
   connection: local
