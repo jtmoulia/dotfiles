@@ -53,7 +53,7 @@
      yaml
      (mu4e :variables mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
      ;; Private Layers
-     ;; org-page
+     {% if emacs_org_page_enabled %}org-page{% endif %}
      ;; lfe
    )
    dotspacemacs-additional-packages
