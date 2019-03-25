@@ -12,7 +12,9 @@
    browse-url-firefox-program "firefox-developer-edition"
    browse-url-browser-function 'browse-url-firefox))
 
-(setq-default dotspacemacs-themes '({{ emacs_themes }}))
+(setq-default
+ dotspacemacs-themes '({{ emacs_themes }})
+ dotspacemacs-mode-line-theme 'spacemacs)
 
 (defun dotspacemacs/layers ()
   "Layer congfiguration."
