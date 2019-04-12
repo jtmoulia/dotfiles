@@ -16,6 +16,7 @@
     # - {role: fish, tags: fish}
     - {role: elvish, tags: elvish}
     - {role: net-utils, tags: net-utils}
+    - {role: mlocate, tags: mlocate}
     - {role: ssh, tags: ssh}
     - {role: bluetooth, tags: bluetooth}
     - {role: pulseaudio, tags: pulseaudio}

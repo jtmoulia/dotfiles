@@ -1,0 +1,13 @@
+---
+- name: install mlocate
+  package:
+    name: "mlocate"
+    state: latest
+  become: yes
+
+- name: trigger updatedb timer
+  systemd:
+    name: "updatedb.timer"
+    state: started
+    enabled: yes
+  become: yes
