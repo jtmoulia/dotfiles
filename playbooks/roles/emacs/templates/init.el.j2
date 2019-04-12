@@ -66,32 +66,6 @@
     )
   ))
 
-(defvar personal--web-indent
-  2
-  "Indentation across js, css, html")
-
-(setq-default
- ;; general js + json
- js-indent-level personal--web-indent
- ;; js2-mode
- js2-basic-offset personal--web-indent
- ;; web-mode
- css-indent-offset personal--web-indent
- web-mode-markup-indent-offset personal--web-indent
- web-mode-css-indent-offset personal--web-indent
- web-mode-code-indent-offset personal--web-indent
- web-mode-attr-indent-offset personal--web-indent)
-
-(with-eval-after-load 'web-mode
-  (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
-  (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
-  (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
-
-;; erlang config
-;; Use man pages initalled by homebrew when on OS X
-(if (string-equal system-type "darwin")
-    (setq erlang-root-dir "/usr/local/opt/erlang/lib/erlang"))
-
 (setq rcirc-server-alist
       '(("irc.freenode.net" :port 6697 :encryption tls
    :channels ("#switchboard-dev" "#elixir-lang" "#emacs"))))
@@ -102,6 +76,7 @@
                                           :weight normal
                                           :width normal
                                           :powerline-scale {{ emacs_powerline_scale }}))
+
 
 (defun dotspacemacs/user-config ()
   "Post spacemacs init config."
@@ -122,6 +97,16 @@
 
   (personal//add-to-path (personal//join-paths (getenv "HOME") "bin"))
 
+  ;; Define some helpers for loading configs
+  (defun personal//eval-config-after-load (mode config)
+    (let ((path (personal//join-path dotspacemacs-directory config)))
+      (eval-after-load mode `(load-file ,path))))
+  (personal//eval-config-after-load 'web-mode "config/web-mode.el")
+  (personal//eval-config-after-load 'eshell "config/eshell.el")
+  (personal//eval-config-after-load 'org "config/org.el")
+  (personal//eval-config-after-load 'mu4e "config/mu4e.el")
+  (personal//eval-config-after-load 'prodigy "config/mu4e.el")
+
   ;; Yas fun
   (defun my-yas-get-first-name-from-to-field ()
     (let ((rlt "AGENT_NAME") str)
@@ -135,13 +120,23 @@
       rlt))
 
   ;; ivy
-  (spacemacs/set-leader-keys
-    "bo" 'ivy-switch-buffer-other-window)
+  (with-eval-after-load 'ivy
+    (spacemacs/set-leader-keys
+      "bo" 'ivy-switch-buffer-other-window)
+
+    ;; Do not show messages in the minibuffer when ivy is loaded
+    (setq inhibit-message t))
 
   ;; dash
   (with-eval-after-load 'counsel-dash
     (add-hook 'python-mode
               (setq-local counsel-dash-docsets '("Python_3"))) )
+
+  ;; erlang
+  (with-eval-after-load 'erlang-mode
+    ;; Use man pages initalled by homebrew when on OS X
+    (if (string-equal system-type "darwin")
+        (setq erlang-root-dir "/usr/local/opt/erlang/lib/erlang")))
 
   ;; fasd
   (with-eval-after-load 'fasd
@@ -159,66 +154,6 @@
                      (file-readable-p file))
             (start-process "*fasd*" nil "fasd" "--add" file))))))
 
-  ;; eshell
-  ;; eshell keybindings
-  (add-hook 'eshell-mode-hook
-            '(lambda ()
-               (define-key eshell-mode-map (kbd "<tab>") 'completion-at-point)
-               ))
-
-  (with-eval-after-load 'eshell
-    (require 'em-tramp)
-    (require 'esh-module)
-    (setq
-     eshell-prefer-lisp-functions t
-     eshell-prefer-lisp-variables t
-     password-cache t
-     password-cache-expiry (* 60 10)
-     )
-
-    ;; eshell aliases
-    ; (eshell/alias "rm" "echo 'rm disabled. try trash-{put,rm} or *rm to force.'")
-
-    ;; set up fasd to track directories on change
-    (add-hook 'eshell-directory-change-hook 'fasd-add-file-to-db-eshell)
-
-    ;; eshell helper functions
-    (defun eshell-here ()
-      (interactive)
-      (let ((current-dir (file-name-directory (buffer-file-name (current-buffer))))
-            (eshell-buffer (get-buffer eshell-buffer-name)))
-        (switch-to-buffer eshell-buffer)
-        (cd current-dir)
-        ;; this makes a pretty big assumption re the input being empty
-        (eshell-send-input)
-        ))
-    )
-
-  ;; Org
-  (defvar personal//org-todo-file "~/ocloud/org/todo.org"
-    "The path to the primary todo file.")
-
-  (defvar personal//org-notes-file "~/ocloud/org/notes.org"
-    "The path to the notes file.")
-
-  (defvar personal//org-contacts-file "~/ocloud/org/contacts.org"
-    "The path to the contacts file.")
-
-  (setq org-capture-templates
-        '(("t" "todo" entry (file+headline personal//org-todo-file "Tasks")
-           "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n\n%a\n")))
-
-  (with-eval-after-load 'org
-   (add-to-list 'org-agenda-files personal//org-todo-file)
-   (org-babel-do-load-languages
-    'org-babel-load-languages
-    '((python . t)
-      (sql . t)
-      (ipython . t)
-      (emacs-lisp . t)
-      (shell . t)
-      ))
-   )
 
   ;; Time tracking
   ;; (setq buffer-list-update-hook nil)
@@ -238,7 +173,6 @@
                     (timeclock-change nil project)
                   (timeclock-in nil project))))
           )))
-      ; (message (buffer-name current-buffer))
 
   ;; (add-hook 'buffer-list-update-hook 'personal//buffer-tracker-hook)
 
@@ -283,10 +217,6 @@
 
   ;; Python
   (with-eval-after-load 'python
-    ;; (setq python-shell-interpreter "ipython"
-    ;;       ; For IPython 5.x --
-    ;;       python-shell-interpreter-args "--simple-prompt -i"
-    ;;       )
     (setq python-shell-interpreter "ipython")
 
     (defun python-use-tabs ()
@@ -303,103 +233,14 @@
   ;; SQL
   (setq sql-connection-alist
         '(
-          (postgres
+          (local-postgres
            (sql-product 'postgres)
            (sql-user "postgres")
            (sql-server "localhost")
            (sql-database "postgres")
            (sql-port 5432))
-          (mimic
-           (sql-product 'postgres)
-           (sql-user "mimic")
-           (sql-server "localhost")
-           (sql-database "mimic")
-           (sql-port 5433))
-          (biguns
-           (sql-product 'postgres)
-           (sql-user "ubuntu")
-           (sql-server "localhost")
-           (sql-database "deepdive_deepmed_ubuntu")
-           (sql-port 5433))
-          (htcs
-           (sql-product 'postgres)
-           (sql-user "htcs")
-           (sql-server "localhost")
-           (sql-database "htcs")
-           (sql-port 5432))
           ))
 
-  ;; tramp
-  ;; (add-to-list 'tramp-default-proxies-alist
-  ;;              '("ip-10-50-3-34.ec2.internal" nil "/ssh:ec2-user@34.198.67.93"))
-
-  ;; Prodigy
-  (with-eval-after-load 'prodigy
-    (setq personal--repos-dir (expand-file-name "~/repos"))
-
-    (defvar personal--pyvenv-dir
-      (expand-file-name "~/.virtualenvs")
-      "path to dir containing python venvs.")
-
-    (defun personal--ensure-dir (path)
-      (if (file-directory-p path)
-          (file-name-as-directory path)
-        (error "repo doesn't exist")))
-
-    (defun personal--repo-path (repo)
-      (let ((path (concat (file-name-as-directory personal--repos-dir) repo)))
-        (personal--ensure-dir path)))
-
-    (defun personal--pyvenv-path (venv)
-      (let ((path (concat (file-name-as-directory personal--pyvenv-dir) venv)))
-        (personal--ensure-dir path)))
-
-    (defun personal--pyvenv-python (venv)
-      (concat (personal--pyvenv-path venv) "bin/python"))
-
-    ;; (prodigy-define-service
-    ;;   :name "biguns:5432->localhost:5433"
-    ;;   :command "ssh"
-    ;;   :args '("-L" "5433:localhost:5432" "biguns" "-N")
-    ;;   :tags '(:deepmed))
-    ;; (prodigy-define-service
-    ;;   :name "allscratch webpack"
-    ;;   :command "yarn"
-    ;;   :tags '(allscratch frontend)
-    ;;   :args '("start")
-    ;;   :cwd (concat spacemacs--repos-dir "/allscratch"))
-    ;; (prodigy-define-service
-    ;;   :name "allscratch dev backend"
-    ;;   :tags '(allscratch backend)
-    ;;   :cwd (concat spacemacs--repos-dir "/allscratch")
-    ;;   :command "/home/jtmoulia/.virtualenvs/allscratch/bin/python"
-    ;;   :args (list (concat spacemacs--repos-dir "/allscratch/bin/runflask"))
-    ;;   :env '(("ALLSCRATCH_ENV" "dev")))
-
-    ;; TODO
-    (prodigy-define-service
-      :name "healthtensor research tunnel"
-      :tags '(healthtensor tunnel)
-      :command "ssh"
-      ;; :cwd
-      :args (list "-F" (concat personal--repos-dir "/hippos/ssh.conf")
-                  "-L"))
-
-    (prodigy-define-service
-      :name "healthtensor local webserver"
-      :tags '(healthtensor-local)
-      :command (personal--pyvenv-python "cedars")
-      :args '("-m" "flask" "run")
-      :cwd (personal--repo-path "automed")
-      :env '(("FLASK_DEBUG" "1")
-             ("FLASK_APP" "automed/api.py")))
-
-    (prodigy-define-service
-      :name "healthtensor local webpack dev server"
-      :tags '(healthtensor-local)
-      :cwd (personal--repo-path "automed")
-      :command  (concat (personal--repo-path "automed") "node_modules/.bin/webpack-dev-server"))
-    )
   )
 
 (defun dotspacemacs/init ()
@@ -412,211 +253,3 @@
                 dotspacemacs-command-key ":")
 
   (setq spacemacs-erlang-elixir-use-edts t))
-
-(with-eval-after-load 'mu4e
-  ;; Activate snippets for mu4e-view-mode
-  (add-hook 'mu4e-compose-mode-hook
-            (lambda ()
-              (yas-minor-mode 1)
-              (yas-reload-all 1)))
-
-  ;; Configure Contexts
-  (setq-default mu4e-contexts
-   `(
-     ,(make-mu4e-context
-       :name "gmail"
-       :enter-func
-       (lambda ()
-         (mu4e-message
-          (concat "Switching to context: gmail")))
-       :match-func
-       (lambda (msg)
-         (when msg
-           (mu4e-message-contact-field-matches msg
-                                               :to "jtmoulia@gmail.com")))
-       :vars '((user-mail-address . "jtmoulia@gmail.com")
-               (user-full-name . "Thomas Moulia")
-               (mu4e-inbox-folder . "/gmail/INBOX")
-               (mu4e-sent-folder . "/gmail/[Gmail].Sent Mail")
-               (mu4e-drafts-folder . "/gmail/[Gmail].Drafts")
-               (mu4e-trash-folder . "/gmail/[Gmail].Trash")
-               (mu4e-refile-folder . "/gmail/[Gmail].All Mail")
-               (mu4e-spam-folder . "/gmail/[Gmail].spam")
-               (smtpmail-smtp-user . "jtmoulia@gmail.com")
-               (smtpmail-default-smtp-server . "smtp.gmail.com")
-               (smtpmail-smtp-server . "smtp.gmail.com")
-               (smtpmail-smtp-service . 465)))
-     ,(make-mu4e-context
-       :name "pocketknife"
-       :enter-func
-       (lambda ()
-         (mu4e-message
-          (concat "Switching to context: pocketknife")))
-         :match-func
-         (lambda (msg)
-           (when msg
-             (mu4e-message-contact-field-matches
-              msg :to "jtmoulia@pocketknife.io")))
-         :vars '((user-mail-address . "jtmoulia@pocketknife.io")
-                 (user-full-name . "Thomas Moulia")
-                 (mu4e-inbox-folder . "/pocketknife/INBOX")
-                 (mu4e-sent-folder . "/pocketknife/INBOX.Sent Items")
-                 (mu4e-drafts-folder . "/pocketknife/INBOX.Drafts")
-                 (mu4e-trash-folder . "/pocketknife/INBOX.Trash")
-                 (mu4e-refile-folder . "/pocketknife/INBOX.Archive")
-                 (mu4e-spam-folder . "/pocketknife/INBOX.Junk Mail")
-                 (smtpmail-smtp-user . "jtmoulia@pocketknife.io")
-                 (smtpmail-default-smtp-server . "mail.messagingengine.com")
-                 (smtpmail-smtp-server . "mail.messagingengine.com")
-                 (smtpmail-stream-type . ssl)
-                 (smtpmail-smtp-service . 465)))
-     ,(make-mu4e-context
-       :name "healthtensor"
-       :enter-func
-       (lambda ()
-         (mu4e-message
-          (concat "Switching to context: healthtensor")))
-       :match-func
-       (lambda (msg)
-         (when msg
-           (mu4e-message-contact-field-matches
-            msg :to "thomas@healthtensor.com")))
-       :vars '((user-mail-address . "thomas@healthtensor.com")
-               (user-full-name . "Thomas Moulia")
-               (mu4e-inbox-folder . "/healthtensor/INBOX")
-               (mu4e-sent-folder . "/healthtensor/INBOX.Sent Items")
-               (mu4e-drafts-folder . "/healthtensor/INBOX.Drafts")
-               (mu4e-trash-folder . "/healthtensor/INBOX.Trash")
-               (mu4e-refile-folder . "/healthtensor/INBOX.Archive")
-               (mu4e-spam-folder . "/healthtensor/INBOX.Junk Mail")
-               (smtpmail-smtp-user . "thomas@healthtensor.com")
-               (smtpmail-default-smtp-server . "smtp.gmail.com")
-               (smtpmail-smtp-server . "smtp.gmail.com")
-               (smtpmail-smtp-service . 465)))
-     ))
-
-  ;; Helper Functions
-  (defun dotspacemacs//mu4e-context (context-name)
-    "Return the context in `mu4e-contexts' with name CONTEXT-NAME.
-
-Raises an error if that context isn't present."
-    (let* ((names (mapcar (lambda (context)
-                            (cons (mu4e-context-name context) context))
-                          mu4e-contexts))
-           (context (cdr (assoc context-name names))))
-      (if context
-          context
-        (error "no context with name: %s" context-name))))
-
-  (defun dotspacemacs//mu4e-context-get-var (context var)
-    "For CONTEXT return VAR. Helper function for access."
-    (cdr (assoc var (mu4e-context-vars context))))
-
-  (defun dotspacemacs//mu4e-context-var (context-name var)
-    "Return the value of VAR for the context with name CONTEXT-NAME, searching
-`mu4e-contexts'."
-    (dotspacemacs//mu4e-context-get-var
-     (dotspacemacs//mu4e-context context-name)
-     var))
-
-  (defun dotspacemacs//mu4e-contexts-var (var)
-    "Return a list of the value for VAR across `mu4e-contexts'. If VAR is
-undefined for a context, it will be filtered out."
-    (delq nil
-          (mapcar (lambda (context)
-                    (dotspacemacs//mu4e-context-get-var context var))
-                  mu4e-contexts)))
-
-  (defun dotspacemacs//mu4e-add-maildir-prefix (maildir)
-    "Add maildir: prefix to MAILDIR for mu queries."
-    (concat "maildir:\"" maildir "\""))
-
-  (defun dotspacemacs//flat-cat (&rest list)
-    "Flatten and concatenate LIST."
-    (apply 'concat (-flatten list)))
-
-  (defun dotspacemacs//flat-cat-pose (sep &rest list)
-      "Unabashed helper function to interpose SEP padded with
-spaces into LIST. Return the padded result."
-      (dotspacemacs//flat-cat
-       (-interpose (concat " " sep " ") list)))
-
-  (defun* dotspacemacs//mu4e-query
-      (var &key (prefix "") (sep "AND"))
-    (apply 'dotspacemacs//flat-cat-pose sep
-           (-map (lambda (folder) (concat prefix folder))
-                 (dotspacemacs//mu4e-contexts-var var))))
-
-  ;; Configure Vars
-  (require 'mu4e-contrib)
-  ;; (require 'org-mu4e)
-  (setq-default
-   mu4e-mu-binary         "/usr/bin/mu"
-   mu4e-maildir           "~/maildirs"            ;; top-level Maildir
-   mu4e-confirm-quit      nil
-   mu4e-get-mail-command  "offlineimap"
-   mu4e-headers-skip-duplicates t
-   mu4e-update-interval   nil
-   mu4e-index-lazy-check  t
-   mu4e-use-fancy-chars   nil
-   mu4e-compose-signature (apply 'concat (-interpose
-                                          "  \n"
-                                          '("Thomas Moulia"
-                                            "Co-Founder & CTO | HealthTensor"
-                                            "www.healthtensor.com"
-                                            "jtmoulia.pocketknife.io")))
-   mu4e-compose-dont-reply-to-self t
-   mu4e-compose-complete-only-personal t
-   mu4e-hide-index-messages nil
-   mu4e-html2text-command 'mu4e-shr2text
-   mu4e-user-mail-address-list (dotspacemacs//mu4e-contexts-var
-                                'user-mail-address)
-   ;; User info
-   message-auto-save-directory (concat (file-name-as-directory mu4e-maildir)
-                                       "drafts")
-   send-mail-function 'smtpmail-send-it
-   message-send-mail-function 'smtpmail-send-it
-   smtpmail-stream-type 'ssl
-   smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
-   ;; smtpmail-queue-mail t
-   smtpmail-queue-dir  (expand-file-name "~/maildirs/queue/cur"))
-
-  ;; drafts are saved as *message*-___
-  (add-to-list 'auto-mode-alist '("\\*message\\*-+" . message-mode))
-
-  ;; mu4e bookmarks -- this is the magic
-  (let* ((maildir "maildir:")
-         (not-maildir (concat "NOT " maildir))
-         (not-spam (dotspacemacs//mu4e-query 'mu4e-spam-folder
-                                            :prefix not-maildir))
-         (not-trash (dotspacemacs//mu4e-query 'mu4e-trash-folder
-                                              :prefix not-maildir))
-         (not-refile (dotspacemacs//mu4e-query 'mu4e-refile-folder
-                                               :prefix not-maildir)))
-    (setq mu4e-bookmarks
-         `((,(dotspacemacs//flat-cat-pose "AND"
-              "flag:unread" "NOT flag:trashed" not-spam not-trash not-refile)
-            "Unread messages" ?u)
-           (,(dotspacemacs//flat-cat-pose "AND" "date:today..now" not-spam)
-            "Today's messages" ?t)
-           (,(dotspacemacs//flat-cat-pose "AND" "date:7d..now" not-spam)
-            "Last 7 days" ?w)
-           (,(apply 'dotspacemacs//flat-cat-pose "OR"
-              (mapcar 'dotspacemacs//mu4e-add-maildir-prefix
-                      (dotspacemacs//mu4e-contexts-var 'mu4e-inbox-folder)))
-            "Messages in inboxes", ?i)
-           (,(dotspacemacs//flat-cat-pose "AND" "mime:image/*" not-spam)
-            "Messages with images" ?p)
-           (,(dotspacemacs//flat-cat-pose "AND"
-              "flag:unread" "NOT flag:trashed" not-spam)
-            "Unread spam" ?s)))
-
-    (setq mu4e-maildir-shortcuts
-          `((,(dotspacemacs//mu4e-context-var "gmail" 'mu4e-inbox-folder) . ?g)
-            (,(dotspacemacs//mu4e-context-var "healthtensor" 'mu4e-inbox-folder) . ?h))))
-
-  (evil-define-key 'evilified mu4e-view-mode-map
-    "y" 'evil-yank
-    "f" 'evil-find-char
-    "t" 'evil-find-char-to)
-  )
