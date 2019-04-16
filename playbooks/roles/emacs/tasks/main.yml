@@ -31,6 +31,8 @@
   template:
     src: "templates/init.el.j2"
     dest: "~/.spacemacs.d/init.el"
+  notify:
+    - restart emacs
 
 # org-jira
 
@@ -51,6 +53,8 @@
   copy:
     src: "files/emacs.service"
     dest: "~/.config/systemd/user/emacs.service"
+  notify:
+    - restart emacs
 
 - name: enable the emacs service
   systemd:

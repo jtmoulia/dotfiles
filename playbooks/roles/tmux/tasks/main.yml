@@ -5,8 +5,16 @@
   package:
     name: tmux
 
-
 - name: copy in tmux.conf
   copy:
     src: "files/tmux.conf"
     dest: "~/.tmux.conf"
+
+- name: install tmuxinator from AUR
+  become: yes
+  command: pikaur -Sy --noconfirm --noprogressbar tmuxinator
+
+- name: install tmuxinator configs
+  copy:
+    src: "files/tmuxinator/"
+    dest: "~/.config/tmuxinator"

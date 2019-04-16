@@ -1,11 +1,10 @@
 (defvar dotspacemacs-mu-root
   (expand-file-name "~/repos/mu")
   "mu's source path")
+
 (defvar dotspacemacs-slack-el
   (expand-file-name (concat dotspacemacs-directory "/slack.el"))
   "the path to the slack elisp file")
-
-;; (setq bckup-directory-alist '(("." "~/.spacemacs.d/backups")))
 
 (when (eq system-type 'gnu/linux)
   (setq
@@ -101,6 +100,7 @@
   (defun personal//eval-config-after-load (mode config)
     (let ((path (personal//join-path dotspacemacs-directory config)))
       (eval-after-load mode `(load-file ,path))))
+
   (personal//eval-config-after-load 'web-mode "config/web-mode.el")
   (personal//eval-config-after-load 'eshell "config/eshell.el")
   (personal//eval-config-after-load 'org "config/org.el")
@@ -116,7 +116,6 @@
         (setq str (buffer-substring-no-properties (point-min) (point-max))))
       (if (string-match "^To: \"\\([^ ,]+\\)" str)
           (setq rlt (match-string 1 str)))
-      (message "rlt=%s" rlt)
       rlt))
 
   ;; ivy
@@ -140,20 +139,21 @@
 
   ;; fasd
   (with-eval-after-load 'fasd
-    (defun fasd-add-file-to-db-eshell ()
-      "Add current file or directory to the Fasd database."
-      (if (not (executable-find "fasd"))
-          (message "Fasd executable cannot be found. It is required by `fasd.el'. Cannot add file/directory to the fasd db")
-        (let ((file (pcase major-mode
-                      ('dired-mode dired-directory)
-                      ('eshell-mode (expand-file-name default-directory))
-                      (_ (buffer-file-name)))
-                    ))
-          (when (and file
-                     (stringp file)
-                     (file-readable-p file))
-            (start-process "*fasd*" nil "fasd" "--add" file))))))
-
+    (with-eval-after-load 'eshell
+      (defun fasd-add-file-to-db-eshell ()
+        "Add current file or directory to the Fasd database."
+        (if (not (executable-find "fasd"))
+            (message "Fasd executable cannot be found. It is required by `fasd.el'. Cannot add file/directory to the fasd db")
+          (let ((file (pcase major-mode
+                        ('dired-mode dired-directory)
+                        ('eshell-mode (expand-file-name default-directory))
+                        (_ (buffer-file-name)))
+                      ))
+            (when (and file
+                       (stringp file)
+                       (file-readable-p file))
+              (start-process "*fasd*" nil "fasd" "--add" file)))))
+      ))
 
   ;; Time tracking
   ;; (setq buffer-list-update-hook nil)
@@ -193,11 +193,11 @@
       (load-file dotspacemacs-slack-el)
       (mapcar (lambda (team) (apply 'slack-register-team team)) dotspacemacs-slack-teams)))
 
-  (defun stump-notify (message)
+  (defun stump-notify (msg)
     "Create a stump notification"
     (interactive "sNotification: ")
     (start-process "notifications-add" nil
-                   "stumpish" "notifications-add" message))
+                   "stumpish" "notifications-add" msg))
 
   ;; Elfeed
 
