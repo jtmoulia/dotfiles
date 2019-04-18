@@ -52,7 +52,10 @@
      syntax-checking
      typography
      yaml
-     (mu4e :variables mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e")
+     (mu4e
+      :variables
+      mu4e-installation-path "/usr/share/emacs/site-lisp/mu4e"
+      mu4e-maildir "~/maildirs")
      ;; Private Layers
      {% if emacs_org_page_enabled %}org-page{% endif %}
      ;; lfe
@@ -105,7 +108,7 @@
   (personal//eval-config-after-load 'eshell "config/eshell.el")
   (personal//eval-config-after-load 'org "config/org.el")
   (personal//eval-config-after-load 'mu4e "config/mu4e.el")
-  (personal//eval-config-after-load 'prodigy "config/mu4e.el")
+  (personal//eval-config-after-load 'prodigy "config/prodigy.el")
 
   ;; Yas fun
   (defun my-yas-get-first-name-from-to-field ()

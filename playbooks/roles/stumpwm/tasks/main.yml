@@ -19,6 +19,10 @@
     - tint2
     # maim does screen grabs
     - maim
+    # peek does screen recordings -- currently disabled because it doesn't play well with stumpw
+    # - peek
+    # compton is a drop-in compositor that works with stumpwm. But, it adds a lot of overhead
+    # - compton
 
 - name: ensure .stumpwm.d directory exists
   file:
