@@ -1,0 +1,47 @@
+---
+
+- name: install libvirt and related
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - "libvirt"
+    - "ebtables"
+    - "firewalld"
+    - "dnsmasq"
+
+- name: ensure jtmoulia is in libvirt group
+  become: yes
+  user:
+    name: "jtmoulia"
+    append: yes
+    groups: ["libvirt"]
+
+- name: configure firewalld with iptables
+  become: yes
+  lineinfile:
+    path: "/etc/firewalld/firewalld.conf"
+    regexp: "^FirewallBackend ?= ?.*$"
+    line: "FirewallBackend=iptables"
+    state: "present"
+  notify:
+    - "restart firewalld"
+
+- name: enable firewalld
+  become: yes
+  service:
+    name: "firewalld"
+    enabled: yes
+  notify:
+    - "restart firewalld"
+
+- name: enable libvirtd
+  become: yes
+  service:
+    name: "libvirtd"
+    enabled: yes
+  notify:
+    - "restart libvirtd"
+
+...

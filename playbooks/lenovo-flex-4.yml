@@ -24,7 +24,6 @@
     - {role: nodejs, tags: nodejs}
     - {role: ruby, tags: ruby}
     - {role: offlineimap, tags: offlineimap}
-
     - role: emacs
       tags: emacs
       vars:
@@ -65,7 +64,10 @@
 
     - {role: xapps, tags: xapps}
     - {role: xscreensaver, tags: xscreensaver}
-    - {role: docker, tags: docker}
-    - {role: automed, tags: automed}
     - {role: gitup, tags: gitup}
+
+    - {role: libvirt, tags: libvirt}
+    - {role: docker, tags: docker}
+
+    - {role: automed, tags: automed}
     # - {role: pass, tags: pass}
