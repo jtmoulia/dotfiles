@@ -1,0 +1,18 @@
+---
+
+- name: install conky
+  become: yes
+  package:
+    name: conky
+
+- name: ensure conky config dir exists
+  file:
+    path: "~/.config/conky"
+    state: directory
+
+- name: config conky
+  copy:
+    src: "files/conky.conf.lua"
+    dest: "~/.config/conky.conf"
+
+...

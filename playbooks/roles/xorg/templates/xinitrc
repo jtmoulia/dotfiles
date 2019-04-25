@@ -57,5 +57,11 @@ if [[ -b "$DIRCOLORS_THEME" ]]; then
     eval $(dircolors "$DIRCOLORS_THEME")
 fi
 
+# Turn off the hated (if sometimes useful) beep
+xset -b
+
+# Replace the valuable caps real-estate with the ctrl key
 setxkbmap -option caps:ctrl_modifier
+
+# replace this process with stumpwm!
 exec stumpwm
