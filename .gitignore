@@ -2,3 +2,5 @@ backups
 
 *.pyc
 *.retry
+
+etc/*.password

@@ -63,4 +63,5 @@
     - {role: docker, tags: docker}
     - {role: automed, tags: automed}
     - {role: gitup, tags: gitup}
+    - {role: vpn, tags: vpn}
     # - {role: pass, tags: pass}

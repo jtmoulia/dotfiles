@@ -25,9 +25,15 @@ while [ "$1" ]; do
     esac
 done
 
+password_files=
+for file in $(find etc/ -name "*.password"); do
+    password_files="$password_files --vault-password-file=$file"
+done
+
 ANSIBLE_COW_SELECTION=random ansible-playbook \
     --inventory "${dotfiles_path}/playbooks/.inventory" \
     --ask-become-pass \
     "${dotfiles_path}/playbooks/${playbook}.yml" \
     --extra "local_user=$USER" \
+    $password_files \
     "$@"

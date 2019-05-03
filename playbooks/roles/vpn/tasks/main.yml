@@ -1,0 +1,23 @@
+---
+- name: install openvpn
+  become: yes
+  package:
+    name: "openvpn"
+    state: "latest"
+
+- name: install private-internet-access-vpn from aur
+  become: yes
+  command: pikaur -Sy --noconfirm --noprogressbar private-internet-access-vpn
+
+- name: copy in login.conf
+  become: yes
+  copy:
+    src: files/login.conf
+    dest: /etc/private-internet-access/login.conf
+    mode: 0600
+
+- name: copy in openvpn-pia script
+  copy:
+    src: files/openvpn-pia.bash
+    dest: ~/bin/openvpn-pia
+    mode: 0750
