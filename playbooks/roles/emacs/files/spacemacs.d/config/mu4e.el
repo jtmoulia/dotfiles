@@ -29,8 +29,8 @@
              (mu4e-spam-folder . "/gmail/[Gmail].spam")
              (smtpmail-smtp-user . "jtmoulia@gmail.com")
              (smtpmail-default-smtp-server . "smtp.gmail.com")
-             (smtpmail-smtp-server . "smtp.gmail.com")
-             (smtpmail-smtp-service . 465)))
+             (smtpmail-stream-type . starttls)
+             (smtpmail-smtp-service . 587)))
    ,(make-mu4e-context
      :name "pocketknife"
      :enter-func
@@ -53,8 +53,8 @@
              (smtpmail-smtp-user . "jtmoulia@pocketknife.io")
              (smtpmail-default-smtp-server . "mail.messagingengine.com")
              (smtpmail-smtp-server . "mail.messagingengine.com")
-             (smtpmail-stream-type . ssl)
-             (smtpmail-smtp-service . 465)))
+             (smtpmail-stream-type . starttls)
+             (smtpmail-smtp-service . 587)))
    ,(make-mu4e-context
      :name "healthtensor"
      :enter-func

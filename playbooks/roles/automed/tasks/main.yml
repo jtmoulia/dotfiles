@@ -15,10 +15,11 @@
 
 - name: copy in helpful binaries
   copy:
-    src: "files/{{ item }}"
-    dest: "~/bin/{{ item }}"
+    src: "files/{{ item.src }}"
+    dest: "~/bin/{{ item.dest }}"
   with_items:
-    - "ssh-add-hippos"
+    - {src: "ssh-add-hippos", dest: "ssh-add-hippos"}
+    - {src: "ssh-automed.bash", dest: "ssh-automed"}
 
 - name: ensure the repos directory exists
   file:
