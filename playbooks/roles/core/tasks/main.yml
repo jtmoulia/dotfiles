@@ -13,6 +13,8 @@
     # A CLI interface that respects the trash can
     - trash-cli
     - unzip
+    - pandoc
+    - imagemagick
 
 - name: add jtmoulia
   become: true
