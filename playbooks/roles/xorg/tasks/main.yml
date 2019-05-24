@@ -64,3 +64,16 @@
     scope: user
     enabled: true
     state: started
+
+- name: copy in monitor config script
+  copy:
+    src: files/configure-monitors.elv
+    dest: ~/.local/bin/configure-monitors
+    mode: 0755
+
+- name: copy in udev hotplug rules
+  become: yes
+  copy:
+    src: files/98-monitor-hotplug.rules
+    dest: /etc/udev/rules.d/98-monitor-hotplug.rules
+    mode: 0644
