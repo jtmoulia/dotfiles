@@ -1,0 +1,23 @@
+---
+
+- name: make directory
+  file:
+    path: /etc/cron.daily
+    state: directory
+  become: yes
+
+- name: copy in backitup script
+  copy:
+    src: files/backitup.elv
+    dest: ~/.local/bin/backitup
+    mode: 0770
+
+- name: link backitup script into cron.daily
+  file:
+    dest: /etc/cron.daily/backitup
+    src: /home/jtmoulia/.local/bin/backitup
+    state: link
+    mode: 0770
+  become: yes
+
+  

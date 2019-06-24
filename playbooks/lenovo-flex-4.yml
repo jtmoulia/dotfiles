@@ -59,7 +59,7 @@
     - {role: xapps, tags: xapps}
     - {role: xscreensaver, tags: xscreensaver}
     - {role: gitup, tags: gitup}
-
+    - {role: backup, tags: backup}
     - {role: libvirt, tags: libvirt}
     - {role: docker, tags: docker}
     - {role: vpn, tags: vpn}
