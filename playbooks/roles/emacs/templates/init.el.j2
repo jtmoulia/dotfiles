@@ -22,6 +22,7 @@
    '(
      ansible
      auto-completion
+     lsp
      ;; common-lisp
      csv
      dash
@@ -43,7 +44,10 @@
      spacemacs
      sql
      (python
-      :variables python-test-runner 'pytest)
+      :variables
+      python-test-runner 'pytest
+      python-backend 'lsp
+      )
      {% if emacs_prodigy_enabled %}prodigy{% endif %}
      ;; rcirc
      ;; restclient
