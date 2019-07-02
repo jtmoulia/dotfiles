@@ -19,8 +19,11 @@
 (load-module "notifications")
 
 ;; Variables
-(set-focus-color "red")
-; (set-font "-xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso8859-15")
+(setf *normal-border-width* 2)
+(setf *window-border-style* :tight)
+(set-focus-color "green")
+(set-unfocus-color "red")
+;; (set-font "-xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso8859-15")
 (set-font "-*-terminus-*-*-*-*-28-*-*-*-*-*-iso10646-*")
 (setf *screen-mode-line-format*
       (list "[^B%n^b] %u %W " ; groups/windows
