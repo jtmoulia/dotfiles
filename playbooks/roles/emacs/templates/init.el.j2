@@ -33,20 +33,22 @@
      git
      html
      ivy
-     javascript
+     (javascript :variables
+                 javascript-backend 'lsp)
      markdown
      nginx
-     (org
-      :variable org-pomodoro-audio-player "paplay")
+     (org :variable
+          org-pomodoro-audio-player "paplay")
      {% if emacs_org_jira_enabled %}org-jira{% endif %}
      react
      shell-scripts
      spacemacs
      sql
-     (python
-      :variables
-      python-test-runner 'pytest
-      python-backend 'lsp
+     (python :variables
+             python-test-runner 'pytest
+             python-backend 'lsp
+             python-shell-interpreter "ipython"
+             lsp-pyls-configuration-sources ["flake8"]
       )
      {% if emacs_prodigy_enabled %}prodigy{% endif %}
      ;; rcirc
@@ -69,6 +71,7 @@
      elvish-mode
      ob-ipython
      blacken
+     react-snippets
     )
   ))
 
@@ -102,18 +105,22 @@
     exec-path)
 
   (personal//add-to-path (personal//join-paths (getenv "HOME") "bin"))
+  (personal//add-to-path (personal//join-paths (getenv "HOME") ".local/bin"))
+  (personal//add-to-path (personal//join-paths (getenv "HOME") ".yarn/bin"))
 
   ;; Define some helpers for loading configs
   (defun personal//eval-config-after-load (mode config)
     (let ((path (personal//join-path dotspacemacs-directory config)))
       (eval-after-load mode `(load-file ,path))))
 
+  (personal//eval-config-after-load 'lsp "config/lsp.el")
   (personal//eval-config-after-load 'web-mode "config/web-mode.el")
   (personal//eval-config-after-load 'js-mode "config/js-mode.el")
   (personal//eval-config-after-load 'eshell "config/eshell.el")
   (personal//eval-config-after-load 'org "config/org.el")
   (personal//eval-config-after-load 'mu4e "config/mu4e.el")
   (personal//eval-config-after-load 'prodigy "config/prodigy.el")
+  (personal//eval-config-after-load 'python "config/python.el")
 
   ;; Yas fun
   (defun my-yas-get-first-name-from-to-field ()
@@ -126,11 +133,23 @@
           (setq rlt (match-string 1 str)))
       rlt))
 
+  ;; javascript
+  (with-eval-after-load 'rjsx
+    (setq-default
+     ;; js2-mode
+     js2-basic-offset 2
+     tern-command (list (expand-file-name "~/.yarn/bin/tern")))
+    )
+
   ;; ivy
   (with-eval-after-load 'ivy
     (spacemacs/set-leader-keys
       "bo" 'ivy-switch-buffer-other-window)
-     )
+    )
+
+  (with-eval-after-load 'markdown
+    (setq markdown-command
+          "pandoc -f markdown -t html -s --mathjax --highlight-style=pygments"))
 
   ;; dash
   (with-eval-after-load 'counsel-dash
@@ -220,21 +239,6 @@
                                 (message (plist-get info :message)))
                             (stump-notify (concat title " [" mode "]: " message)))))
     (setq alert-default-style 'libnotify))
-
-  ;; Python
-  (with-eval-after-load 'python
-    (setq python-shell-interpreter "ipython")
-
-    (defun python-use-tabs ()
-      (interactive)
-      (setq indent-tabs-mode t
-            tab-width 4
-            py-indent-tabs-mode t))
-    )
-
-
-  ;; LFE
-  (setq inferior-lfe-program-options '("-pa" "ebin"))
 
   ;; SQL
   (setq sql-connection-alist
