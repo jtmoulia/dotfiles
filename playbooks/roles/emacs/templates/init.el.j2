@@ -144,12 +144,6 @@
      tern-command (list (expand-file-name "~/.yarn/bin/tern")))
     )
 
-  ;; ivy
-  (with-eval-after-load 'ivy
-    (spacemacs/set-leader-keys
-      "bo" 'ivy-switch-buffer-other-window)
-    )
-
   (with-eval-after-load 'markdown
     (setq markdown-command
           "pandoc -f markdown -t html -s --mathjax --highlight-style=pygments"))
