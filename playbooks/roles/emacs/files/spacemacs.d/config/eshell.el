@@ -45,7 +45,7 @@ This will kill any existing input."
       eshell-buffer)))
 
 ;; eshell helper functions
-(defun eshell-cd (directory &optional prefixed)
+(defun personal-eshell/cd (directory &optional prefixed)
   "Change the eshell's present working directory to the BUFFER's directory."
   (interactive "fChange directory to: \nP")
   (switch-to-buffer (personal//get-eshell-buffer prefixed))
@@ -54,12 +54,12 @@ This will kill any existing input."
   (eshell-send-input))
 
 ;; eshell helper functions
-(defun eshell-cd-here (&optional prefixed)
+(defun personal-eshell/cd-here (&optional prefixed)
   "Change the eshell's present working directory to the BUFFER's directory."
   (interactive "P")
-  (eshell-cd (current-dir (file-name-directory (buffer-file-name (current-buffer)))) prefixed))
+  (personal-eshell/cd (current-dir (file-name-directory (buffer-file-name (current-buffer)))) prefixed))
 
-(defun eshell-send-command (command &optional prefixed)
+(defun personal-eshell/send-command (command &optional prefixed)
   "Interactive command to send the COMMAND to the eshell BUFFER.
 
 Wraps `personal//eshell-send-command`."
@@ -68,6 +68,22 @@ Wraps `personal//eshell-send-command`."
         (send-input (if prefixed (y-or-n-p "send input") t)))
     (personal//eshell-send-command command :buffer eshell-buffer :send-input send-input)))
 
-(spacemacs/set-leader-keys "aeh" 'eshell-cd-here)
-(spacemacs/set-leader-keys "aec" 'eshell-cd)
-(spacemacs/set-leader-keys "ae:" 'eshell-send-command)
+(defun personal-eshell/clear ()
+  "Interactive command to clear the eshell buffer. This is useful as eshell
+can slow as the buffer gets enormous."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (eshell-send-input)))
+
+(spacemacs/set-leader-keys "aeh" 'personal-eshell/cd-here)
+(spacemacs/set-leader-keys "aec" 'personal-eshell/cd)
+(spacemacs/set-leader-keys "ae:" 'personal-eshell/send-command)
+(spacemacs/set-leader-keys-for-major-mode 'eshell-mode
+  "c" 'personal-eshell/clear)
+
+(if (fboundp 'ivy-set-actions)
+    (ivy-set-actions
+     ;; TODO this shouldn't be bound globally
+     t
+     '(("c" personal-eshell/cd "eshell cd"))))
