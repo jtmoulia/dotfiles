@@ -10,3 +10,7 @@
     (spacemacs/set-leader-keys-for-major-mode 'python-mode "Tp" 'lsp-ui-doc-show))
 (if (boundp 'lsp-ui-doc-hide)
     (spacemacs/set-leader-keys-for-major-mode 'python-mode "TP" 'lsp-ui-doc-hide))
+
+;; Configure black
+(if (boundp 'blacken-line-length)
+    (setf black-line-length 108))

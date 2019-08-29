@@ -12,6 +12,10 @@
       '(("t" "todo" entry (file+headline personal//org-todo-file "Tasks")
          "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n\n%a\n")))
 
+;; rebind the evil visual mode motion commands
+(setq evil-org-movement-bindings
+      '((up . "K") (down . "J") (left . "h") (right . "l")))
+
 (add-to-list 'org-agenda-files personal//org-todo-file)
 (org-babel-do-load-languages
   'org-babel-load-languages

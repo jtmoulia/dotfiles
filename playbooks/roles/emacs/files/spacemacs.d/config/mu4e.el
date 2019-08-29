@@ -53,8 +53,8 @@
              (smtpmail-smtp-user . "jtmoulia@pocketknife.io")
              (smtpmail-default-smtp-server . "mail.messagingengine.com")
              (smtpmail-smtp-server . "mail.messagingengine.com")
-             (smtpmail-stream-type . starttls)
-             (smtpmail-smtp-service . 587)))
+             (smtpmail-stream-type . ssl)
+             (smtpmail-smtp-service . 465)))
    ,(make-mu4e-context
      :name "healthtensor"
      :enter-func
@@ -77,7 +77,8 @@
              (smtpmail-smtp-user . "thomas@healthtensor.com")
              (smtpmail-default-smtp-server . "smtp.gmail.com")
              (smtpmail-smtp-server . "smtp.gmail.com")
-             (smtpmail-smtp-service . 465)))
+             (smtpmail-stream-type . starttls)
+             (smtpmail-smtp-service . 587)))
    ))
 
 ;; Helper Functions
@@ -177,7 +178,10 @@ spaces into LIST. Return the padded result."
        (not-trash (dotspacemacs//mu4e-query 'mu4e-trash-folder
                                             :prefix not-maildir))
        (not-refile (dotspacemacs//mu4e-query 'mu4e-refile-folder
-                                             :prefix not-maildir)))
+                                             :prefix not-maildir))
+       (inboxes (apply 'dotspacemacs//flat-cat-pose "OR"
+                       (mapcar 'dotspacemacs//mu4e-add-maildir-prefix
+                               (dotspacemacs//mu4e-contexts-var 'mu4e-inbox-folder)))))
   (setq mu4e-bookmarks
         `((,(dotspacemacs//flat-cat-pose "AND"
                                          "flag:unread" "NOT flag:trashed" not-spam not-trash not-refile)
@@ -186,10 +190,8 @@ spaces into LIST. Return the padded result."
            "Today's messages" ?t)
           (,(dotspacemacs//flat-cat-pose "AND" "date:7d..now" not-spam)
            "Last 7 days" ?w)
-          (,(apply 'dotspacemacs//flat-cat-pose "OR"
-                   (mapcar 'dotspacemacs//mu4e-add-maildir-prefix
-                           (dotspacemacs//mu4e-contexts-var 'mu4e-inbox-folder)))
-           "Messages in inboxes", ?i)
+          (,inboxes
+           "Messages in inboxes" ?i)
           (,(dotspacemacs//flat-cat-pose "AND" "mime:image/*" not-spam)
            "Messages with images" ?p)
           (,(dotspacemacs//flat-cat-pose "AND"
@@ -198,7 +200,10 @@ spaces into LIST. Return the padded result."
 
   (setq mu4e-maildir-shortcuts
         `((,(dotspacemacs//mu4e-context-var "gmail" 'mu4e-inbox-folder) . ?g)
-          (,(dotspacemacs//mu4e-context-var "healthtensor" 'mu4e-inbox-folder) . ?h))))
+          (,(dotspacemacs//mu4e-context-var "healthtensor" 'mu4e-inbox-folder) . ?h)))
+
+  (setq mu4e-alert-interesting-mail-query (concat "flag:unread AND " inboxes))
+  )
 
 (evil-define-key 'evilified mu4e-view-mode-map
   "y" 'evil-yank

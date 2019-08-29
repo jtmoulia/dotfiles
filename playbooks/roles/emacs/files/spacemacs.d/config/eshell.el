@@ -16,8 +16,9 @@
  )
 
 ;; eshell aliases
-;; (eshell/alias "rm" "echo 'rm disabled. try trash-{put,rm} or *rm to force.'")
-(eshell/alias "sudo" "eshell/sudo $*")
+(when (boundp 'eshell/alias)
+  (eshell/alias "rm" "echo 'rm disabled. try trash-{put,rm} or *rm to force.'")
+  (eshell/alias "sudo" "eshell/sudo $*"))
 
 (defun* personal//eshell-send-command
     (command
@@ -44,6 +45,21 @@ This will kill any existing input."
     (if prefixed
         (read-buffer "eshell buffer" eshell-buffer t 'personal//is-eshell-buffer)
       eshell-buffer)))
+
+;; eshell helper functions
+(defun eshell-cd (target &optional prefixed)
+  "Change the eshell's present working directory to the BUFFER's directory."
+  (interactive "fChange directory to: \nP")
+  (let* ((expanded-target (expand-file-name target))
+         (directory (if (and (file-exists-p expanded-target)
+                             (not (file-directory-p expanded-target)))
+                       (file-name-directory expanded-target)
+                     expanded-target)))
+    (switch-to-buffer (personal//get-eshell-buffer prefixed))
+    (cd directory)
+    ;; this makes a pretty big assumption re the input being empty
+    (eshell-send-input)
+    ))
 
 ;; eshell helper functions
 (defun personal-eshell/cd (directory &optional prefixed)
@@ -95,7 +111,6 @@ An alternative is `aweshell-clear-buffer'."
 
   (defun personal-eshell//pre-time-command-hook ()
     "Record the time the command was started into `personal-eshell--command-start-time'"
-    (message "HOOK %s" (personal-eshell//get-input))
     (setf
      personal-eshell--time-command-start-time (float-time)
      personal-eshell--time-command-old (personal-eshell//get-input)
@@ -128,14 +143,23 @@ See `personal-eshell-time-command-minimum' for min time to provide a notificatio
      t
      '(("c" personal-eshell/cd "eshell cd"))))
 
-;; TODO: is aweshell worth the custom love?
 ;; Configure aweshell
-(add-to-list 'load-path (expand-file-name "~/repos/aweshell"))
-(require 'aweshell)
-(spacemacs/set-leader-keys "ae'" 'aweshell-dedicated-toggle)
-(spacemacs/set-leader-keys-for-major-mode 'eshell-mode
-  "'" 'aweshell-dedicated-toggle)
-(spacemacs/set-leader-keys-for-major-mode 'eshell-mode
-  "c" 'aweshell-clear-buffer)
-(spacemacs/set-leader-keys-for-major-mode 'eshell-mode
-  "r" 'aweshell-search-history)
+(let ((aweshell-path (expand-file-name "~/repos/aweshell")))
+ (add-to-list 'load-path aweshell-path)
+ (require 'aweshell)
+
+ (face-spec-set 'epe-pipeline-delimiter-face `((t :foreground ,personal-colors-green)))
+ (face-spec-set 'epe-pipeline-user-face `((t :foreground ,personal-colors-red)))
+ (face-spec-set 'epe-pipeline-host-face `((t :foreground ,personal-colors-blue)))
+ (face-spec-set 'epe-pipeline-time-face `((t :foreground ,personal-colors-yellow)))
+
+ (spacemacs/set-leader-keys "ae'" 'aweshell-dedicated-toggle)
+ (spacemacs/set-leader-keys "ae SPC" 'aweshell-next)
+ (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
+   "'" 'aweshell-dedicated-toggle)
+ (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
+   "c" 'aweshell-clear-buffer)
+ (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
+   "r" 'aweshell-search-history))
+
+;; eshell.el ends here
