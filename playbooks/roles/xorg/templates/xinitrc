@@ -48,8 +48,8 @@ if [ "$(which tint2)" ]; then
     tint2 &
 fi
 
-if [ "$(which feh)"]; then
-    feh --bg-scale /home/jtmoulia/.dotfiles/wallpapers/mars.jpg
+if [[ -f ~/.fehbg ]]; then
+    ~/.fehbg &
 fi
 
 DIRCOLORS_THEME=/home/jtmoulia/repos/dircolors-solarized/dircolors.ansi-dark

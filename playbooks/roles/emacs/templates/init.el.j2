@@ -126,6 +126,10 @@
   (personal//add-to-path (personal//join-paths (getenv "HOME") ".local/bin"))
   (personal//add-to-path (personal//join-paths (getenv "HOME") ".yarn/bin"))
 
+  ;; Configure evil
+  ;; Bind the surround shortcut `k' to surround a key like ["key"]
+  (push '(?k . ("[\"" . "\"]")) evil-surround-pairs-alist)
+
   ;; Define some shared colors
   ;; Solarized Colors:
   (setq
