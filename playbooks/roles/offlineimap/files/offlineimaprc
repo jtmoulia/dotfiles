@@ -40,10 +40,10 @@ localfolders = ~/maildirs/pocketknife
 type = IMAP
 remotehost = mail.messagingengine.com
 remoteuser = jtmoulia@pocketknife.io
-remotepasseval = auth_pass("jtmoulia@pocketknife.io")
+remotepasseval = pass_get('fastmail', 'home_app_pass')
 ssl = yes
 ssl_version = tls1_2
-cert_fingerprint = bddc89dae48629898af13421d7844f806ca33943
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
 maxconnections = 4
 realdelete = yes
 

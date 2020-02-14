@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]
 
 conky.config = {
-    alignment = 'top_left',
+    alignment = 'bottom_right',
     background = false,
     border_width = 1,
     cpu_avg_samples = 2,
@@ -81,4 +81,5 @@ ${color lightgrey} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
 ${color lightgrey} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
 ${color lightgrey} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
 ${color lightgrey} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
+${color lightgrey} ${top name 5} ${top pid 5} ${top cpu 5} ${top mem 5}
 ]]

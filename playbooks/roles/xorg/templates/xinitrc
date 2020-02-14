@@ -49,7 +49,11 @@ if [ "$(which tint2)" ]; then
 fi
 
 if [[ -f ~/.fehbg ]]; then
-    ~/.fehbg &
+    (sleep 5 && ~/.fehbg) &
+fi
+
+if [[ "$(which conky)" ]]; then
+    conky &
 fi
 
 DIRCOLORS_THEME=/home/jtmoulia/repos/dircolors-solarized/dircolors.ansi-dark
