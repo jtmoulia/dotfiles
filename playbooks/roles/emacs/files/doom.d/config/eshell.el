@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (require 'em-tramp)
 (require 'esh-module)
 
@@ -9,6 +10,10 @@
              ))
 
 (setq
+;; rebind the evil visual mode motion commands
+(setq evil-org-movement-bindings
+      '((up . "K") (down . "J") (left . "h") (right . "l")))
+
  eshell-prefer-lisp-functions t
  eshell-prefer-lisp-variables t
  password-cache t
@@ -87,79 +92,10 @@ Wraps `personal//eshell-send-command`."
 
 (defun personal-eshell/clear ()
   "Interactive command to clear the eshell buffer. This is useful as eshell
-can slow as the buffer gets enormous.
-
-An alternative is `aweshell-clear-buffer'."
+can slow as the buffer gets enormous."
   (interactive)
   (let ((inhibit-read-only t))
     (erase-buffer)
     (eshell-send-input)))
-
-;; Display notification for long-running commands
-;; TODO: should be keyed by buffer
-(defvar personal-eshell-time-command-minimum 10
-  "The minimum command time in seconds that will initiate a notification.")
-
-
-(defun personal-eshell//get-input ()
-  "Get the input from the active eshell buffer."
-  (buffer-substring eshell-last-output-end (point-max)))
-
-(defvar tsts nil)
-(let (personal-eshell--time-command-start-time
-      personal-eshell--time-command-old)
-
-  (defun personal-eshell//pre-time-command-hook ()
-    "Record the time the command was started into `personal-eshell--command-start-time'"
-    (setf
-     personal-eshell--time-command-start-time (float-time)
-     personal-eshell--time-command-old (personal-eshell//get-input)
-     tsts (personal-eshell//get-input)
-     ))
-
-  (defun personal-eshell//post-time-command-hook ()
-    "If the command was long-running provide a notification.
-See `personal-eshell-time-command-minimum' for min time to provide a notification."
-    (when personal-eshell--time-command-start-time
-      (let ((runtime (- (float-time) personal-eshell--time-command-start-time)))
-        (when (>= runtime personal-eshell-time-command-minimum)
-          (notifications-notify
-           :title "eshell command complete"
-           :body (format "%s\nran in %ds" personal-eshell--time-command-old runtime))))
-      (setf personal-eshell--time-command-start-time nil))))
-
-
-(remove-hook 'eshell-post-command-hook 'personal-eshell-pre-time-command-hook)
-(add-hook 'eshell-pre-command-hook 'personal-eshell//pre-time-command-hook)
-(add-hook 'eshell-post-command-hook 'personal-eshell//post-time-command-hook)
-
-(spacemacs/set-leader-keys "aeh" 'personal-eshell/cd-here)
-(spacemacs/set-leader-keys "aec" 'personal-eshell/cd)
-(spacemacs/set-leader-keys "ae:" 'personal-eshell/send-command)
-
-(if (fboundp 'ivy-set-actions)
-    (ivy-set-actions
-     ;; TODO this shouldn't be bound globally
-     t
-     '(("c" personal-eshell/cd "eshell cd"))))
-
-;; Configure aweshell
-(let ((aweshell-path (expand-file-name "~/repos/aweshell")))
- (add-to-list 'load-path aweshell-path)
- (require 'aweshell)
-
- (face-spec-set 'epe-pipeline-delimiter-face `((t :foreground ,personal-colors-green)))
- (face-spec-set 'epe-pipeline-user-face `((t :foreground ,personal-colors-red)))
- (face-spec-set 'epe-pipeline-host-face `((t :foreground ,personal-colors-blue)))
- (face-spec-set 'epe-pipeline-time-face `((t :foreground ,personal-colors-yellow)))
-
- (spacemacs/set-leader-keys "ae'" 'aweshell-dedicated-toggle)
- (spacemacs/set-leader-keys "ae SPC" 'aweshell-next)
- (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
-   "'" 'aweshell-dedicated-toggle)
- (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
-   "c" 'aweshell-clear-buffer)
- (spacemacs/set-leader-keys-for-major-mode 'eshell-mode
-   "r" 'aweshell-search-history))
 
 ;; eshell.el ends here

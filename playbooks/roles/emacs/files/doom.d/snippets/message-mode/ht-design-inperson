@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# name: ht-design-inperson
+# key: ht-design-inperson
+# --
+Hi ${1:`(my-yas-get-first-name-from-to-field)`},
+
+Great -- we're excited that you'll be interviewing with us! It'll be an opportunity for us to learn more about your background and working style, as well as answer your questions about HealthTensor.
+
+We'll get started right at ${2:10am}, so please plan on being in the office from $2 to about ${3:2:30pm}. The office is located at 4133 Redwood Ave, #1016. Half the block is 2-hour parking and the other half is open. Just call when you get to the building & we'll meet you outside: (707) 267-8782
+
+Most of the day will be spent on three interviews, each running about an hour. You'll get a break for lunch, where we'll take you to one of our local options.
+
+To help have a productive discussion please plan to briefly (15min) present a project from your portfolio to the team followed by about 30min of discussion. The idea is that you pick a project you feel comfortable explaining -- you don't need a polished presentation, just a few visual aids or explainers that show the steps in your process, and you're welcome to reuse prior materials.
+
+Ideally the project you pick will let us dig into how you:
+
+  - gather specifications for the problem
+  - work with users/data to develop options
+  - gather feedback and iterate on design based upon feedback
+  - collaborate with cross-functional team members to share progress and solicit feedback
+
+Let me know if you have any questions!
+
+Cheers,
+-${4:Thomas Moulia}

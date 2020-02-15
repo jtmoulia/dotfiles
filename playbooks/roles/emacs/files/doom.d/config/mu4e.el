@@ -1,13 +1,37 @@
 ;; Activate snippets for mu4e-view-mode
-(add-hook 'mu4e-compose-mode-hook
-          (lambda ()
-            (yas-minor-mode 1)
-            (yas-reload-all 1)))
+;; (add-hook 'mu4e-compose-mode-hook
+;;           (lambda ()
+;;             (yas-minor-mode 1)
+;;             (yas-reload-all 1)))
 
 ;; Configure Contexts
 (setq-default
  mu4e-contexts
  `(
+   ,(make-mu4e-context
+     :name "healthtensor"
+     :enter-func
+     (lambda ()
+       (mu4e-message
+        (concat "Switching to context: healthtensor")))
+     :match-func
+     (lambda (msg)
+       (when msg
+         (mu4e-message-contact-field-matches
+          msg :to "thomas@healthtensor.com")))
+     :vars '((user-mail-address . "thomas@healthtensor.com")
+             (user-full-name . "Thomas Moulia")
+             (mu4e-inbox-folder . "/healthtensor/INBOX")
+             (mu4e-sent-folder . "/healthtensor/INBOX.Sent Items")
+             (mu4e-drafts-folder . "/healthtensor/INBOX.Drafts")
+             (mu4e-trash-folder . "/healthtensor/INBOX.Trash")
+             (mu4e-refile-folder . "/healthtensor/INBOX.Archive")
+             (mu4e-spam-folder . "/healthtensor/INBOX.Junk Mail")
+             (smtpmail-smtp-user . "thomas@healthtensor.com")
+             (smtpmail-default-smtp-server . "smtp.gmail.com")
+             (smtpmail-smtp-server . "smtp.gmail.com")
+             (smtpmail-stream-type . starttls)
+             (smtpmail-smtp-service . 587)))
    ,(make-mu4e-context
      :name "gmail"
      :enter-func
@@ -55,30 +79,6 @@
              (smtpmail-smtp-server . "mail.messagingengine.com")
              (smtpmail-stream-type . ssl)
              (smtpmail-smtp-service . 465)))
-   ,(make-mu4e-context
-     :name "healthtensor"
-     :enter-func
-     (lambda ()
-       (mu4e-message
-        (concat "Switching to context: healthtensor")))
-     :match-func
-     (lambda (msg)
-       (when msg
-         (mu4e-message-contact-field-matches
-          msg :to "thomas@healthtensor.com")))
-     :vars '((user-mail-address . "thomas@healthtensor.com")
-             (user-full-name . "Thomas Moulia")
-             (mu4e-inbox-folder . "/healthtensor/INBOX")
-             (mu4e-sent-folder . "/healthtensor/INBOX.Sent Items")
-             (mu4e-drafts-folder . "/healthtensor/INBOX.Drafts")
-             (mu4e-trash-folder . "/healthtensor/INBOX.Trash")
-             (mu4e-refile-folder . "/healthtensor/INBOX.Archive")
-             (mu4e-spam-folder . "/healthtensor/INBOX.Junk Mail")
-             (smtpmail-smtp-user . "thomas@healthtensor.com")
-             (smtpmail-default-smtp-server . "smtp.gmail.com")
-             (smtpmail-smtp-server . "smtp.gmail.com")
-             (smtpmail-stream-type . starttls)
-             (smtpmail-smtp-service . 587)))
    ))
 
 ;; Helper Functions
@@ -135,6 +135,7 @@ spaces into LIST. Return the padded result."
 
 ;; Configure Vars
 (require 'mu4e-contrib)
+
 ;; (require 'org-mu4e)
 (setq-default
  mu4e-mu-binary         "/usr/bin/mu"
@@ -144,16 +145,28 @@ spaces into LIST. Return the padded result."
  mu4e-headers-skip-duplicates t
  mu4e-update-interval   nil
  mu4e-index-lazy-check  t
- mu4e-use-fancy-chars   nil
+ mu4e-use-fancy-chars   t
  mu4e-compose-signature (apply 'concat (-interpose
-                                        "  \n"
-                                        '("Thomas Moulia"
-                                          "Co-Founder & CTO | HealthTensor"
-                                          "www.healthtensor.com"
-                                          "jtmoulia.pocketknife.io")))
+                                        "\n"
+                                        '(
+"<div style=\"font-family:roboto, arial-bold, sans-serif;font-weight:bold;color:#43474c;font-size:100%;line-height:20px;margin:none\">Thomas Moulia | CTO"
+"</div>"
+"<a href=\"mailto:Thomas@healthtensor.com\" style=\"font-family:roboto, arial;color:#757d84;font-size:87.5%;text-decoration:none !important\">Thomas@healthtensor.com</a>"
+"<hr style=\"border-color:#b6babe;margin-top:8px;margin-bottom:4px\" noshade>"
+"</hr>"
+"<table>"
+"  <td>"
+"  <a href=\"https://www.healthtensor.com/\"><img src=\"https://healthtensor-media.s3-us-west-1.amazonaws.com/HTlogo_vertical_blue.png\" height=\"36px\"></a>"
+" </td>"
+" <td style=\"padding-left:8px;line-height:2px;font-size:87.5%;font-family:roboto, arial, sans-serif;color:#757d84\">"
+"    <p>4133 Redwood Avenue</p>"
+"    <p>Los Angeles, CA 90066</p>"
+"  </td>"
+"</table>"
+)))
  mu4e-compose-dont-reply-to-self t
  mu4e-compose-complete-only-personal t
- mu4e-hide-index-messages nil
+ mu4e-hide-index-messages t
  mu4e-html2text-command 'mu4e-shr2text
  mu4e-user-mail-address-list (dotspacemacs//mu4e-contexts-var
                               'user-mail-address)
@@ -205,7 +218,7 @@ spaces into LIST. Return the padded result."
   (setq mu4e-alert-interesting-mail-query (concat "flag:unread AND " inboxes))
   )
 
-(evil-define-key 'evilified mu4e-view-mode-map
-  "y" 'evil-yank
-  "f" 'evil-find-char
-  "t" 'evil-find-char-to)
+;; (evil-define-key 'evilified mu4e-view-mode-map
+;;   "y" 'evil-yank
+;;   "f" 'evil-find-char
+;;   "t" 'evil-find-char-to)

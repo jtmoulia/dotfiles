@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: htreferencecheck
+# key: htreferencecheck
+# --
+Hi ${1:`(my-yas-get-first-name-from-to-field)`},
+
+I'm happy to report that you impressed the team during your in-person interview! Everyone enjoyed hanging out with you and you demonstrated technical chops. At this point, as one last step before negotiating an offer we'd like to do reference and background checks.
+
+Could you send me the email and phone number for three references? Preferably two of the three are professional references.
+
+Also, we [HealthTensor] are planning on doing a background check against you. Please give me a heads up if you have any concerns.
+
+Regards,
+-${2:Thomas}

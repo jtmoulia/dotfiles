@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: httakehome
+# key: httakehome
+# --
+Hi ${1:`(my-yas-get-first-name-from-to-field)`},
+
+I enjoyed speaking with you, and you put together a solid solution for the keyword question -- I'm happy to invite you to the next stage of our interview, the take home project.
+
+I've attached the prompt and data as a .tar.gz file [1]. There is a README.md within detailing the tasks for this take home project.
+
+You should aim to complete your solution in about three hours. That being said you aren't being tracked, nor are you expected to get to the project right away.
+
+As always, feel free to reply with any questions or concerns. $0
+
+Cheers,
+-Thomas
+
+1. To expand the .tar.gz, move it to the dir you want it unpacked in and run:
+
+    tar -xzf ht-take-home.tar.gz
+
+<#part type="application/octet-stream" filename="${2:/home/jtmoulia/repos/ht-recruiting/ht-take-home.tar.gz}" disposition=attachment>
+<#/part>

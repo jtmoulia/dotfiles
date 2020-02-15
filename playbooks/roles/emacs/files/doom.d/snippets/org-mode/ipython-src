@@ -1,5 +1,5 @@
 # key : ipython-src
-# name : BEGIN_SRC
+# name : BEGIN_IPYTHON_SRC
 # contributor : Thomas Moulia <jtmoulia@pocketknife.io>
 # expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region 'nil))
 # --

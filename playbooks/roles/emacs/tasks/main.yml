@@ -5,7 +5,7 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - "emacs"
+    - "emacs-git"
     - "fasd"
     - "aspell-en"
 
@@ -15,33 +15,30 @@
     state: "latest"
   when: emacs_mu4e_enabled
 
-# config (spacemacs)
+# config (doom)
 
-- name: install spacemacs (dev branch)
+- name: install doom (dev branch)
   git:
-    repo: https://github.com/syl20bnr/spacemacs
+    repo: https://github.com/hlissner/doom-emacs
     dest: "~/.emacs.d"
     version: develop
 
 - name: install spacemacs config
   copy:
-    src: "files/spacemacs.d/"
-    dest: "~/.spacemacs.d"
+    src: "files/doom.d/"
+    dest: "~/.doom.d"
 
-- name: template in the spacemacs config
-  template:
-    src: "templates/init.el.j2"
-    dest: "~/.spacemacs.d/init.el"
+# - name: template in the spacemacs config
+#   template:
+#     src: "templates/init.el.j2"
+#     dest: "~/.spacemacs.d/init.el"
+#   notify:
+#     - restart emacs
+
+- name: upgrade doom
+  command: ~/.emacs.d/bin/doom upgrade
   notify:
     - restart emacs
-
-# org-jira
-
-- name: include org-jira tasks if emacs_org_jira_enabled
-  include_tasks:
-    file: "tasks/org_jira.yml"
-  when: emacs_org_jira_enabled
-  tags: ["org-jira"]
 
 # systemd (emacs.service)
 

@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: htinternintro
+# key: htinternintro
+# --
+Hello ${1:`(my-yas-get-first-name-from-to-field)`},
+
+${2:Thank you for applying to HealthTensor!} We really like your background and want to move you forward in our summer internship interview. The next step is a 45min chat where we can talk about the role and work through a technical problem or two.
+
+For the technical part of the interview you’ll implement a solution using Python in your local dev environment while the interviewer observes over screenshare. Familiarity with algorithms and data structures will help; check out GeeksforGeeks for practice problems roughly comparable in difficulty and duration [1]
+
+If we agree that you're a good fit, the next steps are a 3hr take-home project followed by a 3hr in-person interview.
+
+If you're interested, let's schedule the technical interview. To make scheduling easier I've put my availability on Calendly, so you can grab a time here that works for you: https://calendly.com/thomas-moulia/hiring-intro
+
+Thank you,
+-${4:Thomas Moulia}
+
+1. https://practice.geeksforgeeks.org/Medium/0/0/3/

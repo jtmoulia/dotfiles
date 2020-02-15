@@ -4,15 +4,30 @@
 ;; Load swank.
 ;; NB: This requires multithreaded SBCL vs CLisp
 ;; *prefix-key* ; swank will kick this off
-;; (load "/home/jtmoulia/.emacs.d/elpa/slime-20161102.711/swank-loader.lisp")
-;; (defcommand swank () ()
-;;     (swank:create-server :port 4005
-;;                        :style swank:*communication-style*
-;;                        :dont-close t)
-;;   (swank-loader:init)
-;;   (echo-string (current-screen)
-;; 	       "Starting swank. M-x slime-connect RET RET, then (in-package stumpwm)."))
-;; (swank)
+(let ((swank-loader-path (directory "~/.emacs.d/elpa/**/develop/slime-*/swank-loader.lisp")))
+  (if swank-loader-path
+      (progn
+        (load (namestring (car (last swank-loader-path))))
+        (swank-loader:init)
+        (let ((server-running nil))
+          (defcommand swank () ()
+            "Toggle the swank server on/off"
+            (if server-running
+                (progn
+                  (swank:stop-server 4005)
+                  (echo-string
+                   (current-screen)
+                   "Stopping swank.")
+                  (setf server-running nil))
+                (progn
+                  (swank:create-server :port 4005
+                                       :style swank:*communication-style*
+                                       :dont-close t)
+                  (echo-string
+                   (current-screen)
+                   "Starting swank. M-x slime-connect RET RET, then (in-package stumpwm).")
+                  (setf server-running t)))))
+        )))
 
 (load-module "battery-portable")
 (load-module "wifi")

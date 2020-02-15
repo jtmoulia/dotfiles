@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: htrejection
+# key: htrejection
+# --
+Hello ${1:CANDIDATE},
+
+We've reviewed your ${2:$$(yas-choose-value '("application" "technical solution" "take-home project"))} and have decided to not move you forward in the interview process. At our stage we're looking for either more professional experience, or deeper experience in our stack.
+
+Thank you for ${3:$$(yas-choose-value '("your time" "reaching out" "taking the time to talk"))}, and best of luck with your job search. $0
+
+Regards,
+-Thomas
