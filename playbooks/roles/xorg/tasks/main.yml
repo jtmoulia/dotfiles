@@ -36,15 +36,6 @@
     src: "files/caps_to_ctrl.sh"
     dest: "~/.config/xinitrc.d/caps_to_ctrl.sh"
 
-- name: copy in ssh-agent.service
-  copy:
-    src: "files/ssh-agent.service"
-    dest: "~/.config/systemd/user/ssh-agent.service"
-
-- name: copy in the pam_environment
-  copy:
-    src: "files/pam_environment"
-    dest: "~/.pam_environment"
 
 - name: copy in the systemd user xsession.target file
   copy:
@@ -57,13 +48,6 @@
     src: "files/systemd-start-graphical-session.sh"
     dest: "~/bin/systemd-start-graphical-session"
     mode: 0750
-
-- name: enable the ssh-agent.service
-  systemd:
-    name: ssh-agent
-    scope: user
-    enabled: true
-    state: started
 
 - name: copy in monitor config script
   copy:

@@ -5,6 +5,28 @@
     name: "{{ ssh_package_name }}"
     state: "latest"
 
+- name: copy in the pam_environment
+  copy:
+    src: "files/pam_environment"
+    dest: "~/.pam_environment"
+
+- name: ensure systemd/user dir exists
+  file:
+    path: "~/.config/systemd/user"
+    state: "directory"
+
+- name: copy in ssh-agent.service
+  copy:
+    src: "files/ssh-agent.service"
+    dest: "~/.config/systemd/user/ssh-agent.service"
+
+- name: enable the ssh-agent.service
+  systemd:
+    name: "ssh-agent"
+    scope: "user"
+    enabled: true
+    state: "started"
+
 - name: create ~/.ssh/config.d directory
   file:
     path: "~/.ssh/config.d"

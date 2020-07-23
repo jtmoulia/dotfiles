@@ -42,10 +42,10 @@
 
 # systemd (emacs.service)
 
-- name: ensure that the emacs systemd directory exists
+- name: ensure systemd/user dir exists
   file:
     path: "~/.config/systemd/user"
-    state: directory
+    state: "directory"
 
 - name: copy in the emacs systemd service
   copy:
@@ -56,7 +56,7 @@
 
 - name: enable the emacs service
   systemd:
-    name: emacs
-    scope: user
+    name: "emacs"
+    scope: "user"
     enabled: true
-    state: started
+    state: "started"

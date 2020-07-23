@@ -18,17 +18,3 @@
   command: makepkg -fsri --noconfirm
   args:
     chdir: /home/jtmoulia/lib/pikaur
-
-- name: install wpa_actiond
-  become: yes
-  package:
-    name: wpa_actiond
-  tags: [network]
-
-- name: enable network interface
-  become: yes
-  systemd:
-    name: "netctl-auto@{{ wifi_interface }}.service"
-    enabled: true
-    state: "started"
-  tags: [network]

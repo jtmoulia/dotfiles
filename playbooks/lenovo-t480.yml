@@ -1,0 +1,68 @@
+---
+# This config assumes Manjaro KDE Linux on a Lenovo T480
+
+- import_playbook: base.yml
+  vars:
+    dotsible_playbook: "lenovo-t480"
+
+- hosts: localhost
+  connection: local
+  remote_user: "{{ local_user }}"
+  roles:
+    - role: arch
+      tags: arch
+      vars:
+        wifi_interface: "wlp3s0"
+
+    - role: ssh
+      tags: ssh
+
+    - role: python
+      tags: python
+
+    - role: nodejs
+      tags: nodejs
+
+    - role: ruby
+      tags: ruby
+
+    - role: offlineimap
+      tags: offlineimap
+
+    # - role: emacs
+    #   tags: emacs
+    #   vars:
+    #     emacs_font_size: "15"
+    #     emacs_powerline_scale: "1.0"
+    #     emacs_themes: "spacemacs-light spacemacs"
+
+    - role: nextcloud
+      tags: nextcloud
+
+    # - role: stumpwm
+    #   tags: stumpwm
+    #   vars:
+    #     dmenu_font_size: "12"
+    #     device_scale_factor: "1.0"
+
+    - role: conky
+      tags: conky
+
+    # - role: xapps
+    #   tags: xapps
+
+    - role: gitup
+      tags: gitup
+
+    #- {role: backup, tags: backup}
+
+    # {role: libvirt, tags: libvirt}
+
+    - role: docker
+      tags: docker
+
+    #- {role: vpn, tags: vpn}
+
+    - role: automed
+      tags: automed
+    # - {role: pass, tags: pass}
