@@ -2,8 +2,11 @@
 - name: install bash & others
   become: yes
   package:
-    name: bash
-    state: latest
+    name: "{{ item }}"
+    state: "latest"
+  with_items:
+    - "bash"
+    - "fzf"
 
 - name: copy in .bashrc
   copy:

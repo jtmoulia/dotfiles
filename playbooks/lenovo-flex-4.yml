@@ -12,9 +12,6 @@
       vars:
         wifi_interface: "wlp3s0"
 
-    # trying elvish over fish, because the grass is always greener
-    # - {role: fish, tags: fish}
-    - {role: elvish, tags: elvish}
     - {role: net-utils, tags: net-utils}
     - {role: mlocate, tags: mlocate}
     - {role: ssh, tags: ssh}

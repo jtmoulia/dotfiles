@@ -3,11 +3,11 @@
   become: yes
   package:
     name: "{{ item }}"
-    state: latest
+    state: "latest"
   with_items:
-    - ansible
-    - python-jinja
-    - certbot
+    - "ansible"
+    - "python-jinja"
+    - "certbot"
 
 - name: install mkcert from aur
   become: yes
@@ -16,7 +16,7 @@
 - name: copy in helpful binaries
   copy:
     src: "files/{{ item.src }}"
-    dest: "~/bin/{{ item.dest }}"
+    dest: "~/.local/bin/{{ item.dest }}"
   with_items:
     - {src: "ssh-add-hippos", dest: "ssh-add-hippos"}
     - {src: "ssh-automed.bash", dest: "ssh-automed"}
@@ -24,7 +24,7 @@
 - name: ensure the repos directory exists
   file:
     path: "~/repos"
-    state: directory
+    state: "directory"
 
 - name: clone automed
   git:
@@ -36,5 +36,4 @@
   file:
     src: "~/repos/automed/bin/automed-compose.sh"
     dest: "~/bin/ac"
-    state: link
-
+    state: "link"

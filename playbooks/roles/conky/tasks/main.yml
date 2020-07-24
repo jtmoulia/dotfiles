@@ -3,16 +3,20 @@
 - name: install conky
   become: yes
   package:
-    name: conky
+    name: "{{ item }}"
+  with_items:
+    - "conky"
+    - "ttf-dejavu"
+
 
 - name: ensure conky config dir exists
   file:
     path: "~/.config/conky"
-    state: directory
+    state: "directory"
 
 - name: config conky
   copy:
     src: "files/conky.conf.lua"
-    dest: "~/.config/conky.conf"
+    dest: "~/.config/conky/conky.conf"
 
 ...
