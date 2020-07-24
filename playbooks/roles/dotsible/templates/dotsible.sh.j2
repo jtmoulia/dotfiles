@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 cd ~/.dotfiles
 playbook=${DOTSIBLE_PLAYBOOK:-{{ dotsible_playbook }}}
-pipenv run ~/.dotfiles/bin/dotsible.sh -p "$playbook" -- "$@"
+poetry run ~/.dotfiles/bin/dotsible.sh -p "$playbook" -- "$@"

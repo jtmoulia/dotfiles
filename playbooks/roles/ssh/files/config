@@ -1,61 +1,7 @@
 Include config.d/*
 
-Host cupie
-     HostName 192.168.50.205
-
 Host *
      ControlMaster auto
      ControlPath ~/.ssh/%r@%h:%p
      ServerAliveInterval 5
      ServerAliveCountMax 30
-
-Host k2
-     HostName 188.166.14.41
-
-Host biguns
-     HostName 52.23.191.175
-     User ubuntu
-     IdentityFile ~/.ssh/deepkey.pem
-
-Host canvast
-     HostName 138.68.10.159
-
-Host protos
-     HostName 162.243.137.70
-
-Host dispatcher
-     HostName 107.170.200.37
-     ForwardAgent yes
-
-Host dispatcher2
-     HostName 107.170.238.232
-     ForwardAgent yes
-
-Host switchboard
-     HostName 104.131.101.232
-     User jtmoulia
-     ForwardAgent yes
-
-Host vagrant
-     HostName 127.0.0.1
-     User vagrant
-     Port 2222
-     UserKnownHostsFile /dev/null
-     StrictHostKeyChecking no
-     PasswordAuthentication no
-     IdentityFile /Users/jtmoulia/.vagrant.d/insecure_private_key
-     IdentitiesOnly yes
-     LogLevel FATAL
-     ForwardAgent yes
-
-Host switchboard-vagrant
-    HostName 127.0.0.1
-    User vagrant
-    Port 2200
-    UserKnownHostsFile /dev/null
-    StrictHostKeyChecking no
-    PasswordAuthentication no
-    IdentityFile /Users/jtmoulia/.vagrant.d/insecure_private_key
-    IdentitiesOnly yes
-    LogLevel FATAL
-    ForwardAgent yes

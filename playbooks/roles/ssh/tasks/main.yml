@@ -15,9 +15,10 @@
     path: "~/.config/systemd/user"
     state: "directory"
 
-- name: copy in ssh-agent.service
-  copy:
-    src: "files/ssh-agent.service"
+- name: symlink in ssh-agent.service
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/ssh-agent.service"
     dest: "~/.config/systemd/user/ssh-agent.service"
 
 - name: enable the ssh-agent.service
@@ -32,7 +33,16 @@
     path: "~/.ssh/config.d"
     state: "directory"
 
-- name: copy in ssh config
-  copy:
-    src: "files/config"
+- name: symlink in base ssh config
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/config"
     dest: "~/.ssh/config"
+
+- name: symlink in specific ssh configs
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "~/.ssh/config.d/{{ item }}"
+  with_items:
+    - "casa.conf"

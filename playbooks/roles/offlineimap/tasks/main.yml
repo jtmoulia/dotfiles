@@ -2,21 +2,30 @@
 - name: install offlineimap
   become: yes
   package:
-    name: offlineimap
-    state: latest
+    state: "latest"
+    name: "offlineimap"
 
-- name: copy in .offlineimaprc
-  copy:
-    src: "files/offlineimaprc"
+- name: symlink in .offlineimaprc
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/offlineimaprc"
     dest: "~/.offlineimaprc"
 
-- name: copy in .offlineimap.py
-  copy:
-    src: "files/offlineimap.py"
+- name: symlink in .offlineimap.py
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/offlineimap.py"
     dest: "~/.offlineimap.py"
 
-- name: copy in script to kill offlineimap
-  copy:
-    src: "files/kill-offlineimap.sh"
-    dest: "~/bin/kill-offlineimap"
+- name: symlink in pass-get script
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/pass-get.bash"
+    dest: "~/.local/bin/pass-get"
+
+- name: symlink in script to kill offlineimap
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/kill-offlineimap.sh"
+    dest: "~/.local/bin/kill-offlineimap"
     mode: 0770

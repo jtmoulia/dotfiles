@@ -3,9 +3,10 @@
   become: true
   package:
     name: "{{ item }}"
-    state: latest
+    state: "latest"
   with_items:
-    - "emacs-git"
+    # currently using compiled AUR emacs-native-comp-git
+    # - "emacs"
     - "fasd"
     - "aspell-en"
 
@@ -19,19 +20,21 @@
 
 - name: install doom (dev branch)
   git:
-    repo: https://github.com/hlissner/doom-emacs
+    repo: "https://github.com/hlissner/doom-emacs"
     dest: "~/.emacs.d"
-    version: develop
+    version: "develop"
 
 - name: install doom config
-  copy:
-    src: "files/doom.d/"
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/doom.d/"
     dest: "~/.doom.d"
 
-- name: upgrade doom
-  command: ~/.emacs.d/bin/doom upgrade
-  notify:
-    - restart emacs
+# WARNING: This command blocks for user-input
+# - name: upgrade doom
+#   command: "~/.emacs.d/bin/doom upgrade"
+#   notify:
+#     - "restart emacs"
 
 # systemd (emacs.service)
 
@@ -40,12 +43,13 @@
     path: "~/.config/systemd/user"
     state: "directory"
 
-- name: copy in the emacs systemd service
-  copy:
-    src: "files/emacs.service"
+- name: symlink in emacs systemd service
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/emacs.service"
     dest: "~/.config/systemd/user/emacs.service"
   notify:
-    - restart emacs
+    - "restart emacs"
 
 - name: enable the emacs service
   systemd:
@@ -53,3 +57,10 @@
     scope: "user"
     enabled: true
     state: "started"
+
+- name: symlink in emacsclient.desktop
+  become: yes
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/emacsclient.desktop"
+    dest: "/usr/share/applications/emacsclient.desktop"

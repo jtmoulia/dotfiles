@@ -3,7 +3,7 @@
 
 - import_playbook: base.yml
   vars:
-    dotsible_playbook: "lenovo-t480"
+    dotsible_playbook: "t480"
 
 - hosts: localhost
   connection: local
@@ -11,8 +11,6 @@
   roles:
     - role: arch
       tags: arch
-      vars:
-        wifi_interface: "wlp3s0"
 
     - role: ssh
       tags: ssh
@@ -29,27 +27,14 @@
     - role: offlineimap
       tags: offlineimap
 
-    # - role: emacs
-    #   tags: emacs
-    #   vars:
-    #     emacs_font_size: "15"
-    #     emacs_powerline_scale: "1.0"
-    #     emacs_themes: "spacemacs-light spacemacs"
+    - role: emacs
+      tags: emacs
 
     - role: nextcloud
       tags: nextcloud
 
-    # - role: stumpwm
-    #   tags: stumpwm
-    #   vars:
-    #     dmenu_font_size: "12"
-    #     device_scale_factor: "1.0"
-
     - role: conky
       tags: conky
-
-    # - role: xapps
-    #   tags: xapps
 
     - role: gitup
       tags: gitup
