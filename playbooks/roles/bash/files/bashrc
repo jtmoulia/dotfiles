@@ -10,3 +10,25 @@ PATH="${HOME}/.local/bin:$PATH"
 PATH="${HOME}/bin:$PATH"
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
+
+# If not running interactively, don't do anything
+case $- in
+  *i*) ;;
+    *) return;;
+esac
+
+# bash-it config
+export BASH_IT="/home/jtmoulia/.local/lib/bash_it"
+export BASH_IT_THEME='sexy'
+export GIT_HOSTING='git@shed.pocketknife.io'
+unset MAILCHECK
+# export IRC_CLIENT='irssi'
+export SCM_CHECK=true
+
+# Load Bash It
+source "$BASH_IT"/bash_it.sh
+
+# Load and configure fzf
+FZF_TMUX_OPTS="-d 40%"
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash

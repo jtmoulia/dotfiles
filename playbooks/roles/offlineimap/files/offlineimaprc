@@ -11,7 +11,7 @@ maxage = 1460
 
 [Repository GmailLocal]
 type = GmailMaildir
-localfolders = ~/maildirs/gmail
+localfolders = ~/.mail/gmail
 
 [Repository GmailRemote]
 type = Gmail
@@ -34,7 +34,7 @@ remoterepository = PocketknifeRemote
 
 [Repository PocketknifeLocal]
 type = Maildir
-localfolders = ~/maildirs/pocketknife
+localfolders = ~/.mail/pocketknife
 
 [Repository PocketknifeRemote]
 type = IMAP
@@ -54,7 +54,7 @@ synclabels=yes
 
 [Repository HealthTensorLocal]
 type = GmailMaildir
-localfolders = ~/maildirs/healthtensor
+localfolders = ~/.mail/healthtensor
 
 [Repository HealthTensorRemote]
 type = Gmail

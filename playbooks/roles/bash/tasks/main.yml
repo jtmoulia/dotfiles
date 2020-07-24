@@ -8,12 +8,20 @@
     - "bash"
     - "fzf"
 
-- name: copy in .bashrc
-  copy:
-    src: "files/bashrc"
+- name: symlink in .bashrc
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/bashrc"
     dest: "~/.bashrc"
 
-- name: copy in .bash_profile
-  copy:
-    src: "files/bash_profile"
+- name: symlink in .bash_profile
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/bash_profile"
     dest: "~/.bash_profile"
+
+- name: git clone bash-it
+  git:
+    repo: "git@github.com:Bash-it/bash-it.git"
+    dest: "~/.local/lib/bash_it"
+    depth: 1
