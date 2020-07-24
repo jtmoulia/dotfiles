@@ -1,8 +1,68 @@
-;; Activate snippets for mu4e-view-mode
-;; (add-hook 'mu4e-compose-mode-hook
-;;           (lambda ()
-;;             (yas-minor-mode 1)
-;;             (yas-reload-all 1)))
+(defvar my-mu4e--personal-gmail-all-mail
+  "/gmail/[Gmail].All Mail"
+  "The endless email directory for personal gmail.")
+
+(defvar my-mu4e--healthtensor-gmail-all-mail
+  "/healthtensor/[Gmail].All Mail"
+  "The endless email directory for HealthTensor's gmail.")
+
+(defvar my-mu4e--mailing-lists-alist
+  `(((,my-mu4e--personal-gmail-all-mail . "/gmail/[Gmail].Trash")
+     . ("mu-discuss@googlegroups.com"
+        "jtmoulia@alum.mit.edu"))
+    ((,my-mu4e--healthtensor-gmail-all-mail . "/healthtensor/[Gmail].Trash")
+     . ("scalar@healthtensor.com"))
+    )
+  "List of mailing list addresses and folders where their messages are saved")
+
+(setq my-mu4e--mailing-lists-alist
+  `(((,my-mu4e--personal-gmail-all-mail . "/gmail/[Gmail].Trash")
+     . ("mu-discuss@googlegroups.com"
+        "jtmoulia@alum.mit.edu"))
+    ;; ((,my-mu4e--healthtensor-gmail-all-mail . "/healthtensor/[Gmail].Trash")
+    ;;  . ("mu-discuss@googlegroups.com"))
+    ))
+
+(defun* my-mu4e//get-refile-for-mailing-list
+    (msg &optional (mailing-list-alist my-mu4e--mailing-lists-alist))
+  "Return the account associated with the provided mailing-list"
+  (if mailing-list-alist
+      (let ((next-mailing-list (car mailing-list-alist)))
+        (if (seq-filter (lambda (mailing-list)
+                          (mu4e-message-contact-field-matches msg :to mailing-list))
+                        (cdr next-mailing-list))
+            (car next-mailing-list)
+          (my-mu4e//get-refile-for-mailing-list msg (cdr mailing-list-alist))))))
+
+(defun my-mu4e//refile-folder-function (msg)
+  (let* ((maildir (mu4e-message-field msg :maildir))
+         (subject (mu4e-message-field msg :subject))
+         (mailing-list (my-mu4e//get-refile-for-mailing-list msg)))
+    (cond
+     (mailing-list (car mailing-list))
+     ((string-match "^/gmail" maildir)
+      my-mu4e--personal-gmail-all-mail)
+     ((string-match "^/healthtensor" maildir)
+      my-mu4e--healthtensor-gmail-all-mail)
+     ;; this is this function . . .
+     (t mu4e-refile-folder)
+     )))
+
+(defun my-mu4e//trash-folder-function (msg)
+  (let* ((maildir (mu4e-message-field msg :maildir))
+         (subject (mu4e-message-field msg :subject))
+         (mailing-list (my-mu4e//get-refile-for-mailing-list msg)))
+    (cond
+     (mailing-list (cdr mailing-list))
+     ((string-match "^/gmail" maildir) "/gmail/[Gmail].Trash")
+     ((string-match "^/healthtensor" maildir) "/healthtensor/[Gmail].Trash")
+     ;; this is this function . . .
+     (t mu4e-trash-folder)
+     )))
+
+;; `mu4e-trash-folder' is defined here because it's not working in `:vars' :/
+;; Luckily, it's the same folder across all contexts.
+(setq-default mu4e-trash-folder #'my-mu4e//trash-folder-function)
 
 ;; Configure Contexts
 (setq-default
@@ -21,12 +81,13 @@
           msg :to "thomas@healthtensor.com")))
      :vars '((user-mail-address . "thomas@healthtensor.com")
              (user-full-name . "Thomas Moulia")
-             (mu4e-inbox-folder . "/healthtensor/INBOX")
-             (mu4e-sent-folder . "/healthtensor/INBOX.Sent Items")
-             (mu4e-drafts-folder . "/healthtensor/INBOX.Drafts")
-             (mu4e-trash-folder . "/healthtensor/INBOX.Trash")
-             (mu4e-refile-folder . "/healthtensor/INBOX.Archive")
-             (mu4e-spam-folder . "/healthtensor/INBOX.Junk Mail")
+             (mu4e-inbox-folder . "/healthtensor/[Gmail].All Mail")
+             (mu4e-sent-folder . "/healthtensor/[Gmail].All Mail")
+             (mu4e-drafts-folder . "/healthtensor/[Gmail].Drafts")
+             ;; (mu4e-trash-folder . "/healthtensor/[Gmail].Trash")
+             ;; (mu4e-trash-folder . my-mu4e//trash-folder-function)
+             (mu4e-refile-folder . my-mu4e//refile-folder-function)
+             (mu4e-spam-folder . "/healthtensor/[Gmail].Spam")
              (smtpmail-smtp-user . "thomas@healthtensor.com")
              (smtpmail-default-smtp-server . "smtp.gmail.com")
              (smtpmail-smtp-server . "smtp.gmail.com")
@@ -45,14 +106,16 @@
                                              :to "jtmoulia@gmail.com")))
      :vars '((user-mail-address . "jtmoulia@gmail.com")
              (user-full-name . "Thomas Moulia")
-             (mu4e-inbox-folder . "/gmail/INBOX")
-             (mu4e-sent-folder . "/gmail/[Gmail].Sent Mail")
+             (mu4e-inbox-folder . "/gmail/[Gmail].All Mail")
+             (mu4e-sent-folder . "/gmail/[Gmail].All Mail")
              (mu4e-drafts-folder . "/gmail/[Gmail].Drafts")
-             (mu4e-trash-folder . "/gmail/[Gmail].Trash")
-             (mu4e-refile-folder . "/gmail/[Gmail].All Mail")
-             (mu4e-spam-folder . "/gmail/[Gmail].spam")
+             ;; (mu4e-trash-folder . "/gmail/[Gmail].Trash")
+             ;; (mu4e-trash-folder . my-mu4e//trash-folder-function)
+             (mu4e-refile-folder . my-mu4e//refile-folder-function)
+             (mu4e-spam-folder . "/gmail/[Gmail].Spam")
              (smtpmail-smtp-user . "jtmoulia@gmail.com")
              (smtpmail-default-smtp-server . "smtp.gmail.com")
+             (smtpmail-smtp-server . "smtp.gmail.com")
              (smtpmail-stream-type . starttls)
              (smtpmail-smtp-service . 587)))
    ,(make-mu4e-context
@@ -71,9 +134,9 @@
              (mu4e-inbox-folder . "/pocketknife/INBOX")
              (mu4e-sent-folder . "/pocketknife/INBOX.Sent Items")
              (mu4e-drafts-folder . "/pocketknife/INBOX.Drafts")
-             (mu4e-trash-folder . "/pocketknife/INBOX.Trash")
-             (mu4e-refile-folder . "/pocketknife/INBOX.Archive")
-             (mu4e-spam-folder . "/pocketknife/INBOX.Junk Mail")
+             ;; (mu4e-trash-folder . my-mu4e//trash-folder-function)
+             (mu4e-refile-folder . my-mu4e//refile-folder-function)
+             (mu4e-spam-folder . "/pocketknife/Junk Mail")
              (smtpmail-smtp-user . "jtmoulia@pocketknife.io")
              (smtpmail-default-smtp-server . "mail.messagingengine.com")
              (smtpmail-smtp-server . "mail.messagingengine.com")
@@ -82,7 +145,7 @@
    ))
 
 ;; Helper Functions
-(defun dotspacemacs//mu4e-context (context-name)
+(defun my-mu4e//mu4e-context (context-name)
   "Return the context in `mu4e-contexts' with name CONTEXT-NAME.
 
 Raises an error if that context isn't present."
@@ -94,44 +157,46 @@ Raises an error if that context isn't present."
         context
       (error "no context with name: %s" context-name))))
 
-(defun dotspacemacs//mu4e-context-get-var (context var)
+(defun my-mu4e//mu4e-context-get-var (context var)
   "For CONTEXT return VAR. Helper function for access."
   (cdr (assoc var (mu4e-context-vars context))))
 
-(defun dotspacemacs//mu4e-context-var (context-name var)
+(defun my-mu4e//mu4e-context-var (context-name var)
   "Return the value of VAR for the context with name CONTEXT-NAME, searching
 `mu4e-contexts'."
-  (dotspacemacs//mu4e-context-get-var
-   (dotspacemacs//mu4e-context context-name)
+  (my-mu4e//mu4e-context-get-var
+   (my-mu4e//mu4e-context context-name)
    var))
 
-(defun dotspacemacs//mu4e-contexts-var (var)
+(defun my-mu4e//mu4e-contexts-var (var)
   "Return a list of the value for VAR across `mu4e-contexts'. If VAR is
 undefined for a context, it will be filtered out."
   (delq nil
         (mapcar (lambda (context)
-                  (dotspacemacs//mu4e-context-get-var context var))
+                  (my-mu4e//mu4e-context-get-var context var))
                 mu4e-contexts)))
 
-(defun dotspacemacs//mu4e-add-maildir-prefix (maildir)
+(defun my-mu4e//mu4e-add-maildir-prefix (maildir)
   "Add maildir: prefix to MAILDIR for mu queries."
   (concat "maildir:\"" maildir "\""))
 
-(defun dotspacemacs//flat-cat (&rest list)
+(defun my-mu4e//flat-cat (&rest list)
   "Flatten and concatenate LIST."
   (apply 'concat (-flatten list)))
 
-(defun dotspacemacs//flat-cat-pose (sep &rest list)
+(defun my-mu4e//flat-cat-pose (sep &rest list)
   "Unabashed helper function to interpose SEP padded with
 spaces into LIST. Return the padded result."
-  (dotspacemacs//flat-cat
+  (my-mu4e//flat-cat
    (-interpose (concat " " sep " ") list)))
 
-(defun* dotspacemacs//mu4e-query
+(defun* my-mu4e//wrap-terms (terms &key (prefix "") (sep "AND"))
+  (apply 'my-mu4e//flat-cat-pose sep
+         (-map (lambda (term) (concat "(" prefix "\"" term "\"" ")")) terms)))
+
+(defun* my-mu4e//mu4e-query
     (var &key (prefix "") (sep "AND"))
-  (apply 'dotspacemacs//flat-cat-pose sep
-         (-map (lambda (folder) (concat prefix folder))
-               (dotspacemacs//mu4e-contexts-var var))))
+  (my-mu4e//wrap-terms (my-mu4e//mu4e-contexts-var var) :prefix prefix :sep sep))
 
 ;; Configure Vars
 (require 'mu4e-contrib)
@@ -139,10 +204,12 @@ spaces into LIST. Return the padded result."
 ;; (require 'org-mu4e)
 (setq-default
  mu4e-mu-binary         "/usr/bin/mu"
- mu4e-maildir           "~/maildirs"            ;; top-level Maildir
+ ;; top-level maildir, email fetcher should be configured to save here
+ mu4e-maildir           "~/maildirs"
  mu4e-confirm-quit      nil
  mu4e-get-mail-command  "offlineimap"
- mu4e-headers-skip-duplicates t
+ ;; with the scheme of using `All Mail' over inboxes let's keep dupsround
+ mu4e-headers-skip-duplicates nil
  mu4e-update-interval   nil
  mu4e-index-lazy-check  t
  mu4e-use-fancy-chars   t
@@ -168,7 +235,7 @@ spaces into LIST. Return the padded result."
  mu4e-compose-complete-only-personal t
  mu4e-hide-index-messages t
  mu4e-html2text-command 'mu4e-shr2text
- mu4e-user-mail-address-list (dotspacemacs//mu4e-contexts-var
+ mu4e-user-mail-address-list (my-mu4e//mu4e-contexts-var
                               'user-mail-address)
  ;; User info
  message-auto-save-directory (concat (file-name-as-directory mu4e-maildir)
@@ -186,39 +253,77 @@ spaces into LIST. Return the padded result."
 ;; mu4e bookmarks -- this is the magic
 (let* ((maildir "maildir:")
        (not-maildir (concat "NOT " maildir))
-       (not-spam (dotspacemacs//mu4e-query 'mu4e-spam-folder
+       (not-spam (my-mu4e//mu4e-query 'mu4e-spam-folder
                                            :prefix not-maildir))
-       (not-trash (dotspacemacs//mu4e-query 'mu4e-trash-folder
-                                            :prefix not-maildir))
-       (not-refile (dotspacemacs//mu4e-query 'mu4e-refile-folder
-                                             :prefix not-maildir))
-       (inboxes (apply 'dotspacemacs//flat-cat-pose "OR"
-                       (mapcar 'dotspacemacs//mu4e-add-maildir-prefix
-                               (dotspacemacs//mu4e-contexts-var 'mu4e-inbox-folder)))))
+       (not-trash (my-mu4e//wrap-terms
+                   '("/gmail/[Gmail].Trash" "/healthtensor/[Gmail].Trash" "/pocketknife/INBOX.Trash")
+                   :prefix not-maildir))
+       (inboxes (apply 'my-mu4e//flat-cat-pose "OR"
+                       (mapcar 'my-mu4e//mu4e-add-maildir-prefix
+                               (my-mu4e//mu4e-contexts-var 'mu4e-inbox-folder)))))
   (setq mu4e-bookmarks
-        `((,(dotspacemacs//flat-cat-pose "AND"
-                                         "flag:unread" "NOT flag:trashed" not-spam not-trash not-refile)
+        `((,(my-mu4e//flat-cat-pose
+             "AND" "flag:unread" "NOT flag:trashed" not-spam not-trash)
            "Unread messages" ?u)
-          (,(dotspacemacs//flat-cat-pose "AND" "date:today..now" not-spam)
+          (,(my-mu4e//flat-cat-pose
+             "AND" "date:7d..now" "flag:unread" "NOT flag:trashed" not-spam not-trash)
+           "Unread messages from the last week" ?U)
+          (,(my-mu4e//flat-cat-pose "AND" "tag:\\\\Inbox" not-spam not-trash)
+           "All inboxes", ?i)
+          (,(my-mu4e//flat-cat-pose "AND" "date:7d..now" "tag:\\\\Inbox" not-spam not-trash)
+           "All inbox messages from the last week", ?I)
+          (,(my-mu4e//flat-cat-pose "AND" "date:today..now" not-spam)
            "Today's messages" ?t)
-          (,(dotspacemacs//flat-cat-pose "AND" "date:7d..now" not-spam)
-           "Last 7 days" ?w)
-          (,inboxes
-           "Messages in inboxes" ?i)
-          (,(dotspacemacs//flat-cat-pose "AND" "mime:image/*" not-spam)
+          (,(my-mu4e//flat-cat-pose "AND" "date:7d..now" not-spam not-trash)
+           "Last 7 days no trash or spam" ?w)
+          ("date:7d..now"
+           "Last 7 days" ?W)
+          (,(my-mu4e//flat-cat-pose "AND" "mime:image/*" not-spam)
            "Messages with images" ?p)
-          (,(dotspacemacs//flat-cat-pose "AND"
+          (,(my-mu4e//flat-cat-pose "AND"
                                          "flag:unread" "NOT flag:trashed" not-spam)
            "Unread spam" ?s)))
 
   (setq mu4e-maildir-shortcuts
-        `((,(dotspacemacs//mu4e-context-var "gmail" 'mu4e-inbox-folder) . ?g)
-          (,(dotspacemacs//mu4e-context-var "healthtensor" 'mu4e-inbox-folder) . ?h)))
+        `((,(my-mu4e//mu4e-context-var "gmail" 'mu4e-inbox-folder) . ?g)
+          (,(my-mu4e//mu4e-context-var "healthtensor" 'mu4e-inbox-folder) . ?h)))
 
   (setq mu4e-alert-interesting-mail-query (concat "flag:unread AND " inboxes))
   )
 
-;; (evil-define-key 'evilified mu4e-view-mode-map
-;;   "y" 'evil-yank
-;;   "f" 'evil-find-char
-;;   "t" 'evil-find-char-to)
+;; See single folder config: https://groups.google.com/forum/#!topic/mu-discuss/BpGtwVHMd2E
+(add-hook 'mu4e-mark-execute-pre-hook
+          (lambda (mark msg)
+            (cond
+                  ((equal mark 'refile) (mu4e-action-retag-message msg "-\\Inbox"))
+                  ((equal mark 'trash) (mu4e-action-retag-message msg "-\\Inbox,-\\Starred"))
+                  ((equal mark 'flag) (mu4e-action-retag-message msg "-\\Inbox,\\Starred"))
+                  ((equal mark 'unflag) (mu4e-action-retag-message msg "-\\Starred")))))
+
+;; monkey-patch override of original definition to not override https URLs
+;; TODO: check if the mu project would accept this upstream
+;; (defun org~mu4e-mime-replace-images (str current-file)
+;;   "Replace images in html files with cid links."
+;;   (let (html-images)
+;;     (cons
+;;      (replace-regexp-in-string ;; replace images in html
+;;       "src=\"\\(?!https\\)\\([^\"]+\\)\""
+;;       (lambda (text)
+;;         (format
+;;          "src=\"cid:%s\""
+;;          (let* ((url (and (string-match "src=\"\\([^\"]+\\)\"" text)
+;;                           (match-string 1 text)))
+;;                 (path (expand-file-name
+;;                        url (file-name-directory current-file)))
+;;                 (ext (file-name-extension path))
+;;                 (id (replace-regexp-in-string "[\/\\\\]" "_" path)))
+;;            (add-to-list 'html-images
+;;                         (org~mu4e-mime-file
+;;                          (concat "image/" ext) path id))
+;;            id)))
+;;       str)
+;;      html-images)))
+
+;; (defun org~mu4e-mime-replace-images (str current-file)
+;;   "Replace images in html files with cid links."
+;;   nil)

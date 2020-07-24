@@ -1,4 +1,5 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; .doom.d/packages.el
 
-;; TODO
+(package! blacken)
+(package! ox-reveal)

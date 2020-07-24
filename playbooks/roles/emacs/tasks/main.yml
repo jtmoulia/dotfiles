@@ -23,17 +23,10 @@
     dest: "~/.emacs.d"
     version: develop
 
-- name: install spacemacs config
+- name: install doom config
   copy:
     src: "files/doom.d/"
     dest: "~/.doom.d"
-
-# - name: template in the spacemacs config
-#   template:
-#     src: "templates/init.el.j2"
-#     dest: "~/.spacemacs.d/init.el"
-#   notify:
-#     - restart emacs
 
 - name: upgrade doom
   command: ~/.emacs.d/bin/doom upgrade

@@ -1,0 +1,9 @@
+* Technical
+** Protecting Code Integrity with PGP https://github.com/lfit/itpol/blob/master/protecting-code-integrity.md
+:PROPERTIES:
+:CREATED: [2020-03-08 Sun 18:19]
+:END:
+
+A guide for creating secure master and subkeys.
+
+* Inbox
