@@ -164,23 +164,30 @@
  mu4e-index-lazy-check  t
  mu4e-use-fancy-chars   t
  mu4e-compose-signature (apply 'concat (-interpose
-                                        "\n"
-                                        '(
-"<div style=\"font-family:roboto, arial-bold, sans-serif;font-weight:bold;color:#43474c;font-size:100%;line-height:20px;margin:none\">Thomas Moulia | CTO"
-"</div>"
-"<a href=\"mailto:Thomas@healthtensor.com\" style=\"font-family:roboto, arial;color:#757d84;font-size:87.5%;text-decoration:none !important\">Thomas@healthtensor.com</a>"
-"<hr style=\"border-color:#b6babe;margin-top:8px;margin-bottom:4px\" noshade>"
-"</hr>"
-"<table>"
-"  <td>"
-"  <a href=\"https://www.healthtensor.com/\"><img src=\"https://healthtensor-media.s3-us-west-1.amazonaws.com/HTlogo_vertical_blue.png\" height=\"36px\"></a>"
-" </td>"
-" <td style=\"padding-left:8px;line-height:2px;font-size:87.5%;font-family:roboto, arial, sans-serif;color:#757d84\">"
-"    <p>4133 Redwood Avenue</p>"
-"    <p>Los Angeles, CA 90066</p>"
-"  </td>"
-"</table>"
-)))
+                                        "  \n"
+                                        '("Thomas Moulia"
+                                          "Co-Founder & CTO | HealthTensor"
+                                          "www.healthtensor.com"
+                                          "jtmoulia.pocketknife.io")))
+;; TODO: How can this HTML signature be part of the org export
+;;  mu4e-compose-signature (apply 'concat (-interpose
+;;                                         "\n"
+;;                                         '(
+;; "<div style=\"font-family:roboto, arial-bold, sans-serif;font-weight:bold;color:#43474c;font-size:100%;line-height:20px;margin:none\">Thomas Moulia | CTO"
+;; "</div>"
+;; "<a href=\"mailto:Thomas@healthtensor.com\" style=\"font-family:roboto, arial;color:#757d84;font-size:87.5%;text-decoration:none !important\">Thomas@healthtensor.com</a>"
+;; "<hr style=\"border-color:#b6babe;margin-top:8px;margin-bottom:4px\" noshade>"
+;; "</hr>"
+;; "<table>"
+;; "  <td>"
+;; "  <a href=\"https://www.healthtensor.com/\"><img src=\"https://healthtensor-media.s3-us-west-1.amazonaws.com/HTlogo_vertical_blue.png\" height=\"36px\"></a>"
+;; " </td>"
+;; " <td style=\"padding-left:8px;line-height:2px;font-size:87.5%;font-family:roboto, arial, sans-serif;color:#757d84\">"
+;; "    <p>4133 Redwood Avenue</p>"
+;; "    <p>Los Angeles, CA 90066</p>"
+;; "  </td>"
+;; "</table>"
+;; )))
  mu4e-compose-dont-reply-to-self t
  mu4e-compose-complete-only-personal t
  mu4e-hide-index-messages t
@@ -315,7 +322,9 @@ spaces into LIST. Return the padded result."
         `((,(my-mu4e//mu4e-context-var "gmail" 'mu4e-inbox-folder) . ?g)
           (,(my-mu4e//mu4e-context-var "healthtensor" 'mu4e-inbox-folder) . ?h)))
 
-  (setq mu4e-alert-interesting-mail-query (concat "flag:unread AND " inboxes))
+  ;; Configure mu4e-alert
+  (setq mu4e-alert-interesting-mail-query (my-mu4e//bm-and inboxes "flag:unread")
+        mu4e-alert-set-default-style 'libnotify)
   )
 
 ;; See single folder config: https://groups.google.com/forum/#!topic/mu-discuss/BpGtwVHMd2E

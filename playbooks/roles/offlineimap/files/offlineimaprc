@@ -7,7 +7,6 @@ pythonfile = ~/.offlineimap.py
 localrepository = GmailLocal
 remoterepository = GmailRemote
 synclabels=yes
-maxage = 2060
 
 [Repository GmailLocal]
 type = GmailMaildir

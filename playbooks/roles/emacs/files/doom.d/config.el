@@ -24,11 +24,8 @@
 ;; (setq doom-theme 'doom-one-light)
 (setq doom-font (font-spec :family "Fira Code" :size 14))
 
-;; Spacemacs style `,' local leader. This overrides the default behavior of `,'
-;; which I clearly wasn't using
+;; Spacemacs style `,' local leader.
 (setq doom-localleader-key ",")
 
-;; Bind globally accessible applications
-(map!
- :leader
- :n "a m" 'mu4e)
+;; Allow deeper callstacks
+(setq max-specpdl-size 10000)

@@ -3,3 +3,4 @@
 
 (package! blacken)
 (package! ox-reveal)
+(package! mu4e-alert)
