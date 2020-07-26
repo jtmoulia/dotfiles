@@ -111,7 +111,7 @@
      :vars '((user-mail-address . "jtmoulia@gmail.com")
              (user-full-name . "Thomas Moulia")
              (mu4e-inbox-folder . "/gmail/INBOX")
-             (mu4e-sent-folder . "/gmail/[Gmail].Sent Items")
+             (mu4e-sent-folder . "/gmail/[Gmail].Sent Mail")
              (mu4e-drafts-folder . "/gmail/[Gmail].Drafts")
              (mu4e-trash-folder . "/gmail/[Gmail].Trash")
              ;; (mu4e-trash-folder . my-mu4e//trash-folder-function)
@@ -148,7 +148,58 @@
              (smtpmail-smtp-service . 465)))
    ))
 
-;; Helper Functions
+
+;; Configure Vars
+(require 'mu4e-contrib)
+
+;; (require 'org-mu4e)
+(setq-default
+ mu4e-mu-binary         "/usr/bin/mu"
+ ;; top-level maildir, email fetcher should be configured to save here
+ mu4e-root-maildir     "~/.mail"
+ mu4e-confirm-quit      nil
+ mu4e-get-mail-command  "offlineimap"
+ mu4e-headers-skip-duplicates t
+ mu4e-update-interval   nil
+ mu4e-index-lazy-check  t
+ mu4e-use-fancy-chars   t
+ mu4e-compose-signature (apply 'concat (-interpose
+                                        "\n"
+                                        '(
+"<div style=\"font-family:roboto, arial-bold, sans-serif;font-weight:bold;color:#43474c;font-size:100%;line-height:20px;margin:none\">Thomas Moulia | CTO"
+"</div>"
+"<a href=\"mailto:Thomas@healthtensor.com\" style=\"font-family:roboto, arial;color:#757d84;font-size:87.5%;text-decoration:none !important\">Thomas@healthtensor.com</a>"
+"<hr style=\"border-color:#b6babe;margin-top:8px;margin-bottom:4px\" noshade>"
+"</hr>"
+"<table>"
+"  <td>"
+"  <a href=\"https://www.healthtensor.com/\"><img src=\"https://healthtensor-media.s3-us-west-1.amazonaws.com/HTlogo_vertical_blue.png\" height=\"36px\"></a>"
+" </td>"
+" <td style=\"padding-left:8px;line-height:2px;font-size:87.5%;font-family:roboto, arial, sans-serif;color:#757d84\">"
+"    <p>4133 Redwood Avenue</p>"
+"    <p>Los Angeles, CA 90066</p>"
+"  </td>"
+"</table>"
+)))
+ mu4e-compose-dont-reply-to-self t
+ mu4e-compose-complete-only-personal t
+ mu4e-hide-index-messages t
+ mu4e-html2text-command 'mu4e-shr2text
+ ;; User info
+ message-auto-save-directory (concat (file-name-as-directory mu4e-root-maildir)
+                                     "drafts")
+ send-mail-function 'smtpmail-send-it
+ message-send-mail-function 'smtpmail-send-it
+ smtpmail-stream-type 'ssl
+ smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
+ ;; smtpmail-queue-mail t
+ smtpmail-queue-dir  (expand-file-name "~/.mail/queue/cur"))
+
+;; drafts are saved as *message*-___
+(add-to-list 'auto-mode-alist '("\\*message\\*-+" . message-mode))
+
+
+;; Helper functions for composing bookmarks from contexts
 (defun my-mu4e//mu4e-context (context-name)
   "Return the context in `mu4e-contexts' with name CONTEXT-NAME.
 
@@ -202,112 +253,63 @@ spaces into LIST. Return the padded result."
     (var &key (prefix "") (sep "AND"))
   (my-mu4e//wrap-terms (my-mu4e//mu4e-contexts-var var) :prefix prefix :sep sep))
 
-;; Configure Vars
-(require 'mu4e-contrib)
+(defun my-mu4e//bm-or (&rest list)
+  (apply 'my-mu4e//flat-cat-pose "OR" list))
 
-;; (require 'org-mu4e)
-(setq-default
- mu4e-mu-binary         "/usr/bin/mu"
- ;; top-level maildir, email fetcher should be configured to save here
- mu4e-maildir           "~/maildirs"
- mu4e-confirm-quit      nil
- mu4e-get-mail-command  "offlineimap"
- mu4e-headers-skip-duplicates t
- mu4e-update-interval   nil
- mu4e-index-lazy-check  t
- mu4e-use-fancy-chars   t
- mu4e-compose-signature (apply 'concat (-interpose
-                                        "\n"
-                                        '(
-"<div style=\"font-family:roboto, arial-bold, sans-serif;font-weight:bold;color:#43474c;font-size:100%;line-height:20px;margin:none\">Thomas Moulia | CTO"
-"</div>"
-"<a href=\"mailto:Thomas@healthtensor.com\" style=\"font-family:roboto, arial;color:#757d84;font-size:87.5%;text-decoration:none !important\">Thomas@healthtensor.com</a>"
-"<hr style=\"border-color:#b6babe;margin-top:8px;margin-bottom:4px\" noshade>"
-"</hr>"
-"<table>"
-"  <td>"
-"  <a href=\"https://www.healthtensor.com/\"><img src=\"https://healthtensor-media.s3-us-west-1.amazonaws.com/HTlogo_vertical_blue.png\" height=\"36px\"></a>"
-" </td>"
-" <td style=\"padding-left:8px;line-height:2px;font-size:87.5%;font-family:roboto, arial, sans-serif;color:#757d84\">"
-"    <p>4133 Redwood Avenue</p>"
-"    <p>Los Angeles, CA 90066</p>"
-"  </td>"
-"</table>"
-)))
- mu4e-compose-dont-reply-to-self t
- mu4e-compose-complete-only-personal t
- mu4e-hide-index-messages t
- mu4e-html2text-command 'mu4e-shr2text
- mu4e-user-mail-address-list (my-mu4e//mu4e-contexts-var
-                              'user-mail-address)
- ;; User info
- message-auto-save-directory (concat (file-name-as-directory mu4e-maildir)
-                                     "drafts")
- send-mail-function 'smtpmail-send-it
- message-send-mail-function 'smtpmail-send-it
- smtpmail-stream-type 'ssl
- smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
- ;; smtpmail-queue-mail t
- smtpmail-queue-dir  (expand-file-name "~/maildirs/queue/cur"))
+(defun my-mu4e//bm-and (&rest list)
+  (apply 'my-mu4e//flat-cat-pose "AND" list))
 
-;; drafts are saved as *message*-___
-(add-to-list 'auto-mode-alist '("\\*message\\*-+" . message-mode))
+(defun my-mu4e//bm-not (item)
+  (concat "NOT " item))
 
-;; GMail has duplicate messages between All Mail and other directories.
-;; This function allows the
-(defun my-mu4e-headers-toggle-all-mail (&optional dont-refresh)
-  "Toggle whether to hide all mail and re-render"
-  (interactive)
-  (setq my-mu4e--headers-hide-all-mail (not my-mu4e--headers-hide-all-mail))
-  (unless dont-refresh
-    (mu4e-headers-rerun-search)))
+(defun my-mu4e//bm-wrap (item)
+  (concat "(" item ")"))
 
-(defun my-mu4e-headers-hide-predicate (msg)
-  (if my-mu4e--headers-hide-all-mail
-   (string-equal "/healthtensor/[Gmail].All Mail" (mu4e-message-field msg :maildir))))
-
-(setq mu4e-headers-hide-predicate #'my-mu4e-headers-hide-predicate)
 
 ;; mu4e bookmarks -- this is the magic
 (let* ((maildir "maildir:")
-       (not-maildir (concat "NOT " maildir))
+       (not-maildir (my-mu4e//bm-not maildir))
        (not-spam (my-mu4e//mu4e-query 'mu4e-spam-folder
-                                           :prefix not-maildir))
+                                      :prefix not-maildir))
        (not-trash (my-mu4e//wrap-terms
                    '("/gmail/[Gmail].Trash" "/healthtensor/[Gmail].Trash" "/pocketknife/INBOX.Trash")
                    :prefix not-maildir))
-       (inboxes (apply 'my-mu4e//flat-cat-pose "OR"
+       (inboxes (my-mu4e//bm-wrap
+                 (apply 'my-mu4e//bm-or
+                        (mapcar 'my-mu4e//mu4e-add-maildir-prefix
+                                (my-mu4e//mu4e-contexts-var 'mu4e-inbox-folder)))))
+       (sent-folders (my-mu4e//bm-wrap
+                      (apply 'my-mu4e//bm-or
                        (mapcar 'my-mu4e//mu4e-add-maildir-prefix
-                               (my-mu4e//mu4e-contexts-var 'mu4e-inbox-folder))))
-       (sent-folders (apply 'my-mu4e//flat-cat-pose "OR"
-                       (mapcar 'my-mu4e//mu4e-add-maildir-prefix
-                               (my-mu4e//mu4e-contexts-var 'mu4e-sent-folder))))
+                               (my-mu4e//mu4e-contexts-var 'mu4e-sent-folder)))))
        )
 
   (setq mu4e-bookmarks
-        `((,(my-mu4e//flat-cat-pose
-             "AND" "flag:unread" "NOT flag:trashed" not-spam not-trash)
+        `((,(my-mu4e//bm-and
+              "flag:unread" "NOT flag:trashed" not-spam not-trash)
            "Unread messages" ?u)
-          (,(my-mu4e//flat-cat-pose
-             "AND" "date:7d..now" "flag:unread" "NOT flag:trashed" not-spam not-trash)
+          (,(my-mu4e//bm-and
+             "date:7d..now" "flag:unread" "NOT flag:trashed" not-spam not-trash)
            "Unread messages from the last week" ?U)
-          (,(my-mu4e//flat-cat-pose "AND" "tag:\\\\Inbox" not-spam not-trash)
-           "All inboxes test", ?q)
-          (,(my-mu4e//flat-cat-pose "AND" "date:7d..now" "tag:\\\\Inbox" not-spam not-trash)
+          (,inboxes
+           "All inboxes", ?i)
+          (,(my-mu4e//bm-and "date:7d..now" (my-mu4e//bm-or inboxes))
            "All inbox messages from the last week", ?I)
-          (,(my-mu4e//flat-cat-pose "AND" inboxes sent-folders (concat "NOT \"maildir:/healthtensor/[Gmail].All Mail\""))
-           "All inboxes", ?h)
-          (,(my-mu4e//flat-cat-pose "AND" "date:today..now" not-spam)
+          (,(my-mu4e//bm-and "date:today..now" not-spam)
            "Today's messages" ?t)
-          (,(my-mu4e//flat-cat-pose "AND" "date:7d..now" not-spam not-trash)
+          (,(my-mu4e//bm-and "date:7d..now" not-spam not-trash)
            "Last 7 days no trash or spam" ?w)
           ("date:7d..now"
            "Last 7 days" ?W)
-          (,(my-mu4e//flat-cat-pose "AND" "mime:image/*" not-spam)
+          (,(my-mu4e//bm-and "mime:image/*" not-spam)
            "Messages with images" ?p)
-          (,(my-mu4e//flat-cat-pose "AND"
-                                         "flag:unread" "NOT flag:trashed" not-spam)
-           "Unread spam" ?s)))
+          (,sent-folders
+           "Sent mail" ?s)
+          (,(my-mu4e//bm-and "date:7d..now" sent-folders)
+           "Sent mail from the last week" ?S)
+          (,(my-mu4e//bm-and "flag:unread" "NOT flag:trashed" not-spam)
+           "Unread spam" ?z))
+        )
 
   (setq mu4e-maildir-shortcuts
         `((,(my-mu4e//mu4e-context-var "gmail" 'mu4e-inbox-folder) . ?g)
@@ -352,6 +354,24 @@ spaces into LIST. Return the padded result."
 ;; (defun org~mu4e-mime-replace-images (str current-file)
 ;;   "Replace images in html files with cid links."
 ;;   nil)
+;;
+;; GMail has duplicate messages between All Mail and other directories.
+;; This function allows the
+(defun my-mu4e-headers-toggle-all-mail (&optional dont-refresh)
+  "Toggle whether to hide all mail and re-render"
+  (interactive)
+  (setq my-mu4e--headers-hide-all-mail (not my-mu4e--headers-hide-all-mail))
+  (unless dont-refresh
+    (mu4e-headers-rerun-search)))
+
+(defun my-mu4e-headers-hide-predicate (msg)
+  (if my-mu4e--headers-hide-all-mail
+   (string-equal "/healthtensor/[Gmail].All Mail" (mu4e-message-field msg :maildir))))
+
+(setq mu4e-headers-hide-predicate #'my-mu4e-headers-hide-predicate)
+
 
 ;; Keybindings
-(map! :map mu4e-headers-mode :nv "z D" #'my-mu4e-headers-toggle-all-mail)
+(map! :map mu4e-headers-mode-map :nv "z D" #'my-mu4e-headers-toggle-all-mail)
+
+;;; mu4e.el ends here
