@@ -14,9 +14,10 @@
     path: "~/.config/conky"
     state: "directory"
 
-- name: config conky
-  copy:
-    src: "files/conky.conf.lua"
+- name: symlink in conky config
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/conky.conf.lua"
     dest: "~/.config/conky/conky.conf"
 
 ...
