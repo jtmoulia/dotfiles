@@ -23,6 +23,10 @@
     ;;  . ("mu-discuss@googlegroups.com"))
     ))
 
+(defvar my-mu4e--headers-hide-all-mail
+  t
+  "Whether to show `[Gmail].All Mail' in mu4e headers view")
+
 (defun* my-mu4e//get-refile-for-mailing-list
     (msg &optional (mailing-list-alist my-mu4e--mailing-lists-alist))
   "Return the account associated with the provided mailing-list"
@@ -81,10 +85,10 @@
           msg :to "thomas@healthtensor.com")))
      :vars '((user-mail-address . "thomas@healthtensor.com")
              (user-full-name . "Thomas Moulia")
-             (mu4e-inbox-folder . "/healthtensor/[Gmail].All Mail")
-             (mu4e-sent-folder . "/healthtensor/[Gmail].All Mail")
+             (mu4e-inbox-folder . "/healthtensor/INBOX")
+             (mu4e-sent-folder . "/healthtensor/[Gmail].Sent Mail")
              (mu4e-drafts-folder . "/healthtensor/[Gmail].Drafts")
-             ;; (mu4e-trash-folder . "/healthtensor/[Gmail].Trash")
+             (mu4e-trash-folder . "/healthtensor/[Gmail].Trash")
              ;; (mu4e-trash-folder . my-mu4e//trash-folder-function)
              (mu4e-refile-folder . my-mu4e//refile-folder-function)
              (mu4e-spam-folder . "/healthtensor/[Gmail].Spam")
@@ -106,10 +110,10 @@
                                              :to "jtmoulia@gmail.com")))
      :vars '((user-mail-address . "jtmoulia@gmail.com")
              (user-full-name . "Thomas Moulia")
-             (mu4e-inbox-folder . "/gmail/[Gmail].All Mail")
-             (mu4e-sent-folder . "/gmail/[Gmail].All Mail")
+             (mu4e-inbox-folder . "/gmail/INBOX")
+             (mu4e-sent-folder . "/gmail/[Gmail].Sent Items")
              (mu4e-drafts-folder . "/gmail/[Gmail].Drafts")
-             ;; (mu4e-trash-folder . "/gmail/[Gmail].Trash")
+             (mu4e-trash-folder . "/gmail/[Gmail].Trash")
              ;; (mu4e-trash-folder . my-mu4e//trash-folder-function)
              (mu4e-refile-folder . my-mu4e//refile-folder-function)
              (mu4e-spam-folder . "/gmail/[Gmail].Spam")
@@ -208,8 +212,7 @@ spaces into LIST. Return the padded result."
  mu4e-maildir           "~/maildirs"
  mu4e-confirm-quit      nil
  mu4e-get-mail-command  "offlineimap"
- ;; with the scheme of using `All Mail' over inboxes let's keep dupsround
- mu4e-headers-skip-duplicates nil
+ mu4e-headers-skip-duplicates t
  mu4e-update-interval   nil
  mu4e-index-lazy-check  t
  mu4e-use-fancy-chars   t
@@ -250,6 +253,21 @@ spaces into LIST. Return the padded result."
 ;; drafts are saved as *message*-___
 (add-to-list 'auto-mode-alist '("\\*message\\*-+" . message-mode))
 
+;; GMail has duplicate messages between All Mail and other directories.
+;; This function allows the
+(defun my-mu4e-headers-toggle-all-mail (&optional dont-refresh)
+  "Toggle whether to hide all mail and re-render"
+  (interactive)
+  (setq my-mu4e--headers-hide-all-mail (not my-mu4e--headers-hide-all-mail))
+  (unless dont-refresh
+    (mu4e-headers-rerun-search)))
+
+(defun my-mu4e-headers-hide-predicate (msg)
+  (if my-mu4e--headers-hide-all-mail
+   (string-equal "/healthtensor/[Gmail].All Mail" (mu4e-message-field msg :maildir))))
+
+(setq mu4e-headers-hide-predicate #'my-mu4e-headers-hide-predicate)
+
 ;; mu4e bookmarks -- this is the magic
 (let* ((maildir "maildir:")
        (not-maildir (concat "NOT " maildir))
@@ -260,7 +278,12 @@ spaces into LIST. Return the padded result."
                    :prefix not-maildir))
        (inboxes (apply 'my-mu4e//flat-cat-pose "OR"
                        (mapcar 'my-mu4e//mu4e-add-maildir-prefix
-                               (my-mu4e//mu4e-contexts-var 'mu4e-inbox-folder)))))
+                               (my-mu4e//mu4e-contexts-var 'mu4e-inbox-folder))))
+       (sent-folders (apply 'my-mu4e//flat-cat-pose "OR"
+                       (mapcar 'my-mu4e//mu4e-add-maildir-prefix
+                               (my-mu4e//mu4e-contexts-var 'mu4e-sent-folder))))
+       )
+
   (setq mu4e-bookmarks
         `((,(my-mu4e//flat-cat-pose
              "AND" "flag:unread" "NOT flag:trashed" not-spam not-trash)
@@ -269,9 +292,11 @@ spaces into LIST. Return the padded result."
              "AND" "date:7d..now" "flag:unread" "NOT flag:trashed" not-spam not-trash)
            "Unread messages from the last week" ?U)
           (,(my-mu4e//flat-cat-pose "AND" "tag:\\\\Inbox" not-spam not-trash)
-           "All inboxes", ?i)
+           "All inboxes test", ?q)
           (,(my-mu4e//flat-cat-pose "AND" "date:7d..now" "tag:\\\\Inbox" not-spam not-trash)
            "All inbox messages from the last week", ?I)
+          (,(my-mu4e//flat-cat-pose "AND" inboxes sent-folders (concat "NOT \"maildir:/healthtensor/[Gmail].All Mail\""))
+           "All inboxes", ?h)
           (,(my-mu4e//flat-cat-pose "AND" "date:today..now" not-spam)
            "Today's messages" ?t)
           (,(my-mu4e//flat-cat-pose "AND" "date:7d..now" not-spam not-trash)
@@ -327,3 +352,6 @@ spaces into LIST. Return the padded result."
 ;; (defun org~mu4e-mime-replace-images (str current-file)
 ;;   "Replace images in html files with cid links."
 ;;   nil)
+
+;; Keybindings
+(map! :map mu4e-headers-mode :nv "z D" #'my-mu4e-headers-toggle-all-mail)

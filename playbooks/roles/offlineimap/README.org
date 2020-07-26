@@ -1,0 +1,27 @@
+#+TITLE: OfflineIMAP README
+
+* OfflineIMAP
+
+I use OfflineIMAP to synchronize my remote email accounts to local maildirs over
+IMAP. The synchronized maildirs are stored under =~/.mail=.
+
+My Emacs' mu4e setup depends on this OfflineIMAP configuration.
+
+** Authentication
+
+To authenticate securely I use a Google OAuth2 refresh token, however that comes
+with the complexity of negotiating the OAuth dance. A simple tool for the task
+is [[https://github.com/google/gmail-oauth2-tools][gmail-oauth2-tools]]. A quick Google for OfflineIMAP Gmail OAuth2 configuration
+should yield guides like [[http://www.brool.com/post/using-mu4e/][this one]].
+
+Note that the refresh token this process yields is ephemeral and will regularly
+expire. The refresh token seems to last ~1yr (?)
+
+For OfflineIMAP to access the credentials =pass-get= must be installed and these
+pass fields must be defined for both addresses =jtmoulia at gmail.com= and
+=thomas at healthtensor.com=:
+
+- =oauth2_client_id=
+- =oauth2_client_secret=
+- =oauth2_request_url= (should be https://accounts.google.com/o/oauth2/token)
+- =oauth2_refresh_token=
