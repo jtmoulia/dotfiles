@@ -160,9 +160,10 @@
  mu4e-confirm-quit      nil
  mu4e-get-mail-command  "offlineimap"
  mu4e-headers-skip-duplicates t
- mu4e-update-interval   nil
- mu4e-index-lazy-check  t
- mu4e-use-fancy-chars   t
+ mu4e-headers-include-related nil
+ mu4e-update-interval   600
+ mu4e-index-lazy-check  nil
+ mu4e-use-fancy-chars   nil
  mu4e-compose-signature (apply 'concat (-interpose
                                         "  \n"
                                         '("Thomas Moulia"
@@ -272,60 +273,63 @@ spaces into LIST. Return the padded result."
 (defun my-mu4e//bm-wrap (item)
   (concat "(" item ")"))
 
+(defun my-mu4e//not-spam ()
+  (my-mu4e//mu4e-query 'mu4e-spam-folder
+                       :prefix "NOT maildir:"))
+
+(defun my-mu4e//not-trash ()
+  (my-mu4e//wrap-terms
+   '("/gmail/[Gmail].Trash" "/healthtensor/[Gmail].Trash" "/pocketknife/INBOX.Trash")
+   :prefix "NOT maildir:"))
+
+(defun my-mu4e//inboxes ()
+  (my-mu4e//bm-wrap
+   (apply 'my-mu4e//bm-or
+          (mapcar 'my-mu4e//mu4e-add-maildir-prefix
+                  (my-mu4e//mu4e-contexts-var 'mu4e-inbox-folder)))))
+
+(defun my-mu4e//sent-folders ()
+  (my-mu4e//bm-wrap
+   (apply 'my-mu4e//bm-or
+          (mapcar 'my-mu4e//mu4e-add-maildir-prefix
+                  (my-mu4e//mu4e-contexts-var 'mu4e-sent-folder)))))
 
 ;; mu4e bookmarks -- this is the magic
-(let* ((maildir "maildir:")
-       (not-maildir (my-mu4e//bm-not maildir))
-       (not-spam (my-mu4e//mu4e-query 'mu4e-spam-folder
-                                      :prefix not-maildir))
-       (not-trash (my-mu4e//wrap-terms
-                   '("/gmail/[Gmail].Trash" "/healthtensor/[Gmail].Trash" "/pocketknife/INBOX.Trash")
-                   :prefix not-maildir))
-       (inboxes (my-mu4e//bm-wrap
-                 (apply 'my-mu4e//bm-or
-                        (mapcar 'my-mu4e//mu4e-add-maildir-prefix
-                                (my-mu4e//mu4e-contexts-var 'mu4e-inbox-folder)))))
-       (sent-folders (my-mu4e//bm-wrap
-                      (apply 'my-mu4e//bm-or
-                       (mapcar 'my-mu4e//mu4e-add-maildir-prefix
-                               (my-mu4e//mu4e-contexts-var 'mu4e-sent-folder)))))
-       )
+(setq mu4e-bookmarks
+      `((,(my-mu4e//bm-and
+           "flag:unread" "NOT flag:trashed" (my-mu4e//not-spam) (my-mu4e//not-trash))
+         "Unread messages" ?u)
+        (,(my-mu4e//bm-and
+           "date:7d..now" "flag:unread" "NOT flag:trashed" (my-mu4e//not-spam) (my-mu4e//not-trash))
+         "Unread messages from the last week" ?U)
+        (,(my-mu4e//inboxes)
+         "All inboxes", ?i)
+        (,(my-mu4e//bm-and "date:7d..now" (my-mu4e//bm-or (my-mu4e//inboxes)))
+         "All inbox messages from the last week", ?I)
+        (,(my-mu4e//bm-and "date:today..now" (my-mu4e//not-spam))
+         "Today's messages" ?t)
+        (,(my-mu4e//bm-and "date:7d..now" (my-mu4e//not-spam) (my-mu4e//not-trash))
+         "Last 7 days no trash or spam" ?w)
+        ("date:7d..now"
+         "Last 7 days" ?W)
+        (,(my-mu4e//bm-and "mime:image/*" (my-mu4e//not-spam))
+         "Messages with images" ?p)
+        (,(my-mu4e//sent-folders)
+         "Sent mail" ?s)
+        (,(my-mu4e//bm-and "date:7d..now" (my-mu4e//sent-folders))
+         "Sent mail from the last week" ?S)
+        (,(my-mu4e//bm-and "flag:unread" "NOT flag:trashed" (my-mu4e//not-spam))
+         "Unread spam" ?z))
+      )
 
-  (setq mu4e-bookmarks
-        `((,(my-mu4e//bm-and
-              "flag:unread" "NOT flag:trashed" not-spam not-trash)
-           "Unread messages" ?u)
-          (,(my-mu4e//bm-and
-             "date:7d..now" "flag:unread" "NOT flag:trashed" not-spam not-trash)
-           "Unread messages from the last week" ?U)
-          (,inboxes
-           "All inboxes", ?i)
-          (,(my-mu4e//bm-and "date:7d..now" (my-mu4e//bm-or inboxes))
-           "All inbox messages from the last week", ?I)
-          (,(my-mu4e//bm-and "date:today..now" not-spam)
-           "Today's messages" ?t)
-          (,(my-mu4e//bm-and "date:7d..now" not-spam not-trash)
-           "Last 7 days no trash or spam" ?w)
-          ("date:7d..now"
-           "Last 7 days" ?W)
-          (,(my-mu4e//bm-and "mime:image/*" not-spam)
-           "Messages with images" ?p)
-          (,sent-folders
-           "Sent mail" ?s)
-          (,(my-mu4e//bm-and "date:7d..now" sent-folders)
-           "Sent mail from the last week" ?S)
-          (,(my-mu4e//bm-and "flag:unread" "NOT flag:trashed" not-spam)
-           "Unread spam" ?z))
-        )
+(setq mu4e-maildir-shortcuts
+      `((,(my-mu4e//mu4e-context-var "gmail" 'mu4e-inbox-folder) . ?g)
+        (,(my-mu4e//mu4e-context-var "healthtensor" 'mu4e-inbox-folder) . ?h)))
 
-  (setq mu4e-maildir-shortcuts
-        `((,(my-mu4e//mu4e-context-var "gmail" 'mu4e-inbox-folder) . ?g)
-          (,(my-mu4e//mu4e-context-var "healthtensor" 'mu4e-inbox-folder) . ?h)))
-
-  ;; Configure mu4e-alert
-  (setq mu4e-alert-interesting-mail-query (my-mu4e//bm-and inboxes "flag:unread")
-        mu4e-alert-set-default-style 'libnotify)
-  )
+;; Configure mu4e-alert
+(setq mu4e-alert-interesting-mail-query (my-mu4e//bm-and (my-mu4e//inboxes) "flag:unread")
+      mu4e-alert-style 'libnotify)
+(mu4e-alert-enable-notifications)
 
 ;; See single folder config: https://groups.google.com/forum/#!topic/mu-discuss/BpGtwVHMd2E
 (add-hook 'mu4e-mark-execute-pre-hook

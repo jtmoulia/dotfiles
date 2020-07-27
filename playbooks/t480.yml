@@ -50,4 +50,6 @@
 
     - role: automed
       tags: automed
-    # - {role: pass, tags: pass}
+
+    - role: pass
+      tags: pass

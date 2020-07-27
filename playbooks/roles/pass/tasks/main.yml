@@ -1,7 +1,23 @@
 ---
 - name: install/update pass
   become: true
-  package: name=pass state=latest
+  package:
+    state: "latest"
+    name: "pass"
 
 - name: clone password store
-  git: repo=jtmoulia@shed.pocketknife.io:/home/jtmoulia/repos/password-store.git dest=~/.password-store
+  git:
+    repo: "jtmoulia@shed.pocketknife.io:/home/jtmoulia/repos/password-store.git"
+    dest: "~/.password-store"
+
+# TODO: move this under a GPG specific role
+- name: ensure gpg-agent config exists
+  file:
+    state: "directory"
+    dest: "~/.gnugpg"
+
+- name: symlink in gpg-agent config
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/gpg-agent.conf"
+    dest: "~/.gnugpg/gpg-agent.conf"
