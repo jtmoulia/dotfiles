@@ -13,6 +13,8 @@
     - flake8
     # jedi: python refactoring and autocompletion
     - python-jedi
+    # python-language-server: aka pyls, the python LSP implementation
+    - python-language-server
     # pipenv: a marriage between virtualenv and pip
     - python-pipenv
     # poetry: a less reviled marriage between virtualenv and pip
@@ -24,6 +26,8 @@
     # a Python DataFrame library
     - python-pandas
 
+# TODO: pip installpyls-mypy, pyls-black
+#
 - name: clone mkpass
   git:
     repo: "jtmoulia@shed.pocketknife.io:~/repos/mkpass.git"

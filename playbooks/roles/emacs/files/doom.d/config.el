@@ -10,12 +10,13 @@
   (let ((path (personal//join-path "~/.doom.d" config)))
     (eval `(after! ,mode (load-file ,path)))))
 
-(personal//eval-config-after-load 'web-mode "config/web-mode.el")
-(personal//eval-config-after-load 'js-mode "config/js-mode.el")
-(personal//eval-config-after-load 'org "config/org.el")
-(personal//eval-config-after-load 'mu4e "config/mu4e.el")
 (personal//eval-config-after-load 'ansible "config/ansible.el")
+(personal//eval-config-after-load 'js-mode "config/js-mode.el")
+(personal//eval-config-after-load 'mu4e "config/mu4e.el")
+(personal//eval-config-after-load 'org "config/org.el")
+(personal//eval-config-after-load 'python "config/python.el")
 (personal//eval-config-after-load 'sql "config/sql.el")
+(personal//eval-config-after-load 'web-mode "config/web-mode.el")
 
 ;; style and fonts. looking good, feeling good
 ;; (setq doom-theme 'doom-one-light)
