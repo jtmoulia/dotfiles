@@ -24,7 +24,7 @@
     ))
 
 (defvar my-mu4e--headers-hide-all-mail
-  t
+  nil
   "Whether to show `[Gmail].All Mail' in mu4e headers view")
 
 (defun* my-mu4e//get-refile-for-mailing-list
@@ -158,7 +158,7 @@
  ;; top-level maildir, email fetcher should be configured to save here
  mu4e-root-maildir     "~/.mail"
  mu4e-confirm-quit      nil
- mu4e-get-mail-command  "offlineimap"
+ mu4e-get-mail-command  "offlineimap -q"
  mu4e-headers-skip-duplicates t
  mu4e-headers-include-related nil
  mu4e-update-interval   600
@@ -328,7 +328,8 @@ spaces into LIST. Return the padded result."
 
 ;; Configure mu4e-alert
 (setq mu4e-alert-interesting-mail-query (my-mu4e//bm-and (my-mu4e//inboxes) "flag:unread")
-      mu4e-alert-style 'libnotify)
+      mu4e-alert-style 'libnotify
+      mu4e-alert-email-notification-types '(subjects))
 (mu4e-alert-enable-notifications)
 
 ;; See single folder config: https://groups.google.com/forum/#!topic/mu-discuss/BpGtwVHMd2E
