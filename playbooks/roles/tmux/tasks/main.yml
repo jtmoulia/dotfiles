@@ -6,8 +6,9 @@
     name: tmux
 
 - name: copy in tmux.conf
-  copy:
-    src: "files/tmux.conf"
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/tmux.conf"
     dest: "~/.tmux.conf"
 
 - name: install tmuxinator from AUR
