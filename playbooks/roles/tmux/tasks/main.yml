@@ -5,7 +5,7 @@
   package:
     name: tmux
 
-- name: copy in tmux.conf
+- name: symlink in tmux.conf
   file:
     state: "link"
     src: "{{ role_path }}/files/tmux.conf"
