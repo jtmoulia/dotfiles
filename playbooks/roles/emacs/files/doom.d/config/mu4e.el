@@ -158,7 +158,7 @@
  ;; top-level maildir, email fetcher should be configured to save here
  mu4e-root-maildir     "~/.mail"
  mu4e-confirm-quit      nil
- mu4e-get-mail-command  "offlineimap -q"
+ mu4e-get-mail-command  "my-offlineimap"
  mu4e-headers-skip-duplicates t
  mu4e-headers-include-related nil
  mu4e-update-interval   600

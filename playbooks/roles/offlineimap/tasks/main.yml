@@ -29,3 +29,10 @@
     src: "{{ role_path }}/files/kill-offlineimap.sh"
     dest: "~/.local/bin/kill-offlineimap"
     mode: 0770
+
+- name: symlink in script to run offlineimap
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/my-offlineimap.sh"
+    dest: "~/.local/bin/my-offlineimap"
+    mode: 0770
