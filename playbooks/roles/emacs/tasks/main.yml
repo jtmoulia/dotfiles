@@ -63,5 +63,5 @@
   file:
     state: "link"
     src: "{{ role_path }}/files/emacsclient.desktop"
-    dest: "/usr/share/applications/emacsclient.desktop"
+    dest: "/usr/share/applications/doomclient.desktop"
     mode: 0755
