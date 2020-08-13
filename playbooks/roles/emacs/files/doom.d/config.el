@@ -10,6 +10,7 @@
   (let ((path (personal//join-path "~/.doom.d" config)))
     (eval `(after! ,mode (load-file ,path)))))
 
+(load-file "config/text.el")
 (personal//eval-config-after-load 'ansible "config/ansible.el")
 (personal//eval-config-after-load 'js-mode "config/js-mode.el")
 (personal//eval-config-after-load 'mu4e "config/mu4e.el")
