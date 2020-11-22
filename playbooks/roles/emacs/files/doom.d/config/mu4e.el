@@ -189,6 +189,7 @@
 ;; "  </td>"
 ;; "</table>"
 ;; )))
+
  mu4e-compose-dont-reply-to-self t
  mu4e-compose-complete-only-personal t
  mu4e-hide-index-messages t
@@ -202,6 +203,18 @@
  smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
  ;; smtpmail-queue-mail t
  smtpmail-queue-dir  (expand-file-name "~/.mail/queue/cur"))
+
+(setq org-msg-signature "
+Cheers,\\\\
+-Thomas
+
+#+begin_signature
+---\\\\
+Thomas Moulia\\\\
+Co-Founder & CTO | HealthTensor\\\\
+www.healthtensor.com\\\\
+jtmoulia.pocketknife.io\\\\
+#+end_signature")
 
 ;; drafts are saved as *message*-___
 (add-to-list 'auto-mode-alist '("\\*message\\*-+" . message-mode))
@@ -388,4 +401,6 @@ spaces into LIST. Return the padded result."
 ;; Keybindings
 (map! :map mu4e-headers-mode-map :nv "z D" #'my-mu4e-headers-toggle-all-mail)
 
+;; Use message-mode for drafts
+(add-to-list 'auto-mode-alist '(",DS\\'" . mu4e-compose-mode))
 ;;; mu4e.el ends here
