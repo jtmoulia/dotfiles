@@ -11,5 +11,11 @@
 ;; multi-section org agenda buffers
 (package! org-super-agenda)
 
+;; org mode quick searching
+(package! org-ql)
+
+;; smart folding
+(package! origami)
+
 ;; desktop alerts with new mu4e emails
 (package! mu4e-alert)
