@@ -8,14 +8,28 @@
 ;; reveal.js backend for org-mode
 (package! ox-reveal)
 
+;; mermaid-mode for working with mermaid graphs
+(package! mermaid-mode)
+
 ;; multi-section org agenda buffers
+;; https://github.com/alphapapa/org-super-agenda
 (package! org-super-agenda)
 
 ;; org mode quick searching
+;; https://github.com/alphapapa/org-ql
 (package! org-ql)
 
+;; org mode sidebar for quick browsing
+;; https://github.com/alphapapa/org-sidebar
+(package! org-sidebar)
+
 ;; smart folding
+;; https://github.com/gregsexton/origami.el
 (package! origami)
 
 ;; desktop alerts with new mu4e emails
 (package! mu4e-alert)
+
+;; display trees of LSP info in treemacs
+;; https://github.com/emacs-lsp/lsp-treemacs
+(package! lsp-treemacs)
