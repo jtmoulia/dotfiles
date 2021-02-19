@@ -10,11 +10,12 @@
     - "fasd"
     - "aspell-en"
 
-- name: install mu & mu4e if enabled
-  package:
-    name: "mu"
-    state: "latest"
-  when: emacs_mu4e_enabled
+# - name: install mu & mu4e if enabled
+#  become: yes
+#  package:
+#    name: "mu"
+#    state: "latest"
+#  when: emacs_mu4e_enabled
 
 # config (doom)
 
