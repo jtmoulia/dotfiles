@@ -1,0 +1,31 @@
+---
+- name: install zsh & others
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: "latest"
+  with_items:
+    - "zsh"
+    - "fzf"
+
+- name: git clone prezto
+  git:
+    repo: "git@github.com:sorin-ionescu/prezto.git"
+    dest: "{{ prezto_install_path }}"
+
+- name: symlink in .zshrc
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/zshrc"
+    dest: "~/.zshrc"
+
+- name: symlink in default zprezto configs
+  file:
+    state: "link"
+    src: "{{ prezto_install_path }}/runcoms/{{ item }}"
+    dest: "~/.{{ item }}"
+  with_items:
+    - "zlogin"
+    - "zlogout"
+    - "zprofile"
+    - "zshenv"

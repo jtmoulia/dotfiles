@@ -1,0 +1,42 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Share history across sessios
+SHARE_HISTORY=t
+TERM=screen-256color
+# Assumes neovim is installed
+EDITOR=nvim
+PAGER=less
+
+# Aliases
+
+# Use exa over ls if it's installed
+if $(which exa &>/dev/null); then
+  alias l='exa --oneline'
+  alias ls='exa'
+  alias ll='exa --long --all'
+fi
+
+# Define helper wrapping xclip
+# Usage: `echo "copy this" | xc``
+if $(which xclip &>/dev/null); then
+   alias xc='xclip -selection c'
+fi
+
+# Configure and Pull in FZF
+if [[ -f /usr/share/fzf/key-bindings.zsh && -f /usr/share/fzf/completion.zsh ]]; then
+  FZF_TMUX_OPTS="-d 40%"
+  # Assumes bat is installed
+  alias f='fzf --preview "bat --color \"always\" {}"'
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+fi

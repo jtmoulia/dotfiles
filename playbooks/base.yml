@@ -5,5 +5,6 @@
   roles:
     - {role: git, tags: git}
     - {role: core, tags: core}
+    - {role: zsh, tags: zsh}
     - {role: dotsible, tags: dotsible}
     - {role: tmux, tags: tmux}

@@ -6,7 +6,7 @@ else
 fi
 dotfiles_path="$( cd "$( dirname "$( dirname "${script_path}" )" )" && pwd )"
 
-playbook=main
+playbook=
 
 while [ "$1" ]; do
     case "$1" in
@@ -24,6 +24,11 @@ while [ "$1" ]; do
             ;;
     esac
 done
+
+if [ ! "$playbook" ]; then
+    echo "Playbook argument required: -p | --playbook"
+    exit 1
+fi
 
 password_files=
 for file in $(find etc/ -name "*.password"); do
