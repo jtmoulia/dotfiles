@@ -30,6 +30,10 @@
 ;; desktop alerts with new mu4e emails
 (package! mu4e-alert)
 
+;; org driven mu4e dashboard
+;; NOTE: package wasn't in a registry when added
+(package! mu4e-dashboard :recipe (:host github :repo "rougier/mu4e-dashboard"))
+
 ;; display trees of LSP info in treemacs
 ;; https://github.com/emacs-lsp/lsp-treemacs
 (package! lsp-treemacs)

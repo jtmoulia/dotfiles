@@ -10,6 +10,12 @@
   (let ((path (personal//join-path "~/.doom.d" config)))
     (eval `(after! ,mode (load-file ,path)))))
 
+;; Evil config
+;; TODO this should likely be ported to its own config file
+(after! 'evil-escape
+  ;; some heavy modes make the default delay of 0.15s too short
+  (setq evil-escape-delay 0.5))
+
 (load-file (personal//join-path "~/.doom.d" "config/text.el"))
 (personal//eval-config-after-load 'ansible "config/ansible.el")
 (personal//eval-config-after-load 'js-mode "config/js-mode.el")
@@ -20,7 +26,7 @@
 (personal//eval-config-after-load 'web-mode "config/web-mode.el")
 
 ;; style and fonts. looking good, feeling good
-;; (setq doom-theme 'doom-one-light)
+(setq doom-theme 'doom-dracula)
 (setq doom-font (font-spec :family "Fira Code" :size 14))
 
 ;; Spacemacs style `,' local leader.
