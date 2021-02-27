@@ -1,6 +1,7 @@
 [user]
 	name = Thomas Moulia
 	email = jtmoulia@gmail.com
+
 [alias]
 	a = add
 	st = status
@@ -9,21 +10,23 @@
 	co = checkout
 	df = diff
 	lg = log -p
-  po = push origin
+    po = push origin
+
 [color]
 	ui = true
+
 [core]
 	editor = emacsclient -t
 	excludesfile = ~/.gitignore
+
 [merge]
 	tool = vimdiff
+
 [push]
 	default = simple
 
+[pull]
+    ff = only
+
 [magit]
 	hideCampaign = true
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
