@@ -27,6 +27,20 @@
      ,(expand-file-name personal//org-capture-healthtensor-todo-file org-directory)
      "Inbox")
     "* TODO %?\n%i\n%a" :prepend t)
+   ("tr" "capture healthtensor release" entry
+    (file+headline
+     ,(expand-file-name personal//org-capture-healthtensor-todo-file org-directory)
+     "Releases")
+    "* TODO Handle %^{Release} release
+** TODO Cut release %\\1
+SCHEDULED: %^{Cut release}t\n
+** TODO Deploy release %\\1
+SCHEDULED: %^{Deploy release}t\n
+  - [ ] test against PHH Cert env
+  - [ ] deploy to PHH Prod
+  - [ ] deploy to TMMC Prod
+%?"
+    :prepend t)
    ("b" "capture bookmark" entry
     (file+headline personal//org-capture-bookmark-file "Inbox")
     "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)))
