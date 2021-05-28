@@ -17,24 +17,31 @@
 (setq-default
  org-capture-templates
  `(("t" "capture todo item")
+   ("h" "HT capture")
    ("tm" "capture my todo item" entry
     (file+headline
      ,(expand-file-name personal//org-capture-my-todo-file org-directory)
      "Inbox")
     "* TODO %?\n%i\n%a" :prepend t)
-   ("th" "capture healthtensor todo item" entry
+   ("ht" "capture healthtensor todo item" entry
     (file+headline
      ,(expand-file-name personal//org-capture-healthtensor-todo-file org-directory)
      "Inbox")
     "* TODO %?\n%i\n%a" :prepend t)
-   ("tr" "capture healthtensor release" entry
+   ("hj" "capture jira todo item" entry
+    (file+headline
+     ,(expand-file-name personal//org-capture-healthtensor-todo-file org-directory)
+     "Inbox")
+    "* TODO JIRA Issue %^{Issue}: %?\n
+  - [[https://healthtensor.atlassian.net/browse/%\\1][JIRA Link]]\n%i\n")
+   ("hr" "capture healthtensor release" entry
     (file+headline
      ,(expand-file-name personal//org-capture-healthtensor-todo-file org-directory)
      "Releases")
     "* TODO Handle %^{Release} release
-** TODO Cut release %\\1
+** TODO [#A] Cut release %\\1
 SCHEDULED: %^{Cut release}t\n
-** TODO Deploy release %\\1
+** TODO [#A] Deploy release %\\1
 SCHEDULED: %^{Deploy release}t\n
   - [ ] test against PHH Cert env
   - [ ] deploy to PHH Prod
@@ -96,19 +103,14 @@ SCHEDULED: %^{Deploy release}t\n
       '(("A" "Absolutely Awesome Agenda"
          ((agenda "" ((org-agenda-span 'week)
                       (org-super-agenda-groups
-                       '((:name "Time Grid"
-                          :time-grid t  ; Items that appear on the time grid
-                          :order 0)  ; Items that have this TODO keyword
-                        (:name "HealthTensor In Progress"
+                       '((:name "HealthTensor In Progress"
                           :and (:tag "ht" :not (:todo ("DONE")))
-                          :order 1)  ; Items that have this TODO keyword
+                          :order 1)
 
                          (:name "HealthTensor Completed"
                           :and (:tag "ht" :todo ("DONE"))
                           :order 2)
-                         (:name "Mine"
-                          :tag "mine"
-                          :order 3)
+                         (:discard (:anything t))
                          ))))
                        ;; '((:name "Today"
                        ;;          :time-grid t
@@ -137,16 +139,22 @@ SCHEDULED: %^{Deploy release}t\n
                           (:name "ht"
                                  :tag "HT"
                                  :order 10)
-                          (:name "mine"
-                                 :tag "mine"
-                                 :order 12)
-                          (:name "trivial"
-                                 :priority<= "C"
-                                 :tag ("Trivial" "Unimportant")
-                                 :todo ("SOMEDAY" )
-                                 :order 90)
-                          ; (:discard (:tag ("Chore" "Routine" "Daily")))
-                          ))))))))
+                          (:discard (:anything t))
+                          ))))))
 
+      ("M" "my agenda"
+         ((agenda "" ((org-agenda-span 'week)
+                      (org-super-agenda-groups
+                       '((:discard (:tag "ht"))
+                         (:name "Time Grid"
+                          :time-grid t  ; Items that appear on the time grid
+                          :order 0)  ; Items that have this TODO keyword
+                         (:name "Mine In Progress"
+                          :and (:tag "mine" :not (:todo ("DONE")))
+                          :order 1)  ; Items that have this TODO keyword
+                         (:name "Mine Completed"
+                          :and (:tag "mine" :todo ("DONE"))
+                          :order 2)
+                         ))))))))
 
 ;;; org.el ends here

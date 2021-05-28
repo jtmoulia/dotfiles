@@ -149,10 +149,9 @@
    ))
 
 
-;; Configure Vars
 (require 'mu4e-contrib)
 
-;; (require 'org-mu4e)
+;; Configure Vars
 (setq-default
  mu4e-mu-binary         "/usr/bin/mu"
  ;; top-level maildir, email fetcher should be configured to save here
@@ -164,31 +163,6 @@
  mu4e-update-interval   600
  mu4e-index-lazy-check  nil
  mu4e-use-fancy-chars   nil
- mu4e-compose-signature (apply 'concat (-interpose
-                                        "  \n"
-                                        '("Thomas Moulia"
-                                          "Co-Founder & CTO | HealthTensor"
-                                          "www.healthtensor.com"
-                                          "jtmoulia.pocketknife.io")))
-;; TODO: How can this HTML signature be part of the org export
-;;  mu4e-compose-signature (apply 'concat (-interpose
-;;                                         "\n"
-;;                                         '(
-;; "<div style=\"font-family:roboto, arial-bold, sans-serif;font-weight:bold;color:#43474c;font-size:100%;line-height:20px;margin:none\">Thomas Moulia | CTO"
-;; "</div>"
-;; "<a href=\"mailto:Thomas@healthtensor.com\" style=\"font-family:roboto, arial;color:#757d84;font-size:87.5%;text-decoration:none !important\">Thomas@healthtensor.com</a>"
-;; "<hr style=\"border-color:#b6babe;margin-top:8px;margin-bottom:4px\" noshade>"
-;; "</hr>"
-;; "<table>"
-;; "  <td>"
-;; "  <a href=\"https://www.healthtensor.com/\"><img src=\"https://healthtensor-media.s3-us-west-1.amazonaws.com/HTlogo_vertical_blue.png\" height=\"36px\"></a>"
-;; " </td>"
-;; " <td style=\"padding-left:8px;line-height:2px;font-size:87.5%;font-family:roboto, arial, sans-serif;color:#757d84\">"
-;; "    <p>4133 Redwood Avenue</p>"
-;; "    <p>Los Angeles, CA 90066</p>"
-;; "  </td>"
-;; "</table>"
-;; )))
 
  mu4e-compose-dont-reply-to-self t
  mu4e-compose-complete-only-personal t
@@ -215,10 +189,6 @@ Co-Founder & CTO | HealthTensor\\\\
 www.healthtensor.com\\\\
 jtmoulia.pocketknife.io\\\\
 #+end_signature")
-
-;; drafts are saved as *message*-___
-(add-to-list 'auto-mode-alist '("\\*message\\*-+" . message-mode))
-
 
 ;; Helper functions for composing bookmarks from contexts
 (defun my-mu4e//mu4e-context (context-name)
@@ -397,10 +367,7 @@ spaces into LIST. Return the padded result."
 
 (setq mu4e-headers-hide-predicate #'my-mu4e-headers-hide-predicate)
 
-
 ;; Keybindings
 (map! :map mu4e-headers-mode-map :nv "z D" #'my-mu4e-headers-toggle-all-mail)
 
-;; Use message-mode for drafts
-(add-to-list 'auto-mode-alist '(",DS\\'" . mu4e-compose-mode))
 ;;; mu4e.el ends here

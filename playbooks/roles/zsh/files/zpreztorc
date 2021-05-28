@@ -77,7 +77,6 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
   'brackets' \
   'pattern' \
   'line' \
-  'cursor' \
   'root'
 
 #
@@ -99,3 +98,8 @@ zstyle ':prezto:module:tmux:auto-start' remote 'yes'
 
 # Set the default session name:
 zstyle ':prezto:module:tmux:session' name 'tsesh'
+
+# asdf
+if [ -f "/opt/asdf-vm/asdf.sh" ]; then
+    . /opt/asdf-vm/asdf.sh
+fi
