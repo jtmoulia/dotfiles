@@ -24,8 +24,13 @@
 (personal//eval-config-after-load 'python "config/python.el")
 (personal//eval-config-after-load 'sql "config/sql.el")
 (personal//eval-config-after-load 'web-mode "config/web-mode.el")
+(personal//eval-config-after-load 'deft "config/deft.el")
 
-;; style and fonts. looking good, feeling good
+;; global keybindings need to be defined at this top level
+;; Add a global keybinding for opening deft
+(map! :leader :desc "Open deft note search" :n "o n" #'deft)
+
+;; style and fonts: looking good, feeling good
 (setq doom-theme 'doom-dracula)
 (setq doom-font (font-spec :family "Fira Code" :size 14))
 
@@ -34,3 +39,10 @@
 
 ;; Allow deeper callstacks
 (setq max-specpdl-size 10000)
+
+;; config: evil-snipe
+;; allow evil-snipe to work the entire buffer as opposed to single line
+(setq evil-snipe-scope 'buffer)
+(setq evil-snipe-repeat-scope 'buffer)
+;; If no matches are found spill over to tthe entire buffer, before and after
+(setq evil-snipe-spillover-scope 'whole-buffer)

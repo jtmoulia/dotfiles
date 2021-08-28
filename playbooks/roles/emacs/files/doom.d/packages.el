@@ -23,6 +23,14 @@
 ;; https://github.com/alphapapa/org-sidebar
 (package! org-sidebar)
 
+;; org-page to build jtmoulia site
+;; WARNING: this package is deprecated
+(package! org-page)
+
+;; deft for quick nots and connections
+;; https://jblevins.org/projects/deft/
+(package! deft)
+
 ;; smart folding
 ;; https://github.com/gregsexton/origami.el
 (package! origami)

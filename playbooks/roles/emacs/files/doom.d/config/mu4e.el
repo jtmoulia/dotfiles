@@ -162,7 +162,7 @@
  mu4e-headers-include-related nil
  mu4e-update-interval   600
  mu4e-index-lazy-check  nil
- mu4e-use-fancy-chars   nil
+ mu4e-use-fancy-chars   t
 
  mu4e-compose-dont-reply-to-self t
  mu4e-compose-complete-only-personal t
