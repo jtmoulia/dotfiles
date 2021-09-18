@@ -18,7 +18,7 @@
     # pipenv: a marriage between virtualenv and pip
     - python-pipenv
     # poetry: a less reviled marriage between virtualenv and pip
-    - python-pipenv
+    - python-poetry
     # black: python code formatter
     - python-black
     # pdb++: a sweet drop-in replacement for pdb

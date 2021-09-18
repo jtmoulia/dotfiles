@@ -1,0 +1,50 @@
+---
+# This config assumes Manjaro KDE Linux on a System76 Thelio
+
+- import_playbook: base.yml
+  vars:
+    dotsible_playbook: "sam"
+    sudo_group: "wheel"
+
+- hosts: localhost
+  connection: local
+  remote_user: "{{ local_user }}"
+  roles:
+    - role: arch
+      tags: arch
+
+    - role: ssh
+      tags: ssh
+
+    - role: python
+      tags: python
+
+    - role: nodejs
+      tags: nodejs
+
+    - role: ruby
+      tags: ruby
+
+    - role: offlineimap
+      tags: offlineimap
+
+    - role: emacs
+      tags: emacs
+
+    - role: nextcloud
+      tags: nextcloud
+
+    - role: gitup
+      tags: gitup
+
+    #- {role: backup, tags: backup}
+
+    # {role: libvirt, tags: libvirt}
+
+    - role: docker
+      tags: docker
+
+    #- {role: vpn, tags: vpn}
+
+    - role: pass
+      tags: pass

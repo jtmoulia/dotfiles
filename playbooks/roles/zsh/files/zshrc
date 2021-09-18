@@ -26,10 +26,14 @@ if $(which exa &>/dev/null); then
   alias ll='exa --long --all'
 fi
 
-# Define helper wrapping xclip
+# Define helper wrapping xclip or wl-copy
 # Usage: `echo "copy this" | xc``
 if $(which xclip &>/dev/null); then
    alias xc='xclip -selection c'
+fi
+
+if $(which wl-copy &>/dev/null); then
+   alias xc='wl-copy'
 fi
 
 # Configure and Pull in FZF
