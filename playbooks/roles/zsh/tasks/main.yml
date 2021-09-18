@@ -19,6 +19,12 @@
     src: "{{ role_path }}/files/zshrc"
     dest: "~/.zshrc"
 
+- name: symlink in .zpreztorc
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/zpreztorc"
+    dest: "~/.zpreztorc"
+
 - name: symlink in default zprezto configs
   file:
     state: "link"
