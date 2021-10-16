@@ -32,7 +32,8 @@
 
 ;; style and fonts: looking good, feeling good
 (setq doom-theme 'doom-dracula)
-(setq doom-font (font-spec :family "Fira Code" :size 14))
+(setq doom-font (font-spec :family "Fira Code" :size 13))
+(setq doom-font-increment 1)
 
 ;; Spacemacs style `,' local leader.
 (setq doom-localleader-key ",")
@@ -44,5 +45,5 @@
 ;; allow evil-snipe to work the entire buffer as opposed to single line
 (setq evil-snipe-scope 'buffer)
 (setq evil-snipe-repeat-scope 'buffer)
-;; If no matches are found spill over to tthe entire buffer, before and after
+;; If no matches are found spill over to the entire buffer, before and after
 (setq evil-snipe-spillover-scope 'whole-buffer)

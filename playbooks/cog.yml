@@ -48,3 +48,6 @@
 
     - role: pass
       tags: pass
+
+    - role: nyxt
+      tags: nyxt
