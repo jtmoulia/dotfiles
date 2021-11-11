@@ -99,62 +99,60 @@ SCHEDULED: %^{Deploy release}t\n
 ;;         ;; After the last group, the agenda will display items that didn't
 ;;         ;; match any of these groups, with the default order position of 99
 
- (setq org-agenda-custom-commands
-      '(("A" "Absolutely Awesome Agenda"
-         ((agenda "" ((org-agenda-span 'week)
-                      (org-super-agenda-groups
-                       '((:name "HealthTensor In Progress"
-                          :and (:tag "ht" :not (:todo ("DONE")))
-                          :order 1)
+(setq org-agenda-custom-commands
+     '(("A" "Absolutely Awesome Agenda"
+        ((agenda "" ((org-agenda-span 'week)
+                     (org-super-agenda-groups
+                      '((:name "HealthTensor In Progress"
+                         :and (:tag "ht" :not (:todo ("DONE" "WAIT" "KILL")))
+                         :order 1)
 
-                         (:name "HealthTensor Completed"
-                          :and (:tag "ht" :todo ("DONE"))
-                          :order 2)
-                         (:discard (:anything t))
-                         ))))
-                       ;; '((:name "Today"
-                       ;;          :time-grid t
-                       ;;          :date today
-                       ;;          :todo "TODAY"
-                       ;;          :scheduled today
-                       ;;          :order 1)))))
-          (alltodo "" ((org-agenda-overriding-header "All Tasks")
+                        (:name "HealthTensor Waiting"
+                         :and (:tag "ht" :todo ("WAIT"))
+                         :order 2)
+
+                        (:name "HealthTensor Completed"
+                         :and (:tag "ht" :todo ("DONE" "KILL"))
+                         :order 3)
+
+                        (:discard (:anything t))))))
+         (alltodo "" ((org-agenda-overriding-header "All Tasks")
+                      (org-super-agenda-groups
+                       '((:name "Next to do"
+                                :todo "NEXT"
+                                :order 1)
+                         (:name "Important"
+                                :tag "Important"
+                                :priority "A"
+                                :order 6)
+                         (:name "Due Today"
+                                :deadline today
+                                :order 2)
+                         (:name "Due Soon"
+                                :deadline future
+                                :order 8)
+                         (:name "Overdue"
+                                :deadline past
+                                :order 7)
+                         (:name "ht"
+                                :tag "HT"
+                                :order 10)
+                         (:discard (:anything t))))))))
+                          
+
+       ("M" "my agenda"
+          ((agenda "" ((org-agenda-span 'week)
                        (org-super-agenda-groups
-                        '((:name "Next to do"
-                                 :todo "NEXT"
-                                 :order 1)
-                          (:name "Important"
-                                 :tag "Important"
-                                 :priority "A"
-                                 :order 6)
-                          (:name "Due Today"
-                                 :deadline today
-                                 :order 2)
-                          (:name "Due Soon"
-                                 :deadline future
-                                 :order 8)
-                          (:name "Overdue"
-                                 :deadline past
-                                 :order 7)
-                          (:name "ht"
-                                 :tag "HT"
-                                 :order 10)
-                          (:discard (:anything t))
-                          ))))))
-
-      ("M" "my agenda"
-         ((agenda "" ((org-agenda-span 'week)
-                      (org-super-agenda-groups
-                       '((:discard (:tag "ht"))
-                         (:name "Time Grid"
-                          :time-grid t  ; Items that appear on the time grid
-                          :order 0)  ; Items that have this TODO keyword
-                         (:name "Mine In Progress"
-                          :and (:tag "mine" :not (:todo ("DONE")))
-                          :order 1)  ; Items that have this TODO keyword
-                         (:name "Mine Completed"
-                          :and (:tag "mine" :todo ("DONE"))
-                          :order 2)
-                         ))))))))
+                        '((:discard (:tag "ht"))
+                          (:name "Time Grid"
+                           :time-grid t  ; Items that appear on the time grid
+                           :order 0)  ; Items that have this TODO keyword
+                          (:name "Mine In Progress"
+                           :and (:tag "mine" :not (:todo ("DONE" "WAIT")))
+                           :order 1)  ; Items that have this TODO keyword
+                          (:name "Mine Completed"
+                           :and (:tag "mine" :todo ("DONE" "WAIT"))
+                           :order 2)))))))))
+                         
 
 ;;; org.el ends here
