@@ -13,8 +13,8 @@
        ;;japanese
 
        :completion
-       company           ; the ultimate code completion backend
-       ivy               ; a search engine for love and life
+       (company +childframe)           ; the ultimate code completion backend
+       (ivy +icons +childframe)               ; a search engine for love and life
 
        :ui
        deft              ; notational velocity for Emacs
@@ -131,6 +131,7 @@
        (org                ; organize your plain life in plain text
         +dragndrop         ; drag & drop files/images into org buffers
         ;;+hugo            ; use Emacs for hugo blogging
+        +pretty
         +ipython         ; ipython/jupyter support for babel
         +pandoc          ; export-with-pandoc support
         +pomodoro        ; be fruitful with the tomato technique

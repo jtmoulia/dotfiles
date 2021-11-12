@@ -27,6 +27,10 @@
 ;; WARNING: this package is deprecated
 (package! org-page)
 
+;; Preview org files [as html]
+;; https://github.com/jakebox/org-preview-html
+(package! org-preview-html)
+
 ;; deft for quick nots and connections
 ;; https://jblevins.org/projects/deft/
 (package! deft)
