@@ -11,6 +11,9 @@ def pass_get(pass_name, key):
     See ``pass-get``.
 
     """
-    result = subprocess.check_output([DEFAULT_PASS_GET, pass_name, key], text=True).strip()
+    result = subprocess.check_output(
+        [DEFAULT_PASS_GET, pass_name, key],
+        text=True,
+    ).strip()
     if result:
         return result
