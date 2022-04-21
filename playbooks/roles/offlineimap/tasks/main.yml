@@ -1,6 +1,6 @@
 ---
 - name: install offlineimap
-  become: yes
+  become: "{{ privileged_package_install }}"
   package:
     state: "latest"
     name: "offlineimap"

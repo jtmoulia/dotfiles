@@ -1,13 +1,12 @@
 ---
 - name: install/update core libraries
-  become: true
+  become: "{{ privileged_package_install }}"
   package:
     name: "{{ item }}"
     state: latest
   with_items:
     - neovim
     - ansible
-    - sudo
     - tldr
     - perl
     # A CLI interface that respects the trash can
@@ -15,16 +14,28 @@
     - unzip
     - pandoc
     - imagemagick
+    - ripgrep
 
-- name: add jtmoulia
+- name: install/update non OS X libraries
+  become: "{{ privileged_package_install }}"
+  when: hostvars.localhost.ansible_os_family != "Darwin"
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - sudo
+
+- name: add default user
   become: true
+  # Do not set up the default user if configured on OS X
+  when: hostvars.localhost.ansible_os_family != "Darwin"
   user:
-    name: jtmoulia
+    name: "{{ default_user }}"
     groups: "{{ sudo_group }}"
     generate_ssh_key: yes
     ssh_key_bits: 4096
 
 - name: ensure the user bin directory exists
   file:
-    path: "~/bin"
+    path: "~/.local/bin"
     state: directory

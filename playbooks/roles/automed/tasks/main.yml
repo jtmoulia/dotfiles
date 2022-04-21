@@ -1,17 +1,23 @@
 ---
 - name: install automed dependencies
-  become: yes
+  become: "{{ privileged_package_install }}"
   package:
     name: "{{ item }}"
     state: "latest"
   with_items:
     - "ansible"
-    - "python-jinja"
     - "certbot"
 
 - name: install mkcert from aur
+  when: hostvars.localhost.ansible_os_family != "Darwin"
   become: yes
   command: "pikaur -Sy --noconfirm --noprogressbar mkcert"
+
+- name: install mkcert from homebrew
+  when: hostvars.localhost.ansible_os_family == "Darwin"
+  package:
+    name: mkcert
+    state: "latest"
 
 - name: copy in helpful binaries
   copy:

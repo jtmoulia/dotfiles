@@ -1,6 +1,6 @@
 ---
 - name: install zsh & others
-  become: yes
+  become: "{{ privileged_package_install }}"
   package:
     name: "{{ item }}"
     state: "latest"
@@ -33,5 +33,6 @@
   with_items:
     - "zlogin"
     - "zlogout"
-    - "zprofile"
+    # TODO: add in the zprofile file
+    # "zprofile"
     - "zshenv"

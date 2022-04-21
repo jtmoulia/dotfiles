@@ -87,3 +87,10 @@ The currently available playbooks are:
   - `cli`: portable CLI specific configuration
   - `lenovo-flex-4`: Arch Linux configuration for a Lenovo Flex 4
   - `lenovo-yoga`: Arch Linux configuration for a Lenovo Yoga
+  - `osx`: OS X on a 2022 MacBook Pro M1 (Monterey)
+
+## Portability
+
+Roles and playbooks were typically designed against Arch Linux. Roles listed in
+the `base` or `osx` playbooks will work under OS X.
+

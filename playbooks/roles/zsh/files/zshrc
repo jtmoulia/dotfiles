@@ -40,14 +40,14 @@ if $(which keychain &>/dev/null); then
   eval $(keychain --eval --agents ssh,gpg id_rsa)
 fi
 
-# Configure and Pull in FZF
-if [[ -f /usr/share/fzf/key-bindings.zsh && -f /usr/share/fzf/completion.zsh ]]; then
+# General fzf config and install
+
+if [ -f ~/.fzf.zsh ]; then
   FZF_TMUX_OPTS="-d 40%"
-  # Assumes bat is installed
   alias f='fzf --preview "bat --color \"always\" {}"'
-  source /usr/share/fzf/key-bindings.zsh
-  source /usr/share/fzf/completion.zsh
+  source ~/.fzf.zsh
 fi
 
 # Update path
 PATH="$HOME/.local/bin:$PATH"
+

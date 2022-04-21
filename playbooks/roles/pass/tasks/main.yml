@@ -1,6 +1,6 @@
 ---
 - name: install/update pass
-  become: true
+  become: "{{ privileged_package_install }}"
   package:
     state: "latest"
     name: "pass"
@@ -12,11 +12,13 @@
 
 # TODO: move this under a GPG specific role
 - name: ensure gpg-agent config exists
+  when: hostvars.localhost.ansible_os_family != "Darwin"
   file:
     state: "directory"
     dest: "~/.gnugpg"
 
 - name: symlink in gpg-agent config
+  when: hostvars.localhost.ansible_os_family != "Darwin"
   file:
     state: "link"
     src: "{{ role_path }}/files/gpg-agent.conf"

@@ -1,13 +1,21 @@
 ---
 - name: install/update emacs
-  become: true
+  become: "{{ privileged_package_install }}"
   package:
     name: "{{ item }}"
     state: "latest"
   with_items:
-    # currently using compiled AUR emacs-native-comp-git
-    # - "emacs"
+    - "emacs"
     - "fasd"
+    - "aspell"
+
+- name: install/update linux specific emacs deps
+  become: "{{ privileged_package_install }}"
+  when: hostvars.localhost.ansible_os_family != "Darwin"
+  package:
+    name: "{{ item }}"
+    state: "latest"
+  with_items:
     - "aspell-en"
 
 # - name: install mu & mu4e if enabled
@@ -23,7 +31,6 @@
   git:
     repo: "https://github.com/hlissner/doom-emacs"
     dest: "~/.emacs.d"
-    version: "develop"
 
 - name: install doom config
   file:
@@ -40,11 +47,13 @@
 # systemd (emacs.service)
 
 - name: ensure systemd/user dir exists
+  when: hostvars.localhost.ansible_os_family != "Darwin"
   file:
     path: "~/.config/systemd/user"
     state: "directory"
 
 - name: symlink in emacs systemd service
+  when: hostvars.localhost.ansible_os_family != "Darwin"
   file:
     state: "link"
     src: "{{ role_path }}/files/emacs.service"
@@ -53,6 +62,7 @@
     - "restart emacs"
 
 - name: enable the emacs service
+  when: hostvars.localhost.ansible_os_family != "Darwin"
   systemd:
     name: "emacs"
     scope: "user"
@@ -60,6 +70,7 @@
     state: "started"
 
 - name: symlink in emacsclient.desktop
+  when: hostvars.localhost.ansible_os_family != "Darwin"
   become: yes
   file:
     state: "link"

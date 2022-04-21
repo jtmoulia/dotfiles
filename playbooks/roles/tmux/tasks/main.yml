@@ -1,7 +1,7 @@
 ---
 
 - name: ensure tmux is installed
-  become: yes
+  become: "{{ privileged_package_install }}"
   package:
     name: tmux
 

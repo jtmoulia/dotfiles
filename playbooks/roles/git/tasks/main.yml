@@ -1,7 +1,7 @@
 ---
 
 - name: install git
-  become: true
+  become: "{{ privileged_package_install }}"
   package:
     name: git
     state: latest
