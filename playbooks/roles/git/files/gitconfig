@@ -16,7 +16,6 @@
 	ui = true
 
 [core]
-	editor = emacsclient -t
 	excludesfile = ~/.gitignore
 
 [merge]
