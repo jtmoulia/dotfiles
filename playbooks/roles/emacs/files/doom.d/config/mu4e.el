@@ -153,7 +153,7 @@
 
 ;; Configure Vars
 (setq-default
- mu4e-mu-binary         "/usr/bin/mu"
+ mu4e-mu-binary         (-first #'file-exists-p '("/usr/bin/mu" "/opt/homebrew/bin/mu"))
  ;; top-level maildir, email fetcher should be configured to save here
  mu4e-root-maildir     "~/.mail"
  mu4e-confirm-quit      nil

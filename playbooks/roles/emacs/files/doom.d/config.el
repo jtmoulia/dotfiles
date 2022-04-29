@@ -10,6 +10,13 @@
   (let ((path (personal//join-path "~/.doom.d" config)))
     (eval `(after! ,mode (load-file ,path)))))
 
+;; MacOS specific: Add mu4e to load path if the directory exists
+(if (string-equal system-type "darwin")
+    ;; TODO: use the most recent version of mu rather than fixed 1.6.10
+    (let ((mu4e-load-path "/opt/homebrew/Cellar/mu/1.6.10/share/emacs/site-lisp/mu/mu4e"))
+      (if (file-directory-p mu4e-load-path)
+          (add-to-list 'load-path mu4e-load-path))))
+
 ;; Evil config
 ;; TODO this should likely be ported to its own config file
 (after! 'evil-escape
