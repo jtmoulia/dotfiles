@@ -8,6 +8,7 @@
 (setq lsp-pyls-plugins-flake8-enabled t)
 (setq lsp-pyls-plugins-pycodestyle-enabled nil)
 (setq lsp-pyls-plugins-autopep8-enabled nil)
+(setq lsp-clients-python-command '("pylsp"))
 
 
 (defun my//lsp-query-tcp-connection ()
