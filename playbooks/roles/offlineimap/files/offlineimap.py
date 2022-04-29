@@ -1,7 +1,8 @@
 import subprocess
+import os
 
 
-DEFAULT_PASS_GET = "/home/jtmoulia/.local/bin/pass-get"
+DEFAULT_PASS_GET = os.path.expanduser("~/.local/bin/pass-get")
 
 
 def pass_get(pass_name, key):
@@ -10,6 +11,6 @@ def pass_get(pass_name, key):
     See ``pass-get``.
 
     """
-    result = subprocess.check_output([DEFAULT_PASS_GET, pass_name, key]).strip()
+    result = subprocess.check_output([DEFAULT_PASS_GET, pass_name, key], text=True).strip()
     if result:
         return result
