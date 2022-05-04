@@ -18,12 +18,15 @@ EDITOR=nvim
 PAGER=less
 
 # Aliases
+if $(which xdg-open &>/dev/null); then
+  alias o='xdg-open'
+fi
 
 # Use exa over ls if it's installed
 if $(which exa &>/dev/null); then
-  alias l='exa --oneline'
-  alias ls='exa'
-  alias ll='exa --long --all'
+  alias l='exa --oneline --icons'
+  alias ls='exa --icons'
+  alias ll='exa --long --all --icons'
 fi
 
 # Define helper wrapping xclip or wl-copy
