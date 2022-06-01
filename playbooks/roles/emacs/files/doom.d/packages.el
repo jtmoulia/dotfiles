@@ -49,8 +49,3 @@
 ;; display trees of LSP info in treemacs
 ;; https://github.com/emacs-lsp/lsp-treemacs
 (package! lsp-treemacs)
-
-;; Work with Git forges, such as Github and Gitlab, from the comfort of Magit
-;; and the rest of Emacs.
-;; https://github.com/magit/forge
-(package! forge)

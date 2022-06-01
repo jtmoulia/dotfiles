@@ -29,3 +29,6 @@
 
 [magit]
 	hideCampaign = true
+
+[gitlab]
+	user = jtmoulia
