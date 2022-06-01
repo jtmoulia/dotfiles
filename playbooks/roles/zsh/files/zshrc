@@ -13,13 +13,31 @@ fi
 # Share history across sessios
 SHARE_HISTORY=t
 TERM=screen-256color
-# Assumes neovim is installed
-EDITOR=nvim
 PAGER=less
+
+# MacOS Homebrew specific completions
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
 
 # Aliases
 if $(which xdg-open &>/dev/null); then
   alias o='xdg-open'
+fi
+
+# Use nvim if it's installed
+if $(which nvim &>/dev/null); then
+  EDITOR=nvim
+  alias vi=nvim
+else
+  # Fallback to vi, typically aliased to vim
+  if $(which vi &>/dev/null); then
+     EDITOR=vi
+  fi
+
 fi
 
 # Use exa over ls if it's installed
