@@ -15,17 +15,17 @@
                        (:dbuser . "automed")
                        (:database . "automed")
                        (:dbpassword . ,password))))
-    (loop for (key . value) in header-args
+    (cl-loop for (key . value) in header-args
           do (ht/add-to-org-babel-sql-headers key value))))
 
 (defun ht/add-to-sql-connection-alist ()
   "Add to `sql-connection-alist' localhost 5430 automed connection."
   (setq sql-connection-alist
         `(
-          ("automed-postgres-5430"
+          ("automed-postgres-5434"
            (sql-product 'postgres)
            (sql-server "localhost")
-           (sql-port 5430)
+           (sql-port 5434)
            (sql-user "automed")
            (sql-database "automed")
            ))))
