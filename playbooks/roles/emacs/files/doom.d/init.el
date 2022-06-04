@@ -14,7 +14,7 @@
 
        :completion
        (company +childframe)           ; the ultimate code completion backend
-       (ivy +icons +childframe)               ; a search engine for love and life
+       (ivy +fuzzy +prescient +icons +childframe); a search engine for love and life
 
        :ui
        deft              ; notational velocity for Emacs
@@ -82,7 +82,7 @@
        ;;gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
         +docsets)        ; ...or in Dash docsets locally
-       lsp
+       (lsp +peek)
        ;;macos             ; MacOS-specific commands
        (magit +forge)    ; a git porcelain for Emacs
        make              ; run make tasks from Emacs
@@ -140,7 +140,7 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python +lsp)       ; beautiful is better than ugly
+       (python +lsp +pyenv) ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client
@@ -156,7 +156,7 @@
        web               ; the tubes
 
        :email
-       (mu4e +gmail)
+       (mu4e +gmail +org)
        ;;notmuch
        ;;(wanderlust +gmail)
 

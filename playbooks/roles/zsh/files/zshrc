@@ -55,6 +55,11 @@ fi
 
 if $(which wl-copy &>/dev/null); then
    alias xc='wl-copy'
+else
+  # OS X pbcopy
+  if $(which pbcopy &>/dev/null); then
+    alias xc='pbcopy'
+  fi
 fi
 
 if $(which keychain &>/dev/null); then
@@ -67,6 +72,10 @@ if [ -f ~/.fzf.zsh ]; then
   FZF_TMUX_OPTS="-d 40%"
   alias f='fzf --preview "bat --color \"always\" {}"'
   source ~/.fzf.zsh
+fi
+
+if $(which zoxide &>/dev/null); then
+  eval "$(zoxide init zsh)"
 fi
 
 # Update path

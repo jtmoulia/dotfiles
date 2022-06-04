@@ -324,34 +324,6 @@ spaces into LIST. Return the padded result."
                   ((equal mark 'flag) (mu4e-action-retag-message msg "-\\Inbox,\\Starred"))
                   ((equal mark 'unflag) (mu4e-action-retag-message msg "-\\Starred")))))
 
-;; monkey-patch override of original definition to not override https URLs
-;; TODO: check if the mu project would accept this upstream
-;; (defun org~mu4e-mime-replace-images (str current-file)
-;;   "Replace images in html files with cid links."
-;;   (let (html-images)
-;;     (cons
-;;      (replace-regexp-in-string ;; replace images in html
-;;       "src=\"\\(?!https\\)\\([^\"]+\\)\""
-;;       (lambda (text)
-;;         (format
-;;          "src=\"cid:%s\""
-;;          (let* ((url (and (string-match "src=\"\\([^\"]+\\)\"" text)
-;;                           (match-string 1 text)))
-;;                 (path (expand-file-name
-;;                        url (file-name-directory current-file)))
-;;                 (ext (file-name-extension path))
-;;                 (id (replace-regexp-in-string "[\/\\\\]" "_" path)))
-;;            (add-to-list 'html-images
-;;                         (org~mu4e-mime-file
-;;                          (concat "image/" ext) path id))
-;;            id)))
-;;       str)
-;;      html-images)))
-
-;; (defun org~mu4e-mime-replace-images (str current-file)
-;;   "Replace images in html files with cid links."
-;;   nil)
-;;
 ;; GMail has duplicate messages between All Mail and other directories.
 ;; This function allows the
 (defun my-mu4e-headers-toggle-all-mail (&optional dont-refresh)

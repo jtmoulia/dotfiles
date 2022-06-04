@@ -37,6 +37,9 @@
 ;; Add a global keybinding for opening deft
 (map! :leader :desc "Open deft note search" :n "o n" #'deft)
 
+;; Add a global keybinding for listing passwords with ivy
+(map! :leader :desc "List passwords" :n "o l" #'+pass/ivy)
+
 ;; style and fonts: looking good, feeling good
 (setq doom-theme 'doom-dracula)
 ; (setq doom-font (font-spec :family "Fira Code" :size 13))
