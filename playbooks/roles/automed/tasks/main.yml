@@ -26,6 +26,7 @@
   with_items:
     - {src: "ssh-add-hippos", dest: "ssh-add-hippos"}
     - {src: "ssh-automed.bash", dest: "ssh-automed"}
+    - {src: "alog.bash", dest: "alog"}
 
 - name: ensure the repos directory exists
   file:
@@ -38,8 +39,8 @@
     dest: "~/repos/automed"
     update: no
 
-- name: setup symbolic link
+- name: setup symbolic link for automed-compose
   file:
     src: "~/repos/automed/bin/automed-compose.sh"
-    dest: "~/bin/ac"
+    dest: "~/.local/bin/htac"
     state: "link"
