@@ -5,3 +5,6 @@ backups
 *.retry
 
 etc/*.password
+
+# Ignore custom emacs settings to allow per-machine config
+playbooks/roles/emacs/files/doom.d/custom.el
