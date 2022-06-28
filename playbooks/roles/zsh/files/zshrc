@@ -28,6 +28,11 @@ if $(which xdg-open &>/dev/null); then
   alias o='xdg-open'
 fi
 
+# Alias mkpass as an xkcdpass heper if installed
+if $(which xkcdpass &>/dev/null); then
+  alias mkpass='xkcdpass --max 16 --case random --random-delimiters --numwords 3'
+fi
+
 # Use nvim if it's installed
 if $(which nvim &>/dev/null); then
   EDITOR=nvim
