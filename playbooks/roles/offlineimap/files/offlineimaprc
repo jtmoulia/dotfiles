@@ -26,6 +26,7 @@ oauth2_client_id_eval = pass_get('jtmoulia@gmail.com', 'oauth2_client_id')
 oauth2_client_secret_eval = pass_get('jtmoulia@gmail.com', 'oauth2_client_secret')
 oauth2_request_url_eval = pass_get('jtmoulia@gmail.com', 'oauth2_request_url')
 oauth2_refresh_token_eval = pass_get('jtmoulia@gmail.com', 'oauth2_refresh_token')
+copy_ignore_eval = lambda foldername: {'[Gmail]/All Mail': [237297]}.get(foldername)
 
 [Account Pocketknife]
 localrepository = PocketknifeLocal
