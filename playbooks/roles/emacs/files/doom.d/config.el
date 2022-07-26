@@ -1,6 +1,8 @@
 ;;; .doom.d/config.el -*- lexical-binding: t; -*-
+;; Private doom eamcs config
 
-;; Place your private configuration here
+;; Let's dash this config. Dash is love.
+(require 'dash)
 
 ;; Setup paths
 (defun personal//join-path (root component)
@@ -12,8 +14,9 @@
 
 ;; MacOS specific: Add mu4e to load path if the directory exists
 (if (string-equal system-type "darwin")
-    ;; TODO: use the most recent version of mu rather than fixed 1.6.10
-    (let ((mu4e-load-path "/opt/homebrew/Cellar/mu/1.6.10/share/emacs/site-lisp/mu/mu4e"))
+    (let ((mu4e-load-path (-> "/opt/homebrew/Cellar/mu/*"
+                              file-expand-wildcards reverse first
+                              file-name-as-directory (concat "share/emacs/site-lisp/mu/mu4e"))))
       (if (file-directory-p mu4e-load-path)
           (add-to-list 'load-path mu4e-load-path))))
 
