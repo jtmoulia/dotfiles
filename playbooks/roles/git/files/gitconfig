@@ -2,6 +2,9 @@
 	name = Thomas Moulia
 	email = jtmoulia@gmail.com
 
+[advice]
+	detachedHead = false
+
 [alias]
 	a = add
 	st = status
