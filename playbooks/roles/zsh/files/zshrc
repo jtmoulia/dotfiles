@@ -1,8 +1,9 @@
+# -*- mode: sh -*-
 #
 # Executes commands at the start of an interactive session.
 #
 # Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#   Thomas Moulia <jtmoulia@gmail.com>
 #
 
 # Source Prezto.
@@ -73,10 +74,17 @@ fi
 
 # General fzf config and install
 
-if [ -f ~/.fzf.zsh ]; then
+fzf_keybindings_file=
+if [ -f /usr/share/fzf/key-bindings.zsh ]; then
+  fzf_keybindings_file=/usr/share/fzf/key-bindings.zsh
+elif [ -f ~/.zsh ]; then
+  fzf_keybindings_file=~/.zsh
+fi
+
+if [ "$fzf_keybindings_file" ]; then
   FZF_TMUX_OPTS="-d 40%"
   alias f='fzf --preview "bat --color \"always\" {}"'
-  source ~/.fzf.zsh
+  source "$fzf_keybindings_file"
 fi
 
 if $(which zoxide &>/dev/null); then
@@ -86,3 +94,8 @@ fi
 # Update path
 PATH="$HOME/.local/bin:$PATH"
 
+# Setup guix
+GUIX_PROFILE="/home/jtmoulia/.guix-profile"
+if [ -d "$GUIX_PROFILE" ]; then
+  . "$GUIX_PROFILE/etc/profile"
+fi
