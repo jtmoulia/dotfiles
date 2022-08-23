@@ -6,14 +6,11 @@
     state: latest
   with_items:
     - neovim
-    - ansible
     - tldr
     - perl
     # A CLI interface that respects the trash can
     - trash-cli
     - unzip
-    - pandoc
-    - imagemagick
     - ripgrep
 
 - name: install/update non OS X libraries
