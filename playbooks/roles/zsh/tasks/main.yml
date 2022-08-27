@@ -10,7 +10,7 @@
 
 - name: git clone prezto
   git:
-    repo: "git@github.com:sorin-ionescu/prezto.git"
+    repo: "https://github.com/sorin-ionescu/prezto.git"
     dest: "{{ prezto_install_path }}"
 
 - name: symlink in .zshrc

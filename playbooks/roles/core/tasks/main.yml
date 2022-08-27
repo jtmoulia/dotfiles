@@ -10,8 +10,12 @@
     - perl
     # A CLI interface that respects the trash can
     - trash-cli
+    # Gotta be able to [un]zip
     - unzip
+    # A more modern [and fun] grep
     - ripgrep
+    # An SSH agent wrapper for the shell
+    - keychain
 
 - name: install/update non OS X libraries
   become: "{{ privileged_package_install }}"
