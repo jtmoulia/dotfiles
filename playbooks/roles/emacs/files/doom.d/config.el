@@ -20,6 +20,12 @@
       (if (file-directory-p mu4e-load-path)
           (add-to-list 'load-path mu4e-load-path))))
 
+;; guix: Add mu4e to load path if the directory exists
+
+(let ((mu4e-load-path (concat (getenv "GUIX_PROFILE") "/share/emacs/site-lisp/mu4e")))
+  (if (file-directory-p mu4e-load-path)
+      (add-to-list 'load-path mu4e-load-path)))
+
 ;; Evil config
 ;; TODO this should likely be ported to its own config file
 (after! 'evil-escape
@@ -45,7 +51,7 @@
 
 ;; style and fonts: looking good, feeling good
 (setq doom-theme 'doom-dracula)
-(setq doom-font (font-spec :family "Fira Code Retina" :size 13))
+(setq doom-font (font-spec :family "Fira Code" :size 13))
 (setq doom-font-increment 1)
 
 ;; Spacemacs style `,' local leader.
