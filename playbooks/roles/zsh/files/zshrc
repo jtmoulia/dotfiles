@@ -29,6 +29,11 @@ if $(which xdg-open &>/dev/null); then
   alias o='xdg-open'
 fi
 
+# Tailscale alias if it's installed as an OS X app
+if [ -f /Applications/Tailcale.app/Contents/MacOS/Tailscale ]; then
+  alias tailscale='/Applications/Tailcale.app/Contents/MacOS/Tailscale'
+fi
+
 # Alias mkpass as an xkcdpass heper if installed
 if $(which xkcdpass &>/dev/null); then
   alias mkpass='xkcdpass --max 16 --case random --random-delimiters --numwords 3'

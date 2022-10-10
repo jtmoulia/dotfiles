@@ -104,24 +104,21 @@ SCHEDULED: %^{Deploy release}t\n
         ((agenda "" ((org-agenda-span 'week)
                      (org-super-agenda-groups
                       '((:name "HealthTensor In Progress"
-                         :and (:tag "ht" :not (:todo ("DONE" "WAIT" "KILL")))
+                         :and (:tag "regard" :todo ("TODO" "STRT"))
                          :order 1)
 
                         (:name "HealthTensor Waiting"
-                         :and (:tag "ht" :todo ("WAIT"))
+                         :and (:tag "regard" :todo ("WAIT"))
                          :order 2)
 
                         (:name "HealthTensor Completed"
-                         :and (:tag "ht" :todo ("DONE" "KILL"))
+                         :and (:tag "regard" :todo ("DONE" "KILL"))
                          :order 3)
 
                         (:discard (:anything t))))))
          (alltodo "" ((org-agenda-overriding-header "All Tasks")
                       (org-super-agenda-groups
-                       '((:name "Next to do"
-                                :todo "NEXT"
-                                :order 1)
-                         (:name "Important"
+                       '((:name "Important"
                                 :tag "Important"
                                 :priority "A"
                                 :order 6)
@@ -130,12 +127,15 @@ SCHEDULED: %^{Deploy release}t\n
                                 :order 2)
                          (:name "Due Soon"
                                 :deadline future
-                                :order 8)
+                                :order 3)
                          (:name "Overdue"
                                 :deadline past
-                                :order 7)
-                         (:name "ht"
-                                :tag "HT"
+                                :order 1)
+                         (:name "Done"
+                                :and (:tag "regard" :todo ("DONE" "KILL"))
+                                :order 9)
+                         (:name "Regard Etc"
+                                :tag "regard"
                                 :order 10)
                          (:discard (:anything t))))))))
                           
@@ -143,7 +143,7 @@ SCHEDULED: %^{Deploy release}t\n
        ("M" "my agenda"
           ((agenda "" ((org-agenda-span 'week)
                        (org-super-agenda-groups
-                        '((:discard (:tag "ht"))
+                        '((:discard (:tag "regard"))
                           (:name "Time Grid"
                            :time-grid t  ; Items that appear on the time grid
                            :order 0)  ; Items that have this TODO keyword
