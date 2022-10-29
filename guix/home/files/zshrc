@@ -1,0 +1,92 @@
+# -*- mode: shell-script; -*-
+#
+# Share history across sessios
+SHARE_HISTORY=t
+TERM=screen-256color
+PAGER=less
+
+# MacOS Homebrew specific completions
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
+# Aliases
+if $(which xdg-open &>/dev/null); then
+  alias o='xdg-open'
+fi
+
+# Alias mkpass as an xkcdpass heper if installed
+if $(which xkcdpass &>/dev/null); then
+  alias mkpass='xkcdpass --max 16 --case random --random-delimiters --numwords 3'
+fi
+
+# Use nvim if it's installed
+if $(which nvim &>/dev/null); then
+  EDITOR=nvim
+  alias vi=nvim
+else
+  # Fallback to vi, typically aliased to vim
+  if $(which vi &>/dev/null); then
+     EDITOR=vi
+  fi
+
+fi
+
+# Use exa over ls if it's installed
+if $(which exa &>/dev/null); then
+  alias l='exa --oneline --icons'
+  alias ls='exa --icons'
+  alias ll='exa --long --all --icons'
+fi
+
+# Define helper wrapping xclip or wl-copy
+# Usage: `echo "copy this" | xc``
+if $(which xclip &>/dev/null); then
+   alias xc='xclip -selection c'
+fi
+
+if $(which wl-copy &>/dev/null); then
+   alias xc='wl-copy'
+else
+  # OS X pbcopy
+  if $(which pbcopy &>/dev/null); then
+    alias xc='pbcopy'
+  fi
+fi
+
+if $(which keychain &>/dev/null); then
+  eval $(keychain --eval --agents ssh,gpg id_rsa)
+fi
+
+# General fzf config and install
+
+fzf_keybindings_file=
+if [ -f /usr/share/fzf/key-bindings.zsh ]; then
+  fzf_keybindings_file=/usr/share/fzf/key-bindings.zsh
+elif [ -f ~/.zsh ]; then
+  fzf_keybindings_file=~/.zsh
+fi
+
+if [ "$fzf_keybindings_file" ]; then
+  FZF_TMUX_OPTS="-d 40%"
+  alias f='fzf --preview "bat --color \"always\" {}"'
+  source "$fzf_keybindings_file"
+fi
+
+if $(which zoxide &>/dev/null); then
+  eval "$(zoxide init zsh)"
+fi
+
+# Update path
+PATH="$HOME/.local/bin:$PATH"
+
+autoload -Uz vcs_info
+precmd() { vcs_info }
+
+zstyle ':vcs_info:git:*' formats '%b '
+
+setopt PROMPT_SUBST
+PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '

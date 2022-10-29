@@ -1,0 +1,21 @@
+#+title: A Guix Home Environment
+
+This is a work in progress reproducible home environment managed with [[https://sr.ht/~abcdw/rde/][Guix Home]]
+by Andrew Tropin. This has been forked from Tass0sm/dotfiles
+
+* Elements
+- WM : gnome
+- Terminal: alacritty
+- Shell : zsh
+- Editor : Emacs v28 ([[https://github.com/doomemacs/doomemacs][Doom]])
+
+* Screenshot
+[[file:screenshot.png]]
+
+* Extra Channels
+- [[https://gitlab.com/nonguix/nonguix][Non-Guix]]
+
+* References
+- https://github.com/Tass0sm/dotfiles
+- https://github.com/Barbarossa93/Genome
+- https://github.com/skalpasi/bspwm-dotfiles
