@@ -3,6 +3,8 @@
 ;; specifies package names.  To reproduce the exact same profile, you also
 ;; need to capture the channels being used, as returned by "guix describe".
 ;; See the "Replicating Guix" section in the manual.
+;;
+;; (set! %load-path (cons (getcwd) %load-path))
 
 (define-module (home environment)
   #:use-module (gnu home)
@@ -21,33 +23,48 @@
 (define base-packages
   (map specification->package
        (list
-        "alacritty"
-        "bat"
-        "exa"
-        "ispell"
-        "curl"
-        "fd"
-        "ripgrep"
-        "neovim"
+        "glibc-locales"
+        "gnupg"
         "inetutils"
         "nss-certs"
-        "glibc-locales")))
+        )))
+
+(define term-fu-packages
+  (map specification->package
+       (list
+        "alacritty"
+        "bat"
+        "curl"
+        "exa"
+        "fd"
+        "glibc-locales"
+        "inetutils"
+        "ispell"
+        "neovim"
+        "nss-certs"
+        "ripgrep"
+        "tmux"
+        )))
+
 
 (define font-packages
   (map specification->package
        (list
-        "font-awesome")))
+        "font-awesome"
+        "font-dejavu")))
 
 (define desktop-packages
   (map specification->package
        (list
+        "bluez"
+        "evince"
+        "flatpak"
         "gnome"
         "gnome-keyring"
         "gnome-tweaks"
         "seahorse"
         "transmission-remote-gtk"
-        "flatpak"
-        "bluez")))
+        )))
 
 (define home-scripts
   (package
@@ -60,7 +77,7 @@
     `(#:install-plan
       '(
         ("reconfigure.sh" "bin/reconfigure"))))
-   (home-page "https://github.com/jtmoulia/dotfiles")
+   (home-page "https://git.sr.ht/~jtmoulia/dotfiles")
    (synopsis "jtmoulia's scripts")
    (description "Some personal scripts.")
    (license license:expat)))
@@ -68,6 +85,7 @@
 (home-environment
  (packages
   `(,@base-packages
+    ,@term-fu-packages
     ,@zsh-packages
     ,@font-packages
     ; ,@git-packages
