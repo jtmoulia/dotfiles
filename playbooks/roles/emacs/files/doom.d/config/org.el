@@ -1,7 +1,7 @@
 ;; Org
-(setq-default org-directory "~/ocloud/org")
+(setq-default org-directory "~/Nextcloud/org")
 (setq-default +org-capture-todo-file "agenda/ht.org")
-(setq-default org-agenda-files '("~/ocloud/org/agenda/"))
+(setq-default org-agenda-files '("~/Nextcloud/org/agenda/"))
 ;; (setq org-agenda-dim-blocked-tasks 'invisible)
 
 (defvar personal//org-capture-my-todo-file "agenda/mine.org"
