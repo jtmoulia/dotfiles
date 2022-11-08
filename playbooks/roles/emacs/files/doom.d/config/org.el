@@ -1,8 +1,9 @@
 ;; Org
-(setq-default org-directory "~/Nextcloud/org")
+(setq-default org-directory (if (file-directory-p "~/Nextcloud/org")
+                                "~/Nextcloud/org"
+                              "~/ocloud/org"))
 (setq-default +org-capture-todo-file "agenda/ht.org")
-(setq-default org-agenda-files '("~/Nextcloud/org/agenda/"))
-;; (setq org-agenda-dim-blocked-tasks 'invisible)
+(setq-default org-agenda-files (list (concat org-directory "/agenda/")))
 
 (defvar personal//org-capture-my-todo-file "agenda/mine.org"
   "File to capture my TODO items to.")
