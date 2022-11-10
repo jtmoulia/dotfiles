@@ -84,6 +84,8 @@ if [ -f /usr/share/fzf/key-bindings.zsh ]; then
   fzf_keybindings_file=/usr/share/fzf/key-bindings.zsh
 elif [ -f ~/.zsh ]; then
   fzf_keybindings_file=~/.zsh
+else
+  fzf_keybindings_file="$(find /opt/homebrew/Cellar/fzf -name key-bindings.zsh)"
 fi
 
 if [ "$fzf_keybindings_file" ]; then
