@@ -42,6 +42,7 @@
         "ispell"
         "neovim"
         "nss-certs"
+        "make"
         "ripgrep"
         "tmux"
         )))

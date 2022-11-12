@@ -21,7 +21,6 @@
              (xdg-flavor? #t)
              (environment-variables
               '(("EDITOR" . "nvim")
-                ("XCURSOR_THEME" . "Nordzy-cursors")
                 ("GUIX_LOCPATH" . "$HOME/.guix-home/profile/lib/locale")
                 ("GUIX_EXTRA_PROFILES" . "$HOME/.guix-extra-profiles")))
              (zshrc
