@@ -104,7 +104,7 @@ SCHEDULED: %^{Deploy release}t\n
      '(("A" "Absolutely Awesome Agenda"
         ((agenda "" ((org-agenda-span 'week)
                      (org-super-agenda-groups
-                      '((:name "HealthTensor In Progress"
+                      '((:name "Regard In Progress"
                          :and (:tag "regard" :todo ("TODO" "STRT"))
                          :order 1)
 
@@ -112,7 +112,7 @@ SCHEDULED: %^{Deploy release}t\n
                          :and (:tag "regard" :todo ("WAIT"))
                          :order 2)
 
-                        (:name "HealthTensor Completed"
+                        (:name "Regard Completed"
                          :and (:tag "regard" :todo ("DONE" "KILL"))
                          :order 3)
 
