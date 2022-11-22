@@ -153,7 +153,7 @@
 
 ;; Configure Vars
 (setq-default
- mu4e-mu-binary         (-first #'file-exists-p `(,(concat (getenv "GUIX_PROFILE") "/bin/mu")
+ mu4e-mu-binary         (-first #'file-exists-p `(,(expand-file-name "~/.guix-profile/bin/mu")
                                                   "/usr/bin/mu"
                                                   "/opt/homebrew/bin/mu"))
  ;; top-level maildir, email fetcher should be configured to save here
