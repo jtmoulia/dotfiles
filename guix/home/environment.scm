@@ -59,6 +59,8 @@
        (list
         "bluez"
         "evince"
+        "evolution"
+        "evolution-data-server"
         "flatpak"
         "gnome"
         "gnome-keyring"
