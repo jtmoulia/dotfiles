@@ -89,9 +89,12 @@ else
 fi
 
 if [ "$fzf_keybindings_file" ]; then
+  source "$fzf_keybindings_file"
+fi
+
+if $(which fzf &>/dev/null); then
   FZF_TMUX_OPTS="-d 40%"
   alias f='fzf --preview "bat --color \"always\" {}"'
-  source "$fzf_keybindings_file"
 fi
 
 if $(which zoxide &>/dev/null); then

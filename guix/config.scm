@@ -48,7 +48,7 @@
  (bootloader
   (bootloader-configuration
    (bootloader grub-efi-bootloader)
-   (target "/boot/efi")
+   (targets "/boot/efi")
    (keyboard-layout keyboard-layout)))
  (mapped-devices
   (list (mapped-device

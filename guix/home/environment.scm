@@ -54,6 +54,7 @@
         "font-awesome"
         "font-dejavu")))
 
+;; TODO break these into sub-groups
 (define desktop-packages
   (map specification->package
        (list
@@ -61,6 +62,7 @@
         "evince"
         "evolution"
         "evolution-data-server"
+        "firefox-wayland"
         "flatpak"
         "gnome"
         "gnome-keyring"

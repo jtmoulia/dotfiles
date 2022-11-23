@@ -1,9 +1,23 @@
 # -*- mode: shell-script; -*-
 #
-# Share history across sessios
-SHARE_HISTORY=t
 TERM=screen-256color
 PAGER=less
+
+# Share history across sessios
+SHARE_HISTORY=t
+# Appends every command to the history file once it is executed
+setopt inc_append_history
+# Reloads the history whenever you use it
+setopt share_history
+setopt hist_ignore_dups
+setopt hist_ignore_spaces
+
+# zinit for managing zsh modules
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+# TODO First time run, only if dir exists?
+# mkdir -p "$(dirname $ZINIT_HOME)"
+# git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
 # MacOS Homebrew specific completions
 if type brew &>/dev/null; then
@@ -62,18 +76,13 @@ if $(which keychain &>/dev/null); then
 fi
 
 # General fzf config and install
+# zsh-fzf-history-search
+zinit ice lucid wait'0'
+zinit light joshskidmore/zsh-fzf-history-search
 
-fzf_keybindings_file=
-if [ -f /usr/share/fzf/key-bindings.zsh ]; then
-  fzf_keybindings_file=/usr/share/fzf/key-bindings.zsh
-elif [ -f ~/.zsh ]; then
-  fzf_keybindings_file=~/.zsh
-fi
-
-if [ "$fzf_keybindings_file" ]; then
+if $(which fzf $>/dev/null); then
   FZF_TMUX_OPTS="-d 40%"
   alias f='fzf --preview "bat --color \"always\" {}"'
-  source "$fzf_keybindings_file"
 fi
 
 if $(which zoxide &>/dev/null); then
