@@ -1,31 +1,18 @@
 # -*- mode: shell-script; -*-
-#
-TERM=screen-256color
-PAGER=less
 
-# Share history across sessios
-SHARE_HISTORY=t
 # Appends every command to the history file once it is executed
 setopt inc_append_history
 # Reloads the history whenever you use it
 setopt share_history
+# Ignore duplicates and spaces to keep the history clean
 setopt hist_ignore_dups
-setopt hist_ignore_spaces
+setopt hist_ignore_space
+setopt prompt_subst
 
 # zinit for managing zsh modules
-ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 # TODO First time run, only if dir exists?
-# mkdir -p "$(dirname $ZINIT_HOME)"
 # git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
-
-# MacOS Homebrew specific completions
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-  autoload -Uz compinit
-  compinit
-fi
 
 # Aliases
 if $(which xdg-open &>/dev/null); then
@@ -58,17 +45,11 @@ fi
 
 # Define helper wrapping xclip or wl-copy
 # Usage: `echo "copy this" | xc``
-if $(which xclip &>/dev/null); then
-   alias xc='xclip -selection c'
-fi
 
 if $(which wl-copy &>/dev/null); then
    alias xc='wl-copy'
-else
-  # OS X pbcopy
-  if $(which pbcopy &>/dev/null); then
-    alias xc='pbcopy'
-  fi
+elif $(which xclip &>/dev/null); then
+   alias xc='xclip -selection c'
 fi
 
 if $(which keychain &>/dev/null); then
@@ -77,25 +58,22 @@ fi
 
 # General fzf config and install
 # zsh-fzf-history-search
+# Usage: C-r to pull up history from shell
 zinit ice lucid wait'0'
 zinit light joshskidmore/zsh-fzf-history-search
 
 if $(which fzf $>/dev/null); then
-  FZF_TMUX_OPTS="-d 40%"
   alias f='fzf --preview "bat --color \"always\" {}"'
 fi
 
+# zoxide zsh setup for quick nav
+# Usage: z $TARGET_PATH
 if $(which zoxide &>/dev/null); then
   eval "$(zoxide init zsh)"
 fi
 
-# Update path
-PATH="$HOME/.local/bin:$PATH"
-
+# Pretty prompt
 autoload -Uz vcs_info
 precmd() { vcs_info }
-
 zstyle ':vcs_info:git:*' formats '%b '
-
-setopt PROMPT_SUBST
 PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '

@@ -21,8 +21,16 @@
              (xdg-flavor? #t)
              (environment-variables
               '(("EDITOR" . "nvim")
+                ("PAGER" . "less")
+                ("TERM" . "screen-256color")
+                ("LOCAL_PATH" . "$HOME/.local/bin")
+                ("PATH" . "$LOCAL_PATH:$PATH")
                 ("GUIX_LOCPATH" . "$HOME/.guix-home/profile/lib/locale")
-                ("GUIX_EXTRA_PROFILES" . "$HOME/.guix-extra-profiles")))
+                ("GUIX_EXTRA_PROFILES" . "$HOME/.guix-extra-profiles")
+                ("HISTFILE" . "$XDG_DATA_HOME/histfile")
+                ("SAVEHIST" . "10000")
+                ("ZINIT_HOME" . "$XDG_DATA_HOME/zinit/zinit.git")
+                ("FZF_TMUX_OPTS" . "-d 40%")))
              (zshrc
               (list
                (local-file "../files/zshrc")))))))
