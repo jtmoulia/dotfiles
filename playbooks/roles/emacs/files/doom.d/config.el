@@ -51,7 +51,7 @@
 
 ;; style and fonts: looking good, feeling good
 (setq doom-theme 'doom-dracula)
-(setq doom-font (font-spec :family "DejaVu Sans Mono" :size 22))
+(setq doom-font (font-spec :family "DejaVu Sans Mono" :size 13))
 (setq doom-font-increment 1)
 
 ;; Spacemacs style `,' local leader.
