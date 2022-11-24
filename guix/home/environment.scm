@@ -10,12 +10,12 @@
   #:use-module (gnu home)
   #:use-module (gnu home services)
   #:use-module (gnu packages)
-  #:use-module (gnu packages emacs-xyz)
   #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix build-system copy)
   #:use-module ((guix licenses) #:prefix license:)
   ;; personal modules
+  #:use-module (home modules emacs)
   #:use-module (home modules git)
   #:use-module (home modules guile)
   #:use-module (home modules shell))
@@ -32,13 +32,13 @@
 (define term-fu-packages
   (map specification->package
        (list
-        "alacritty"
         "bat"
         "curl"
         "exa"
         "fd"
         "glibc-locales"
         "inetutils"
+        ;; TODO: ispell vs aspell
         "ispell"
         "neovim"
         "nss-certs"
@@ -99,6 +99,7 @@
     ))
  (services
   `(
+    ,@emacs-services
     ,@zsh-services
-    ;; ,@git-services
+    ; ,@git-services
     )))
