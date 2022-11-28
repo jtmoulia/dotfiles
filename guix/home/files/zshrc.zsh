@@ -1,5 +1,3 @@
-# -*- mode: shell-script; -*-
-
 # Appends every command to the history file once it is executed
 setopt inc_append_history
 # Reloads the history whenever you use it
@@ -78,10 +76,7 @@ precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%b '
 PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 
-# Get guix env configured
-GUIX_PROFILE="/home/jtmoulia/.guix-profile"
-. "$GUIX_PROFILE/etc/profile"
-
-# Get flatpak configured to work with the XDG spec
-export XDG_DATA_DIRS="$XDG_DATA_DIRS:/var/lib/flatpak/exports/share"
-export XDG_DATA_DIRS="$XDG_DATA_DIRS:/home/jtmoulia/.local/share/flatpak/exports/share"
+# Get flatpak XDG paths added
+if [ -f "$GUIX_PROFILE/etc/profile.d/flatpak.sh" ]; then
+    source "$GUIX_PROFILE/etc/profile.d/flatpak.sh"
+fi

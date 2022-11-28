@@ -24,13 +24,20 @@
                 ("PAGER" . "less")
                 ("TERM" . "screen-256color")
                 ("LOCAL_PATH" . "$HOME/.local/bin")
-                ("PATH" . "$LOCAL_PATH:$PATH")
-                ("GUIX_LOCPATH" . "$HOME/.guix-home/profile/lib/locale")
+                ("GUIX_PROFILE" . "$HOME/.guix-profile")
+                ("GUIX_HOME" . "$HOME/.guix-home")
+                ("GUIX_LOCPATH" . "$GUIX_HOME/profile/lib/locale")
                 ("GUIX_EXTRA_PROFILES" . "$HOME/.guix-extra-profiles")
                 ("HISTFILE" . "$XDG_DATA_HOME/histfile")
                 ("SAVEHIST" . "10000")
+                ("HISTSIZE" . "10000")
                 ("ZINIT_HOME" . "$XDG_DATA_HOME/zinit/zinit.git")
                 ("FZF_TMUX_OPTS" . "-d 40%")))
+             (zprofile
+              (list (local-file "../files/zprofile.zsh")))
+             (zlogin
+              (list (local-file "../files/zprofile.zsh")))
              (zshrc
               (list
-               (local-file "../files/zshrc")))))))
+               (local-file "../files/zshrc.zsh")
+               (local-file "../files/zprofile.zsh")))))))

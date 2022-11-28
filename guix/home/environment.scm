@@ -69,6 +69,7 @@
         "gnome-tweaks"
         "seahorse"
         "transmission-remote-gtk"
+        "xdg-utils"
         )))
 
 (define home-scripts

@@ -4,7 +4,9 @@
 (use-modules (gnu)
              (gnu packages shells)
              (nongnu packages linux)
-             (nongnu system linux-initrd))
+             (nongnu system linux-initrd)
+             (system0 sync))
+
 (use-service-modules desktop networking ssh xorg)
 
 (define %my-desktop-services
