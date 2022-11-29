@@ -14,8 +14,15 @@
 (package! org-preview-html)
 
 ;; Temporary blacken as it seems to have been removed from python layer
+;; TODO: See if LSP can do the trick
 (package! blacken)
 
 ;; org driven mu4e dashboard
 ;; NOTE: package wasn't in a registry when added
 (package! mu4e-dashboard :recipe (:host github :repo "rougier/mu4e-dashboard"))
+
+;; Helpers for adding / removing guix packages
+(package! guix)
+
+;; slow chats
+(package! mastodon)

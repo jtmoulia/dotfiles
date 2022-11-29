@@ -38,12 +38,14 @@
         "fd"
         "glibc-locales"
         "inetutils"
-        ;; TODO: ispell vs aspell
+        ;; TODO: ispell vs aspell?
         "ispell"
         "neovim"
         "nss-certs"
         "make"
         "ripgrep"
+        ;; NOTE: tealdeer build is broke: https://issues.guix.gnu.org/57867
+        ; "tealdeer"
         "tmux"
         )))
 

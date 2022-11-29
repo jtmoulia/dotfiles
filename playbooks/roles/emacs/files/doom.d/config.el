@@ -42,6 +42,10 @@
 (personal//eval-config-after-load 'web-mode "config/web-mode.el")
 (personal//eval-config-after-load 'deft "config/deft.el")
 
+;; Mastodon config, to refactor out
+(setq mastodon-active-user "jtmoulia")
+(setq mastodon-instance-url "https://mstdn.social")
+
 ;; global keybindings need to be defined at this top level
 ;; Add a global keybinding for opening deft
 (map! :leader :desc "Open deft note search" :n "o n" #'deft)

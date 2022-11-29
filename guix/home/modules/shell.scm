@@ -12,7 +12,9 @@
         "zsh"
         "zsh-autosuggestions"
         "fzf"
-        "zoxide")))
+        ;; NOTE: zoxide build is currently broken
+        ; "zoxide"
+        )))
 
 (define-public zsh-services
   (list

@@ -3,6 +3,7 @@
 
 (define-module (system0 config))
 (use-modules (gnu)
+             (gnu packages)
              (gnu packages shells)
              (nongnu packages linux)
              (nongnu system linux-initrd)
@@ -57,7 +58,7 @@
  (bootloader
   (bootloader-configuration
    (bootloader grub-efi-bootloader)
-   (targets "/boot/efi")
+   (targets '("/boot/efi"))
    (keyboard-layout keyboard-layout)))
  (mapped-devices
   (list (mapped-device
