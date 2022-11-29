@@ -83,7 +83,8 @@
     `(#:install-plan
       '(
         ("reconfigure-home.sh" "bin/reconfigure-home")
-        ("reconfigure-system.sh" "bin/reconfigure-system"))))
+        ("reconfigure-system.sh" "bin/reconfigure-system")
+        ("backup-to-cogmind.sh" "backup-to-cogmind"))))
    (home-page "https://git.sr.ht/~jtmoulia/dotfiles")
    (synopsis "jtmoulia's scripts")
    (description "Some personal scripts for jtmoulia's system config.")

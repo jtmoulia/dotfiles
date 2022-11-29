@@ -1,4 +1,6 @@
-(use-modules (gnu))
+(define-module (vm0 config)
+  #:use-module (gnu))
+
 (use-service-modules networking ssh)
 (use-package-modules bootloaders ssh)
 

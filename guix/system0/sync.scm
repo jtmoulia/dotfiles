@@ -12,4 +12,4 @@
 (define-public sync-services
   (list
    (service syncthing-service-type
-            (syncthing-configuration))))
+            (syncthing-configuration (user "jtmoulia")))))

@@ -1,19 +1,23 @@
 ;; This is an operating system configuration generated
 ;; by the graphical installer.
 
+(define-module (system0 config))
 (use-modules (gnu)
              (gnu packages shells)
              (nongnu packages linux)
              (nongnu system linux-initrd)
-             (system0 sync))
+             (system0 sync)
+             (system0 pd))
 
 (use-service-modules desktop networking ssh xorg)
 
 (define %my-desktop-services
-  (modify-services %desktop-services
-                   (elogind-service-type config =>
-                                         (elogind-configuration (inherit config)
-                                                                (handle-lid-switch-external-power 'suspend)))))
+  (modify-services
+   %desktop-services
+   (elogind-service-type config =>
+                         (elogind-configuration
+                          (inherit config)
+                          (handle-lid-switch-external-power 'suspend)))))
 
 (operating-system
  (kernel linux)
@@ -37,6 +41,8 @@
  (packages
   (append
    (list (specification->package "nss-certs"))
+   pd-packages
+   sync-packages
    %base-packages))
  (services
   (append
@@ -44,9 +50,10 @@
          (service openssh-service-type)
          (bluetooth-service)
          (set-xorg-configuration
-          (xorg-configuration
-           (keyboard-layout keyboard-layout))))
-   %desktop-services))
+          (xorg-configuration (keyboard-layout keyboard-layout))))
+   pd-services
+   sync-services
+   %my-desktop-services))
  (bootloader
   (bootloader-configuration
    (bootloader grub-efi-bootloader)

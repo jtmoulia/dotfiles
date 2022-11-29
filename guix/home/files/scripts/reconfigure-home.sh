@@ -1,8 +1,9 @@
 #!/usr/bin/env sh
 
-GUIX_DIR="$HOME/.dotfiles/guix"
-ENV_FILE="$GUIX_DIR/home/environment.scm"
+DOTFILES="${DOTFILES:-"$HOME/.dotfiles"}"
+GUIX_HOME_LOAD_PATH="${GUIX_HOME_LOAD_PATH:-"$DOTFILES/guix"}"
+GUIX_HOME_CONFIG="${GUIX_HOME_CONFIG:-"$GUIX_HOME_LOAD_PATH/home/environment.scm"}"
 
-# need to use this to prepend to the load path.
-GUILE_LOAD_PATH="$GUILE_LOAD_PATH:$GUIX_DIR" \
-    guix home reconfigure $@ $ENV_FILE
+guix home reconfigure \
+    --load-path="$GUIX_HOME_LOAD_PATH" \
+    $@ "$GUIX_HOME_CONFIG"
