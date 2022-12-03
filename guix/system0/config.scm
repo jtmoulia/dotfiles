@@ -70,7 +70,7 @@
 
 (operating-system
  (kernel linux)
- (kernel-arguments (append (list "mem_sleep_default-deep" "nvme.noacpi=1")
+ (kernel-arguments (append (list "mem_sleep_default=deep" "nvme.noacpi=1")
                            %default-kernel-arguments))
  (initrd microcode-initrd)
  (firmware (list linux-firmware))
