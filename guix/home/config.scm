@@ -9,6 +9,8 @@
 (define-module (home config)
   #:use-module (gnu home)
   #:use-module (gnu home services)
+  ;; for dbus
+  #:use-module (gnu home services desktop)
   #:use-module (gnu packages)
   #:use-module (guix gexp)
   #:use-module (guix packages)
@@ -64,8 +66,11 @@
         "firefox-wayland"
         "flatpak"
         "transmission-remote-gtk"
-        "xdg-utils"
         )))
+
+(define my-services
+  (list
+   (service home-dbus-service-type)))
 
 (define home-scripts
   (package
@@ -98,6 +103,7 @@
     ))
  (services
   `(
+    ,@my-services
     ,@emacs-services
     ,@sway-services
     ,@tmux-services
