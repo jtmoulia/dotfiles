@@ -35,20 +35,25 @@
 (define term-fu-packages
   (map specification->package
        (list
+        ;; an oxidized pager
         "bat"
         "curl"
+        ;; an oxidized ls
         "exa"
+        ;; an oxidized find
         "fd"
         "glibc-locales"
-        "inetutils"
         ;; TODO: ispell vs aspell?
         "ispell"
+        ;; system description utility (for fashion)
+        "neofetch"
         "neovim"
-        "nss-certs"
         "make"
+        ;; an oxidized grep
         "ripgrep"
+        ;; an oxidized tldr
         ;; NOTE: tealdeer build is broke: https://issues.guix.gnu.org/57867
-        ; "tealdeer"
+        ;; "tealdeer"
         )))
 
 
