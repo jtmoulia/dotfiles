@@ -11,7 +11,7 @@
        (list
         "foot"
         "sway"
-        "wofi")))
+        "rofi-wayland")))
 
 (define-public sway-services
   (list
@@ -22,4 +22,5 @@
                    home-xdg-configuration-files-service-type
                    `(("sway/config" ,(local-file "../files/sway/config"))
                      ("sway/status.sh" ,(local-file "../files/sway/status.sh"))
+                     ("sway/tree-switcher.sh" ,(local-file "../files/sway/tree-switcher.sh"))
                      ("foot/foot.ini" ,(local-file "../files/foot/foot.ini"))))))
