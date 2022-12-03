@@ -79,7 +79,8 @@ output eDP-1 scale 1.5
     # S-x run command
     bindsym $mod+x exec $menu
     # S-X run application
-    bindsym $mod+Shift+x exec rofi -show drun | xargs swaymsg exec --
+    # NOTE: This includes a flatpak dir which isn't normally there
+    bindsym $mod+Shift+x exec XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$XDG_DATA_DIRS" rofi -show drun | xargs swaymsg exec --
     # S-b Window switcher
     bindsym $mod+b exec bash ~/.config/sway/tree-switcher.sh
 
