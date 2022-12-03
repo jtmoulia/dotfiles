@@ -43,6 +43,8 @@
         ;; an oxidized find
         "fd"
         "glibc-locales"
+        ;; monitor processes
+        "htop"
         ;; TODO: ispell vs aspell?
         "ispell"
         ;; system description utility (for fashion)
