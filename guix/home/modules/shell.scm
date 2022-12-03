@@ -6,14 +6,24 @@
   #:use-module (gnu home services)
   #:use-module (gnu home services shells))
 
+(define-public tmux-packages
+  (map specification->package
+       (list
+        "tmux")))
+
+(define-public tmux-services
+  (list
+   (simple-service 'my-tmux-config-files-service
+                   home-xdg-configuration-files-service-type
+                   `(("tmux/tmux.conf" ,(local-file "../files/tmux/tmux.conf"))))))
+
 (define-public zsh-packages
   (map specification->package
        (list
         "zsh"
         "zsh-autosuggestions"
         "fzf"
-        ;; NOTE: zoxide build is currently broken
-        ; "zoxide"
+        "zoxide"
         )))
 
 (define-public zsh-services

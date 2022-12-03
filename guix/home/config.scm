@@ -1,4 +1,4 @@
-;; This "home-environment" file can be passed to 'guix home reconfigure'
+;; This "home-config" file can be passed to 'guix home reconfigure'
 ;; to reproduce the content of your profile.  This is "symbolic": it only
 ;; specifies package names.  To reproduce the exact same profile, you also
 ;; need to capture the channels being used, as returned by "guix describe".
@@ -6,7 +6,7 @@
 ;;
 ;; (set! %load-path (cons (getcwd) %load-path))
 
-(define-module (home environment)
+(define-module (home config)
   #:use-module (gnu home)
   #:use-module (gnu home services)
   #:use-module (gnu packages)
@@ -18,7 +18,8 @@
   #:use-module (home modules emacs)
   #:use-module (home modules git)
   #:use-module (home modules guile)
-  #:use-module (home modules shell))
+  #:use-module (home modules shell)
+  #:use-module (home modules wm))
 
 (define base-packages
   (map specification->package
@@ -46,7 +47,6 @@
         "ripgrep"
         ;; NOTE: tealdeer build is broke: https://issues.guix.gnu.org/57867
         ; "tealdeer"
-        "tmux"
         )))
 
 
@@ -61,15 +61,8 @@
   (map specification->package
        (list
         "bluez"
-        "evince"
-        "evolution"
-        "evolution-data-server"
         "firefox-wayland"
         "flatpak"
-        "gnome"
-        "gnome-keyring"
-        "gnome-tweaks"
-        "seahorse"
         "transmission-remote-gtk"
         "xdg-utils"
         )))
@@ -95,15 +88,19 @@
 (home-environment
  (packages
   `(,@base-packages
-    ,@term-fu-packages
-    ,@zsh-packages
     ,@font-packages
+    ,@sway-packages
+    ,@term-fu-packages
+    ,@tmux-packages
+    ,@zsh-packages
     ; ,@git-packages
     ,home-scripts
     ))
  (services
   `(
     ,@emacs-services
+    ,@sway-services
+    ,@tmux-services
     ,@zsh-services
     ; ,@git-services
     )))
