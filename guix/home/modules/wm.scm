@@ -25,4 +25,5 @@
                    `(("sway/config" ,(local-file "../files/sway/config"))
                      ("sway/status.sh" ,(local-file "../files/sway/status.sh"))
                      ("sway/tree-switcher.sh" ,(local-file "../files/sway/tree-switcher.sh"))
+                     ("sway/focus-or-start.sh" ,(local-file "../files/sway/focus-or-start.sh"))
                      ("foot/foot.ini" ,(local-file "../files/foot/foot.ini"))))))

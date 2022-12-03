@@ -26,7 +26,7 @@ set $menu rofi -show run | xargs swaymsg exec --
 #
 # Wallpaper:
 # Pillars of Creation (syncthing Wallpapers is sync'd to `.config/wallpapers`)
-output * bg /home/jtmoulia/.config/wallpapers/pillars-of-creation.png fit #000000
+output * bg ~/.config/wallpapers/pillars-of-creation.png fit #000000
 
 #
 # Example configuration:
@@ -210,6 +210,21 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #
+# Application focus or starters
+#
+set $focus-or-start exec bash ~/.config/sway/focus-or-start.sh
+mode "focus-or-start" {
+    bindsym e $focus-or-start emacs-29.0.50; mode "default"
+    bindsym f $focus-or-start firefox; mode "default"
+    bindsym t $focus-or-start foot; mode "default"
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+o mode "focus-or-start"
+
+#
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
@@ -227,5 +242,5 @@ bar {
     }
 }
 
-# TODO: Can I use HOME for this reference?
-# include /home/jtmoulia/.config/sway/config.d/*
+# TODO: refactor out config to modular files and use config.d pattern
+# include ~/.config/sway/config.d/*
