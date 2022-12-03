@@ -24,8 +24,10 @@ set $menu wofi --show run | xargs swaymsg exec --
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
-# output * bg @datadir@/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# Wallpaper:
+# Pillars of Creation (syncthing Wallpapers is sync'd to `.config/wallpapers`)
+output * bg /home/jtmoulia/.config/wallpapers/pillars-of-creation.png fit #000000
+
 #
 # Example configuration:
 #
@@ -209,7 +211,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%m-%d-%y %I:%M%p'; do sleep 1; done
+    status_command while bash ~/.config/sway/status.sh; do sleep 1; done
 
     colors {
         statusline #ffffff

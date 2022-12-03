@@ -21,4 +21,5 @@
    (simple-service 'my-sway-config-files-service
                    home-xdg-configuration-files-service-type
                    `(("sway/config" ,(local-file "../files/sway/config"))
+                     ("sway/status.sh" ,(local-file "../files/sway/status.sh"))
                      ("foot/foot.ini" ,(local-file "../files/foot/foot.ini"))))))
