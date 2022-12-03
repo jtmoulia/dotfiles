@@ -7,6 +7,7 @@
              (gnu packages shells)
              (nongnu packages linux)
              (nongnu system linux-initrd)
+             (system0 autofs)
              (system0 sync)
              (system0 pd))
 
@@ -88,7 +89,8 @@
                %base-user-accounts))
  (packages
   (append
-   (list (specification->package "nss-certs"))
+   (list (specification->package "nss-certs")
+         )
    sway-packages
    pd-packages
    sync-packages
@@ -98,6 +100,7 @@
    (list
     greetd-service
     (service openssh-service-type)
+    (service automount-service-type)
     (bluetooth-service)
     (set-xorg-configuration
      (xorg-configuration (keyboard-layout keyboard-layout))))
