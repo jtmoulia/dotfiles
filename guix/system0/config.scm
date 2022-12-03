@@ -12,13 +12,60 @@
 
 (use-service-modules desktop networking ssh xorg)
 
+(define sway-packages
+  (map
+   specification->package
+   (list "sway")))
+
 (define %my-desktop-services
   (modify-services
    %desktop-services
+   (delete login-service-type)
+   (delete mingetty-service-type)
    (elogind-service-type config =>
                          (elogind-configuration
                           (inherit config)
                           (handle-lid-switch-external-power 'suspend)))))
+
+(define greetd-service
+  (service greetd-service-type
+           (greetd-configuration
+            (terminals
+             (list
+              (greetd-terminal-configuration
+               (terminal-vt "1")
+               (terminal-switch #t)
+               (default-session-command
+                 (greetd-agreety-session (command (file-append zsh "/bin/zsh")))))
+
+              ;; (greetd-terminal-configuration
+              ;;  (terminal-vt "2")
+              ;;  (default-session-command
+              ;;    (greetd-wlgreet-session)))
+              (greetd-terminal-configuration
+               (terminal-vt "2")
+               (default-session-command
+                 (greetd-agreety-session (command (file-append zsh "/bin/zsh")))))
+
+              (greetd-terminal-configuration
+               (terminal-vt "3")
+               (default-session-command
+                 (greetd-agreety-session (command (file-append zsh "/bin/zsh")))))
+
+              (greetd-terminal-configuration
+               (terminal-vt "4")
+               (default-session-command
+                 (greetd-agreety-session (command (file-append zsh "/bin/zsh")))))
+
+              (greetd-terminal-configuration
+               (terminal-vt "5")
+               (default-session-command
+                 (greetd-agreety-session (command (file-append zsh "/bin/zsh")))))
+
+              (greetd-terminal-configuration
+               (terminal-vt "6")
+               (default-session-command
+                 (greetd-agreety-session (command (file-append zsh "/bin/zsh"))))))))))
 
 (operating-system
  (kernel linux)
@@ -42,16 +89,18 @@
  (packages
   (append
    (list (specification->package "nss-certs"))
+   sway-packages
    pd-packages
    sync-packages
    %base-packages))
  (services
   (append
-   (list (service gnome-desktop-service-type)
-         (service openssh-service-type)
-         (bluetooth-service)
-         (set-xorg-configuration
-          (xorg-configuration (keyboard-layout keyboard-layout))))
+   (list
+    greetd-service
+    (service openssh-service-type)
+    (bluetooth-service)
+    (set-xorg-configuration
+     (xorg-configuration (keyboard-layout keyboard-layout))))
    pd-services
    sync-services
    %my-desktop-services))
