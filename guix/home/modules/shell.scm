@@ -20,10 +20,19 @@
 (define-public zsh-packages
   (map specification->package
        (list
-        "zsh"
-        "zsh-autosuggestions"
+        ;; NOTE: fortunes aren't working
+        ;; "fortunes-jkirchartz"
+        ;; "daikichi"
+        ;; terminal fuzzy finder
         "fzf"
+        ;; GPG and SSH agent sharing
+        "keychain"
+        ;; oxidized implementation of z for switching dirs
         "zoxide"
+        ;; ZSH itself
+        "zsh"
+        ;; autosuggestions for ZSH
+        "zsh-autosuggestions"
         )))
 
 (define-public zsh-services
