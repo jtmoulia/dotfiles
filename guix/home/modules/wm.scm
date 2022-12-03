@@ -10,6 +10,8 @@
   (map specification->package
        (list
         "foot"
+        ;; grimshot for taking screenshots
+        "grimshot"
         "sway"
         "rofi-wayland")))
 
