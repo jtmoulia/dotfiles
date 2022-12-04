@@ -23,6 +23,7 @@ volume_line="$(pamixer --get-volume-human)"
 
 # Current network connection
 wifi_essid="$(nmcli device show "$WIFI_NETWORK_DEVICE" | grep GENERAL.CONNECTION | awk '{ print $2 }')"
+wifi_state="$(nmcli device show "$WIFI_NETWORK_DEVICE" | grep GENERAL.STATE | awk -F ": " '{ print $2 }' | xargs)"
 
 # Emojis and characters for the status bar
-echo "🐂 $whoiam ⬆ $upclock ☁️ $wifi_essid 🤖 $volume_line ⚡ $battery_line 🕘 $date_formatted"
+echo "🐂 $whoiam (${upclock} up) ️📶 ${wifi_essid}: $wifi_state 🔊 $volume_line ⚡ $battery_line 🕘 $date_formatted"
