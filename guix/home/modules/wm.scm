@@ -13,6 +13,7 @@
         ;; grimshot for taking screenshots
         "grimshot"
         "sway"
+        "swayr"
         "rofi-wayland")))
 
 (define-public sway-services

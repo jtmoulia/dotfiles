@@ -27,7 +27,7 @@ set $menu rofi -show run | xargs swaymsg exec --
 #
 # Wallpaper:
 # Pillars of Creation (syncthing Wallpapers is sync'd to `.config/wallpapers`)
-output * bg ~/.config/wallpapers/pillars-of-creation.png fit #000000
+output * background ~/.config/wallpapers/pillars-of-creation.png fit #000000
 
 #
 # Example configuration:
@@ -68,12 +68,6 @@ output eDP-1 scale 1.5
 ### Key bindings
 #
 # Basics:
-#
-# Kill focused window
-bindsym $mod+Shift+q kill
-
-# Start your launcher
-bindsym $mod+d exec $menu
 
 # S-x run command
 bindsym $mod+x exec $menu
@@ -81,8 +75,9 @@ bindsym $mod+x exec $menu
 # S-X run application
 # NOTE: This includes a flatpak dir which isn't normally there
 bindsym $mod+Shift+x exec XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$XDG_DATA_DIRS" rofi -show drun | xargs swaymsg exec --
-# S-b Window switcher
-bindsym $mod+b exec bash ~/.config/sway/tree-switcher.sh
+
+# S-b or $mod+space Window switcher
+bindsym $mod+space exec bash ~/.config/sway/tree-switcher.sh
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -96,6 +91,13 @@ bindsym $mod+Shift+c reload
 
 # Exit sway (logs you out of your Wayland session)
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+#
+# Global fn buttons
+#
+# Volume controls:
+bindsym XF86AudioRaiseVolume exec pamixer --increase 5
+bindsym XF86AudioLowerVolume exec pamixer --decrease 5
 
 #
 # Moving around:
@@ -121,6 +123,7 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
+
 # Resizing containers:
 #
 mode "resize" {
@@ -161,6 +164,21 @@ mode "focus-or-start" {
     bindsym Escape mode "default"
 }
 bindsym $mod+o mode "focus-or-start"
+
+#
+# Buffer commands
+#
+mode "buffers" {
+    # tree-switcher (like emacs buffer switcher)
+    bindsym b exec bash ~/.config/sway/tree-switcher.sh; mode "default"
+    # Kill focused window
+    bindsym d kill; mode "default"
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+b mode "buffers"
 
 #
 # Window commands
@@ -252,7 +270,7 @@ mode "workspaces" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Shift+w mode "workspaces"
+bindsym $mod+Tab mode "workspaces"
 
 #
 # Status Bar:
