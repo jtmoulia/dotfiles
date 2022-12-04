@@ -55,7 +55,15 @@ window#waybar:first-child > box {
     font-family: "DejaVu Sans Mono", "Noto Emoji", monospace;
 }
 
-#battery,#network,#clock,#cpu,#pulseaudio,#backlight,#memory {
+#battery,
+#network,
+#clock,
+#cpu,
+#pulseaudio,
+#backlight,
+#memory,
+#custom-hostname,
+#custom-uptime {
     background-color: transparent;
     padding: 0px 8px 0px 8px;
     font-family: "DejaVu Sans Mono", "Noto Emoji", monospace;

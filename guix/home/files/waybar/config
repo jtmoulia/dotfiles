@@ -1,9 +1,15 @@
+// -*- mode: json -*-
+
 [{
     "output": "eDP-1",
-    "modules-left": ["sway/workspaces",
-                     "sway/window"],
+    "modules-left": [
+        "sway/workspaces",
+        "sway/window",
+    ],
     "modules-center": [],
     "modules-right": [
+        "custom/hostname",
+        "custom/uptime",
         "cpu",
         "memory",
         "backlight",
@@ -11,7 +17,7 @@
         "network#1",
         "battery",
         "clock",
-        "tray"
+        "tray",
     ],
 
     "sway/workspaces": {
@@ -32,17 +38,16 @@
             "4": "🕘",
             "focused": "",
             "urgent": "",
-            "default": ""
+            "default": "",
         },
-
     },
     "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
+        "format": "<span style=\"italic\">{}</span>",
     },
 
     "sway/window": {
         "format": "<span color=\"#50fa7b\">λ</span> {}",
-        "max-length": 80
+        "max-length": 48,
     },
 
     "network#1": {
@@ -51,10 +56,10 @@
         "format-wifi": "<span color=\"#50fa7b\">📶</span> {essid}-{ipaddr}",
         "format-ethernet": "<span color=\"#50fa7b\">🔌</span> {ipaddr}",
         "format-disconnected": "<span color=\"#50fa7b\">:</span> {essid}-{ipaddr}",
-        "format-disconnected": "", //An empty format will hide the module.
+        "format-disconnected": "", // An empty format will hide the module.
         "tooltip-format": "{ifname}",
         "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
-        "tooltip-format-disconnected": "Disconnected"
+        "tooltip-format-disconnected": "Disconnected",
     },
 
     "battery": {
@@ -62,10 +67,10 @@
         "interval": 60,
         "states": {
             "warning": 30,
-            "critical": 15
+            "critical": 15,
         },
         "format": "<span color=\"#50fa7b\">{icon}</span> {capacity}%",
-        "format-time": "{H}h {M}m",
+        "format-time": "{H}h{M}m",
         "format-not charging": "<span color=\"#50fa7b\">{icon}</span>",
         "format-discharging": "<span color=\"#50fa7b\">{icon}</span> {capacity}% 🔻 {time}",
         "format-charging": "<span color=\"#50fa7b\">{icon}</span> {capacity}% 🔺 {time}",
@@ -78,12 +83,12 @@
         "format": "<span color=\"#50fa7b\">{icon}</span> {percent}%",
         "format-icons": ["🌕", "🌔", "🌓", "🌒", "🌑"],
         "on-scroll-down": "brightnessctl -c backlight set 5%-",
-        "on-scroll-up": "brightnessctl -c backlight set +5%"
+        "on-scroll-up": "brightnessctl -c backlight set +5%",
     },
 
     "clock": {
         "timezone": "America/Los_Angeles",
-        "format": "<span color=\"#50fa7b\">⏰</span> {:%H:%M %m-%y-%d}"
+        "format": "<span color=\"#50fa7b\">⏰</span> {:%H:%M %m-%d-%y}",
     },
 
     "pulseaudio": {
@@ -99,17 +104,27 @@
     "cpu": {
         "interval": 10,
         "format": "<span color=\"#50fa7b\">🔥</span> {usage}%",
-        "max-length": 100
     },
 
     "memory": {
         "interval": 30,
         "format": "<span color=\"#50fa7b\"></span> {}%",
-        "max-length": 10
     },
 
     "tray": {
         "icon-size": 14,
-        "spacing": 8
-    }
+        "spacing": 8,
+    },
+
+    "custom/hostname": {
+        "format": "<span color=\"#50fa7b\">🐂</span> {}",
+        "interval": 3600,
+        "exec": "echo -n \"$(whoami)@$(hostname)\n$(uname -a)\"",
+    },
+
+    "custom/uptime": {
+        "format": "<span color=\"#50fa7b\">⚙</span> {} up",
+        "interval": 60,
+        "exec": "echo -n \"$(uptime | awk '{ print $3 }' | sed -e s/,/m/ -e s/:/h/)\n$(guix describe | grep Generation | sed -E 's/\\s+\\(current\\)$')\"",
+    },
 }]
