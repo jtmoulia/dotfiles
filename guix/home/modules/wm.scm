@@ -15,9 +15,10 @@
         "grimshot"
         "libnotify"
         "mako"
+        "rofi-wayland"
         "sway"
         "swayr"
-        "rofi-wayland")))
+        "wl-clipboard")))
 
 (define-public sway-services
   (list
