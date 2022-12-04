@@ -26,7 +26,8 @@
 (define audio-packages
   (map specification->package
        (list
-        "pamixer")))
+        "pamixer"
+        "playerctl")))
 
 (define base-packages
   (map specification->package

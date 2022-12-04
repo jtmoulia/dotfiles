@@ -9,9 +9,12 @@
 (define-public sway-packages
   (map specification->package
        (list
+        "brightnessctl"
         "foot"
         ;; grimshot for taking screenshots
         "grimshot"
+        "libnotify"
+        "mako"
         "sway"
         "swayr"
         "rofi-wayland")))
