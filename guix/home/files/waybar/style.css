@@ -15,13 +15,8 @@ window#waybar {
 }
 
 window#waybar:first-child > box {
-    /*margin: 4px;
-    padding: 0px 4px 0px 4px;
-    border-radius: 10px 10px ;*/
     background-color: #282a36 ;
     color: #f8f8f2;
-    /*border-bottom: 1px solid #bd93f9;
-    border-top: 1px solid #50fa7b;*/
 
 }
 
@@ -40,7 +35,6 @@ window#waybar:first-child > box {
 
 #workspaces button:hover {
     background-color: #ff5555;
-    /* color: #ff5555; */
 }
 
 #workspaces button.focused {
@@ -59,7 +53,6 @@ window#waybar:first-child > box {
     background-color: transparent;
     padding: 0px 0px 0px 8px;
     font-family: "DejaVu Sans Mono", "Noto Emoji", monospace;
-    /*	border-left: 1px solid #50fa7b;*/
 }
 
 #battery,#network,#clock,#cpu,#pulseaudio,#backlight,#memory {
@@ -71,4 +64,5 @@ window#waybar:first-child > box {
 
 #tray {
     margin-right: 8px;
+    margin-left: 8px;
 }

@@ -46,15 +46,13 @@
     },
 
     "network#1": {
-
         "interface": "wlp0s20f3",
         "format": "<span color=\"#50fa7b\">🌩</span> {ifname}",
         "format-wifi": "<span color=\"#50fa7b\">📶</span> {essid}-{ipaddr}",
         "format-ethernet": "<span color=\"#50fa7b\">🔌</span> {ipaddr}",
         "format-disconnected": "<span color=\"#50fa7b\">:</span> {essid}-{ipaddr}",
-
         "format-disconnected": "", //An empty format will hide the module.
-            "tooltip-format": "{ifname}",
+        "tooltip-format": "{ifname}",
         "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
         "tooltip-format-disconnected": "Disconnected"
     },
@@ -67,6 +65,9 @@
             "critical": 15
         },
         "format": "<span color=\"#50fa7b\">{icon}</span> {capacity}%",
+        "format-time": "{H}h {M}m",
+        "format-not charging": "<span color=\"#50fa7b\">{icon}</span>",
+        "format-discharging": "<span color=\"#50fa7b\">{icon}</span> {capacity}% {time}",
         "format-icons":["", "", "", "", ""],
     },
 
@@ -80,19 +81,16 @@
     },
 
     "clock": {
-
         "timezone": "America/Los_Angeles",
-        "format": "<span color=\"#50fa7b\">⏰</span> {:%H:%M %m-%y-%d}</span>",
+        "format": "<span color=\"#50fa7b\">⏰</span> {:%H:%M %m-%y-%d}"
     },
 
     "pulseaudio": {
-
-        "format": "<span color=\"#50fa7b\">{icon}🔊</span> {volume:2}%",
-        "format-bluetooth": "{icon} {volume}%",
-        "format-muted": "<span color=\"#ff8080\">{icon}🔇</span> {volume:2}%",
-        "format-icons": {
-        },
-        "scroll-step": 1,
+        "format": "<span color=\"#50fa7b\">🔊</span> {volume:2}%",
+        "format-bluetooth": "<span color=\"#50fa7b\">🔊</span> {volume:2}% ",
+        "format-muted": "<span color=\"#ff8080\">🔇</span> {volume:2}%",
+        "format-icons": {},
+        "scroll-step": 5,
         "on-click": "pamixer -t",
         "on-click-right": "pavucontrol"
     },
@@ -110,7 +108,7 @@
     },
 
     "tray": {
-        "icon-size": 16,
-        "spacing": 4
+        "icon-size": 14,
+        "spacing": 8
     }
 }]
