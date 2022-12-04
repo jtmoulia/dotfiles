@@ -119,9 +119,9 @@
         "format-off":  "<span color=\"#6272a4\"></span>",
         "format-connected": "<span color=\"#50fa7b\"></span>",
         "format-disabled": "<span color=\"#6272a4\"></span>",
-        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n{num_connections} connected",
         "tooltip-format-off": "Bluetooth Disabled",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n{num_connections} connected\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
     },
@@ -144,8 +144,9 @@
     },
 
     "custom/uptime": {
-        "format": "<span color=\"#50fa7b\">⚙</span> {} up",
+        "format": "<span color=\"#50fa7b\">⚙</span> {}",
         "interval": 60,
-        "exec": "echo -n \"$(uptime | awk '{ print $3 }' | sed -e s/,/m/ -e s/:/h/)\nGuix $(guix describe | grep Generation | sed -E 's/\\s+\\(current\\)$//')\"",
+        "exec": "echo -n \"$(uptime | rg '(up\\s.*,)\\s+\\d+\\susers' -or '$1' | sed -E -e 's/\\sdays?\\s+/d/' -e 's/,/m/' -e 's/:/h/')\nGuix $(guix describe | grep Generation | sed -E -e 's/\\s+\\(current\\)$//' -e 's/\\s\\s+/, /')\"",
+
     },
 }]
