@@ -43,6 +43,7 @@
                      ("sway/status.sh" ,(local-file "../files/sway/status.sh"))
                      ("sway/tree-switcher.sh" ,(local-file "../files/sway/tree-switcher.sh"))
                      ("sway/focus-or-start.sh" ,(local-file "../files/sway/focus-or-start.sh"))
+                     ("sway/bluetooth-toggle.sh" ,(local-file "../files/sway/bluetooth-toggle.sh"))
                      ("waybar/config" ,(local-file "../files/waybar/config"))
                      ("waybar/style.css" ,(local-file "../files/waybar/style.css"))
                      ("foot/foot.ini" ,(local-file "../files/foot/foot.ini"))))))

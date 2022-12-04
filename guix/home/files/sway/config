@@ -182,6 +182,20 @@ mode "focus-or-start" {
 bindsym $mod+o mode "focus-or-start"
 
 #
+# Toggles
+#
+mode "toggles" {
+    # Turn bluetooth on or off
+    bindsym b exec bash ~/.config/sway/bluetooth-toggle.sh; mode "default"
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym Control_L+g mode "default"
+}
+bindsym $mod+z mode "toggles"
+
+#
 # Buffer commands
 #
 mode "buffers" {
