@@ -103,7 +103,8 @@ bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-bindsym Print exec grimshot --notify save screen "$HOME/Pictures/screenshot-$(date -u --rfc-3339=seconds).png"
+bindsym print exec grimshot --notify save screen "$HOME/Pictures/screenshot-$(date -u --rfc-3339=seconds).png"
+bindsym Shift+print exec grimshot --notify save active "$HOME/Pictures/screenshot-$(date -u --rfc-3339=seconds).png"
 
 #
 # Moving around:
