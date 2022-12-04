@@ -67,7 +67,8 @@
         "format": "<span color=\"#50fa7b\">{icon}</span> {capacity}%",
         "format-time": "{H}h {M}m",
         "format-not charging": "<span color=\"#50fa7b\">{icon}</span>",
-        "format-discharging": "<span color=\"#50fa7b\">{icon}</span> {capacity}% {time}",
+        "format-discharging": "<span color=\"#50fa7b\">{icon}</span> {capacity}% 🔺 {time}",
+        "format-charging": "<span color=\"#50fa7b\">{icon}</span> {capacity}% 🔻 {time}",
         "format-icons":["", "", "", "", ""],
     },
 
