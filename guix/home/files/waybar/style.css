@@ -4,15 +4,16 @@
 */
 
 * {
-    font-size:17px;
-    font-family: Input Nerd Font ;
-    border-color:transparent;
+    font-size: 12px;
+    font-family: "DejaVu Sans Mono", "Noto Emoji", monospace;
+    border-color: transparent;
     text-shadow:  2px 2px 0px #000000;
 }
 
 window#waybar {
     background-color: transparent;
 }
+
 window#waybar:first-child > box {
     /*margin: 4px;
     padding: 0px 4px 0px 4px;
@@ -26,20 +27,20 @@ window#waybar:first-child > box {
 
 #workspaces {
     padding: 0 4px 0 4px;
+    color: #bd93f9;
     font-size: 17px;
 }
 
 #workspaces button {
     padding: 0 4px 0 4px;
-    background-color: transparent ;
-    color: #f8f8f2;
     margin-bottom:2px;
     margin-top:2px;
+    color: #bd93f9;
 }
 
 #workspaces button:hover {
-    border-color: transparent;
-    color: #ff5555;
+    background-color: #ff5555;
+    /* color: #ff5555; */
 }
 
 #workspaces button.focused {
@@ -47,50 +48,27 @@ window#waybar:first-child > box {
 }
 
 #workspaces button:active {
-    color: #bd93f9;
-    background: transparent;
+    color: #50fa7b;
 }
 
 #workspaces button.urgent {
     color: #ff8080;
 }
+
 #window {
     background-color: transparent;
     padding: 0px 0px 0px 8px;
-    font-family: Input Nerd Font;
+    font-family: "DejaVu Sans Mono", "Noto Emoji", monospace;
     /*	border-left: 1px solid #50fa7b;*/
 }
-#battery {
+
+#battery,#network,#clock,#cpu,#pulseaudio,#backlight,#memory {
     background-color: transparent;
     padding: 0px 8px 0px 8px;
-    font-family: Input Nerd Font;
+    font-family: "DejaVu Sans Mono", "Noto Emoji", monospace;
+    color: #bd93f9;
 }
-#network {
-    padding: 0px 8px 0px 8px;
-    font-family: Input Nerd Font;
-}
-#clock {
-    padding: 0px 8px 0px 8px;
-    color: #50fa7b;
-    font-family: Input Nerd Font;
-}
-#pulseaudio {
-    padding: 0px 8px 0px 8px;
-    font-family: Input Nerd Font;
-}
-#pulseaudio.muted {
-    padding: 0px 8px 0px 8px;
-}
-#backlight {
-    padding: 0px 8px 0px 8px;
-    font-family: Input Nerd Font;
-}
-#memory{
-    padding: 0px 8px 0px 8px;
-}
-#cpu{
-    padding: 0px 8px 0px 8px;
-}
-#custom-ddcutil {
-    padding: 0px 8px 0px 8px;
+
+#tray {
+    margin-right: 8px;
 }

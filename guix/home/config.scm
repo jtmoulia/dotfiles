@@ -27,6 +27,7 @@
   (map specification->package
        (list
         "pamixer"
+        "pavucontrol"
         "playerctl")))
 
 (define base-packages

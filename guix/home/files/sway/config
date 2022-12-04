@@ -24,7 +24,7 @@ set $term foot
 set $menu rofi -show run | xargs swaymsg exec --
 
 # Set font and backup emoji for title bars
-set $font "DejaVu Sans Mono" 10, "Noto Sans Emoji" 10
+set $font "DejaVu Sans Mono" 10, "Noto Emoji" 10
 font $font
 
 ### Output configuration
@@ -262,25 +262,12 @@ mode "workspaces" {
     bindsym 2 workspace number 2; mode "default"
     bindsym 3 workspace number 3; mode "default"
     bindsym 4 workspace number 4; mode "default"
-    bindsym 5 workspace number 5; mode "default"
-    bindsym 6 workspace number 6; mode "default"
-    bindsym 7 workspace number 7; mode "default"
-    bindsym 8 workspace number 8; mode "default"
-    bindsym 9 workspace number 9; mode "default"
-    bindsym 0 workspace number 10; mode "default"
     # Move focused container to workspace
     bindsym Shift+1 move container to workspace number 1; mode "default"
     bindsym Shift+2 move container to workspace number 2; mode "default"
     bindsym Shift+3 move container to workspace number 3; mode "default"
     bindsym Shift+4 move container to workspace number 4; mode "default"
-    bindsym Shift+5 move container to workspace number 5; mode "default"
-    bindsym Shift+6 move container to workspace number 6; mode "default"
-    bindsym Shift+7 move container to workspace number 7; mode "default"
-    bindsym Shift+8 move container to workspace number 8; mode "default"
-    bindsym Shift+9 move container to workspace number 9; mode "default"
-    bindsym Shift+0 move container to workspace number 10; mode "default"
     # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
 
     # Return to default mode
     bindsym Return mode "default"
@@ -289,25 +276,8 @@ mode "workspaces" {
 bindsym $mod+Tab mode "workspaces"
 
 #
-# Status Bar:
+# Status Bar: waybar
 #
-# Read `man 5 sway-bar` for more information about this section.
-# bar {
-#     position top
-
-#     # When the status_command prints a new line to stdout, swaybar updates.
-#     status_command while bash ~/.config/sway/status.sh; do sleep 1; done
-
-#     # Set font and backup emoji for title bars
-#     font "DejaVu Sans Mono" 10, "Noto Sans Emoji" 10
-
-#     colors {
-#         # Some dracula colors: https://draculatheme.com/contribute
-#         statusline #f8f8f2
-#         background #282a36
-#         inactive_workspace #ff5555 #ffb86c #bd93f9
-#     }
-# }
 bar {
     swaybar_command waybar
 }
