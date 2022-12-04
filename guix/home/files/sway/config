@@ -212,8 +212,8 @@ mode "windows" {
     # Swap focus between the tiling area and the floating area
     bindsym space focus mode_toggle; mode "default"
 
-    # Move focus to the parent container
-    bindsym a focus parent; mode "default"
+    # Move focus to the parent container (stay in window mode)
+    bindsym a focus parent
 
     # Return to default mode
     bindsym Return mode "default"

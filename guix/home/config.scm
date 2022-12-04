@@ -23,6 +23,11 @@
   #:use-module (home modules shell)
   #:use-module (home modules wm))
 
+(define audio-packages
+  (map specification->package
+       (list
+        "pamixer")))
+
 (define base-packages
   (map specification->package
        (list
@@ -99,7 +104,8 @@
 
 (home-environment
  (packages
-  `(,@base-packages
+  `(,@audio-packages
+    ,@base-packages
     ,@font-packages
     ,@sway-packages
     ,@term-fu-packages
