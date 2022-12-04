@@ -8,6 +8,7 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
+
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -68,33 +69,34 @@ output eDP-1 scale 1.5
 #
 # Basics:
 #
-    # Kill focused window
-    bindsym $mod+Shift+q kill
+# Kill focused window
+bindsym $mod+Shift+q kill
 
-    # Start your launcher
-    bindsym $mod+d exec $menu
+# Start your launcher
+bindsym $mod+d exec $menu
 
-    # S-x run command
-    bindsym $mod+x exec $menu
+# S-x run command
+bindsym $mod+x exec $menu
 
-    # S-X run application
-    # NOTE: This includes a flatpak dir which isn't normally there
-    bindsym $mod+Shift+x exec XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$XDG_DATA_DIRS" rofi -show drun | xargs swaymsg exec --
-    # S-b Window switcher
-    bindsym $mod+b exec bash ~/.config/sway/tree-switcher.sh
+# S-X run application
+# NOTE: This includes a flatpak dir which isn't normally there
+bindsym $mod+Shift+x exec XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$XDG_DATA_DIRS" rofi -show drun | xargs swaymsg exec --
+# S-b Window switcher
+bindsym $mod+b exec bash ~/.config/sway/tree-switcher.sh
 
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
-    floating_modifier $mod normal
+# Drag floating windows by holding down $mod and left mouse button.
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating windows.
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
+floating_modifier $mod normal
 
-    # Reload the configuration file
-    bindsym $mod+Shift+c reload
+# Reload the configuration file
+bindsym $mod+Shift+c reload
 
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+# Exit sway (logs you out of your Wayland session)
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
 #
 # Moving around:
 #
@@ -151,6 +153,8 @@ mode "focus-or-start" {
     bindsym e $focus-or-start emacs-29.0.50; mode "default"
     bindsym f $focus-or-start firefox; mode "default"
     bindsym t $focus-or-start foot; mode "default"
+    # bindsym s $focus-or-start foot; mode "default"
+    # bindsym Shift+2 $focus-or-start foot; mode "default"
 
     # Return to default mode
     bindsym Return mode "default"
@@ -162,10 +166,7 @@ bindsym $mod+o mode "focus-or-start"
 # Window commands
 #
 mode "windows" {
-
-#
-# Moving around (stay in mode to make this useful re defualt mode):
-#
+# Moving around (stay in mode to make this useful re default mode):
     # Move your focus around
     bindsym $left focus left
     bindsym $down focus down
@@ -188,10 +189,7 @@ mode "windows" {
     bindsym Shift+Up move up
     bindsym Shift+Right move right
 
-#
 # Layout:
-#
-
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
