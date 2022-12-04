@@ -4,6 +4,7 @@
     "output": "eDP-1",
     "modules-left": [
         "sway/workspaces",
+        "sway/mode",
         "sway/window",
     ],
     "modules-center": [],
@@ -14,9 +15,10 @@
         "memory",
         "backlight",
         "pulseaudio",
-        "network#1",
         "battery",
         "clock",
+        "network#1",
+        "bluetooth",
         "tray",
     ],
 
@@ -42,23 +44,23 @@
         },
     },
     "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>",
+        "format": "<span style=\"italic\" color=\"#ff5555\">{}</span>",
     },
 
     "sway/window": {
         "format": "<span color=\"#50fa7b\">λ</span> {}",
-        "max-length": 48,
+        "max-length": 56,
     },
 
     "network#1": {
         "interface": "wlp0s20f3",
-        "format": "<span color=\"#50fa7b\">🌩</span> {ifname}",
-        "format-wifi": "<span color=\"#50fa7b\">📶</span> {essid}-{ipaddr}",
-        "format-ethernet": "<span color=\"#50fa7b\">🔌</span> {ipaddr}",
-        "format-disconnected": "<span color=\"#50fa7b\">:</span> {essid}-{ipaddr}",
-        "format-disconnected": "", // An empty format will hide the module.
-        "tooltip-format": "{ifname}",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "min-length": 2,
+        "format": "<span color=\"#50fa7b\">🔌</span> {ifname}",
+        "format-wifi": "<span color=\"#50fa7b\"></span>",
+        "format-ethernet": "<span color=\"#50fa7b\">🔌</span>",
+        "format-disconnected": "<span color=\"#ffb86c\"></span>",
+        "tooltip-format": "{ifname}\n{ipaddr}",
+        "tooltip-format-wifi": " {essid}-{ipaddr}\nStrength: {signalStrength}% ",
         "tooltip-format-disconnected": "Disconnected",
     },
 
@@ -72,13 +74,14 @@
         "format": "<span color=\"#50fa7b\">{icon}</span> {capacity}%",
         "format-time": "{H}h{M}m",
         "format-not charging": "<span color=\"#50fa7b\">{icon}</span>",
-        "format-discharging": "<span color=\"#50fa7b\">{icon}</span> {capacity}% 🔻 {time}",
-        "format-charging": "<span color=\"#50fa7b\">{icon}</span> {capacity}% 🔺 {time}",
+        "format-discharging": "<span color=\"#50fa7b\">{icon}</span> {capacity}% <span color=\"#ffb86c\">🔻 {time}</span>",
+        "format-charging": "<span color=\"#50fa7b\">{icon}</span> {capacity}% <span color=\"#ffb86c\">🔺 {time}</span>",
         "format-icons":["", "", "", "", ""],
     },
 
     "backlight": {
         "device": "intel_backlight",
+        "min-length": 4,
         "interval": 2,
         "format": "<span color=\"#50fa7b\">{icon}</span> {percent}%",
         "format-icons": ["🌕", "🌔", "🌓", "🌒", "🌑"],
@@ -92,6 +95,7 @@
     },
 
     "pulseaudio": {
+        "min-length": 4,
         "format": "<span color=\"#50fa7b\">🔊</span> {volume:2}%",
         "format-bluetooth": "<span color=\"#50fa7b\">🔊</span> {volume:2}% ",
         "format-muted": "<span color=\"#ff8080\">🔇</span> {volume:2}%",
@@ -103,11 +107,28 @@
 
     "cpu": {
         "interval": 10,
+        "min-length": 4,
         "format": "<span color=\"#50fa7b\">🔥</span> {usage}%",
+    },
+
+    "bluetooth": {
+        "interval": 10,
+        "min-length": 2,
+        "format": "<span color=\"#50fa7b\"></span>",
+        "format-on": "<span color=\"#50fa7b\"></span>",
+        "format-off":  "<span color=\"#6272a4\"></span>",
+        "format-connected": "<span color=\"#50fa7b\"></span>",
+        "format-disabled": "<span color=\"#6272a4\"></span>",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-off": "Bluetooth Disabled",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
     },
 
     "memory": {
         "interval": 30,
+        "min-width": 8,
         "format": "<span color=\"#50fa7b\"></span> {}%",
     },
 
@@ -125,6 +146,6 @@
     "custom/uptime": {
         "format": "<span color=\"#50fa7b\">⚙</span> {} up",
         "interval": 60,
-        "exec": "echo -n \"$(uptime | awk '{ print $3 }' | sed -e s/,/m/ -e s/:/h/)\n$(guix describe | grep Generation | sed -E 's/\\s+\\(current\\)$')\"",
+        "exec": "echo -n \"$(uptime | awk '{ print $3 }' | sed -e s/,/m/ -e s/:/h/)\nGuix $(guix describe | grep Generation | sed -E 's/\\s+\\(current\\)$//')\"",
     },
 }]

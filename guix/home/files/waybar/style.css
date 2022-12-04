@@ -17,7 +17,6 @@ window#waybar {
 window#waybar:first-child > box {
     background-color: #282a36 ;
     color: #f8f8f2;
-
 }
 
 #workspaces {
@@ -28,8 +27,8 @@ window#waybar:first-child > box {
 
 #workspaces button {
     padding: 0 4px 0 4px;
-    margin-bottom:2px;
-    margin-top:2px;
+    margin-bottom: 2px;
+    margin-top: 2px;
     color: #bd93f9;
 }
 
