@@ -9,26 +9,22 @@
   ;; from rde
   #:use-module (rde gexp)
   #:use-module (gnu home-services emacs)
-  #:use-module (gnu home-services-utils)
-  )
+  #:use-module (gnu home-services-utils))
 
 (define-public emacs-packages
   (map specification->package
        (list
-        "emacs-vertico"
+        ;; for dtache emacs command detaching
+        "dtach"
         "emacs-company"
-        "emacs-evil")))
-
+        "emacs-dracula-theme"
+        "emacs-evil"
+        "emacs-guix"
+        "emacs-vertico")))
 
 (define-public emacs-services
   (list
     (service home-emacs-service-type
              (home-emacs-configuration
-              ;; (package emacs-next-pgtk-treesitter)
               (rebuild-elisp-packages? #t)
-              (elisp-packages emacs-packages)
-              ;; (init-el
-              ;;  (list (slurp-file-like (local-file "../files/init.el"))))
-              ;; (early-init-el
-              ;;  (list (slurp-file-like (local-file "../files/early-init.el")))))
-             ))))
+              (elisp-packages emacs-packages)))))

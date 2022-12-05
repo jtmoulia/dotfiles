@@ -26,3 +26,8 @@
 
 ;; slow chats
 (package! mastodon)
+
+;; detached for dtach'ing commands to be run in the BG
+;; Depends on dtach utility
+;; https://git.sr.ht/~niklaseklund/detached.el
+(package! detached)
