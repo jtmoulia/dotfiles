@@ -39,6 +39,11 @@
         "nss-certs"
         )))
 
+(define utility-packages
+  (map specification->package
+       (list
+        "unzip")))
+
 (define term-fu-packages
   (map specification->package
        (list
@@ -112,6 +117,7 @@
     ,@sway-packages
     ,@term-fu-packages
     ,@tmux-packages
+    ,@utility-packages
     ,@zsh-packages
     ; ,@git-packages
     ,home-scripts
