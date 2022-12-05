@@ -12,16 +12,8 @@
   (let ((path (personal//join-path "~/.doom.d" config)))
     (eval `(after! ,mode (load-file ,path)))))
 
-;; MacOS specific: Add mu4e to load path if the directory exists
-(if (string-equal system-type "darwin")
-    (let ((mu4e-load-path (-> "/opt/homebrew/Cellar/mu/*"
-                              file-expand-wildcards reverse first
-                              file-name-as-directory (concat "share/emacs/site-lisp/mu/mu4e"))))
-      (if (file-directory-p mu4e-load-path)
-          (add-to-list 'load-path mu4e-load-path))))
 
-;; guix: Add mu4e to load path if the directory exists
-
+;; Guix specific mu4e: Add mu4e to load path if the directory exists
 (let ((mu4e-load-path (concat (getenv "GUIX_PROFILE") "/share/emacs/site-lisp/mu4e")))
   (if (file-directory-p mu4e-load-path)
       (add-to-list 'load-path mu4e-load-path)))
@@ -31,6 +23,10 @@
 (after! 'evil-escape
   ;; some heavy modes make the default delay of 0.15s too short
   (setq evil-escape-delay 0.5))
+
+;; MacOS specific mu4e: Add mu4e to load path if the directory exists
+(if (eq system-type 'darwin)
+    (load-file (personal//join-path "~/.doom.d" "config/darwin.el")))
 
 (load-file (personal//join-path "~/.doom.d" "config/text.el"))
 (personal//eval-config-after-load 'ansible "config/ansible.el")
@@ -53,9 +49,14 @@
 ;; Add a global keybinding for listing passwords with ivy
 (map! :leader :desc "List passwords" :n "o l" #'+pass/ivy)
 
+;; Add a global keybinding for evaluating a single line
+; (map! :leader :desc "List passwords" :n "g l" #'+pass/ivy)
+
 ;; style and fonts: looking good, feeling good
 (setq doom-theme 'doom-dracula)
-(setq doom-font (font-spec :family "DejaVu Sans Mono" :size 13))
+(setq doom-font (case system-type
+                  'darwin (font-spec :family "DejaVu Sans Mono" :size 14)
+                  'gnu/linux (font-spec :family "DejaVu Sans Mono" :size 13)))
 (setq doom-font-increment 1)
 
 ;; Spacemacs style `,' local leader.
