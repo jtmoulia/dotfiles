@@ -16,11 +16,23 @@
        (list
         ;; for dtache emacs command detaching
         "dtach"
+        "emacs-alert"
         "emacs-company"
+        "emacs-docker"
         "emacs-dracula-theme"
         "emacs-evil"
+        "emacs-hydra"
         "emacs-guix"
-        "emacs-vertico")))
+        "emacs-org"
+        "emacs-org-modern"
+        "emacs-org-pomodoro"
+        "emacs-org-super-agenda"
+        "emacs-pdf-tools"
+        "emacs-s"
+        "emacs-tldr"
+        "emacs-treemacs"
+        "emacs-vertico"
+        "emacs-vterm")))
 
 (define-public emacs-services
   (list

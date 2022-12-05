@@ -31,3 +31,6 @@
 ;; Depends on dtach utility
 ;; https://git.sr.ht/~niklaseklund/detached.el
 (package! detached)
+
+;; Emacs TLDR implementation
+(package! tldr)
