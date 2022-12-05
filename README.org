@@ -2,7 +2,20 @@
 
 * Cookbook
 
-** NetworkManager CLI
+** Bluetooth: bluetoothctl
+
+Bluetooth
+
+Or, you can use the a toggle script:
+
+bash ~/.config/sway/bluetooth-toggle.sh
+
+TODO: would be nice to actually have this script be executable and in the
+=$PATH= as opposed to this funky config.
+
+TODO: Add notifications to the toggle script
+
+** Networking: NetworkManager CLI
 
 =nmcli= is the NetworkManager CLI. You can use nmcli to connect to a wifi
 network using a CLI interface.
@@ -11,8 +24,25 @@ network using a CLI interface.
 nmcli device wifi connect $SSID password $PASSWORD
 #+END_SOURCE
 
-** Syncthing
+** File Sync: Syncthing
 
 Syncthing is added as a user service and started by default.
 
 To open the Syncthing web interfaces navigate to =localhost:8384=.
+
+** Emacs
+
+*** info-apropos
+
+[[elisp:(helpful-callable 'info-apropos)][=info-apropos=]] makes it easy to do a text search of info documents.
+
+For guile / guix that's where the critical information is, making a good search
+tool critical.
+
+**** info-apropos QoL improvements
+
+Is there a package that can handle all of the below?
+
+- [ ] can I pass a regex?
+- [ ] ivy / helm / vertico integration?
+- [ ] evil help mode keybinding
