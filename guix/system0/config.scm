@@ -23,6 +23,7 @@
    %desktop-services
    (delete login-service-type)
    (delete mingetty-service-type)
+   (delete gdm-service-type)
    (elogind-service-type config =>
                          (elogind-configuration
                           (inherit config)
