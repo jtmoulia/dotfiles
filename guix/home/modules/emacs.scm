@@ -18,7 +18,6 @@
         "dtach"
         "emacs-alert"
         "emacs-company"
-        "emacs-docker"
         "emacs-dracula-theme"
         "emacs-evil"
         "emacs-hydra"
