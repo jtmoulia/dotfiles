@@ -1,7 +1,5 @@
 ;; Org
-(setq-default org-directory (if (file-directory-p "~/Nextcloud/org")
-                                "~/Nextcloud/org"
-                              "~/ocloud/org"))
+(setq-default org-directory "~/Sync/org")
 (setq-default +org-capture-todo-file "agenda/ht.org")
 (setq-default org-agenda-files (list (concat org-directory "/agenda/")))
 

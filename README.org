@@ -1,0 +1,18 @@
+#+title: README
+
+* Cookbook
+
+** NetworkManager CLI
+
+=nmcli= is the NetworkManager CLI. You can use nmcli to connect to a wifi
+network using a CLI interface.
+
+#+BEGIN_SOURCE sh
+nmcli device wifi connect $SSID password $PASSWORD
+#+END_SOURCE
+
+** Syncthing
+
+Syncthing is added as a user service and started by default.
+
+To open the Syncthing web interfaces navigate to =localhost:8384=.

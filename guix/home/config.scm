@@ -50,6 +50,7 @@
         "python-jupyter-console"
         "python-matplotlib"
         "python-pandas"
+        "python-pdbpp"
         "python-pytest"
         "python-seaborn")))
 
