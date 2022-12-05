@@ -46,11 +46,8 @@
 ;; Add a global keybinding for opening deft
 (map! :leader :desc "Open deft note search" :n "o n" #'deft)
 
-;; Add a global keybinding for listing passwords with ivy
-(map! :leader :desc "List passwords" :n "o l" #'+pass/ivy)
-
-;; Add a global keybinding for evaluating a single line
-; (map! :leader :desc "List passwords" :n "g l" #'+pass/ivy)
+;; Add a global keybinding for listing passwords with consult
+(map! :leader :desc "List passwords" :n "o l" #'+pass/consult)
 
 ;; style and fonts: looking good, feeling good
 (setq doom-theme 'doom-dracula)
