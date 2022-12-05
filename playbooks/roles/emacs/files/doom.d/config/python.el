@@ -9,7 +9,8 @@
 (setq lsp-pyls-plugins-pycodestyle-enabled nil)
 (setq lsp-pyls-plugins-autopep8-enabled nil)
 (setq lsp-clients-python-command '("pylsp"))
-
+;; Don't warn on python detect errors
+(setq python-shell-prompt-detect-failure-warning nil)
 
 (defun my//lsp-query-tcp-connection ()
   (list

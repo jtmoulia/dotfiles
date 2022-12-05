@@ -39,6 +39,20 @@
         "nss-certs"
         )))
 
+(define python-packages
+  (map specification->package
+       (list
+        "jupyter"
+        "poetry"
+        "python"
+        "python-ipython"
+        "python-jupyter-client"
+        "python-jupyter-console"
+        "python-matplotlib"
+        "python-pandas"
+        "python-pytest"
+        "python-seaborn")))
+
 (define utility-packages
   (map specification->package
        (list
@@ -114,6 +128,7 @@
   `(,@audio-packages
     ,@base-packages
     ,@font-packages
+    ,@python-packages
     ,@sway-packages
     ,@term-fu-packages
     ,@tmux-packages
