@@ -73,16 +73,17 @@ output eDP-1 scale 1.5
 #
 # Basics:
 
-# S-x run command
+# Run command, multiple entry points
 bindsym $mod+x exec $menu
+bindsym $mod+space exec $menu
 
-# S-X run application
+# Run application
 # NOTE: This includes a flatpak dir which isn't normally there
 bindsym $mod+Shift+x exec XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$XDG_DATA_DIRS" \
     rofi -show drun | xargs swaymsg exec --
 
-# S-b or $mod+space Window switcher
-bindsym $mod+space exec bash ~/.config/sway/tree-switcher.sh
+# Quick access to Window switcher
+bindsym $mod+tab exec bash ~/.config/sway/tree-switcher.sh
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -139,6 +140,20 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 # Move to parent, a useful bugger
 bindsym $mod+a focus parent
+
+# Global workspaces
+#
+# Switch to workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+# Note: workspaces can have any name you want, not just numbers.
 
 # Resizing containers:
 #
@@ -287,7 +302,7 @@ mode "workspaces" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Tab mode "workspaces"
+bindsym $mod+Shift+w mode "workspaces"
 
 #
 # Status Bar: waybar
