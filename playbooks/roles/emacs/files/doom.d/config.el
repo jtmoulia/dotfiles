@@ -18,6 +18,9 @@
   (if (file-directory-p mu4e-load-path)
       (add-to-list 'load-path mu4e-load-path)))
 
+;; Use firefox for browsing
+(setq browse-url-browser-function 'browse-url-firefox)
+
 ;; Evil config
 ;; TODO this should likely be ported to its own config file
 (after! 'evil-escape
@@ -37,6 +40,7 @@
 (personal//eval-config-after-load 'sql "config/sql.el")
 (personal//eval-config-after-load 'web-mode "config/web-mode.el")
 (personal//eval-config-after-load 'deft "config/deft.el")
+(personal//eval-config-after-load 'elfeed "config/elfeed.el")
 
 ;; Mastodon config, to refactor out
 (setq mastodon-active-user "jtmoulia")

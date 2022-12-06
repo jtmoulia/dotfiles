@@ -39,6 +39,11 @@
         "nss-certs"
         )))
 
+(define desktop-packages
+  (map specification->package
+       (list
+        "freecad")))
+
 (define python-packages
   (map specification->package
        (list
@@ -58,6 +63,16 @@
   (map specification->package
        (list
         "unzip")))
+
+(define languages-packages
+  (map specification->package
+       (list
+        ;; python: python-packages
+        ;; guile: guile-packages
+        "node"
+        "ruby"
+        "rust"
+        "sbcl")))
 
 (define term-fu-packages
   (map specification->package

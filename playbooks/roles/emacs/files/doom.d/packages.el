@@ -46,3 +46,7 @@
 
 ;; Emacs TLDR implementation
 (package! tldr)
+
+;; elfeed for youtube
+(package! elfeed-tube)
+(package! elfeed-tube-mpv)
