@@ -26,7 +26,7 @@
         "emacs-org-edna"
         "emacs-org-modern"
         "emacs-org-pomodoro"
-        "emacs-org-ql"
+        ;; "emacs-org-ql"
         "emacs-org-super-agenda"
         "emacs-pdf-tools"
         "emacs-s"
