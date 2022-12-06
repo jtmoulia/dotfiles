@@ -83,6 +83,10 @@
         ;; an oxidized tldr
         ;; NOTE: tealdeer build is broke: https://issues.guix.gnu.org/57867
         ;; "tealdeer"
+        ;; top for hunting power gremlins
+        "powertop"
+        ;;
+
         )))
 
 
