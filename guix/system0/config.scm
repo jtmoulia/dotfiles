@@ -27,7 +27,9 @@
    (elogind-service-type config =>
                          (elogind-configuration
                           (inherit config)
-                          (handle-lid-switch-external-power 'suspend)))))
+                          (handle-lid-switch-external-power 'suspend)
+                          (idle-action 'suspend)
+                          (idle-action-seconds (* 30 10))))))
 
 (define greetd-service
   (service greetd-service-type

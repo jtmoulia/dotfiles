@@ -11,5 +11,9 @@
   (list
    (service tlp-service-type
             (tlp-configuration
+             (tlp-default-mode "BAT")
+             (cpu-boost-on-ac? #t)
              (cpu-scaling-governor-on-ac (list "performance"))
-             (sched-powersave-on-bat? #t)))))
+             (cpu-scaling-governor-on-bat (list "powersave"))
+             (sched-powersave-on-bat? #t)
+             (restore-device-state-on-startup? #t)))))
