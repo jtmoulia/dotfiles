@@ -18,13 +18,20 @@ set $right l
 # Your preferred terminal emulator
 set $term foot
 
+# Set some shared colors
+# Dracula!
+set $highlight #50fa7b
+set $prompt #bd93f9
+set $background #282a36
+set $font "DejaVu Sans Mono" 10, "Noto Emoji" 10
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu rofi -show run | xargs swaymsg exec --
+# set $menu rofi -show run | xargs swaymsg exec --
+set $menu bemenu-run --fn "DejaVu Sans Mono 11" --hp 8 -b -p "λ" --tf "$prompt" --hf "$highlight" --sf "$highlight" --scf "$highlight" --nb "$background"| xargs swaymsg exec
 
 # Set font and backup emoji for title bars
-set $font "DejaVu Sans Mono" 10, "Noto Emoji" 10
 font $font
 
 ### Output configuration
@@ -256,13 +263,13 @@ mode "windows" {
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym s splith; mode "default"
-    bindsym v splitv; mode "default"
+    bindsym s splith
+    bindsym v splitv
 
     # Switch the current container between different layout styles
-    bindsym Shift+s layout stacking; mode "default"
-    bindsym Shift+v layout tabbed; mode "default"
-    bindsym c layout toggle split; mode "default"
+    bindsym Shift+s layout stacking
+    bindsym Shift+t layout tabbed
+    bindsym Shift+r layout toggle split
 
     # Make the current focus fullscreen
     bindsym m fullscreen; mode "default"
