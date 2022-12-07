@@ -1,13 +1,17 @@
-;; Org
-(setq-default org-directory "~/Sync/org")
-(setq-default +org-capture-todo-file "agenda/ht.org")
-(setq-default org-agenda-files (list (concat org-directory "/agenda/")))
+;;; config/elfeed.el -*- lexical-binding: t; -*-
 
-(defvar personal//org-capture-my-todo-file "agenda/mine.org"
+(require 'f)
+
+;; Org
+(setq-default org-directory (f-join my-sync-dir "org"))
+(setq-default +org-capture-todo-file "agenda/ht.org")
+(setq-default org-agenda-files (list (f-join org-directory "agenda")))
+
+(defvar my//org-capture-my-todo-file "agenda/mine.org"
   "File to capture my TODO items to.")
-(defvar personal//org-capture-healthtensor-todo-file "agenda/ht.org"
+(defvar my//org-capture-healthtensor-todo-file "agenda/ht.org"
   "File to capture healthtensor TODO items to.")
-(defvar personal//org-capture-bookmark-file "bookmarks.org"
+(defvar my//org-capture-bookmark-file "bookmarks.org"
   "File to capture bookmarks to.")
 
 ;; Don't warn about deadlines if an item is scheduled
@@ -19,23 +23,23 @@
    ("h" "HT capture")
    ("tm" "capture my todo item" entry
     (file+headline
-     ,(expand-file-name personal//org-capture-my-todo-file org-directory)
+     ,(expand-file-name my//org-capture-my-todo-file org-directory)
      "Inbox")
     "* TODO %?\n%i\n%a" :prepend t)
    ("ht" "capture healthtensor todo item" entry
     (file+headline
-     ,(expand-file-name personal//org-capture-healthtensor-todo-file org-directory)
+     ,(expand-file-name my//org-capture-healthtensor-todo-file org-directory)
      "Inbox")
     "* TODO %?\n%i\n%a" :prepend t)
    ("hj" "capture jira todo item" entry
     (file+headline
-     ,(expand-file-name personal//org-capture-healthtensor-todo-file org-directory)
+     ,(expand-file-name my//org-capture-healthtensor-todo-file org-directory)
      "Inbox")
     "* TODO JIRA Issue %^{Issue}: %?\n
   - [[https://healthtensor.atlassian.net/browse/%\\1][JIRA Link]]\n%i\n")
    ("hr" "capture healthtensor release" entry
     (file+headline
-     ,(expand-file-name personal//org-capture-healthtensor-todo-file org-directory)
+     ,(expand-file-name my//org-capture-healthtensor-todo-file org-directory)
      "Releases")
     "* TODO Handle %^{Release} release
 ** TODO [#A] Cut release %\\1
@@ -48,7 +52,7 @@ SCHEDULED: %^{Deploy release}t\n
 %?"
     :prepend t)
    ("b" "capture bookmark" entry
-    (file+headline personal//org-capture-bookmark-file "Inbox")
+    (file+headline my//org-capture-bookmark-file "Inbox")
     "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)))
 
 ;; By default enable auto fill mode in org mode buffers

@@ -1,17 +1,18 @@
 ;;; .doom.d/config.el -*- lexical-binding: t; -*-
 ;; Private doom eamcs config
 
-;; Let's dash this config. Dash is love.
+;; Let's dash this config. Dash is love. f it, too
 (require 'dash)
+(require 'f)
+
+(defvar my-sync-dir "~/Sync"
+  "Directory to store synchronized state to.")
 
 ;; Setup paths
-(defun personal//join-path (root component)
-  (concat (file-name-as-directory root) component))
-
-(defun personal//eval-config-after-load (mode config)
-  (let ((path (personal//join-path "~/.doom.d" config)))
+(defun my//eval-config-after-load (mode config)
+  "Helper for loading a file after a module is loaded."
+  (let ((path (f-join "~/.doom.d" config)))
     (eval `(after! ,mode (load-file ,path)))))
-
 
 ;; Guix specific mu4e: Add mu4e to load path if the directory exists
 (let ((mu4e-load-path (concat (getenv "GUIX_PROFILE") "/share/emacs/site-lisp/mu4e")))
@@ -29,18 +30,18 @@
 
 ;; MacOS specific mu4e: Add mu4e to load path if the directory exists
 (if (eq system-type 'darwin)
-    (load-file (personal//join-path "~/.doom.d" "config/darwin.el")))
+    (load-file (f-join "~/.doom.d" "config/darwin.el")))
 
-(load-file (personal//join-path "~/.doom.d" "config/text.el"))
-(personal//eval-config-after-load 'ansible "config/ansible.el")
-(personal//eval-config-after-load 'js-mode "config/js-mode.el")
-(personal//eval-config-after-load 'mu4e "config/mu4e.el")
-(personal//eval-config-after-load 'org "config/org.el")
-(personal//eval-config-after-load 'python "config/python.el")
-(personal//eval-config-after-load 'sql "config/sql.el")
-(personal//eval-config-after-load 'web-mode "config/web-mode.el")
-(personal//eval-config-after-load 'deft "config/deft.el")
-(personal//eval-config-after-load 'elfeed "config/elfeed.el")
+(load-file (f-join "~/.doom.d" "config/text.el"))
+(my//eval-config-after-load 'ansible "config/ansible.el")
+(my//eval-config-after-load 'js-mode "config/js-mode.el")
+(my//eval-config-after-load 'mu4e "config/mu4e.el")
+(my//eval-config-after-load 'org "config/org.el")
+(my//eval-config-after-load 'python "config/python.el")
+(my//eval-config-after-load 'sql "config/sql.el")
+(my//eval-config-after-load 'web-mode "config/web-mode.el")
+(my//eval-config-after-load 'deft "config/deft.el")
+(my//eval-config-after-load 'elfeed "config/elfeed.el")
 
 ;; Mastodon config, to refactor out
 (setq mastodon-active-user "jtmoulia")

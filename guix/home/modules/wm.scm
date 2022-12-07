@@ -9,7 +9,10 @@
 (define-public sway-packages
   (map specification->package
        (list
+        ;; TODO: alacritty hasn't been working, drop or fix
         "alacritty"
+        ;; dmenu for wayland
+        "bemenu"
         ;; CLI utility to control screen brightness
         "brightnessctl"
         ;; a simple shell (because alacritty isn't working?!)
@@ -22,6 +25,7 @@
         ;; wayland desktop notification presentation
         "mako"
         ;; launcher, rofiway style
+        ;; TODO: can't seem to configure keybindings, likely drop
         "rofi-wayland"
         "sway"
         ;; NOTE: swayr isn't currently used, but I want it

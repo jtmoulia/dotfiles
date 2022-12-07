@@ -64,7 +64,7 @@
        (list
         "unzip")))
 
-(define languages-packages
+(define language-packages
   (map specification->package
        (list
         ;; python: python-packages
@@ -147,7 +147,9 @@
  (packages
   `(,@audio-packages
     ,@base-packages
+    ,@desktop-packages
     ,@font-packages
+    ,@language-packages
     ,@python-packages
     ,@sway-packages
     ,@term-fu-packages
