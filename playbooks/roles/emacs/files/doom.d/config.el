@@ -64,6 +64,13 @@
 ;; Spacemacs style `,' local leader.
 (setq doom-localleader-key ",")
 
+;; magit-status if in a project, otherwise find-file
+(defun my//magit-or-find-file (project-path)
+    (if (magit-get-current-branch)
+        (magit-project-status)
+      (doom-project-find-file project-path)))
+(setq +workspaces-switch-project-function #'my//magit-or-find-file)
+
 ;; Allow deeper callstacks
 (setq max-specpdl-size 10000)
 
