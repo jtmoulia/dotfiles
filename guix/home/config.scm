@@ -47,7 +47,9 @@
 (define python-packages
   (map specification->package
        (list
+        ;; the OG journal
         "jupyter"
+        ;; python packaging, current best option
         "poetry"
         "python"
         "python-ipython"
@@ -67,8 +69,8 @@
 (define language-packages
   (map specification->package
        (list
-        ;; python: python-packages
-        ;; guile: guile-packages
+        ;; python: see python-packages
+        ;; guile: see guile-packages
         "node"
         "ruby"
         "rust"
@@ -79,7 +81,10 @@
        (list
         ;; an oxidized pager
         "bat"
+        ;; the venerable HTTP[S] CLI client
         "curl"
+        ;; ncurses disk usage explorer
+        "ncdu"
         ;; an oxidized ls
         "exa"
         ;; an oxidized find
@@ -89,9 +94,13 @@
         "htop"
         ;; TODO: ispell vs aspell?
         "ispell"
+        ;; json CLI slicing and dicing
+        "jq"
         ;; system description utility (for fashion)
         "neofetch"
+        ;; [n[[vi]m]] my term editor
         "neovim"
+        ;; run Makefiles, now with guile integration
         "make"
         ;; an oxidized grep
         "ripgrep"
