@@ -21,6 +21,9 @@ TODO: Add notifications to the toggle script
 network using a CLI interface.
 
 #+BEGIN_SOURCE sh
+# List Networks
+nmcli device wifi list
+# Connect to network $SSID using password $PASSWORD
 nmcli device wifi connect $SSID password $PASSWORD
 #+END_SOURCE
 

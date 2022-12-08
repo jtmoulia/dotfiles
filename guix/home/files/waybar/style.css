@@ -15,7 +15,7 @@ window#waybar {
 }
 
 window#waybar:first-child > box {
-    background-color: #282a36 ;
+    background-color: #282a36;
     color: #f8f8f2;
 }
 

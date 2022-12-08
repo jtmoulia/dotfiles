@@ -54,6 +54,10 @@ if $(which keychain &>/dev/null); then
   eval $(keychain --eval --agents ssh,gpg id_rsa)
 fi
 
+if $(which nmcli &>/dev/null); then
+  alias nmwi='nmcli device wifi'
+fi
+
 # General fzf config and install
 # zsh-fzf-history-search
 # Usage: C-r to pull up history from shell

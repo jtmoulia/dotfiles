@@ -7,7 +7,7 @@
 (setq elfeed-search-filter "@6-months-ago +unread")
 
 ;; use synchronized folder for elfeed
-(setq elfeed-db-directory (f-join my-sync-dir "elfeed.db"))
+(setq elfeed-db-directory (f-join my-sync-dir "org/elfeed.db"))
 
 ;; automatically update the elfeed when opened
 (add-hook 'elfeed-search-mode-hook #'elfeed-update)
