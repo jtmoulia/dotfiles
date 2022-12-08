@@ -27,7 +27,12 @@
         ;; launcher, rofiway style
         ;; TODO: can't seem to configure keybindings, likely drop
         "rofi-wayland"
+        ;; sway window manager
         "sway"
+        ;; Swaylock for sway screen locking
+        ;; https://github.com/swaywm/swaylock
+        "swaylock"
+        ;; sway window LRU, gathered by separate running server
         ;; NOTE: swayr isn't currently used, but I want it
         "swayr"
         ;; waybar for a wayland system bar; configured with sway
