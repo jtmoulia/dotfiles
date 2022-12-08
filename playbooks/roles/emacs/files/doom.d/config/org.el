@@ -11,7 +11,7 @@
   "File to capture my TODO items to.")
 (defvar my//org-capture-healthtensor-todo-file "agenda/ht.org"
   "File to capture healthtensor TODO items to.")
-(defvar my//org-capture-bookmark-file "bookmarks.org"
+(defvar my//org-capture-bookmark-file (f-join org-directory "bookmarks.org")
   "File to capture bookmarks to.")
 
 ;; Don't warn about deadlines if an item is scheduled
@@ -53,7 +53,7 @@ SCHEDULED: %^{Deploy release}t\n
     :prepend t)
    ("b" "capture bookmark" entry
     (file+headline my//org-capture-bookmark-file "Inbox")
-    "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)))
+    "* %?\n:PROPERTIES:\n:CREATED: %U\n:URL: %a\n:END:\n\n" :prepend t)))
 
 ;; By default enable auto fill mode in org mode buffers
 (add-hook 'org-mode-hook 'auto-fill-mode)
