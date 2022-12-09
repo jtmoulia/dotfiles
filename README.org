@@ -35,6 +35,12 @@ To open the Syncthing web interfaces navigate to =localhost:8384=.
 
 ** Emacs
 
+*** Feeds: elfeed
+
+Use =elfeed= to read RSS/Atom feeds.
+
+The database is stored in the [[elisp:(helpful-variable 'org-directory)][org directory]].
+
 *** info-apropos
 
 [[elisp:(helpful-callable 'info-apropos)][=info-apropos=]] makes it easy to do a text search of info documents.

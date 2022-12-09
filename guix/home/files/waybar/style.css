@@ -33,7 +33,7 @@ window#waybar:first-child > box {
 }
 
 #workspaces button:hover {
-    background-color: #ff5555;
+    background-color: #ff8080;
 }
 
 #workspaces button.focused {

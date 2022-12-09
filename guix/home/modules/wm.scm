@@ -11,8 +11,6 @@
        (list
         ;; TODO: alacritty hasn't been working, drop or fix
         "alacritty"
-        ;; dmenu for wayland
-        "bemenu"
         ;; CLI utility to control screen brightness
         "brightnessctl"
         ;; a simple shell (because alacritty isn't working?!)
@@ -24,22 +22,19 @@
         "libnotify"
         ;; wayland desktop notification presentation
         "mako"
-        ;; launcher, rofiway style
-        ;; TODO: can't seem to configure keybindings, likely drop
-        "rofi-wayland"
         ;; sway window manager
         "sway"
         ;; Swaylock for sway screen locking
         ;; https://github.com/swaywm/swaylock
         "swaylock"
         ;; sway window LRU, gathered by separate running server
-        ;; NOTE: swayr isn't currently used, but I want it
         "swayr"
         ;; waybar for a wayland system bar; configured with sway
-        ;; NOTE;
         "waybar"
         ;; wayland friendly clipboard (alias `xc` from shell)
-        "wl-clipboard")))
+        "wl-clipboard"
+        ;; launcher, wofi style
+        "wofi")))
 
 (define-public sway-services
   (list
@@ -50,9 +45,9 @@
                    home-xdg-configuration-files-service-type
                    `(("sway/config" ,(local-file "../files/sway/config"))
                      ("sway/status.sh" ,(local-file "../files/sway/status.sh"))
-                     ("sway/tree-switcher.sh" ,(local-file "../files/sway/tree-switcher.sh"))
-                     ("sway/focus-or-start.sh" ,(local-file "../files/sway/focus-or-start.sh"))
                      ("sway/bluetooth-toggle.sh" ,(local-file "../files/sway/bluetooth-toggle.sh"))
+                     ("swayr/config.toml" ,(local-file "../files/swayr/config.toml"))
                      ("waybar/config" ,(local-file "../files/waybar/config"))
                      ("waybar/style.css" ,(local-file "../files/waybar/style.css"))
+                     ("wofi/style.css" ,(local-file "../files/wofi/style.css"))
                      ("foot/foot.ini" ,(local-file "../files/foot/foot.ini"))))))
