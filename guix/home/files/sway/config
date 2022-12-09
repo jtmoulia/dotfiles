@@ -18,7 +18,7 @@ set $right l
 # Your preferred terminal emulator
 set $term foot
 
-set $font "DejaVu Sans Mono" 10
+set $font pango:"DejaVu Sans Mono" 10, pango:"Noto Emoji" 10, pango:monospace 10
 
 # Colors
 ### Palette: Dracula!
@@ -40,6 +40,11 @@ client.focused          $green   $black     $green    $red       $green
 client.focused_inactive $purple  $black     $lblue    $yellow    $purple
 client.unfocused        $purple  $black     $purple   $orange    $purple
 client.urgent           $orange  $black     $red      $red       $red
+
+for_window [app_id="(?i)."] title_format "<span><tt>▨</tt></span> %title"
+for_window [app_id="(?i)firefox"] title_format "<span><tt></tt></span> %title"
+for_window [app_id="(?i)foot"] title_format "<span><tt>👣</tt></span> %title"
+for_window [app_id="(?i)emacs"] title_format "<span><tt>🦬</tt></span> %title"
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -108,7 +113,8 @@ bindsym $mod+Shift+x exec XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$XDG_DAT
     $launcher --show=drun | xargs swaymsg exec --
 
 # Quick access to Window switcher
-bindsym $mod+tab exec $switcher
+bindsym $mod+Shift+tab exec swayr swap-focused-with
+bindsym $mod+tab exec swayr switch-to
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -205,25 +211,31 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #
-# Application focus or starters
+# Application lauunchers
 #
-set $focus-or-start exec bash ~/.config/sway/focus-or-start.sh
-mode "focus-or-start" {
+mode "launchers" {
+    # Switch to previous if dbl toggled
+    bindsym o exec swayr switch-to-urgent-or-lru-window; mode "default"
+    bindsym $mod+o exec swayr switch-to-urgent-or-lru-window; mode "default"
+
     bindsym e exec \
-        swayr switch-to-app-or-urgent-or-lru-window emacs-29.0.50 \
-        || emacs-29.0.50; mode "default"
+        (pgrep emacs-29.0.50 || emacs-29.0.50) \
+        && swayr switch-to-app-or-urgent-or-lru-window emacs-29-0-50 \
+        ; mode "default"
     bindsym b exec \
-        swayr switch-to-app-or-urgent-or-lru-window firefox \
-        || firefox; mode "default"
+        (pgrep firefox || swaymsg exec firefox) \
+        && swayr switch-to-app-or-urgent-or-lru-window firefox-default \
+        ; mode "default"
     bindsym t exec \
-        swayr switch-to-app-or-urgent-or-lru-window foot \
-        || foot; mode "default"
+        (pgrep foot || swaymsg exec foot) \
+        && swayr switch-to-app-or-urgent-or-lru-window foot \
+        ; mode "default"
 
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+o mode "focus-or-start"
+bindsym $mod+o mode "launchers"
 
 #
 # Toggles
