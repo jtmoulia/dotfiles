@@ -68,6 +68,7 @@
 (defun my//magit-or-find-file (project-path)
   "Project switcher will attmept to open magit-status otherwise use a
 find-file picker."
+  (require 'magit)
   (if (magit-get-current-branch)
       (magit-status)
     (doom-project-find-file project-path)))

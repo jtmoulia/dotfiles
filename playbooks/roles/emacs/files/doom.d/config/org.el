@@ -21,6 +21,7 @@
  org-capture-templates
  `(("t" "capture todo item")
    ("h" "HT capture")
+   ("b" "bookmarks")
    ("tm" "capture my todo item" entry
     (file+headline
      ,(expand-file-name my//org-capture-my-todo-file org-directory)
@@ -36,24 +37,18 @@
      ,(expand-file-name my//org-capture-healthtensor-todo-file org-directory)
      "Inbox")
     "* TODO JIRA Issue %^{Issue}: %?\n
-  - [[https://healthtensor.atlassian.net/browse/%\\1][JIRA Link]]\n%i\n")
-   ("hr" "capture healthtensor release" entry
-    (file+headline
-     ,(expand-file-name my//org-capture-healthtensor-todo-file org-directory)
-     "Releases")
-    "* TODO Handle %^{Release} release
-** TODO [#A] Cut release %\\1
-SCHEDULED: %^{Cut release}t\n
-** TODO [#A] Deploy release %\\1
-SCHEDULED: %^{Deploy release}t\n
-  - [ ] test against PHH Cert env
-  - [ ] deploy to PHH Prod
-  - [ ] deploy to TMMC Prod
-%?"
-    :prepend t)
-   ("b" "capture bookmark" entry
+  - [[https://healthtensor.atlassian.net/browse/%\\1][JIRA Link]]
+  - [[orgit:~/repos/automed/][Automed Repo]]\n%i\n\n")
+   ("bb" "capture bookmark" entry
     (file+headline my//org-capture-bookmark-file "Inbox")
     "* %?\n:PROPERTIES:\n:CREATED: %U\n:URL: %a\n:END:\n\n" :prepend t)))
+
+(after! 'elfeed
+  (add-to-list
+   'org-capture-templates
+   `("bf" "capture [el]feed" entry
+     (file+headline ,(car rmh-elfeed-org-files) "root")
+     "* %?\n\n")))
 
 ;; By default enable auto fill mode in org mode buffers
 (add-hook 'org-mode-hook 'auto-fill-mode)

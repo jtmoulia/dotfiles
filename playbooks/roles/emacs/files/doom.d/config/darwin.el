@@ -16,3 +16,6 @@
 ;; Use command key as meta, preserve behavior of option key
 (setq mac-option-modifier 'nil)
 (setq mac-command-modifier 'meta)
+
+;; Use the default system browser on MacOS
+(setq browse-url-browser-function 'browse-url-default-macosx-browser)
