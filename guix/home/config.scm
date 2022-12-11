@@ -39,11 +39,6 @@
         "nss-certs"
         )))
 
-(define desktop-packages
-  (map specification->package
-       (list
-        "freecad")))
-
 (define python-packages
   (map specification->package
        (list
@@ -109,8 +104,6 @@
         ;; "tealdeer"
         ;; top for hunting power gremlins
         "powertop"
-        ;;
-
         )))
 
 
@@ -124,11 +117,22 @@
 (define desktop-packages
   (map specification->package
        (list
+        ;; 3D modeling
+        "blender"
+        ;; bluetooth
         "bluez"
+        ;; wayland compliant firefox web browser
         "firefox-wayland"
+        ;; escape hatch for installing pre-packaged bundles
         "flatpak"
-        "transmission-remote-gtk"
-        )))
+        ;; FreeCAD modeling software
+        "freecad"
+        ;; gnome icon theme for nautilus et al
+        "hicolor-icon-theme"
+        ;; gnome filesystem browser
+        "nautilus"
+        ;; torrenting
+        "transmission-remote-gtk")))
 
 (define my-services
   (list

@@ -85,8 +85,8 @@
         "interval": 2,
         "format": "<span color=\"#50fa7b\">{icon}</span> {percent}%",
         "format-icons": ["🌕", "🌔", "🌓", "🌒", "🌑"],
-        "on-scroll-down": "brightnessctl -c backlight set 5%-",
-        "on-scroll-up": "brightnessctl -c backlight set +5%",
+        "on-scroll-down": "brightnessctl -c backlight set 1%-",
+        "on-scroll-up": "brightnessctl -c backlight set +1%",
     },
 
     "clock": {
@@ -100,7 +100,7 @@
         "format-bluetooth": "<span color=\"#50fa7b\">🔊</span> {volume:2}% ",
         "format-muted": "<span color=\"#ff8080\">🔇</span> {volume:2}%",
         "format-icons": {},
-        "scroll-step": 5,
+        "scroll-step": 1,
         "on-click": "pamixer -t",
         "on-click-right": "pavucontrol"
     },
