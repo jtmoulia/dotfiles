@@ -15,19 +15,22 @@
         "brightnessctl"
         ;; a simple shell (because alacritty isn't working?!)
         "foot"
+        ;; emoji friendly noto font: =Noto Emoji [Weight]=
         "font-noto-emoji"
-        ;; grimshot for taking screenshots
+        ;; grimshot for taking screenshots of windows / full screen
         "grimshot"
         ;; desktop notification plumbing
         "libnotify"
         ;; wayland desktop notification presentation
         "mako"
-        ;; sway window manager
+        ;; sway window manager (@ddevault)
+        ;; https://github.com/swaywm/sway
         "sway"
         ;; Swaylock for sway screen locking
         ;; https://github.com/swaywm/swaylock
         "swaylock"
         ;; sway window LRU, gathered by separate running server
+        ;; https://sr.ht/~tsdh/swayr/
         "swayr"
         ;; waybar for a wayland system bar; configured with sway
         "waybar"

@@ -110,25 +110,42 @@
 (define font-packages
   (map specification->package
        (list
+        ;; TODO: Do I actually use font-awesome for anything
         "font-awesome"
+        ;; A nice vanilla font with a mellow monospace
         "font-dejavu")))
+
+;; Packages / runtimes for managing applications
+(define application-packages
+  (map specification->package
+       (list
+        ;; a whale of container rutimes
+        ;; https://www.docker.com/
+        "docker"
+        ;; escape hatch for installing pre-packaged bundles
+        ;; https://www.flatpak.org/
+        "flatpak"
+        )))
 
 ;; TODO break these into sub-groups
 (define desktop-packages
   (map specification->package
        (list
-        ;; 3D modeling
+        ;; flagship open-source 3D modeling
         "blender"
-        ;; bluetooth
+        ;; bluetooth controller and device management
         "bluez"
         ;; wayland compliant firefox web browser
         "firefox-wayland"
-        ;; escape hatch for installing pre-packaged bundles
-        "flatpak"
         ;; FreeCAD modeling software
         "freecad"
+        ;; painting with pixel
+        "krita"
         ;; gnome icon theme for nautilus et al
         "hicolor-icon-theme"
+        ;; vector graphics editor
+        ;; https://inkscape.org
+        "inkscape"
         ;; gnome filesystem browser
         "nautilus"
         ;; torrenting
@@ -158,7 +175,8 @@
 
 (home-environment
  (packages
-  `(,@audio-packages
+  `(,@application-packages
+    ,@audio-packages
     ,@base-packages
     ,@desktop-packages
     ,@font-packages
