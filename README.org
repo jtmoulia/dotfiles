@@ -31,15 +31,29 @@ nmcli device wifi connect $SSID password $PASSWORD
 
 Syncthing is added as a user service and started by default.
 
-To open the Syncthing web interfaces navigate to =localhost:8384=.
+To open the Syncthing web interfaces navigate to [[https://localhost:8384/][localhost:8384]].
 
 ** Emacs
+
+*** Org
+
+By default much of my emacs configuration depends on an org directory populated
+with data files. I sync this directory across machines using syncthing (Note:
+version-control isn't used for org data to decrease the friction to make
+changes).
 
 *** Feeds: elfeed
 
 Use =elfeed= to read RSS/Atom feeds.
 
-The database is stored in the [[elisp:(helpful-variable 'org-directory)][org directory]].
+The list of feeds is stored in [[elisp:(find-file (car rmh-elfeed-org-files))][$org-directory/elfeed.org]]
+
+The database is similarly stored in the [[elisp:(helpful-variable 'org-directory)][org directory]].
+
+*Youtube channels* are best consumed as an RSS [el]feed, however it's tricky to find
+the URL. Use [[elisp:(helpful-function 'elfeed-tube-add-feeds)][elfeed-tube-add-feeds]] to find the URL and then manually plug that
+into the =elfeed.org= file. Future work: create helper function / org capture to
+directly populate the =elfeed.org= file.
 
 *** info-apropos
 
