@@ -28,7 +28,15 @@
        (list
         "pamixer"
         "pavucontrol"
-        "playerctl")))
+        "playerctl"
+        ;; fun audio
+        "extempore"
+        "helm"
+        "orca-music"
+        "qpwgraph"
+        "supercollider"
+        "emacs-scel"
+        )))
 
 (define base-packages
   (map specification->package
@@ -37,6 +45,9 @@
         "gnupg"
         "inetutils"
         "nss-certs"
+        ;; as it says on the tin, tools for working with wireguard
+        ;; TODO: is this redundant with nm-cli
+        "wireguard-tools"
         )))
 
 (define python-packages
@@ -119,13 +130,9 @@
 (define application-packages
   (map specification->package
        (list
-        ;; a whale of container rutimes
-        ;; https://www.docker.com/
-        "docker"
         ;; escape hatch for installing pre-packaged bundles
         ;; https://www.flatpak.org/
-        "flatpak"
-        )))
+        "flatpak")))
 
 ;; TODO break these into sub-groups
 (define desktop-packages
