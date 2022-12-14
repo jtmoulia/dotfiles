@@ -7,11 +7,14 @@
              (gnu packages shells)
              (nongnu packages linux)
              (nongnu system linux-initrd)
+
              (system0 autofs)
-             (system0 sync)
-             (system0 pd))
+             (system0 docker)
+             (system0 pd)
+             (system0 sync))
 
 (use-service-modules desktop networking ssh xorg)
+(use-package-modules security-token)
 
 (define sway-packages
   (map
@@ -88,25 +91,27 @@
                 (shell (file-append zsh "/bin/zsh"))
                 (home-directory "/home/jtmoulia")
                 (supplementary-groups
-                 '("wheel" "netdev" "audio" "video")))
+                 '("wheel" "netdev" "audio" "video" "docker" "plugdev")))
                %base-user-accounts))
  (packages
   (append
-   (list (specification->package "nss-certs")
-         )
-   sway-packages
+   (list (specification->package "nss-certs"))
+   docker-packages
    pd-packages
+   sway-packages
    sync-packages
    %base-packages))
  (services
   (append
    (list
     greetd-service
+    (udev-rules-service 'fido2 libfido2 #:groups '("plugdev"))
     (service openssh-service-type)
     (service automount-service-type)
     (bluetooth-service)
     (set-xorg-configuration
      (xorg-configuration (keyboard-layout keyboard-layout))))
+   docker-services
    pd-services
    sync-services
    %my-desktop-services))
