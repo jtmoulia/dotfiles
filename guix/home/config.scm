@@ -29,13 +29,32 @@
         "pamixer"
         "pavucontrol"
         "playerctl"
-        ;; fun audio
+        )))
+
+(define pro-audio-packages
+  (map specification->package
+       (list
+        "calf"
         "extempore"
         "helm"
         "orca-music"
+        ;; pipewire source/sink graph interface
         "qpwgraph"
-        "supercollider"
-        "emacs-scel"
+        ;; Supercollider along wtih emacs editor
+        ;; "supercollider"
+        ;; "emacs-scel"
+        ;; Open source digital audio workstation along with its plugins (AGPL3+)
+        ;; "zrythm"
+        ;; "zplugins"
+        )))
+
+;; NOTE: Currently unused
+(define ml-packages
+  (map specification->package
+       (list
+        "blis"
+        "openblas"
+        "lapack"
         )))
 
 (define base-packages
@@ -80,7 +99,9 @@
         "node"
         "ruby"
         "rust"
-        "sbcl")))
+        ;; common-lisp should be broken out
+        "sbcl"
+        "cl-asdf")))
 
 (define term-fu-packages
   (map specification->package
@@ -188,6 +209,7 @@
     ,@desktop-packages
     ,@font-packages
     ,@language-packages
+    ,@pro-audio-packages
     ,@python-packages
     ,@sway-packages
     ,@term-fu-packages
