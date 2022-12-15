@@ -18,7 +18,7 @@ set $right l
 # Your preferred terminal emulator
 set $term foot
 
-set $font pango:"DejaVu Sans Mono" 10, pango:"Noto Emoji" 10, pango:monospace 10
+set $font pango:monospace 10
 
 # Colors
 ### Palette: Dracula!
