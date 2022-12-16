@@ -17,6 +17,20 @@
 ;; Don't warn about deadlines if an item is scheduled
 (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
 
+(defun my-org-kill-link ()
+  "Insert the org link under the cursor into the kill ring."
+  (interactive)
+  (let ((object (org-element-context)))
+    (when (eq (car object) 'link)
+      (kill-new (org-element-property :raw-link object)))))
+
+(defun my-org-eww-link ()
+  "Open the org link under the cursor in eww."
+  (interactive)
+  (let ((object (org-element-context)))
+    (when (eq (car object) 'link)
+      (eww (org-element-property :raw-link object)))))
+
 (setq-default
  org-capture-templates
  `(("t" "capture todo item")
@@ -77,6 +91,11 @@
       :nmi :desc "Open agenda section fold" "o" #'origami-open-node
       :nmi :desc "Toggle agenda section fold" "a" #'origami-toggle-node
       :nmi :desc "Toggle all agenda folds" "T" #'origami-toggle-all-nodes)
+
+;; unmap the existing agenda view dispatch for fold bindings
+(map! :map evil-org-mode-map :localleader
+      :m :desc "Kill the org link to the ring"
+      "l y" #'my-kill-link)
 
 ;; enable org-super-agenda global minor mode if defined
 (when (fboundp 'org-super-agenda-mode)
