@@ -69,3 +69,35 @@ Is there a package that can handle all of the below?
 - [ ] can I pass a regex?
 - [ ] ivy / helm / vertico integration?
 - [ ] evil help mode keybinding
+** Environments
+
+*** Common Lisp
+
+This configuration uses [[https://en.wikipedia.org/wiki/Steel_Bank_Common_Lisp][SBCL]] for common-lisp'ing.
+
+**** Coalton
+
+See [[https://github.com/coalton-lang/coalton][coalton]] for ML meets CL.
+
+#+BEGIN_SRC lisp
+;; Require the asdf system loader -- is this required?
+(require "asdf")
+(asdf:load-package :coalton)
+
+;; Enter the Coalton user package to get hacking on the REPL
+(in-package :coalton-user)
+#+END_SRC
+
+NOTE: There's probably a simpler approach, but the above worked for me.
+
+*** Guile
+
+To start a guile shell with the current path in the module load path:
+
+#+BEGIN_SRC sh
+GUILE_LOAD_PATH="$PWD" guile
+#+END_SRC
+
+**** Open Questions
+
+- matrix math interface (something like cl-ffi-blas)
