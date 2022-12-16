@@ -37,6 +37,7 @@
         "calf"
         "extempore"
         "helm"
+        "lilypond"
         "orca-music"
         ;; pipewire source/sink graph interface
         "qpwgraph"
@@ -48,7 +49,6 @@
         ;; "zplugins"
         )))
 
-;; NOTE: Currently unused
 (define ml-packages
   (map specification->package
        (list
@@ -97,11 +97,14 @@
         ;; python: see python-packages
         ;; guile: see guile-packages
         "node"
+        "rakudo"
+        ;; OOPs
         "ruby"
         "rust"
         ;; common-lisp should be broken out
         "sbcl"
-        "cl-asdf")))
+        "cl-asdf"
+        "sbcl-coalton")))
 
 (define term-fu-packages
   (map specification->package
@@ -208,7 +211,9 @@
     ,@base-packages
     ,@desktop-packages
     ,@font-packages
+    ,@guile-packages
     ,@language-packages
+    ,@ml-packages
     ,@pro-audio-packages
     ,@python-packages
     ,@sway-packages
