@@ -123,6 +123,9 @@
         ;; monitor processes
         "htop"
         ;; TODO: ispell vs aspell?
+        ;; NOTE: I need both?!
+        "aspell"
+        "aspell-dict-en"
         "ispell"
         ;; json CLI slicing and dicing
         "jq"
