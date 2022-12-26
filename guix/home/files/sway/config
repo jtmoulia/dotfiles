@@ -249,7 +249,7 @@ mode "toggles" {
     bindsym Escape mode "default"
     bindsym Control_L+g mode "default"
 }
-bindsym $mod+z mode "toggles"
+bindsym $mod+t mode "toggles"
 
 #
 # Buffer commands
