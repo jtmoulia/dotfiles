@@ -34,6 +34,7 @@
 
 (load-file (f-join "~/.doom.d" "config/text.el"))
 (my//eval-config-after-load 'ansible "config/ansible.el")
+(my//eval-config-after-load 'hyperbole "config/hyperbole.el")
 (my//eval-config-after-load 'js-mode "config/js-mode.el")
 (my//eval-config-after-load 'mu4e "config/mu4e.el")
 (my//eval-config-after-load 'org "config/org.el")

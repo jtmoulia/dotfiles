@@ -1,6 +1,9 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; .doom.d/packages.el
 
+;; Hyperbole for adding implicit links
+(package! hyperbole)
+
 ;; multi-section org agenda buffers
 ;; https://github.com/alphapapa/org-super-agenda
 (package! org-super-agenda)
