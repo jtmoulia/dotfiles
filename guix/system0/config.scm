@@ -13,7 +13,7 @@
   #:use-module (system0 pd)
   #:use-module (system0 sync))
 
-(use-service-modules desktop networking ssh xorg)
+(use-service-modules cups desktop networking ssh xorg)
 (use-package-modules security-token)
 
 (define sway-packages
@@ -33,6 +33,18 @@
                           (handle-lid-switch-external-power 'suspend)
                           (idle-action 'suspend)
                           (idle-action-seconds (* 30 10))))))
+
+(define my-services
+  (list
+   greetd-service
+   (udev-rules-service 'fido2 libfido2 #:groups '("plugdev"))
+   (service openssh-service-type)
+   (service automount-service-type)
+   (service cups-service-type
+            (cups-configuration (web-interface? #t)))
+   (bluetooth-service)
+   (set-xorg-configuration
+    (xorg-configuration (keyboard-layout keyboard-layout)))))
 
 (define greetd-service
   (service greetd-service-type
@@ -103,14 +115,7 @@
    %base-packages))
  (services
   (append
-   (list
-    greetd-service
-    (udev-rules-service 'fido2 libfido2 #:groups '("plugdev"))
-    (service openssh-service-type)
-    (service automount-service-type)
-    (bluetooth-service)
-    (set-xorg-configuration
-     (xorg-configuration (keyboard-layout keyboard-layout))))
+   my-services
    docker-services
    pd-services
    sync-services
