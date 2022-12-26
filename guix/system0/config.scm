@@ -1,17 +1,17 @@
 ;; This is an operating system configuration generated
 ;; by the graphical installer.
 
-(define-module (system0 config))
-(use-modules (gnu)
-             (gnu packages)
-             (gnu packages shells)
-             (nongnu packages linux)
-             (nongnu system linux-initrd)
-
-             (system0 autofs)
-             (system0 docker)
-             (system0 pd)
-             (system0 sync))
+(define-module (system0 config)
+  #:use-module (gnu)
+  #:use-module (gnu packages)
+  #:use-module (gnu packages shells)
+  #:use-module (gnu system setuid)
+  #:use-module (nongnu packages linux)
+  #:use-module (nongnu system linux-initrd)
+  #:use-module (system0 autofs)
+  #:use-module (system0 docker)
+  #:use-module (system0 pd)
+  #:use-module (system0 sync))
 
 (use-service-modules desktop networking ssh xorg)
 (use-package-modules security-token)
@@ -19,7 +19,7 @@
 (define sway-packages
   (map
    specification->package
-   (list "sway")))
+   (list "sway" "swaylock")))
 
 (define %my-desktop-services
   (modify-services
@@ -136,4 +136,10 @@
           (device "/dev/mapper/cryptroot")
           (type "ext4")
           (dependencies mapped-devices))
-         %base-file-systems)))
+         %base-file-systems))
+ (setuid-programs
+  (append (list
+           (file-like->setuid-program
+            (file-append (specification->package "swaylock") "/bin/swaylock")))
+          %setuid-programs))
+ )
