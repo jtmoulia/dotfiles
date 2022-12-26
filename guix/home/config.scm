@@ -67,6 +67,8 @@
         ;; as it says on the tin, tools for working with wireguard
         ;; TODO: is this redundant with nm-cli
         "wireguard-tools"
+        ;; TODO: fork out security packages to own group
+        "tor-client"
         )))
 
 (define python-packages
@@ -173,6 +175,8 @@
         "firefox-wayland"
         ;; FreeCAD modeling software
         "freecad"
+        ;; a raster swiss army knife
+        "gimp"
         ;; painting with pixel
         "krita"
         ;; gnome icon theme for nautilus et al
@@ -183,7 +187,14 @@
         ;; gnome filesystem browser
         "nautilus"
         ;; torrenting
-        "transmission-remote-gtk")))
+        "transmission-remote-gtk"
+
+        ;; KDE packages
+        ;; kde filesystem browser
+        "dolphin"
+        ;; KDE connect for integrating with my phone
+        "kdeconnect"
+        )))
 
 (define my-services
   (list
