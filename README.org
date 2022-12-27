@@ -1,17 +1,20 @@
 #+title: README
 
 * Cookbook
+** Printing
+
+The [[https://www.cups.org/][CUPS]] admin web interface is accessible at [[http://localhost:631/][localhost:631]].
 
 ** Bluetooth: bluetoothctl
 
-Bluetooth
+Bluetooth can be enabled by using =bluetoothctl=, for example: =bluetoothctl
+power on=
 
 Or, you can use the a toggle script:
 
+#+BEGIN_SRC sh
 bash ~/.config/sway/bluetooth-toggle.sh
-
-TODO: would be nice to actually have this script be executable and in the
-=$PATH= as opposed to this funky config.
+#+END_SRC
 
 TODO: Add notifications to the toggle script
 
