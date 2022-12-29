@@ -53,3 +53,10 @@
 ;; elfeed for youtube
 (package! elfeed-tube)
 (package! elfeed-tube-mpv)
+
+;; gopher / gemini
+(package! elpher)
+
+;; Extempore-mode for extemporaneous music
+;; Extempore: https://github.com/digego/extempore
+(package! extempore-mode)

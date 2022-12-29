@@ -103,7 +103,20 @@
                 (shell (file-append zsh "/bin/zsh"))
                 (home-directory "/home/jtmoulia")
                 (supplementary-groups
-                 '("wheel" "netdev" "audio" "video" "docker" "plugdev")))
+                 '(;; sudo: I am root!
+                   "wheel"
+                   ;; ? what does this do?
+                   "netdev"
+                   ;; access audio devices
+                   "audio"
+                   ;; access video devices (wayland et al needs it)
+                   "video"
+                   ;; the docker group to interact with the docker daemon
+                   "docker"
+                   ;; TODO: Not working
+                   "plugdev"
+                   ;; Serial port access (required for betaflight-configurator)
+                   "uucp")))
                %base-user-accounts))
  (packages
   (append

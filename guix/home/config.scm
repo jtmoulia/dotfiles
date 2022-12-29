@@ -79,6 +79,7 @@
         ;; python packaging, current best option
         "poetry"
         "python"
+        "python-black"
         "python-ipython"
         "python-jupyter-client"
         "python-jupyter-console"
@@ -194,6 +195,10 @@
         "dolphin"
         ;; KDE connect for integrating with my phone
         "kdeconnect"
+
+        ;; XDG stuff
+        "xdg-desktop-portal-gtk"
+        "xdg-desktop-portal-wlr"
         )))
 
 (define my-services
