@@ -34,18 +34,6 @@
                           (idle-action 'suspend)
                           (idle-action-seconds (* 30 10))))))
 
-(define my-services
-  (list
-   greetd-service
-   (udev-rules-service 'fido2 libfido2 #:groups '("plugdev"))
-   (service openssh-service-type)
-   (service automount-service-type)
-   (service cups-service-type
-            (cups-configuration (web-interface? #t)))
-   (bluetooth-service)
-   (set-xorg-configuration
-    (xorg-configuration (keyboard-layout keyboard-layout)))))
-
 (define greetd-service
   (service greetd-service-type
            (greetd-configuration
@@ -86,6 +74,16 @@
                (default-session-command
                  (greetd-agreety-session (command (file-append zsh "/bin/zsh"))))))))))
 
+(define my-services
+  (list
+   greetd-service
+   (udev-rules-service 'fido2 libfido2 #:groups '("plugdev"))
+   (service openssh-service-type)
+   (service automount-service-type)
+   (service cups-service-type
+            (cups-configuration (web-interface? #t)))
+   (bluetooth-service)))
+
 (operating-system
  (kernel linux)
  (kernel-arguments (append (list "mem_sleep_default=deep" "nvme.noacpi=1")
@@ -116,7 +114,7 @@
                    ;; TODO: Not working
                    "plugdev"
                    ;; Serial port access (required for betaflight-configurator)
-                   "uucp")))
+                   "dialout")))
                %base-user-accounts))
  (packages
   (append

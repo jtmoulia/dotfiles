@@ -28,6 +28,9 @@
   ;; some heavy modes make the default delay of 0.15s too short
   (setq evil-escape-delay 0.5))
 
+(after! 'mastodon
+  (setq mastodon-media--enable-image-caching 't))
+
 ;; MacOS specific mu4e: Add mu4e to load path if the directory exists
 (if (eq system-type 'darwin)
     (load-file (f-join "~/.doom.d" "config/darwin.el")))
