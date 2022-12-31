@@ -104,3 +104,16 @@ GUILE_LOAD_PATH="$PWD" guile
 **** Open Questions
 
 - matrix math interface (something like cl-ffi-blas)
+
+** Security
+
+*** Audits: lynis
+
+[[https://cisofy.com/lynis/][Lynis]] is a CLI tool which performs a security audit of the local system. It can
+be used to highlight gaps in the current config.
+
+To generate the full report it can be run as su:
+
+#+BEGIN_SRC sh
+[sudo] lynis
+#+END_SRC

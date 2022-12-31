@@ -125,6 +125,9 @@
         "glibc-locales"
         ;; monitor processes
         "htop"
+        ;; tool for security auditing local system
+        ;; TODO: add to separate security group
+        "lynis"
         ;; TODO: ispell vs aspell?
         ;; NOTE: I need both?!
         "aspell"
