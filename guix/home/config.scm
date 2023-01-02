@@ -167,6 +167,21 @@
         ;; https://www.flatpak.org/
         "flatpak")))
 
+
+;; gnome-based dekstop applications
+(define gnomish-packages
+  (map specification->package
+       (list
+        "adwaita-icon-theme"
+        ;; gnome filesystem browser
+        "nautilus"
+        ;; torrenting
+        "transmission-remote-gtk"
+        ;; gnome toolkit
+        ;; TODO: I do not believe I need to explicitly depend
+        ;; "gtk+"
+        )))
+
 ;; TODO break these into sub-groups
 (define desktop-packages
   (map specification->package
@@ -188,10 +203,10 @@
         ;; vector graphics editor
         ;; https://inkscape.org
         "inkscape"
-        ;; gnome filesystem browser
-        "nautilus"
-        ;; torrenting
-        "transmission-remote-gtk"
+        ;; windows emulation layer
+        "wine"
+        ;; player of videos
+        "vlc"
 
         ;; KDE packages
         ;; kde filesystem browser
@@ -233,6 +248,7 @@
     ,@base-packages
     ,@desktop-packages
     ,@font-packages
+    ,@gnomish-packages
     ,@guile-packages
     ,@language-packages
     ,@ml-packages
