@@ -26,9 +26,12 @@
         ;; sway window manager (@ddevault)
         ;; https://github.com/swaywm/sway
         "sway"
+        ;; idle management daemon for Wayland compositors
+        "swayidle"
         ;; Swaylock for sway screen locking
+        ;; NOTE: Installed by the system profile for setuid privs
         ;; https://github.com/swaywm/swaylock
-        "swaylock"
+        ;; "swaylock"
         ;; sway window LRU, gathered by separate running server
         ;; https://sr.ht/~tsdh/swayr/
         "swayr"

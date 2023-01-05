@@ -1,7 +1,7 @@
 #+title: README
 
 * Cookbook
-** Window Manager
+** Window Manager: Sway
 
 *** Keybindings
 
@@ -34,6 +34,12 @@ switching.
 | Keybinding | Command          |
 |------------+------------------|
 | =S-t b=    | toggle bluetooth |
+
+*** Locking: swayidle & swaylock
+
+Screen locking is handled by the [[https://github.com/swaywm/swayidle][=swayidle=]] and [[https://github.com/swaywm/swaylock][=swaylock=]] commands
+respectively. *The screen is locked after 5 mins and blanked out after 10mins.*
+The user password must be entered to unlock the screen.
 
 ** Screenshots / Recording
 
