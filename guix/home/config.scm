@@ -172,14 +172,17 @@
 (define gnomish-packages
   (map specification->package
        (list
+        ;; default icons for GTK application
         "adwaita-icon-theme"
+        ;; GIMP Toolkits for e.g. file pickers
+        ;; the gnome toolkit, old style (don't let the + fool you)
+        "gtk+"
+        ;; the gnome toolkit, new style
+        "gtk"
         ;; gnome filesystem browser
         "nautilus"
         ;; torrenting
         "transmission-remote-gtk"
-        ;; gnome toolkit
-        ;; TODO: I do not believe I need to explicitly depend
-        ;; "gtk+"
         )))
 
 ;; TODO break these into sub-groups
