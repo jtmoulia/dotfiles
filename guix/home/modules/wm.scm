@@ -34,6 +34,8 @@
         "swayr"
         ;; waybar for a wayland system bar; configured with sway
         "waybar"
+        ;; screen recorder for wayland
+        "wf-recorder"
         ;; wayland friendly clipboard (alias `xc` from shell)
         "wl-clipboard"
         ;; launcher, wofi style

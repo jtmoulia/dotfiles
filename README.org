@@ -1,6 +1,46 @@
 #+title: README
 
 * Cookbook
+** Window Manager
+
+*** Keybindings
+
+Keybindings are divided into modes, which are shown
+
+*Launchers* =S-o=
+
+| Keybinding | Command                            |
+|------------+------------------------------------|
+| =S-o e=    | launch / switch: emacs             |
+| =S-o b=    | launch / switch: browser (firefox) |
+| =S-o t=    | launch / switch: terminal (foot)   |
+
+/Note:/ "launch / switch" means the application will be launched if it's not
+already opened, otherwise switch to that window.
+
+*Buffers* =S-b=
+
+| Keybinding | Command         |
+|------------+-----------------|
+| =S-b b=    | window switcher |
+| =S-b o=    | previous window |
+| =S-b d=    | kill window     |
+
+/Note:/ The window switching commands (called /buffers/ here) use swayr for LRU
+switching.
+
+*Toggles* =S-t=
+
+| Keybinding | Command          |
+|------------+------------------|
+| =S-t b=    | toggle bluetooth |
+
+** Screenshots / Recording
+
+You can use =grimshot= to take screenshots of windows.
+
+You can use =wf-recorder= to perform a screen recording.
+
 ** Printing
 
 The [[https://www.cups.org/][CUPS]] admin web interface is accessible at [[http://localhost:631/][localhost:631]].
@@ -32,7 +72,7 @@ nmcli device wifi connect $SSID password $PASSWORD
 
 ** File Sync: Syncthing
 
-Syncthing is added as a user service and started by default.
+[[https://syncthing.net/][Syncthing]] is added as a user service and started by default.
 
 To open the Syncthing web interfaces navigate to [[https://localhost:8384/][localhost:8384]].
 

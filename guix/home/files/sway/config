@@ -218,10 +218,6 @@ bindsym $mod+r mode "resize"
 # Application lauunchers
 #
 mode "launchers" {
-    # Switch to previous if dbl toggled
-    bindsym o exec swayr switch-to-urgent-or-lru-window; mode "default"
-    bindsym $mod+o exec swayr switch-to-urgent-or-lru-window; mode "default"
-
     bindsym e exec \
         (pgrep emacs-29.0.50 || emacs-29.0.50) \
         && swayr switch-to-app-or-urgent-or-lru-window emacs-29-0-50 \
@@ -259,6 +255,11 @@ bindsym $mod+t mode "toggles"
 # Buffer commands
 #
 mode "buffers" {
+    # Switch to previous if dbl toggled
+    bindsym o exec swayr switch-to-urgent-or-lru-window; mode "default"
+    # Also handle S-b [S-]o in case of a quick mis-toggle
+    bindsym $mod+o exec swayr switch-to-urgent-or-lru-window; mode "default"
+
     # tree-switcher (like emacs buffer switcher)
     bindsym b exec $switcher; mode "default"
     # Kill focused window
