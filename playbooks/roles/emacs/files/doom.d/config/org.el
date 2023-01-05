@@ -97,6 +97,11 @@
       :m :desc "Kill the org link to the ring"
       "l y" #'my-kill-link)
 
+;; archive an agenda item using =, A=
+(map! :map evil-org-agenda-mode-map :after (org-super-agenda)
+      :localleader
+      :nmi :desc "Org agenda archive" "A" #'org-agenda-archive)
+
 ;; enable org-super-agenda global minor mode if defined
 (when (fboundp 'org-super-agenda-mode)
   (org-super-agenda-mode t))
