@@ -17,7 +17,7 @@
 ;; Don't warn about deadlines if an item is scheduled
 (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
 
-(defun my-org-kill-link ()
+(defun my-org-copy-link ()
   "Insert the org link under the cursor into the kill ring."
   (interactive)
   (let ((object (org-element-context)))
@@ -94,8 +94,8 @@
 
 ;; unmap the existing agenda view dispatch for fold bindings
 (map! :map evil-org-mode-map :localleader
-      :m :desc "Kill the org link to the ring"
-      "l y" #'my-kill-link)
+      :m :desc "Kill the org link to the ring" "l y" #'my-org-copy-link
+      :m :desc "Kill the org link to the ring" "l e" #'my-org-eww-link)
 
 ;; archive an agenda item using =, A=
 (map! :map evil-org-agenda-mode-map :after (org-super-agenda)
