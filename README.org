@@ -118,6 +118,7 @@ Is there a package that can handle all of the below?
 - [ ] can I pass a regex?
 - [ ] ivy / helm / vertico integration?
 - [ ] evil help mode keybinding
+
 ** Environments
 
 *** Common Lisp
@@ -163,3 +164,18 @@ To generate the full report it can be run as su:
 #+BEGIN_SRC sh
 [sudo] lynis
 #+END_SRC
+
+* MacOS
+
+** Emacs
+
+
+Install Emacs 29 using the d12frosted lib with imagemagick support and native
+compilation:
+
+#+BEGIN_SRC sh
+brew install emacs-plus@29 --with-imagemagick --with-native-comp
+#+END_SRC
+
+WARNING: This will compile emacs 29 from scratch as well as natively compiling
+el -- expect this command to take several hours.
