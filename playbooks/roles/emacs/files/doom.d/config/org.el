@@ -9,8 +9,10 @@
 
 (defvar my//org-capture-my-todo-file "agenda/mine.org"
   "File to capture my TODO items to.")
-(defvar my//org-capture-healthtensor-todo-file "agenda/ht.org"
-  "File to capture healthtensor TODO items to.")
+
+(defvar my//org-capture-regard-todo-file "agenda/ht.org"
+  "File to capture regard TODO items to.")
+
 (defvar my//org-capture-bookmark-file (f-join org-directory "bookmarks.org")
   "File to capture bookmarks to.")
 
@@ -34,21 +36,21 @@
 (setq-default
  org-capture-templates
  `(("t" "capture todo item")
-   ("h" "HT capture")
+   ("r" "regard capture")
    ("b" "bookmarks")
    ("tm" "capture my todo item" entry
     (file+headline
      ,(expand-file-name my//org-capture-my-todo-file org-directory)
      "Inbox")
     "* TODO %?\n%i\n%a" :prepend t)
-   ("ht" "capture healthtensor todo item" entry
+   ("rt" "capture regard todo item" entry
     (file+headline
-     ,(expand-file-name my//org-capture-healthtensor-todo-file org-directory)
+     ,(expand-file-name my//org-capture-regard-todo-file org-directory)
      "Inbox")
     "* TODO %?\n%i\n%a" :prepend t)
-   ("hj" "capture jira todo item" entry
+   ("rj" "capture regard jira todo item" entry
     (file+headline
-     ,(expand-file-name my//org-capture-healthtensor-todo-file org-directory)
+     ,(expand-file-name my//org-capture-regard-todo-file org-directory)
      "Inbox")
     "* TODO JIRA Issue %^{Issue}: %?\n
   - [[https://healthtensor.atlassian.net/browse/%\\1][JIRA Link]]
@@ -106,21 +108,6 @@
 (when (fboundp 'org-super-agenda-mode)
   (org-super-agenda-mode t))
 
-
-;; (setq org-super-agenda-groups
-;;       '(;; Each group has an implicit boolean OR operator between its selectors.
-;;         (:name "HT"  ; Optionally specify section name
-;;          ;; :time-grid t  ; Items that appear on the time grid
-;;          :tag "ht"
-;;          :todo "TODAY"
-;;          :order 1)  ; Items that have this TODO keyword
-;;         (:name "MINE"  ; Optionally specify section name
-;;          :tag "mine"
-;;          :todo "TODAY"
-;;          :order 2)  ; Items that have this TODO keyword
-;;         ;; After the last group, the agenda will display items that didn't
-;;         ;; match any of these groups, with the default order position of 99
-
 (setq org-agenda-custom-commands
      '(("A" "Absolutely Awesome Agenda"
         ((agenda "" ((org-agenda-span 'week)
@@ -129,7 +116,7 @@
                          :and (:tag "regard" :todo ("TODO" "STRT"))
                          :order 1)
 
-                        (:name "HealthTensor Waiting"
+                        (:name "Regard Waiting"
                          :and (:tag "regard" :todo ("WAIT"))
                          :order 2)
 
