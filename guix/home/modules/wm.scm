@@ -22,7 +22,8 @@
         ;; desktop notification plumbing
         "libnotify"
         ;; wayland desktop notification presentation
-        "mako"
+        ;; NOTE: mako build currently broken
+        ;; "mako"
         ;; sway window manager (@ddevault)
         ;; https://github.com/swaywm/sway
         "sway"
@@ -37,6 +38,7 @@
         "swayr"
         ;; waybar for a wayland system bar; configured with sway
         "waybar"
+        "wev"
         ;; screen recorder for wayland
         "wf-recorder"
         ;; wayland friendly clipboard (alias `xc` from shell)

@@ -210,6 +210,7 @@
         "wine"
         ;; player of videos
         "vlc"
+        "signal-desktop"
 
         ;; KDE packages
         ;; kde filesystem browser
