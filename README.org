@@ -1,6 +1,26 @@
 #+title: README
 
 * Cookbook
+** guix
+
+This dotfile config uses [[https://guix.gnu.org/][guix]] to reproducibly build and manage packages.
+
+The system can be configured using the command
+
+#+BEGIN_SRC sh
+reconfigure-system
+#+END_SRC
+
+[[https://guix.gnu.org/manual/en/html_node/Home-Configuration.html][Guix Home]] is used to configure the user profile. The home profile can be updated
+using:
+
+#+BEGIN_SRC sh
+reconfigure-home
+#+END_SRC
+
+Read more documentation in the [[elisp:(info "guix")][info pages]].
+
+*** TODO Document / implement these configure commands in emacs or a more consistent interface
 ** Window Manager: Sway
 
 *** Keybindings
@@ -118,6 +138,10 @@ Is there a package that can handle all of the below?
 - [ ] can I pass a regex?
 - [ ] ivy / helm / vertico integration?
 - [ ] evil help mode keybinding
+
+**** guix
+
+The best way to interact with guix is via [[elisp:(info "emacs-guix")][emacs-guix]].
 
 ** Environments
 
