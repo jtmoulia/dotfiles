@@ -38,6 +38,7 @@
         "swayr"
         ;; waybar for a wayland system bar; configured with sway
         "waybar"
+        ;; an application for reading inputs within wayland
         "wev"
         ;; screen recorder for wayland
         "wf-recorder"
