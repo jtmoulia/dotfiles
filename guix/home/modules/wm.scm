@@ -23,7 +23,7 @@
         "libnotify"
         ;; wayland desktop notification presentation
         ;; NOTE: mako build currently broken
-        ;; "mako"
+        "mako"
         ;; sway window manager (@ddevault)
         ;; https://github.com/swaywm/sway
         "sway"
