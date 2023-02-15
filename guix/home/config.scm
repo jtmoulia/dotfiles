@@ -71,6 +71,11 @@
         "tor-client"
         )))
 
+(define java-packages
+  (map specification->package
+       (list
+        "maven")))
+
 (define python-packages
   (map specification->package
        (list
@@ -254,6 +259,7 @@
     ,@font-packages
     ,@gnomish-packages
     ,@guile-packages
+    ,@java-packages
     ,@language-packages
     ,@ml-packages
     ,@pro-audio-packages

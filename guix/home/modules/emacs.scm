@@ -14,6 +14,7 @@
 (define-public emacs-packages
   (map specification->package
        (list
+        "emacs-next-pgtk"
         ;; for dtache emacs command detaching
         "dtach"
         "emacs-alert"

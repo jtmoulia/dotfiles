@@ -114,7 +114,8 @@
        ;;(haskell +dante)  ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
+       (java               ; the poster child for carpal tunnel syndrome
+        +meghanada)
        (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
        (julia              ; a better, faster MATLAB
         +lsp +tree-sitter)
@@ -130,7 +131,7 @@
        ;;ocaml             ; an objective camel
        (org                ; organize your plain life in plain text
         +dragndrop         ; drag & drop files/images into org buffers
-        ;;+hugo            ; use Emacs for hugo blogging
+        +hugo            ; use Emacs for hugo blogging
         +noter
         +pretty
         +ipython         ; ipython/jupyter support for babel
