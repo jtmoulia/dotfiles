@@ -10,6 +10,7 @@
     (let ((jira-id (when (thing-at-point-looking-at my//regard-jira-regex)
                      (buffer-substring (match-beginning 0) (match-end 0)))))
       (when jira-id
-        (hact 'browse-url (concat "https://jira.com/" jira-id)))))
+        (hact 'browse-url (concat "https://healthtensor.atlassian.net/browse/" jira-id)))))
+
 
 ;;; hyperbole.el ends here
