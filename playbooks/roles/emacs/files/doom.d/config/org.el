@@ -66,6 +66,11 @@
      (file+headline ,(car rmh-elfeed-org-files) "root")
      "* %?\n\n")))
 
+;; Company mode auto-completion is painfully slow -- disabled.
+(defun my/disable-company-mode ()
+  (company-mode -1))
+(add-hook 'org-mode-hook #'my/disable-company-mode)
+
 ;; By default enable auto fill mode in org mode buffers
 (add-hook 'org-mode-hook 'auto-fill-mode)
 
