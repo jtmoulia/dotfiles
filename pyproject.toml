@@ -6,8 +6,8 @@ authors = ["Thomas Moulia <jtmoulia@pocketknife.io>"]
 license = "BSD-3-Clause"
 
 [tool.poetry.dependencies]
-python = "^3.8"
-ansible = "^4.2.0"
+python = "^3.10"
+ansible = "^7.0.0"
 jinja2 = "*"
 PyYAML = "*"
 
