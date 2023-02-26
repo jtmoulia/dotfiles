@@ -62,6 +62,7 @@
        (list
         "glibc-locales"
         "gnupg"
+        "pinentry"
         "inetutils"
         "nss-certs"
         ;; as it says on the tin, tools for working with wireguard
@@ -94,9 +95,15 @@
         "python-pytest"
         "python-seaborn")))
 
+(define go-packages
+  (map specification->package
+       (list
+        "go")))
+
 (define utility-packages
   (map specification->package
        (list
+        "git"
         "unzip")))
 
 (define language-packages
@@ -148,6 +155,8 @@
         "make"
         ;; an oxidized grep
         "ripgrep"
+        ;; synchronize two directories
+        "rsync"
         ;; an oxidized tldr
         ;; NOTE: tealdeer build is broke: https://issues.guix.gnu.org/57867
         ;; "tealdeer"
@@ -200,6 +209,8 @@
         "bluez"
         ;; wayland compliant firefox web browser
         "firefox-wayland"
+        ;; wayland compliant chromium without the google
+        "ungoogled-chromium-wayland"
         ;; FreeCAD modeling software
         "freecad"
         ;; a raster swiss army knife
@@ -224,6 +235,7 @@
         "kdeconnect"
 
         ;; XDG stuff
+        "xdg-desktop-portal"
         "xdg-desktop-portal-gtk"
         "xdg-desktop-portal-wlr"
         )))
@@ -258,6 +270,7 @@
     ,@desktop-packages
     ,@font-packages
     ,@gnomish-packages
+    ,@go-packages
     ,@guile-packages
     ,@java-packages
     ,@language-packages
