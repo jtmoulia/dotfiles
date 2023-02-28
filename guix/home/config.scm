@@ -72,6 +72,12 @@
         "tor-client"
         )))
 
+(define email-packages
+  (map specification->package
+       (list
+        "offlineimap3"
+        "mu")))
+
 (define java-packages
   (map specification->package
        (list
