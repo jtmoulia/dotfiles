@@ -86,6 +86,10 @@
   (add-hook 'org-agenda-mode-hook
             (lambda () (when (fboundp 'origami-mode) (origami-mode t)))))
 
+;; org-pomodoro config
+;; without tweaking, the default sound is... penetrating. off till then.
+(setq org-pomodoro-play-sounds nil)
+
 ;; unmap the existing agenda view dispatch for fold bindings
 (map! :map evil-org-agenda-mode-map :after (org-super-agenda origami)
       :m "z" nil)
