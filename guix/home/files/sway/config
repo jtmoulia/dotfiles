@@ -17,7 +17,7 @@ set $right l
 
 # Your preferred terminal emulator
 set $term foot
-set $editor emacs-29.0.60
+set $editor emacs
 
 set $font pango:monospace 10
 
@@ -195,8 +195,8 @@ bindsym $mod+r mode "resize"
 #
 mode "launchers" {
     bindsym e exec \
-        (pgrep $emacs || $emacs) \
-        && swayr switch-to-app-or-urgent-or-lru-window $emacs \
+        (pgrep $editor || $editor) \
+        && swayr switch-to-app-or-urgent-or-lru-window $editor \
         ; mode "default"
     bindsym b exec \
         (pgrep firefox || swaymsg exec firefox) \

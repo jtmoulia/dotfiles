@@ -110,6 +110,7 @@
   (map specification->package
        (list
         "git"
+        "sqlite"
         "unzip")))
 
 (define language-packages
