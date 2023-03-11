@@ -275,6 +275,7 @@
     ,@audio-packages
     ,@base-packages
     ,@desktop-packages
+    ,@email-packages
     ,@font-packages
     ,@gnomish-packages
     ,@go-packages

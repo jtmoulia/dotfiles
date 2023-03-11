@@ -82,7 +82,7 @@
    (service automount-service-type)
    (service cups-service-type
             (cups-configuration (web-interface? #t)))
-   (bluetooth-service)))
+   (service bluetooth-service-type)))
 
 (operating-system
  (kernel linux)
