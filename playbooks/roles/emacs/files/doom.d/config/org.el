@@ -16,6 +16,9 @@
 (defvar my//org-capture-bookmark-file (f-join org-directory "bookmarks.org")
   "File to capture bookmarks to.")
 
+(defvar my//org-log-file "~/src/hoglog/content-org/journal.org"
+  "File to capture journal to.")
+
 ;; Don't warn about deadlines if an item is scheduled
 (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
 
@@ -38,6 +41,7 @@
  `(("t" "capture todo item")
    ("r" "regard capture")
    ("b" "bookmarks")
+   ("l" "log")
    ("tm" "capture my todo item" entry
     (file+headline
      ,(expand-file-name my//org-capture-my-todo-file org-directory)
@@ -57,7 +61,13 @@
   - [[orgit:~/repos/automed/][Automed Repo]]\n%i\n\n")
    ("bb" "capture bookmark" entry
     (file+headline my//org-capture-bookmark-file "Inbox")
-    "* %?\n:PROPERTIES:\n:CREATED: %U\n:URL: %a\n:END:\n\n" :prepend t)))
+    "* %?\n:PROPERTIES:\n:CREATED: %U\n:URL: %a\n:END:\n\n" :prepend t)
+   ("ll" "capture log" entry
+    (file+headline my//org-log-file "Log")
+    "* %(format-time-string \"%B %-dth, '%y\"): %?
+SCHEDULED: %T
+:PROPERTIES:\n:EXPORT_FILE_NAME: %(format-time-string \"%Y-%m-%d\")\n:END:\n\n"
+    :prepend t)))
 
 (after! 'elfeed
   (add-to-list
