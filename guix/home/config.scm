@@ -18,6 +18,7 @@
   #:use-module ((guix licenses) #:prefix license:)
   ;; personal modules
   #:use-module (home modules emacs)
+  #:use-module (home modules email)
   #:use-module (home modules git)
   #:use-module (home modules guile)
   #:use-module (home modules shell)
@@ -72,12 +73,6 @@
         "tor-client"
         )))
 
-(define email-packages
-  (map specification->package
-       (list
-        "offlineimap3"
-        "mu")))
-
 (define java-packages
   (map specification->package
        (list
@@ -110,6 +105,7 @@
   (map specification->package
        (list
         "git"
+        "password-store"
         "sqlite"
         "unzip")))
 
@@ -297,6 +293,7 @@
   `(
     ,@my-services
     ,@emacs-services
+    ,@email-services
     ,@sway-services
     ,@tmux-services
     ,@zsh-services
