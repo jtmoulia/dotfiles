@@ -104,6 +104,11 @@ To open the Syncthing web interfaces navigate to [[https://localhost:8384/][loca
 
 ** Emacs
 
+*** Global Keybindings
+
+- =S o n= deft
+- =S o h= hyperbole
+
 *** Org
 
 By default much of my emacs configuration depends on an org directory populated

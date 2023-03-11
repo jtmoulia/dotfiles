@@ -28,9 +28,6 @@
   ;; some heavy modes make the default delay of 0.15s too short
   (setq evil-escape-delay 0.5))
 
-(after! 'mastodon
-  (setq mastodon-media--enable-image-caching 't))
-
 ;; MacOS specific mu4e: Add mu4e to load path if the directory exists
 (if (eq system-type 'darwin)
     (load-file (f-join "~/.doom.d" "config/darwin.el")))
@@ -48,8 +45,12 @@
 (my//eval-config-after-load 'elfeed "config/elfeed.el")
 
 ;; Mastodon config, to refactor out
+(after! 'mastodon
+  (setq mastodon-media--enable-image-caching 't))
 (setq mastodon-active-user "jtmoulia")
 (setq mastodon-instance-url "https://mstdn.social")
+
+(map! :leader :desc "Hyperbole" :n "o h" #'hyperbole)
 
 ;; global keybindings need to be defined at this top level
 ;; Add a global keybinding for opening deft
