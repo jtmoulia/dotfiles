@@ -105,6 +105,9 @@
   (map specification->package
        (list
         "git"
+        ;; double-entry accounting library
+        "ledger"
+        ;; pass CLI interface
         "password-store"
         "sqlite"
         "unzip")))
