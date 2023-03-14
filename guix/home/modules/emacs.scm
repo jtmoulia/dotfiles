@@ -32,7 +32,6 @@
         "emacs-pdf-tools"
         "emacs-s"
         "emacs-tldr"
-        "emacs-treemacs"
         "emacs-vertico"
         "emacs-vterm")))
 
