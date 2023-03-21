@@ -1,6 +1,8 @@
 ;;; ../.dotfiles/playbooks/roles/emacs/files/doom.d/config/text.el -*- lexical-binding: t; -*-
 ;; Helpers for working with text.
 
+(setq ispell-personal-dictionary "~/.doom.d/aspell.en.pws")
+
 (defun +join-paragraphs ()
   "Join paragraphs in selection such that each takes a single line."
   (interactive)
@@ -23,5 +25,7 @@
       (flyspell-do-correct
        'save nil (car word) current-location
        (cadr word) (caddr word) current-location))))
+
+(map! :desc "save word" :n "z S" #'+spell/save-word)
 
 ;;; text.el ends here
