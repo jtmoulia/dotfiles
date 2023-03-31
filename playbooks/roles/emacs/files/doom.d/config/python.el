@@ -23,6 +23,11 @@
                 (cons tcp-proc nil)))
    :test? (lambda () t)))
 
+(defun +python/open-ipython-poetry-repl ()
+  "Open an IPython REPL using poetry."
+  (interactive)
+  (let ((+python-ipython-command (append '("poetry" "run") +python-ipython-command)))
+    (+python/open-ipython-repl)))
 
 ;; Create an automed python language server
 ;; (lsp-register-client
