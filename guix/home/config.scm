@@ -90,10 +90,13 @@
         "python-ipython"
         "python-jupyter-client"
         "python-jupyter-console"
+        ;; Language server protocol for Python, integrates with emacs et al
+        "python-lsp-server"
         "python-matplotlib"
         "python-pandas"
         "python-pdbpp"
-        "python-pytest"
+        ;; Commented out due to conflict with `python-lsp-server'
+        ;; "python-pytest"
         "python-seaborn")))
 
 (define go-packages
@@ -104,6 +107,7 @@
 (define utility-packages
   (map specification->package
        (list
+        "gcc"
         "git"
         ;; double-entry accounting library
         "ledger"

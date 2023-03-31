@@ -3,6 +3,7 @@
   #:use-module (gnu home)
   #:use-module (gnu packages)
   #:use-module (gnu packages emacs)
+  #:use-module (gnu packages emacs-xyz)
   #:use-module (gnu home services)
   #:use-module (gnu home-services emacs)
   #:use-module (gnu home services shells)
@@ -12,7 +13,10 @@
   #:use-module (gnu home-services-utils))
 
 (define-public emacs-packages
-  (map specification->package
+  (append
+   ;; explicitly use package from emacs-xyz
+   (list emacs-guix)
+   (map specification->package
        (list
         "emacs-next-pgtk"
         ;; for dtache emacs command detaching
@@ -22,7 +26,6 @@
         "emacs-dracula-theme"
         "emacs-evil"
         "emacs-hydra"
-        "emacs-guix"
         "emacs-org"
         "emacs-org-edna"
         "emacs-org-modern"
@@ -33,7 +36,7 @@
         "emacs-s"
         "emacs-tldr"
         "emacs-vertico"
-        "emacs-vterm")))
+        "emacs-vterm"))))
 
 (define-public emacs-services
   (list
