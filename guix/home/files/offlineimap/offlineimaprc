@@ -1,7 +1,7 @@
 [general]
 accounts = Gmail, HealthTensor
 maxsyncaccounts = 3
-pythonfile = ~/.offlineimap.py
+pythonfile = ~/.config/offlineimap/offlineimap.py
 
 [Account Gmail]
 localrepository = GmailLocal
