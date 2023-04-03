@@ -59,4 +59,8 @@
 
 ;; Extempore-mode for extemporaneous music
 ;; Extempore: https://github.com/digego/extempore
-(package! extempore-mode)
+;; (package! extempore-mode)
+
+;; OpenAI GPT interface
+;; https://github.com/karthink/gptel
+(package! gptel)
