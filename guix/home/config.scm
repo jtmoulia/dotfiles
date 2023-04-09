@@ -114,7 +114,11 @@
         ;; pass CLI interface
         "password-store"
         "sqlite"
-        "unzip")))
+        "unzip"
+        ;; magic wormhole for one-off point-to-point transfers
+        ;; https://github.com/magic-wormhole/magic-wormhole
+        "magic-wormhole"
+        )))
 
 (define language-packages
   (map specification->package

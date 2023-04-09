@@ -19,3 +19,9 @@ by Andrew Tropin. This has been forked from Tass0sm/dotfiles
 - https://github.com/Tass0sm/dotfiles
 - https://github.com/Barbarossa93/Genome
 - https://github.com/skalpasi/bspwm-dotfiles
+
+* Tools
+** File Transfer
+
+- ssh
+- [[https://github.com/magic-wormhole/magic-wormhole][magic-wormhole]]
