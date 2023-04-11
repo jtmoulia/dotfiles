@@ -88,3 +88,9 @@ find-file picker."
 (setq evil-snipe-repeat-scope 'buffer)
 ;; If no matches are found spill over to the entire buffer, before and after
 (setq evil-snipe-spillover-scope 'whole-buffer)
+
+;; chatGPT
+(setq chatgpt-shell-openai-key
+      (lambda ()
+        (auth-source-pick-first-password :host "api.openai.com")))
+;; (setq chatgpt-shell-chatgpt-model-version "gpt-4")
