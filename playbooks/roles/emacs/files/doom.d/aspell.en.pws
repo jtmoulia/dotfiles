@@ -1,4 +1,4 @@
-personal_ws-1.1 en 157 
+personal_ws-1.1 en 170 
 ATL
 Argumentatives
 Ashwin
@@ -6,6 +6,7 @@ Aus
 BAA's
 BBell
 BLEU
+Banff
 Bing
 BreadMaker
 Cadian
@@ -33,6 +34,7 @@ EMR's
 FHIR
 GPG
 GPT
+GPUs
 Github
 Github's
 Gitlab
@@ -44,6 +46,7 @@ HealthTensor
 HuggingGPT
 Kasrkin
 Kevin
+Kirkwood
 Kreitler
 Kroot
 LLM
@@ -59,15 +62,20 @@ MR's
 Mayumi
 Meta's
 Michoel
+Midjourney's
+Minigpt
 MoHo
 Munjela
+Nouria
 Onboarding
 OpenAI
 OpenAI's
 POIs
 Pennell
+RL
 RTF
 RTX
+RedPajama
 Regardians
 Reznik
 SOTA
@@ -84,6 +92,7 @@ Tomorrow'll
 Tris
 Tryon
 VSCode
+Vicunica
 Viktorya
 XDG
 Xu
@@ -135,6 +144,7 @@ ol
 olde
 onboarded
 onboarding
+param
 parameterizing
 perf
 programmatically
@@ -148,10 +158,13 @@ runtime
 scalable
 shifter
 sql
+starship
+starship'll
 substack
 synthea
 tri's
 un
+vicunia
 vsn
 walkthrough
 xenos
