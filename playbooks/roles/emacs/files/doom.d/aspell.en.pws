@@ -1,4 +1,4 @@
-personal_ws-1.1 en 170 
+personal_ws-1.1 en 179 
 ATL
 Argumentatives
 Ashwin
@@ -86,6 +86,7 @@ Sando
 Shinn
 Standup
 Starsight
+Subtree
 TODO
 Taha
 Tomorrow'll
@@ -120,16 +121,20 @@ embeddings
 eng
 fschat
 ful
+github
+gitlab
 gptel
 guix
 healthtensor
 hostable
 htac
 integrations
+jpeg
 js
 json
 kubernetes
 laregard
+lazr
 learnings
 macbook
 megacorps
@@ -147,9 +152,11 @@ onboarding
 param
 parameterizing
 perf
+pre
 programmatically
 proj
 prolly
+quali
 rebase
 reflexion
 rejuve
@@ -157,6 +164,7 @@ rollout
 runtime
 scalable
 shifter
+simracing
 sql
 starship
 starship'll
@@ -167,5 +175,6 @@ un
 vicunia
 vsn
 walkthrough
+wikipedia
 xenos
 yubikey
