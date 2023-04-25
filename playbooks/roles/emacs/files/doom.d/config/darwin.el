@@ -8,7 +8,7 @@
 ;;
 
 (let ((mu4e-load-path (-> "/opt/homebrew/Cellar/mu/*"
-                              file-expand-wildcards reverse first
+                              file-expand-wildcards reverse car
                               file-name-as-directory (concat "share/emacs/site-lisp/mu/mu4e"))))
       (if (file-directory-p mu4e-load-path)
           (add-to-list 'load-path mu4e-load-path)))
