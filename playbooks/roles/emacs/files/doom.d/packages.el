@@ -47,8 +47,4 @@
 
 ;; create links with auto backlinks
 ;; https://github.com/toshism/org-super-links
-(package! chatgpt-shell
-  :recipe (:type git
-           :host github
-           :repo "xenodium/chatgpt-shell"
-           :branch "main"))
+(package! chatgpt-shell)

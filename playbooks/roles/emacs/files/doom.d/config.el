@@ -93,4 +93,4 @@ find-file picker."
 (setq chatgpt-shell-openai-key
       (lambda ()
         (auth-source-pick-first-password :host "api.openai.com")))
-;; (setq chatgpt-shell-chatgpt-model-version "gpt-4")
+(setq chatgpt-shell-chatgpt-model-version "gpt-4")
