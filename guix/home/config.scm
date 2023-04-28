@@ -107,7 +107,7 @@
 (define utility-packages
   (map specification->package
        (list
-        "gcc"
+        "gcc-toolchain"
         "git"
         ;; double-entry accounting library
         "ledger"
