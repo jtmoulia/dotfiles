@@ -183,4 +183,6 @@ SCHEDULED: %T
                            :order 2)))))))))
                          
 
+(setq org-hugo-date-format "%Y-%m-%dT%T")
+
 ;;; org.el ends here
