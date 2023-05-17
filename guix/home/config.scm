@@ -69,14 +69,7 @@
         ;; as it says on the tin, tools for working with wireguard
         ;; TODO: is this redundant with nm-cli
         "wireguard-tools"
-        ;; TODO: fork out security packages to own group
-        "tor-client"
         )))
-
-(define java-packages
-  (map specification->package
-       (list
-        "maven")))
 
 (define python-packages
   (map specification->package
@@ -84,7 +77,8 @@
         ;; the OG journal
         "jupyter"
         ;; python packaging, current best option
-        "poetry"
+        ;; Broken build see https://issues.guix.gnu.org/63139
+        ;; "poetry"
         "python"
         "python-black"
         "python-ipython"
@@ -117,7 +111,8 @@
         "unzip"
         ;; magic wormhole for one-off point-to-point transfers
         ;; https://github.com/magic-wormhole/magic-wormhole
-        "magic-wormhole"
+        ;; TODO broken txtorcon: https://issues.guix.gnu.org/63486
+        ;; "magic-wormhole"
         )))
 
 (define language-packages
@@ -126,11 +121,13 @@
         ;; python: see python-packages
         ;; guile: see guile-packages
         "node"
-        "rakudo"
+        ;; Perl6?
+        ;; "rakudo"
         ;; OOPs
         "ruby"
         "rust"
-        ;; common-lisp should be broken out
+        ;; NOTE: common-lisp should be broken out
+        ;; Steel-bank common lisp
         "sbcl"
         "cl-asdf"
         "sbcl-coalton")))
@@ -225,6 +222,7 @@
         ;; wayland compliant chromium without the google
         "ungoogled-chromium-wayland"
         ;; FreeCAD modeling software
+        ;; Currently pyside-2 is broken
         "freecad"
         ;; a raster swiss army knife
         "gimp"
@@ -243,9 +241,9 @@
 
         ;; KDE packages
         ;; kde filesystem browser
-        "dolphin"
+        ;; "dolphin"
         ;; KDE connect for integrating with my phone
-        "kdeconnect"
+        ;; "kdeconnect"
 
         ;; XDG stuff
         "xdg-desktop-portal"
@@ -286,7 +284,6 @@
     ,@gnomish-packages
     ,@go-packages
     ,@guile-packages
-    ,@java-packages
     ,@language-packages
     ,@ml-packages
     ,@pro-audio-packages
