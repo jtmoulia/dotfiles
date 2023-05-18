@@ -79,15 +79,15 @@ find-file picker."
     (doom-project-find-file project-path)))
 (setq +workspaces-switch-project-function #'my//magit-or-find-file)
 
-;; Allow deeper callstacks
-(setq max-specpdl-size 10000)
-
 ;; config: evil-snipe
 ;; allow evil-snipe to work the entire buffer as opposed to single line
 (setq evil-snipe-scope 'buffer)
 (setq evil-snipe-repeat-scope 'buffer)
 ;; If no matches are found spill over to the entire buffer, before and after
 (setq evil-snipe-spillover-scope 'whole-buffer)
+
+;; Hugo blahgin
+(setq hugo-date-format "%Y-%m-%dT%T")
 
 ;; chatGPT
 (setq chatgpt-shell-openai-key
