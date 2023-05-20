@@ -48,3 +48,8 @@
 ;; create links with auto backlinks
 ;; https://github.com/toshism/org-super-links
 (package! chatgpt-shell)
+
+;; Unofficial github copilot for emacs
+;; https://github.com/zerolfx/copilot.el
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))

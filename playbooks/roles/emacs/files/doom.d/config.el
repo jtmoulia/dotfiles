@@ -93,4 +93,14 @@ find-file picker."
 (setq chatgpt-shell-openai-key
       (lambda ()
         (auth-source-pick-first-password :host "api.openai.com")))
-(setq chatgpt-shell-chatgpt-model-version "gpt-4")
+(setq chatgpt-shell-model-version "gpt-4")
+
+;; GitHub Copilot configuration
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))

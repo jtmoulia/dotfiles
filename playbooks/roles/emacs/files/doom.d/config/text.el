@@ -28,4 +28,15 @@
 
 (map! :desc "save word" :n "z S" #'+spell/save-word)
 
+(defun +org/copy-without-newlines ()
+  "Copy org text without newlines in paragraphs."
+  (interactive)
+  (let ((text "")
+        (tree (org-element-parse-buffer)))
+    (org-element-map tree 'paragraph
+      (lambda (paragraph)
+        (let ((paragraph-text (org-element-property :raw-value paragraph)))
+          (setq text (concat text (replace-regexp-in-string "\n" "" paragraph-text)))))
+    (kill-new text))))
+
 ;;; text.el ends here
