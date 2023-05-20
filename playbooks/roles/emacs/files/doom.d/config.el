@@ -87,7 +87,7 @@ find-file picker."
 (setq evil-snipe-spillover-scope 'whole-buffer)
 
 ;; Hugo blahgin
-(setq hugo-date-format "%Y-%m-%dT%T")
+(setq org-hugo-date-format "%Y-%m-%dT%T")
 
 ;; chatGPT
 (setq chatgpt-shell-openai-key
