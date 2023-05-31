@@ -80,6 +80,7 @@
         ;; Broken build see https://issues.guix.gnu.org/63139
         ;; "poetry"
         "python"
+
         "python-black"
         "python-ipython"
         "python-jupyter-client"
@@ -111,8 +112,7 @@
         "unzip"
         ;; magic wormhole for one-off point-to-point transfers
         ;; https://github.com/magic-wormhole/magic-wormhole
-        ;; TODO broken txtorcon: https://issues.guix.gnu.org/63486
-        ;; "magic-wormhole"
+        "magic-wormhole"
         )))
 
 (define language-packages
@@ -237,13 +237,18 @@
         "wine"
         ;; player of videos
         "vlc"
+        ;; signal secure instant messaging, now without SMS
         "signal-desktop"
+        ;; Nyxt, the browser of the future; tomorrow
+        "nyxt"
 
         ;; KDE packages
         ;; kde filesystem browser
         ;; "dolphin"
         ;; KDE connect for integrating with my phone
         ;; "kdeconnect"
+        ;; kdenlive -- KDE non-linear video editor
+        "kdenlive"
 
         ;; XDG stuff
         "xdg-desktop-portal"

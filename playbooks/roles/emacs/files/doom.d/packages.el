@@ -45,8 +45,8 @@
 ;; Extempore: https://github.com/digego/extempore
 ;; (package! extempore-mode)
 
-;; create links with auto backlinks
-;; https://github.com/toshism/org-super-links
+;; ChatGPT shell and interactions by xenodium
+;; https://github.com/xenodium/chatgpt-shell
 (package! chatgpt-shell)
 
 ;; Unofficial github copilot for emacs
