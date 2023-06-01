@@ -1,4 +1,4 @@
-personal_ws-1.1 en 247 
+personal_ws-1.1 en 256 
 ATL
 Argumentatives
 Ashwin
@@ -91,6 +91,7 @@ Onboarding
 Oogabooga
 OpenAI
 OpenAI's
+OpenAPI
 OpenWhisper
 Opensource
 PEREA
@@ -146,9 +147,11 @@ XR
 Xu
 ada
 ahold
+ai
 al
 amex
 anthropic
+api
 arrhythmias
 asian
 atharereerrereearbleunique
@@ -173,7 +176,9 @@ elisp
 emacs
 embeddings
 eng
+env
 et
+expirations
 fschat
 ful
 github
@@ -208,6 +213,8 @@ onboarded
 onboarding
 oobabooga's
 ooo
+openai
+openapi
 param
 parameterizing
 perf
@@ -215,7 +222,9 @@ ppl
 programmatically
 proj
 prolly
+pytest
 rebase
+redis
 reduce'ing
 reflexion
 regexes
