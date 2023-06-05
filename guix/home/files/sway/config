@@ -16,7 +16,7 @@ set $up k
 set $right l
 
 # Your preferred terminal emulator
-set $term foot
+set $term alacritty
 set $editor emacs
 
 set $font pango:monospace 10
@@ -44,7 +44,7 @@ client.urgent           $orange  $black     $red      $red       $red
 
 for_window [app_id="(?i)."] title_format "<span><tt>▨</tt></span> %title"
 for_window [app_id="(?i)firefox"] title_format "<span><tt></tt></span> %title"
-for_window [app_id="(?i)foot"] title_format "<span><tt>👣</tt></span> %title"
+for_window [app_id="(?i)alacritty"] title_format "<span><tt>👣</tt></span> %title"
 for_window [app_id="(?i)emacs"] title_format "<span><tt>🦬</tt></span> %title"
 
 # Your preferred application launcher
@@ -95,6 +95,7 @@ bindsym $mod+Shift+x exec XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$XDG_DAT
 # Quick access to Window switcher
 bindsym $mod+Shift+tab exec swayr swap-focused-with
 bindsym $mod+tab exec swayr switch-to
+bindsym Mod1+tab exec swayr switch-to
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
@@ -203,8 +204,12 @@ mode "launchers" {
         && swayr switch-to-app-or-urgent-or-lru-window firefox-default \
         ; mode "default"
     bindsym t exec \
-        (pgrep foot || swaymsg exec foot) \
-        && swayr switch-to-app-or-urgent-or-lru-window foot \
+        (pgrep $term || swaymsg exec $term) \
+        && swayr switch-to-app-or-urgent-or-lru-window $term \
+        ; mode "default"
+    bindsym t exec \
+        (pgrep nyxt || swaymsg exec nyxt) \
+        && swayr switch-to-app-or-urgent-or-lru-window nyxt \
         ; mode "default"
 
     # Return to default mode
