@@ -1,7 +1,9 @@
-personal_ws-1.1 en 274 
+personal_ws-1.1 en 286 
 ATL
+AdminBaseModel
 Argumentatives
 Ashwin
+Async
 Aus
 BAA's
 BBell
@@ -10,11 +12,13 @@ BLEU
 Banff
 Bholat
 Bing
+Bita
 Boehmer
 BreadMaker
 COPD
 Cadian
 Cappadocia
+Cc'd
 Cercle
 Cerner
 Cerner's
@@ -61,6 +65,7 @@ HealthTensor
 Hippocratic
 HuggingFace
 HuggingGPT
+Jamf
 Jeju
 Kasrkin
 Kevin
@@ -84,6 +89,7 @@ Log
 MR's
 Masego
 Mayumi
+Megatron
 Meta's
 Meute
 Michoel
@@ -101,12 +107,14 @@ Oogabooga
 OpenAI
 OpenAI's
 OpenAPI
+OpenAPIBaseModel
 OpenWhisper
 Opensource
 PEREA
 POIs
 PaLM
 Pacifica
+Palacios
 Params
 Pennell
 Phan
@@ -129,6 +137,7 @@ Satya
 Seca
 Shinn
 Simancas
+SoCal
 Sofi
 Soundsystem
 Standup
@@ -152,6 +161,7 @@ Tryon
 Tukker
 UI
 Uber
+Unmanaged
 VSCode
 Vibha
 Vicunica
@@ -186,6 +196,7 @@ daviwil
 de
 deployer
 dev
+devs
 dir
 dr
 elisp
@@ -196,6 +207,7 @@ env
 esque
 et
 expirations
+fns
 fschat
 ful
 funktion
