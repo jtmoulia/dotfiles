@@ -1,4 +1,4 @@
-personal_ws-1.1 en 286 
+personal_ws-1.1 en 299 
 ATL
 AdminBaseModel
 Argumentatives
@@ -41,6 +41,7 @@ Dbell
 Deadlift
 Decrypting
 DevOps
+Diba
 EBJ
 EHR
 EM's
@@ -65,6 +66,7 @@ HealthTensor
 Hippocratic
 HuggingFace
 HuggingGPT
+JIRA
 Jamf
 Jeju
 Kasrkin
@@ -83,6 +85,7 @@ Labrinth
 Lagann
 Laguna
 LangChain
+Lennox
 LiB
 LoRA
 Log
@@ -180,7 +183,9 @@ anthropic
 api
 arrhythmias
 asian
+async'd
 atharereerrereearbleunique
+atlassian
 automed
 babbage
 bbell
@@ -189,6 +194,7 @@ cURL
 caterpillared
 chatbot
 commercializable
+comms
 cpp
 data'll
 davinci
@@ -208,6 +214,7 @@ esque
 et
 expirations
 fns
+frontend
 fschat
 ful
 funktion
@@ -215,9 +222,11 @@ github
 gptel
 greasemonkey
 guix
+gunicorn
 hackathon
 healthtensor
 healthuniverse
+hospitalists
 hostable
 htac
 integrations
@@ -248,10 +257,12 @@ openapi
 param
 parameterizing
 perf
+positivity
 ppl
 programmatically
 proj
 prolly
+py
 pytest
 rebase
 redis
@@ -265,6 +276,7 @@ scalable
 shifter
 situ
 skrillex
+spotify
 sql
 starship
 starship'll
@@ -272,6 +284,7 @@ streamlit
 substack
 summarizer
 synthea
+techstars
 th
 tl
 tri's
