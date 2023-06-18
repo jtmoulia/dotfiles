@@ -207,7 +207,7 @@ mode "launchers" {
         (pgrep $term || swaymsg exec $term) \
         && swayr switch-to-app-or-urgent-or-lru-window $term \
         ; mode "default"
-    bindsym t exec \
+    bindsym n exec \
         (pgrep nyxt || swaymsg exec nyxt) \
         && swayr switch-to-app-or-urgent-or-lru-window nyxt \
         ; mode "default"
