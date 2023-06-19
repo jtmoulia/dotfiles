@@ -26,6 +26,12 @@
    %desktop-services
    (delete login-service-type)
    (delete mingetty-service-type)
+   ;; Repeated deletes due to guix issue: https://www.mail-archive.com/guix-devel@gnu.org/msg65947.html
+   (delete mingetty-service-type)
+   (delete mingetty-service-type)
+   (delete mingetty-service-type)
+   (delete mingetty-service-type)
+   (delete mingetty-service-type)
    (delete gdm-service-type)
    (elogind-service-type config =>
                          (elogind-configuration
