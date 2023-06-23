@@ -14,3 +14,10 @@
 (add-to-list 'load-path "~/.emacs.d/.local/straight/repos/chatgpt-shell")
 (require 'ob-chatgpt-shell)
 (ob-chatgpt-shell-setup)
+
+(setq org-babel-default-header-args:chatgpt-shell
+      `((:results . "code")
+        (:version . "gpt-4-0613")
+        (:system . ,(a-get chatgpt-shell-system-prompts "Programming"))
+        (:temperature . 0)
+        (:wrap . "EXPORT markdown")))
