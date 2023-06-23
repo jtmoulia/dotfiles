@@ -1,4 +1,5 @@
-personal_ws-1.1 en 299 
+personal_ws-1.1 en 304 
+ADT
 ATL
 AdminBaseModel
 Argumentatives
@@ -48,6 +49,7 @@ EM's
 EMR's
 FHIR
 FKJ
+Fixup
 Furtado
 GPG
 GPT
@@ -92,6 +94,7 @@ Log
 MR's
 Masego
 Mayumi
+Meditech
 Megatron
 Meta's
 Meute
@@ -114,6 +117,7 @@ OpenAPIBaseModel
 OpenWhisper
 Opensource
 PEREA
+PHH
 POIs
 PaLM
 Pacifica
@@ -188,6 +192,7 @@ atharereerrereearbleunique
 atlassian
 automed
 babbage
+backend
 bbell
 breadmaker
 cURL

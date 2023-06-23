@@ -43,6 +43,7 @@
 (my//eval-config-after-load 'web-mode "config/web-mode.el")
 (my//eval-config-after-load 'deft "config/deft.el")
 (my//eval-config-after-load 'elfeed "config/elfeed.el")
+(my//eval-config-after-load 'chatgpt-shell "config/chatgpt-shell.el")
 
 ;; Mastodon config, to refactor out
 (after! 'mastodon
@@ -89,12 +90,6 @@ find-file picker."
 ;; Hugo blahgin
 (setq org-hugo-date-format "%Y-%m-%dT%T")
 
-;; chatGPT
-(setq chatgpt-shell-openai-key
-      (lambda ()
-        (auth-source-pick-first-password :host "api.openai.com")))
-(setq chatgpt-shell-model-version "gpt-4")
-
 ;; GitHub Copilot configuration
 ;; accept completion from copilot and fallback to company
 (use-package! copilot
@@ -104,3 +99,7 @@ find-file picker."
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+;; auto-formatting configuration
+(setq +format-on-save-enabled-modes
+      '(not typescript-tsx-mode sql-mode tex-mode latex-mode org-msg-edit-mode))
