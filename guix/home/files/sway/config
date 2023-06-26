@@ -97,6 +97,9 @@ bindsym $mod+Shift+tab exec swayr swap-focused-with
 bindsym $mod+tab exec swayr switch-to
 bindsym Mod1+tab exec swayr switch-to
 
+# Copy / paste history menu
+bindsym $mod+y exec clipman pick --tool=wofi
+
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
 # Despite the name, also works for non-floating windows.

@@ -61,6 +61,19 @@ Screen locking is handled by the [[https://github.com/swaywm/swayidle][=swayidle
 respectively. *The screen is locked after 10 mins and blanked out after 20mins.*
 The user password must be entered to unlock the screen.
 
+** Copying
+
+[[https://github.com/yory8/clipman][clipman]] is used to record the clipboard's history. The history recording daemon
+is started by sway upon startup.
+
+Use a =wofi= picker via the keybinding =S-y=
+
+The clipboard history can be accessed from the shell as JSON by calling:
+
+#+BEGIN_SRC sh
+clipman show-history | jq
+#+END_SRC
+
 ** Screenshots / Recording
 
 You can use =grimshot= to take screenshots of windows.
@@ -76,7 +89,7 @@ The [[https://www.cups.org/][CUPS]] admin web interface is accessible at [[http:
 Bluetooth can be enabled by using =bluetoothctl=, for example: =bluetoothctl
 power on=
 
-Or, you can use the a toggle script:
+Or, you can use the toggle script:
 
 #+BEGIN_SRC sh
 bash ~/.config/sway/bluetooth-toggle.sh
@@ -97,6 +110,7 @@ nmcli device wifi connect $SSID password $PASSWORD
 #+END_SOURCE
 
 ** File Sync: Syncthing
+
 
 [[https://syncthing.net/][Syncthing]] is added as a user service and started by default.
 
