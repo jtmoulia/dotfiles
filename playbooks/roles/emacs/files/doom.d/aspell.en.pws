@@ -1,7 +1,9 @@
-personal_ws-1.1 en 304 
+personal_ws-1.1 en 325 
 ADT
+ALiBi
 ATL
 AdminBaseModel
+Alonso
 Argumentatives
 Ashwin
 Async
@@ -18,6 +20,7 @@ Boehmer
 BreadMaker
 COPD
 Cadian
+Calero
 Cappadocia
 Cc'd
 Cercle
@@ -25,6 +28,7 @@ Cerner
 Cerner's
 Cerners
 ChatGPT
+CollabGPT
 Copilot
 Crafters
 Cukes
@@ -50,10 +54,12 @@ EMR's
 FHIR
 FKJ
 Fixup
+FlashAttention
 Furtado
 GPG
 GPT
 GPUs
+GT's
 Github
 Github's
 Gitlab
@@ -68,6 +74,10 @@ HealthTensor
 Hippocratic
 HuggingFace
 HuggingGPT
+IMSA
+IMSA's
+Indycar
+JB
 JIRA
 Jamf
 Jeju
@@ -83,6 +93,7 @@ LLM's
 LLMaaS
 LLMs
 LLaMa
+LMPs
 Labrinth
 Lagann
 Laguna
@@ -135,6 +146,7 @@ RedPajama
 Regardians
 Reznik
 Rohan
+SJO
 SOTA
 STP
 Sanderson
@@ -147,11 +159,14 @@ Simancas
 SoCal
 Sofi
 Soundsystem
+Sourcegraph
+Sourcegraph's
 Standup
 Starforged
 Starsight
 Subtree
 Susa
+TEO
 TMMC
 TMMCProd
 TODO
@@ -210,6 +225,7 @@ dev
 devs
 dir
 dr
+el
 elisp
 emacs
 embeddings
@@ -242,6 +258,8 @@ la
 laregard
 learnings
 macbook
+makalaka
+mako
 megacorps
 mem
 msft
@@ -276,6 +294,7 @@ reflexion
 regexes
 rejuve
 rollout
+runneth
 runtime
 scalable
 shifter
@@ -295,6 +314,8 @@ tl
 tri's
 ui
 un
+unintuitive
+vLLM
 venv
 vicunia
 vsn
