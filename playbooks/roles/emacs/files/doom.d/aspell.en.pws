@@ -1,4 +1,4 @@
-personal_ws-1.1 en 325 
+personal_ws-1.1 en 330 
 ADT
 ALiBi
 ATL
@@ -213,8 +213,11 @@ breadmaker
 cURL
 caterpillared
 chatbot
+chatgpt
+clipman
 commercializable
 comms
+config
 cpp
 data'll
 davinci
@@ -288,6 +291,7 @@ prolly
 py
 pytest
 rebase
+reconfiguring
 redis
 reduce'ing
 reflexion
@@ -302,6 +306,7 @@ situ
 skrillex
 spotify
 sql
+src
 starship
 starship'll
 streamlit
