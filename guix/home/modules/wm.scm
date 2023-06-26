@@ -47,6 +47,8 @@
          "wf-recorder"
          ;; wayland friendly clipboard (alias `xc` from shell)
          "wl-clipboard"
+         ;; simple clipboard menu that integrates with dmenu etc
+         "clipman"
          ;; launcher, wofi style
          "wofi"))))
 

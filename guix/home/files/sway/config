@@ -340,7 +340,10 @@ bar {
 
 # Notifications
 # NOTE: mako is currently broken !?
-# exec mako
+exec mako
+
+exec wl-paste -t text --watch clipman store
+exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
 
 # switcher: swayr LRU switcher
 exec env RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1
