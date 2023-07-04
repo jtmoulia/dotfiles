@@ -1,6 +1,7 @@
-personal_ws-1.1 en 330 
+personal_ws-1.1 en 360 
 ADT
 ALiBi
+API's
 ATL
 AdminBaseModel
 Alonso
@@ -18,6 +19,7 @@ Bing
 Bita
 Boehmer
 BreadMaker
+C
 COPD
 Cadian
 Calero
@@ -31,8 +33,10 @@ ChatGPT
 CollabGPT
 Copilot
 Crafters
+Ctrl
 Cukes
 Culver
+DALL
 DAX
 DBell
 DERA
@@ -53,6 +57,7 @@ EM's
 EMR's
 FHIR
 FKJ
+Fam
 Fixup
 FlashAttention
 Furtado
@@ -60,6 +65,7 @@ GPG
 GPT
 GPUs
 GT's
+Georgianna
 Github
 Github's
 Gitlab
@@ -102,6 +108,7 @@ Lennox
 LiB
 LoRA
 Log
+MELPA
 MR's
 Masego
 Mayumi
@@ -119,6 +126,7 @@ Munjela
 Nouria
 Nuttall
 Odesza
+Okie
 Onboarding
 Oogabooga
 OpenAI
@@ -138,6 +146,7 @@ Pennell
 Phan
 Portola
 Pre
+Prorg
 Q's
 RL
 RTF
@@ -200,6 +209,7 @@ al
 amex
 anthropic
 api
+arg
 arrhythmias
 asian
 async'd
@@ -212,13 +222,18 @@ bbell
 breadmaker
 cURL
 caterpillared
+chatGPT
 chatbot
 chatgpt
 clipman
+comint
 commercializable
 comms
 config
 cpp
+ctrl
+customizations
+dall
 data'll
 davinci
 daviwil
@@ -227,22 +242,27 @@ deployer
 dev
 devs
 dir
+dokie
 dr
+dwim
 el
 elisp
 emacs
 embeddings
 eng
 env
+eshell
 esque
 et
 expirations
+flooball
 fns
 frontend
 fschat
 ful
 funktion
 github
+gpt
 gptel
 greasemonkey
 guix
@@ -253,6 +273,7 @@ healthuniverse
 hospitalists
 hostable
 htac
+ielm
 integrations
 js
 json
@@ -260,11 +281,13 @@ kubernetes
 la
 laregard
 learnings
+lil
 macbook
 makalaka
 mako
 megacorps
 mem
+minibuffer
 msft
 mundanities
 namecheap
@@ -285,6 +308,7 @@ parameterizing
 perf
 positivity
 ppl
+presi
 programmatically
 proj
 prolly
@@ -297,10 +321,12 @@ reduce'ing
 reflexion
 regexes
 rejuve
+restorable
 rollout
 runneth
 runtime
 scalable
+sexps
 shifter
 situ
 skrillex
@@ -316,15 +342,19 @@ synthea
 techstars
 th
 tl
+todo
 tri's
+txt
 ui
 un
 unintuitive
+url
 vLLM
 venv
 vicunia
 vsn
 walkthrough
+xenodium
 xenos
 ya'll
 yaml
