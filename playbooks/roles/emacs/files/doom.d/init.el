@@ -118,7 +118,9 @@
        ;;idris             ;
        (java               ; the poster child for carpal tunnel syndrome
         +meghanada)
-       (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript         ; all(hope(abandon(ye(who(enter(here))))))
+        +lsp
+        +tree-sitter)
        ;; (julia              ; a better, faster MATLAB
        ;;  +lsp +tree-sitter)
        ;;kotlin            ; a better, slicker Java(Script)
