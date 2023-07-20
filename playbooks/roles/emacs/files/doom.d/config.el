@@ -63,7 +63,7 @@
 ;; style and fonts: looking good, feeling good
 (setq doom-theme 'doom-dracula)
 (setq doom-font (cl-case system-type
-                  ('darwin (font-spec :family "DejaVu Sans Mono" :size 14))
+                  ('darwin (font-spec :family "JetBrains Mono" :size 14))
                   (otherwise (font-spec :family "DejaVu Sans Mono" :size 12))))
 (setq doom-font-increment 1)
 
