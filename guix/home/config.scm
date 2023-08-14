@@ -69,6 +69,8 @@
         ;; as it says on the tin, tools for working with wireguard
         ;; TODO: is this redundant with nm-cli
         "wireguard-tools"
+        ;; Fix for texlive build failure: https://issues.guix.gnu.org/63043
+        "texlive-scheme-basic"
         )))
 
 (define python-packages
@@ -148,9 +150,6 @@
         "glibc-locales"
         ;; monitor processes
         "htop"
-        ;; tool for security auditing local system
-        ;; TODO: add to separate security group
-        "lynis"
         ;; TODO: ispell vs aspell?
         ;; NOTE: I need both?!
         "aspell"
