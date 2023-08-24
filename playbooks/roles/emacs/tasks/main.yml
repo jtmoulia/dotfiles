@@ -5,9 +5,11 @@
     name: "{{ item }}"
     state: "latest"
   with_items:
-    - "emacs"
+    # Use emacs-wayland for pgtk and native-comp
+    - "emacs-wayland"
     - "fasd"
     - "aspell"
+    - "ttf-dejavu"
 
 - name: install/update linux specific emacs deps
   become: "{{ privileged_package_install }}"
@@ -27,7 +29,7 @@
 
 # config (doom)
 
-- name: install doom (dev branch)
+- name: install doom
   git:
     repo: "https://github.com/hlissner/doom-emacs"
     dest: "~/.emacs.d"

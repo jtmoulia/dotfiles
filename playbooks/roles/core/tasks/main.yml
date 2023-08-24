@@ -6,7 +6,7 @@
     state: latest
   with_items:
     - neovim
-    - tldr
+    - tealdeer
     - perl
     # A CLI interface that respects the trash can
     - trash-cli
