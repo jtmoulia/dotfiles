@@ -29,6 +29,11 @@ if $(which xdg-open &>/dev/null); then
   alias o='xdg-open'
 fi
 
+if $(which curl &>/dev/null); then
+  alias wttr="curl 'wttr.in/~Morgan+Hill?u'"
+  alias wttr2="curl 'v2.wttr.in/~Morgan+Hill?u'"
+fi
+
 # Tailscale alias if it's installed as an OS X app
 if [ -f /Applications/Tailcale.app/Contents/MacOS/Tailscale ]; then
   alias tailscale='/Applications/Tailcale.app/Contents/MacOS/Tailscale'
