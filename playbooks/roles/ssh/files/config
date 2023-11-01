@@ -5,3 +5,6 @@ Host *
      ControlPath ~/.ssh/%r@%h:%p
      ServerAliveInterval 5
      ServerAliveCountMax 30
+
+Host *
+  IdentityAgent ~/.1password/agent.sock
