@@ -7,7 +7,7 @@ license = "BSD-3-Clause"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-ansible = "^7.0.0"
+ansible = "^8.5.0"
 jinja2 = "*"
 PyYAML = "*"
 
