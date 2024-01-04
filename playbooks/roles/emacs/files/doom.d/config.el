@@ -66,6 +66,9 @@
                   ('darwin (font-spec :family "JetBrains Mono" :size 14))
                   (otherwise (font-spec :family "DejaVu Sans Mono" :size 12))))
 (setq doom-font-increment 1)
+;; by default doom has a very faint window border; this dracula brightens it
+(custom-set-faces
+ '(window-divider ((t (:foreground "#6272A4")))))
 
 ;; Spacemacs style `,' local leader.
 (setq doom-localleader-key ",")
