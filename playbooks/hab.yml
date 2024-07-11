@@ -1,0 +1,25 @@
+---
+# This config assumes arch linux on a headless server
+
+- import_playbook: base.yml
+  vars:
+    dotsible_playbook: "hab"
+    sudo_group: "wheel"
+
+- hosts: localhost
+  connection: local
+  remote_user: "{{ local_user }}"
+  roles:
+    - role: arch
+      tags: arch
+
+    - role: ssh
+      tags: ssh
+
+    - role: python
+      tags: python
+
+    - role: emacs
+      tags: emacs
+
+    - role: docker
