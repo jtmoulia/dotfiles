@@ -1,7 +1,16 @@
 Include config.d/*
 
 Host *
-     ControlMaster auto
-     ControlPath ~/.ssh/%r@%h:%p
-     ServerAliveInterval 5
-     ServerAliveCountMax 30
+	ControlMaster auto
+	ControlPath ~/.ssh/%r@%h:%p
+	ServerAliveInterval 5
+	ServerAliveCountMax 30
+
+Host router
+	HostName 192.168.1.1
+	User root
+
+
+Host dadmini
+	HostName 10.0.1.6
+	User tmoulia
