@@ -1,4 +1,4 @@
-personal_ws-1.1 en 715 
+personal_ws-1.1 en 752 
 ADT
 ALiBi
 API's
@@ -24,6 +24,7 @@ BAA's
 BAIR
 BBell
 BDay
+BHL
 BLEU
 BT
 Backsplash
@@ -43,16 +44,20 @@ Boggs
 Bozhidar
 BreadMaker
 BuJo
+Bugspray
 C
+CC's
 COPD
 CY
 Cadian
 Caitria
+Caitria's
 Calero
 Camo
 Cannondale
 Cappadocia
 Casa
+Castelli
 CatA
 CatB
 Cc'd
@@ -103,6 +108,7 @@ Dbell
 Deadlift
 Decrypting
 Defaria
+Defuns
 DevOps
 Diba
 DigitalOcean
@@ -112,6 +118,7 @@ Downieville
 Drivetrain
 Durango
 EBJ
+EF
 EHR
 EM's
 EMR
@@ -125,6 +132,7 @@ Esalen
 FHIR
 FKJ
 FSD
+FUBAR
 Faire
 Fam
 Felton
@@ -171,6 +179,7 @@ Hellyer
 Helrik
 Hine
 Hippocratic
+Hogmacs
 Huffmaster
 HuggingFace
 HuggingGPT
@@ -180,6 +189,7 @@ IPython
 Ichiro
 Imagineers
 Indycar
+Insta
 JB
 JIRA
 Jamf
@@ -219,6 +229,7 @@ Lalyn's
 LangChain
 Lennox
 LiB
+Lispyville
 LlamaIndex
 LoRA
 Log
@@ -260,7 +271,10 @@ MyBORG
 MyPy
 NPC's
 Napa
+NeMo
 Neum
+NeuroFlow
+Neuroflow
 Nikwax
 NorCal
 Nouria
@@ -288,6 +302,7 @@ PCH
 PEREA
 PHH
 PHX
+POC
 POIs
 PSN
 PaLM
@@ -296,6 +311,7 @@ Pacifico
 Palacios
 Paola
 Params
+Parens
 Paso
 Patreon
 Paydirt
@@ -311,6 +327,7 @@ Prorg
 Pruett
 Q's
 RAGBRAI
+RESTful
 RL
 RMs
 ROCm
@@ -381,6 +398,7 @@ TSA
 Taha
 Tas
 Tasneem
+Tekken
 Teravail
 Terje
 This'll
@@ -430,6 +448,7 @@ ahold
 ai
 airbnb
 al
+alpenglow
 amex
 annd
 anthropic
@@ -518,6 +537,7 @@ flooball
 fns
 fondos
 fraiche
+franca
 freehub
 frontend
 fschat
@@ -527,8 +547,10 @@ funktion
 ganger
 garmin
 gearhead
+gilet
 github
 gitlab
+glyphs
 gmail
 goat'd
 god'd
@@ -551,6 +573,8 @@ html
 http
 hugo
 ielm
+init
+insta
 integrations
 io
 ipython
@@ -571,10 +595,15 @@ laregard
 le
 learnings
 lil
+lingua
+lispy
+lispyville
 lockpicks
 lossy
+lsp
 lyme
 macbook
+magit
 maint
 makalaka
 mako
@@ -582,6 +611,7 @@ megacorps
 megafauna
 mem
 memstick
+mickeynp
 microsoft
 minibuffer
 mins
@@ -604,6 +634,7 @@ offlineimap
 ok
 ol
 olde
+ollama
 onboarded
 onboarding
 oobabooga's
@@ -613,6 +644,7 @@ openapi
 packrat
 param
 parameterizing
+paren
 parter
 perf
 philips
@@ -643,6 +675,7 @@ ren
 repo
 reqs
 restorable
+ripgrep
 rockgeist
 rocm
 rollout
@@ -668,6 +701,7 @@ startDischargeSummary
 stateline
 stefanv
 streamlit
+submodule
 substack
 summarizer
 supercut
@@ -681,6 +715,7 @@ this'll
 thu
 tl
 todo
+tokenizer
 tprofile
 tri
 tri's
@@ -688,6 +723,8 @@ txt
 typechecking
 ui
 un
+underarmor
+underlayer
 underperforming
 underseat
 unicode
