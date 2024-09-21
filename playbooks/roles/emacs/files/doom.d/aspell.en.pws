@@ -1,4 +1,4 @@
-personal_ws-1.1 en 878 
+personal_ws-1.1 en 910 
 ADT
 AFAICT
 AGI
@@ -18,13 +18,17 @@ AirBnB
 AllTrails
 Almaden
 Alonso
+AlphaFold
+AlphaGo
 Amodei
 Andrej
 Argumentatives
 Aronson
 Aronson's
+Artem
 Artifical
 Aschenbrenner
+Aschenbrenner's
 Ashwin
 Async
 Atascadero
@@ -39,6 +43,7 @@ BDay
 BHL
 BLEU
 BT
+Backpropagation
 Backsplash
 Bally's
 Balwit
@@ -66,6 +71,8 @@ BuJo
 Bugspray
 C
 CC's
+CHAI
+CIFAR
 CLI
 COPD
 CY
@@ -132,8 +139,10 @@ Datastore
 Dbell
 Deadlift
 Decrypting
+DeepMind
 Defaria
 Defuns
+Demis
 DevOps
 Diba
 DigitalOcean
@@ -165,6 +174,7 @@ Esalen
 FB
 FHIR
 FKJ
+FLI
 FSD
 FTX
 FUBAR
@@ -188,6 +198,7 @@ Galgbacken's
 Ganna
 Garmin's
 Gatos
+Gebru
 Georgianna
 GitLab
 Github
@@ -200,6 +211,7 @@ Gozid
 Gride
 Guarav
 Gurren
+HAI
 HAPI
 HIIT
 HIPAA
@@ -210,6 +222,7 @@ Haeffner
 Hamed's
 Hannigan
 Harari
+Hassabis
 HealthPartners
 HealthTensor
 Hellyer
@@ -217,12 +230,14 @@ Helrik
 Hine
 Hippocratic
 Hogmacs
+Hossenfelder
 Huffmaster
 HuggingFace
 HuggingGPT
 IMSA
 IMSA's
 IPython
+IVADO
 Ichiro
 Ilya
 Imagineers
@@ -245,12 +260,14 @@ Kevin
 Khambete
 Killough
 Kirkwood
+Kirsanov
 Koa
 Kontact
 Koze
 Kreitler
 Kroot
 Kross
+Kurzweil
 Kuss
 LAMY
 LLM
@@ -268,8 +285,10 @@ Laguna
 Lalyn
 Lalyn's
 LangChain
+LeCun
 Leaderboard
 LeakyReLU
+Legg
 Lemoine
 Lennox
 LessWrong
@@ -308,6 +327,7 @@ Michoel's
 Microservice
 Midjourney's
 Mihir
+Mila
 Minigpt
 Miscellania
 MoHi
@@ -320,6 +340,7 @@ Moulia
 Mpho
 Multitool
 Munjela
+Mustafa
 MyBORG
 MyPy
 NNs
@@ -461,6 +482,7 @@ Starsight
 Staters
 Stetina's
 Subtree
+Suleyman
 Superintelligence
 Susa
 Sutskever
@@ -473,6 +495,7 @@ TSA
 Taha
 Tas
 Tasneem
+Tegmark
 Tekken
 Teravail
 Terje
@@ -494,9 +517,11 @@ Ukiah
 Umunhum
 Unembedding
 Unhobbling
+Universite
 Unmanaged
 Usal
 Uvas
+VC
 VC's
 VCLS
 VPN
@@ -514,6 +539,7 @@ WTF
 Watchlist
 Wente
 Wheelset
+Wifi
 Winebagel
 Wirehead
 Wishlist
@@ -524,6 +550,8 @@ XDG
 XR
 Xu
 YZFTOI
+Yann
+Yoshua
 Yudkowsky
 Yudkowsky's
 Yuval
@@ -557,10 +585,12 @@ autogen
 automed
 babbage
 backend
+backprop
 bafflingly
 batsov
 bbell
 bbq
+bmatrix
 braindump
 brainer
 breadmaker
@@ -799,6 +829,7 @@ runtime
 sam
 satan
 scalable
+scalings
 serrano
 sexps
 shifter
@@ -856,6 +887,7 @@ url
 usb
 uvas
 vLLM
+vectorization
 venv
 vicunia
 virtualenv
