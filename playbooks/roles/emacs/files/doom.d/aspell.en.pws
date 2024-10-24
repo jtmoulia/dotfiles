@@ -1,4 +1,4 @@
-personal_ws-1.1 en 933 
+personal_ws-1.1 en 958 
 ADT
 AFAICT
 AGI
@@ -32,10 +32,12 @@ Aschenbrenner's
 Ashwin
 Async
 Atascadero
+AttemptStatus
 AttemptStatusMixin
 Aus
 AutoGPT
 AutoGen
+Autocompletion
 Avital
 BAA's
 BAIR
@@ -69,6 +71,7 @@ Bostrom
 Bozhidar
 BreadMaker
 BuJo
+Bugfix
 Bugspray
 C
 CC's
@@ -100,6 +103,7 @@ Chedraui
 Chollet
 Christiano
 ChromaDB
+CoCM
 CoT
 Coe
 CollabGPT
@@ -164,6 +168,7 @@ EM's
 EMR
 EMR's
 EV
+Eldoc
 Elfeed
 Eliezer
 Eliezer's
@@ -184,6 +189,7 @@ Fam
 Felton
 Fixup
 FlashAttention
+FlaskSeeder
 Fondo
 Friel's
 Frutas
@@ -237,12 +243,14 @@ HuggingFace
 HuggingGPT
 IMSA
 IMSA's
+IMs
 IPython
 IVADO
 Ichiro
 Ilya
 Imagineers
 InboxMessage
+InboxMessagePreProcessingAttempt
 InboxMessageProcessingAttempt
 InboxProcessor
 Indycar
@@ -363,6 +371,7 @@ Novato
 Nuttall
 OCR'd
 OCR'ing
+OMGC
 OMs
 OOMs
 OY
@@ -394,6 +403,7 @@ POC
 POIs
 PPO
 PSN
+PWensel
 PaLM
 Pacifica
 Pacifico
@@ -437,6 +447,7 @@ Ramírez
 Rancho
 ReLU
 Rebalancing
+Rebasing
 Rebecca's
 Rebook
 RedPajama
@@ -544,6 +555,9 @@ VCLS
 VPN
 VR
 VSCode
+ValidInboxMessageStatuses
+ValidOutboxMessage
+ValidOutboxMessageStatuses
 Vectorization
 Ventura
 Vibha
@@ -565,6 +579,7 @@ Woogie
 XC
 XDG
 XR
+Xealth
 Xu
 YZFTOI
 Yann
@@ -608,6 +623,7 @@ batsov
 bbell
 bbq
 bmatrix
+boto
 braindump
 brainer
 breadmaker
@@ -628,6 +644,7 @@ commercializable
 commoditized
 comms
 config
+configs
 corpo
 covid
 cpp
@@ -643,8 +660,10 @@ davinci
 daviwil
 de
 deadlifts
+deduplication
 del
 deployer
+deps
 dev
 devs
 dinnerly
@@ -679,6 +698,7 @@ festy
 fizik
 fkey
 flooball
+flyspell
 fns
 fondos
 fraiche
@@ -721,6 +741,8 @@ http
 hugo
 hypercomputer
 ielm
+imenu
+impl
 init
 insta
 integrations
@@ -767,6 +789,7 @@ megafauna
 megalo
 mem
 memstick
+michoel's
 mickeynp
 microsoft
 mindedly
@@ -906,6 +929,7 @@ underseat
 unhobbling
 unicode
 unintuitive
+unqueueing
 url
 usb
 uvas
@@ -916,6 +940,7 @@ vicunia
 virtualenv
 vivo
 vsn
+vterm
 walkthrough
 wedgeroofing
 which'll
