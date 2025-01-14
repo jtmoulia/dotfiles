@@ -17,8 +17,8 @@
     - python-language-server
     # pipenv: a marriage between virtualenv and pip
     - python-pipenv
-    # poetry: a less reviled marriage between virtualenv and pip
-    - python-poetry
+    # uv: a python package manager done right [in rust]
+    - python-uv
     # black: python code formatter
     - python-black
     # pdb++: a sweet drop-in replacement for pdb
