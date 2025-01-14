@@ -26,11 +26,11 @@ otherwise you won't be able to connect to the network:
 # pacman -S dialog wpa_supplicant
 ```
 
-Install the Python dependencies via poetry:
+Install the Python dependencies via uv:
 
 ```shell
-# pacman -S python-poetry
-$ poetry install
+# pacman -S python-uv
+$ uv sync
 ```
 
 ## Basic Usage
@@ -38,7 +38,7 @@ $ poetry install
 To install everything run:
 
 ```shell
-poetry run bin/dotsible.sh
+uv run bin/dotsible.sh
 ```
 
 You can use alternate configurations; here it's run with configuration specific to my
@@ -51,7 +51,7 @@ dotsible -p lenovo-flex-4
 ### The `dotsible` executable
 
 The first run will create an executable in your path named `dotsible`, which can
-be called instead of `poetry run bin/dotsible.sh -p $DOTSIBLE_PLAYBOOK`. The
+be called instead of `uv run bin/dotsible.sh -p $DOTSIBLE_PLAYBOOK`. The
 following examples use this shortcut.
 
 Sometimes you'll want to install only a few roles, say `ssh` and `net-utils`:
@@ -93,4 +93,3 @@ The currently available playbooks are:
 
 Roles and playbooks were typically designed against Arch Linux. Roles listed in
 the `base` or `osx` playbooks will work under OS X.
-
