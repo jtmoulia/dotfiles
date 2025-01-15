@@ -6,6 +6,7 @@ Type=forking
 ExecStart=/usr/bin/emacs --daemon
 ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
 Restart=always
+Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
 
 [Install]
 WantedBy=default.target
