@@ -79,7 +79,7 @@ else
 fi
 
 if $(which keychain &>/dev/null); then
-  eval $(keychain --eval --agents ssh,gpg id_rsa)
+  eval $(keychain --eval --ssh-spawn-gpg)
 fi
 
 # General fzf config and install
@@ -114,3 +114,6 @@ GUIX_PROFILE="/home/jtmoulia/.guix-profile"
 if [ -d "$GUIX_PROFILE" ]; then
   . "$GUIX_PROFILE/etc/profile"
 fi
+
+# Setup NPM path for installing global packages to local user path
+export npm_config_prefix="$HOME/.local"
