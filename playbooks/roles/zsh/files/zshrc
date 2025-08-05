@@ -107,6 +107,9 @@ if $(which zoxide &>/dev/null); then
 fi
 
 # Update path
+if [ -d "$HOME/.cargo/bin" ]; then
+    PATH="$HOME/.cargo/bin:$PATH"
+fi
 PATH="$HOME/.local/bin:$PATH"
 
 # Setup guix
