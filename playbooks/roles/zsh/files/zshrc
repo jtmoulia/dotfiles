@@ -117,3 +117,6 @@ fi
 
 # Setup NPM path for installing global packages to local user path
 export npm_config_prefix="$HOME/.local"
+
+# OpenClaw Completion
+source <(openclaw completion --shell zsh)
