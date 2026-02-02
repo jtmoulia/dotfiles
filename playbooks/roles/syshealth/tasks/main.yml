@@ -1,0 +1,7 @@
+---
+- name: symlink syshealth script to ~/.local/bin
+  file:
+    src: "{{ playbook_dir }}/roles/syshealth/files/syshealth.sh"
+    dest: "~/.local/bin/syshealth"
+    state: link
+    force: yes

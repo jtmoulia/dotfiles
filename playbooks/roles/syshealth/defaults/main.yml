@@ -1,0 +1,5 @@
+---
+# System health monitoring defaults
+syshealth_disk_warn_threshold: 80
+syshealth_package_warn_threshold: 20
+syshealth_package_critical_threshold: 50
