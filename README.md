@@ -41,11 +41,11 @@ To install everything run:
 uv run bin/dotsible.sh
 ```
 
-You can use alternate configurations; here it's run with configuration specific to my
-Lenovo Flex 4:
+You can use alternate configurations; here it's run with the portable CLI-only
+configuration:
 
 ```shell
-dotsible -p lenovo-flex-4
+dotsible -p cli
 ```
 
 ### The `dotsible` executable
@@ -85,8 +85,6 @@ The currently available playbooks are:
 
   - `base`: basic roles such as `git`, `bash`, and `tmux`
   - `cli`: portable CLI specific configuration
-  - `lenovo-flex-4`: Arch Linux configuration for a Lenovo Flex 4
-  - `lenovo-yoga`: Arch Linux configuration for a Lenovo Yoga
   - `osx`: OS X on a 2022 MacBook Pro M1 (Monterey)
 
 ## Portability
