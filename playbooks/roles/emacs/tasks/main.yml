@@ -20,31 +20,30 @@
   with_items:
     - "aspell-en"
 
-# - name: install mu & mu4e if enabled
-#  become: yes
-#  package:
-#    name: "mu"
-#    state: "latest"
-#  when: emacs_mu4e_enabled
+# config (hogmacs: https://git.sr.ht/~jtmoulia/hogmacs)
 
-# config (doom)
-
-- name: install doom
+- name: clone hogmacs config
   git:
-    repo: "https://github.com/hlissner/doom-emacs"
-    dest: "~/.emacs.d"
+    repo: "git@git.sr.ht:~jtmoulia/hogmacs"
+    dest: "~/.config/emacs"
+    version: "trunk"
+    update: yes
 
-- name: install doom config
+- name: tangle hogmacs literate config to init.el
+  command: emacs --batch --eval "(require 'org)" --eval "(org-babel-tangle-file \"README.org\")"
+  args:
+    chdir: "~/.config/emacs"
+
+- name: ensure ~/.config/aspell directory exists
+  file:
+    state: "directory"
+    path: "~/.config/aspell"
+
+- name: symlink in personal aspell dictionary
   file:
     state: "link"
-    src: "{{ role_path }}/files/doom.d/"
-    dest: "~/.doom.d"
-
-# WARNING: This command blocks for user-input
-# - name: upgrade doom
-#   command: "~/.emacs.d/bin/doom upgrade"
-#   notify:
-#     - "restart emacs"
+    src: "{{ role_path }}/files/aspell.en.pws"
+    dest: "~/.config/aspell/aspell.en.pws"
 
 # systemd (emacs.service)
 
@@ -77,5 +76,5 @@
   file:
     state: "link"
     src: "{{ role_path }}/files/emacsclient.desktop"
-    dest: "/usr/share/applications/doomclient.desktop"
+    dest: "/usr/share/applications/emacsclient.desktop"
     mode: 0755

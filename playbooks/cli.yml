@@ -16,11 +16,6 @@
 
     - role: emacs
       tags: emacs
-      vars:
-        emacs_mu4e_enabled: no
-        emacs_org_jira_enabled: no
-        emacs_org_page_enabled: no
-        emacs_prodigy_enabled: no
 
     - role: claude
       tags: claude
