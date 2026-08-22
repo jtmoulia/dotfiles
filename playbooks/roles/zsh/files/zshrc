@@ -85,7 +85,7 @@ else
 fi
 
 if $(which keychain &>/dev/null); then
-  eval $(keychain --eval --ssh-spawn-gpg)
+  eval $(keychain --eval)
 fi
 
 # General fzf config and install
