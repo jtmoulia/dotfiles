@@ -25,25 +25,25 @@
 - name: clone hogmacs config
   git:
     repo: "git@git.sr.ht:~jtmoulia/hogmacs"
-    dest: "~/.config/emacs"
+    dest: "~/src/hogmacs"
     version: "trunk"
     update: yes
 
 - name: tangle hogmacs literate config to init.el
   command: emacs --batch --eval "(require 'org)" --eval "(org-babel-tangle-file \"README.org\")"
   args:
-    chdir: "~/.config/emacs"
+    chdir: "~/src/hogmacs"
 
-- name: ensure ~/.config/aspell directory exists
+- name: ensure ~/.config/emacs directory exists
   file:
     state: "directory"
-    path: "~/.config/aspell"
+    path: "~/.config/emacs"
 
-- name: symlink in personal aspell dictionary
+- name: symlink in hogmacs init.el
   file:
     state: "link"
-    src: "{{ role_path }}/files/aspell.en.pws"
-    dest: "~/.config/aspell/aspell.en.pws"
+    src: "~/src/hogmacs/init.el"
+    dest: "~/.config/emacs/init.el"
 
 # systemd (emacs.service)
 
