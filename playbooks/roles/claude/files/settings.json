@@ -1,0 +1,16 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "allowedTools": [
+    "Bash(~/.claude/bin/workspace *)",
+    "Bash(~/.claude/bin/workspace)",
+    "Bash(/home/jtmoulia/.claude/bin/workspace *)",
+    "Bash(/home/jtmoulia/.claude/bin/workspace)"
+  ],
+  "statusLine": {
+    "type": "command",
+    "command": "/home/jtmoulia/.claude/statusline.sh"
+  },
+  "effortLevel": "medium"
+}

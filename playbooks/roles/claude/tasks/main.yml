@@ -1,0 +1,23 @@
+---
+- name: create ~/.claude directory
+  file:
+    state: "directory"
+    path: "~/.claude"
+
+- name: create ~/.claude/bin directory
+  file:
+    state: "directory"
+    path: "~/.claude/bin"
+
+- name: symlink in settings.json
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/settings.json"
+    dest: "~/.claude/settings.json"
+
+- name: symlink in statusline.sh
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/statusline.sh"
+    dest: "~/.claude/statusline.sh"
+    mode: "0755"
