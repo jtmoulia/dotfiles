@@ -13,7 +13,13 @@ fi
 
 # Share history across sessios
 SHARE_HISTORY=t
-TERM=screen-256color
+# Only force screen's terminfo when actually inside tmux/screen; forcing it
+# unconditionally breaks cursor-positioning in plain terminal emulators,
+# causing prompt redraws (e.g. vi-mode mode switches) to visually duplicate
+# the command line.
+if [[ -n "$TMUX" || -n "$STY" ]]; then
+  TERM=screen-256color
+fi
 PAGER=less
 
 # MacOS Homebrew specific completions
@@ -121,5 +127,11 @@ fi
 # Setup NPM path for installing global packages to local user path
 export npm_config_prefix="$HOME/.local"
 
-# OpenClaw Completion
-source <(openclaw completion --shell zsh)
+# OpenClaw Completion (cached for performance)
+# Regenerate with: openclaw completion --shell zsh > ~/.zsh/completions/_openclaw
+[[ -f ~/.zsh/completions/_openclaw ]] && source ~/.zsh/completions/_openclaw
+
+# Bird CLI (Twitter) - tokens stored in 1Password, not sourced here to avoid
+# a slow/blocking `op` call on every shell start. Run before using bird:
+#   eval "$(op signin)"; export AUTH_TOKEN=$(op read "op://Private/Bird CLI/auth_token") CT0=$(op read "op://Private/Bird CLI/ct0")
+export PATH="$HOME/.npm-global/bin:$PATH"
