@@ -71,7 +71,7 @@
     state: "started"
 
 - name: symlink in emacsclient.desktop
-  when: ansible_facts['os_family'] != "Darwin"
+  when: ansible_facts['os_family'] != "Darwin" and (privileged_package_install | default(true) | bool)
   become: yes
   file:
     state: "link"

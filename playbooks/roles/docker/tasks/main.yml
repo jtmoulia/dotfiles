@@ -3,7 +3,8 @@
   package:
     name: "{{ item }}"
     state: latest
-  become: yes
+  become: "{{ privileged_package_install }}"
+  when: privileged_package_install | default(true) | bool
   with_items:
     - "docker"
     - "docker-compose"
@@ -16,14 +17,16 @@
     - "cleanup-docker.sh"
 
 - name: enable the docker service
-  become: yes
+  become: "{{ privileged_package_install }}"
+  when: privileged_package_install | default(true) | bool
   service:
     name: docker
     enabled: true
     state: started
 
 - name: ensure jtmoulia is in docker group
-  become: yes
+  become: "{{ privileged_package_install }}"
+  when: privileged_package_install | default(true) | bool
   user:
     name: "jtmoulia"
     append: yes

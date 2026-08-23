@@ -1,6 +1,7 @@
 ---
 - name: install base development packages and helpers
-  become: yes
+  become: "{{ privileged_package_install }}"
+  when: privileged_package_install | default(true) | bool
   package:
     name: "{{ item }}"
   with_items:
@@ -15,6 +16,7 @@
     dest: ~/lib/pikaur
 
 - name: make and install pikaur
+  when: privileged_package_install | default(true) | bool
   command: makepkg -fsri --noconfirm
   args:
     chdir: /home/jtmoulia/lib/pikaur

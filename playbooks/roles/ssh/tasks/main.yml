@@ -1,6 +1,7 @@
 ---
 - name: install openssh
-  become: yes
+  become: "{{ privileged_package_install }}"
+  when: privileged_package_install | default(true) | bool
   package:
     name: "{{ ssh_package_name }}"
     state: "latest"
