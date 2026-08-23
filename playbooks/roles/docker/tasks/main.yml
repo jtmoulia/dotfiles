@@ -12,7 +12,8 @@
 - name: copy in helpful binaries
   copy:
     src: "files/{{ item }}"
-    dest: "~/bin/{{ item }}"
+    dest: "~/.local/bin/{{ item }}"
+    mode: "0755"
   with_items:
     - "cleanup-docker.sh"
 

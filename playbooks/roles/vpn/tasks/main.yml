@@ -19,5 +19,5 @@
 - name: copy in openvpn-pia script
   copy:
     src: files/openvpn-pia.bash
-    dest: ~/bin/openvpn-pia
+    dest: ~/.local/bin/openvpn-pia
     mode: 0750
