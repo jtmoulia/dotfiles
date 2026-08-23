@@ -14,6 +14,7 @@
     state: "link"
     src: "{{ role_path }}/files/settings.json"
     dest: "~/.claude/settings.json"
+    force: true
 
 - name: symlink in statusline.sh
   file:
@@ -21,3 +22,4 @@
     src: "{{ role_path }}/files/statusline.sh"
     dest: "~/.claude/statusline.sh"
     mode: "0755"
+    force: true

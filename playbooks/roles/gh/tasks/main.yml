@@ -1,0 +1,29 @@
+---
+- name: install github-cli
+  become: "{{ privileged_package_install }}"
+  package:
+    name: "{{ gh_package_name | default('github-cli') }}"
+    state: latest
+  when:
+    - hostvars.localhost.ansible_os_family != "Darwin"
+    - privileged_package_install | bool
+
+- name: install github-cli (darwin)
+  when:
+    - hostvars.localhost.ansible_os_family == "Darwin"
+    - privileged_package_install | bool
+  homebrew:
+    name: "gh"
+    state: latest
+
+- name: create ~/.config/gh directory
+  file:
+    state: "directory"
+    path: "~/.config/gh"
+
+- name: symlink in config.yml
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/config.yml"
+    dest: "~/.config/gh/config.yml"
+    force: true

@@ -1,0 +1,12 @@
+---
+- name: create ~/.config/opencode directory
+  file:
+    state: "directory"
+    path: "~/.config/opencode"
+
+- name: symlink in opencode.jsonc
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/opencode.jsonc"
+    dest: "~/.config/opencode/opencode.jsonc"
+    force: true

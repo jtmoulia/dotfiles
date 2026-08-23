@@ -1,0 +1,12 @@
+---
+- name: create ~/.config/gogcli directory
+  file:
+    state: "directory"
+    path: "~/.config/gogcli"
+
+- name: symlink in config.json
+  file:
+    state: "link"
+    src: "{{ role_path }}/files/config.json"
+    dest: "~/.config/gogcli/config.json"
+    force: true

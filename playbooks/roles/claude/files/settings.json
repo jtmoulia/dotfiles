@@ -2,15 +2,54 @@
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
+  "model": "sonnet",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
+  "enabledPlugins": {
+    "pyright-lsp@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "ralph-loop@claude-plugins-official": true,
+    "hog-agent-skills@hog-agent-skills": true,
+    "emacs-skills@xenodium-emacs-skills": true
+  },
+  "extraKnownMarketplaces": {
+    "hog-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "jtmoulia/hog-agent-skills"
+      }
+    },
+    "xenodium-emacs-skills": {
+      "source": {
+        "source": "github",
+        "repo": "xenodium/emacs-skills"
+      }
+    }
+  },
+  "effortLevel": "medium",
+  "tui": "fullscreen",
+  "editorMode": "vim",
   "allowedTools": [
     "Bash(~/.claude/bin/workspace *)",
     "Bash(~/.claude/bin/workspace)",
-    "Bash(/home/jtmoulia/.claude/bin/workspace *)",
-    "Bash(/home/jtmoulia/.claude/bin/workspace)"
-  ],
-  "statusLine": {
-    "type": "command",
-    "command": "/home/jtmoulia/.claude/statusline.sh"
-  },
-  "effortLevel": "medium"
+    "Bash(git status*)",
+    "Bash(git diff*)",
+    "Bash(git log*)",
+    "Bash(git add*)",
+    "Bash(git commit*)",
+    "Bash(git branch*)",
+    "Bash(git checkout*)",
+    "Bash(git switch*)",
+    "Bash(git stash*)",
+    "Bash(git fetch*)",
+    "Bash(git pull*)",
+    "Bash(git merge*)",
+    "Bash(git rebase*)"
+  ]
 }

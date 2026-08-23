@@ -3,7 +3,7 @@
 
 - import_playbook: base.yml
   vars:
-    dotsible_playbook: "sam"
+    dotsible_playbook: "cog"
     sudo_group: "wheel"
 
 - hosts: localhost
@@ -51,3 +51,15 @@
 
     - role: nyxt
       tags: nyxt
+
+    - role: claude
+      tags: claude
+
+    - role: opencode
+      tags: opencode
+
+    - role: gh
+      tags: gh
+
+    - role: gog
+      tags: gog

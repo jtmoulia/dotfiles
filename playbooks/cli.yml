@@ -19,3 +19,12 @@
 
     - role: claude
       tags: claude
+
+    - role: opencode
+      tags: opencode
+
+    - role: gh
+      tags: gh
+
+    - role: gog
+      tags: gog
