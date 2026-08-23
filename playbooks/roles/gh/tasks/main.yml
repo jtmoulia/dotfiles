@@ -5,12 +5,12 @@
     name: "{{ gh_package_name | default('github-cli') }}"
     state: latest
   when:
-    - hostvars.localhost.ansible_os_family != "Darwin"
+    - ansible_facts['os_family'] != "Darwin"
     - privileged_package_install | bool
 
 - name: install github-cli (darwin)
   when:
-    - hostvars.localhost.ansible_os_family == "Darwin"
+    - ansible_facts['os_family'] == "Darwin"
     - privileged_package_install | bool
   homebrew:
     name: "gh"
