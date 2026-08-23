@@ -9,12 +9,12 @@
     - "certbot"
 
 - name: install mkcert from aur
-  when: hostvars.localhost.ansible_os_family != "Darwin"
+  when: ansible_facts['os_family'] != "Darwin"
   become: yes
   command: "pikaur -Sy --noconfirm --noprogressbar mkcert"
 
 - name: install mkcert from homebrew
-  when: hostvars.localhost.ansible_os_family == "Darwin"
+  when: ansible_facts['os_family'] == "Darwin"
   package:
     name: mkcert
     state: "latest"

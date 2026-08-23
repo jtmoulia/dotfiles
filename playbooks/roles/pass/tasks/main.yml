@@ -12,14 +12,14 @@
 
 # TODO: move this under a GPG specific role
 - name: ensure gpg-agent config exists
-  when: hostvars.localhost.ansible_os_family != "Darwin"
+  when: ansible_facts['os_family'] != "Darwin"
   file:
     state: "directory"
-    dest: "~/.gnugpg"
+    dest: "~/.gnupg"
 
 - name: symlink in gpg-agent config
-  when: hostvars.localhost.ansible_os_family != "Darwin"
+  when: ansible_facts['os_family'] != "Darwin"
   file:
     state: "link"
     src: "{{ role_path }}/files/gpg-agent.conf"
-    dest: "~/.gnugpg/gpg-agent.conf"
+    dest: "~/.gnupg/gpg-agent.conf"
