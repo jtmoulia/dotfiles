@@ -7,8 +7,9 @@
     name: "pass"
 
 - name: clone password store
+  when: pass_repo is defined and pass_repo
   git:
-    repo: "jtmoulia@shed.pocketknife.io:/home/jtmoulia/repos/password-store.git"
+    repo: "{{ pass_repo }}"
     dest: "~/.password-store"
 
 # TODO: move this under a GPG specific role
