@@ -28,7 +28,7 @@
     repo: "git@git.sr.ht:~jtmoulia/hogmacs"
     dest: "~/src/hogmacs"
     version: "trunk"
-    update: yes
+    update: false
 
 - name: tangle hogmacs literate config to init.el
   command: emacs --batch --eval "(require 'org)" --eval "(org-babel-tangle-file \"README.org\")"
