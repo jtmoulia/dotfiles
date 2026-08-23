@@ -7,7 +7,7 @@
     name: "pass"
 
 - name: clone password store
-  when: pass_repo is defined and pass_repo
+  when: pass_repo | default(false) | bool
   git:
     repo: "{{ pass_repo }}"
     dest: "~/.password-store"
