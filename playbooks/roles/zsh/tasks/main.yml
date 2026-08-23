@@ -1,6 +1,7 @@
 ---
 - name: install zsh & others
   become: "{{ privileged_package_install }}"
+  when: privileged_package_install | default(true) | bool
   package:
     name: "{{ item }}"
     state: "latest"

@@ -1,6 +1,7 @@
 ---
 - name: install/update pass
   become: "{{ privileged_package_install }}"
+  when: privileged_package_install | default(true) | bool
   package:
     state: "latest"
     name: "pass"

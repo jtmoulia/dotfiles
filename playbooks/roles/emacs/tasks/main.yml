@@ -1,6 +1,7 @@
 ---
 - name: install/update emacs
   become: "{{ privileged_package_install }}"
+  when: privileged_package_install | default(true) | bool
   package:
     name: "{{ item }}"
     state: "latest"
@@ -13,7 +14,7 @@
 
 - name: install/update linux specific emacs deps
   become: "{{ privileged_package_install }}"
-  when: ansible_facts['os_family'] != "Darwin"
+  when: ansible_facts['os_family'] != "Darwin" and (privileged_package_install | default(true) | bool)
   package:
     name: "{{ item }}"
     state: "latest"

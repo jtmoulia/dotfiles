@@ -2,6 +2,7 @@
 
 - name: install git
   become: "{{ privileged_package_install }}"
+  when: privileged_package_install | default(true) | bool
   package:
     name: git
     state: latest

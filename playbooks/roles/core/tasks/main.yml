@@ -1,6 +1,7 @@
 ---
 - name: install/update core libraries
   become: "{{ privileged_package_install }}"
+  when: privileged_package_install | default(true) | bool
   package:
     name: "{{ item }}"
     state: latest
@@ -19,7 +20,7 @@
 
 - name: install/update non OS X libraries
   become: "{{ privileged_package_install }}"
-  when: ansible_facts['os_family'] != "Darwin"
+  when: ansible_facts['os_family'] != "Darwin" and (privileged_package_install | default(true) | bool)
   package:
     name: "{{ item }}"
     state: latest
