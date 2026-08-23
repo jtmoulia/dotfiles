@@ -45,3 +45,18 @@
       tags: docker
 
     #- {role: vpn, tags: vpn}
+
+    - role: pass
+      tags: pass
+
+    - role: claude
+      tags: claude
+
+    - role: opencode
+      tags: opencode
+
+    - role: gh
+      tags: gh
+
+    - role: gog
+      tags: gog
